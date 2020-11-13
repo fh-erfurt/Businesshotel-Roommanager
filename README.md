@@ -22,3 +22,6 @@ Corona-Schutzbestimmungen reagiert werden.
 
 ```
 
+```
+Kategorien Hotelzimmer: Suite, Einzelzimmer, Doppelzimmer
+Kategorien Konferenzräume: Großgruppen, Kleingruppen
