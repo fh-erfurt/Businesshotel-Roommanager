@@ -5,6 +5,9 @@ Ein Java-Projekt zum Management von Zimmern in einem Businesshotel.
 
 ### Dokumentation
 
+___
+
+#### Projektbeschreibung
 ```
 
 Es soll ein Management-System für die Zimmer eines Businesshotels entwickelt werden.
@@ -21,11 +24,18 @@ Corona-Schutzbestimmungen reagiert werden.
 
 
 ```
+####Projektteam
+* Niklas Wiemuth
+* Marius Lange
+* Martin Jugenheimer
+* Thomas Gebel
+
+
+### Grafische Darstellung der Projektübersicht
+![alt text](Projektübersicht.png "Projektübersicht Bild")
 
 ```
 Kategorien Hotelzimmer: Suite, Einzelzimmer, Doppelzimmer
 Kategorien Konferenzräume: Großgruppen, Kleingruppen
-```
 
-### Grafische Darstellung der Projektübersicht
-![alt text](Projektübersicht.png "Projektübersicht Bild")
+```
