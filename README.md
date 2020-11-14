@@ -25,7 +25,7 @@ Corona-Schutzbestimmungen reagiert werden.
 
 ```
 
-####Projektteam
+Projektteam
 * Niklas Wiemuth
 * Marius Lange
 * Martin Jugenheimer
