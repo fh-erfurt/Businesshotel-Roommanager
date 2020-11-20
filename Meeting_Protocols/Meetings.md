@@ -63,3 +63,26 @@ Die Ausarbeitung zur Selbstvorstellung werden dann zusammengestellt in Folie fü
     Zusammenführen der Informationen zur PowerPoint-Präsentation
 
 ```
+
+```
+20.11.2020 10:00 Platform: Webex
+Teilnehmer: Niklas, Marius, Martin, Thomas
+
+1. Projektbeschreibung Substantive, Verben und Eigenschaften für Klassen/Methoden 
+gemeinsam herausgearbeit. In UML ersten Grobentwurf erstellt und dem Projektordner
+hinzugefügt. Allgemeine Geschäftslogik besprochen und diskutiert. Weiteren Ablauf
+im Projekt besprochen. Notwendigkeit der Klassenentwürfe.
+
+2. Verteilung der folgenden Aufgaben:
+
+    Niklas:
+        Klassenerstellung "Mitarbeiter"
+    Martin:
+        Klassenerstellung "Zimmer"
+    Marius:
+        Klassenerstellung "Kunden"
+    Thomas:
+        Ordnerstruktur anlegen für Projekt (Main/Test/Java etc.)
+        Meetingprotokoll aufsetzen
+        Klassenerstellung "Buchung"
+```
