@@ -2,7 +2,7 @@ package de.fourofakind.businesshotel;
 
 public class Employee
 {
-    public void createBooking(int RoomNo, String StartDate, String EndDate, int EmpNo, String TimeFrame)
+    public void createBooking(int RoomNo, DateFrame dateFrame, int EmpNo, TimeFrame timeFrame)
     {
 
     }
@@ -21,21 +21,21 @@ public class Employee
 
     public int getEmpNo()
     {
-        return EmpNo;
+        return empNo;
     }
 
-    public void setEmpNo(int EmpNo) {
-        this.EmpNo = EmpNo;
+    public void setEmpNo(int empNo) {
+        this.empNo = empNo;
     }
 
     public String getEmpName() {
-        return EmpName;
+        return empName;
     }
 
-    public void setEmpName(String EmpName) {
-        this.EmpName = EmpName;
+    public void setEmpName(String empName) {
+        this.empName = empName;
     }
 
-    private int EmpNo;
-    private String EmpName;
+    private int empNo;
+    private String empName;
 }
