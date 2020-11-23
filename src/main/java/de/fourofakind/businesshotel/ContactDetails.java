@@ -1,5 +1,6 @@
 package de.fourofakind.businesshotel;
 
+//
 public class ContactDetails {
 
     public void setFirstName(String firstName) {

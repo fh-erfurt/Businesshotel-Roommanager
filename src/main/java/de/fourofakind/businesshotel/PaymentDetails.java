@@ -1,5 +1,6 @@
 package de.fourofakind.businesshotel;
 
+//
 public class PaymentDetails {
 
     public void setIBAN(String IBAN) {
