@@ -24,16 +24,16 @@ public class Employee
         return EmpNo;
     }
 
-    public void setEmpNo(int empNo) {
-        EmpNo = empNo;
+    public void setEmpNo(int EmpNo) {
+        this.EmpNo = EmpNo;
     }
 
     public String getEmpName() {
         return EmpName;
     }
 
-    public void setEmpName(String empName) {
-        EmpName = empName;
+    public void setEmpName(String EmpName) {
+        this.EmpName = EmpName;
     }
 
     private int EmpNo;
