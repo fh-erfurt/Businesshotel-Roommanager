@@ -6,11 +6,11 @@ public class Booking {
 
 
 
-    private string startDate;
-    private string endDate;
-    private string bookingDate;
-    private string roomCategory;
-    private string specialWishes;
+    private String startDate;
+    private String endDate;
+    private String bookingDate;
+    private String roomCategory;
+    private String specialWishes;
 
     private float pricing;
     private int empNo;
