@@ -2,6 +2,9 @@ package de.fourofakind.businesshotel;
 
 //
 public class Customer {
+    public static void main(String[] args) {
+        System.out.println("lol");
+    }
 
     public void setCustomerID(Integer customerID) {
         this.customerID = customerID;
