@@ -3,12 +3,11 @@ package de.fourofakind.businesshotel;
 public class Booking {
 
 
-    public String getStartDate() {
-        return startDate;
+    public TimeFrame getTimeFrame() {
+        return timeFrame;
     }
-
-    public String getEndDate() {
-        return endDate;
+    public void setTimeFrame(TimeFrame timeFrame) {
+        this.timeFrame = timeFrame;
     }
 
     public String getBookingDate() {
@@ -35,13 +34,6 @@ public class Booking {
         return isBusinessCustomer;
     }
 
-    public void setStartDate(String startDate) {
-        this.startDate = startDate;
-    }
-
-    public void setEndDate(String endDate) {
-        this.endDate = endDate;
-    }
 
     public void setBookingDate(String bookingDate) {
         this.bookingDate = bookingDate;
@@ -67,8 +59,17 @@ public class Booking {
         isBusinessCustomer = businessCustomer;
     }
 
-    private String startDate;
-    private String endDate;
+    private TimeFrame timeFrame;
+
+    public DateFrame getDateFrame() {
+        return dateFrame;
+    }
+
+    public void setDateFrame(DateFrame dateFrame) {
+        this.dateFrame = dateFrame;
+    }
+
+    private DateFrame dateFrame;
     private String bookingDate;
     private String roomCategory;
     private String specialWishes;
