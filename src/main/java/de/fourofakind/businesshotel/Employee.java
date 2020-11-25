@@ -9,9 +9,9 @@ public class Employee
         this.empName = empName;
     }
 
-    public void createBooking(int BookingNr, int RoomNo, TimeFrame timeFrame, DateFrame dateFrame, String bookingDate, String roomCategory, String specialWishes, float pricing, int empNo, boolean isBusinessCustomer)
+    public void createBooking(int BookingNo, int RoomNo, TimeFrame timeFrame, DateFrame dateFrame, String bookingDate, String roomCategory, String specialWishes, float pricing, int empNo, boolean isBusinessCustomer)
     {
-        BookingList[BookingNr]=new Booking(timeFrame, dateFrame, bookingDate, roomCategory, specialWishes,pricing, empNo,isBusinessCustomer);
+        BookingList[BookingNo]=new Booking(timeFrame, dateFrame, bookingDate, roomCategory, specialWishes,pricing, empNo,isBusinessCustomer);
     }
     public void changeBooking(int BookingNo)
     {
