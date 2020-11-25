@@ -86,3 +86,23 @@ im Projekt besprochen. Notwendigkeit der Klassenentwürfe.
         Meetingprotokoll aufsetzen
         Klassenerstellung "Buchung"
 ```
+
+```
+25.11.2020 10:00 Platform: Webex
+Teilnehmer: Niklas, Marius, Thomas
+Nicht anwesend: Martin
+
+
+1. Auswertung des letzten Meetings und der dort gestellten Aufgaben. Fehlende Zuarbeit
+   eines Mitglieds besprochen, und das damit verbundene weitere Vorgehen.
+
+2. Verfeinerung der Klassen besprochen, erstellen von Konstruktoren und Value-Klassen
+    als komplexe Datentypen. Teilweise Live Änderung am Code besprochen und durchgeführt.
+
+3. Jeder soll sich Gedanken machen über die Geschäftslogik und die Implementierung im Code
+   Etwaige Auslagerung in Unterklasssen bzw. Value-Klassen prüfen.
+
+4. Sicherstellung über den gemeinsam Wissenstand beim Anwenden der Versionskontrolle und IDE 
+   bei der Projekterstellung und -bearbeitung.
+
+```
