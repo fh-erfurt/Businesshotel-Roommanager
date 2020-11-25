@@ -1,6 +1,6 @@
 package de.fourofakind.businesshotel;
 
-//
+
 public class Customer {
 
     public void setCustomerID(Integer customerID) {
