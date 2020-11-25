@@ -3,6 +3,17 @@ package de.fourofakind.businesshotel;
 public class Booking {
 
 
+    public Booking(TimeFrame timeFrame, DateFrame dateFrame, String bookingDate, String roomCategory, String specialWishes, float pricing, int empNo, boolean isBusinessCustomer) {
+        this.timeFrame = timeFrame;
+        this.dateFrame = dateFrame;
+        this.bookingDate = bookingDate;
+        this.roomCategory = roomCategory;
+        this.specialWishes = specialWishes;
+        this.pricing = pricing;
+        this.empNo = empNo;
+        this.isBusinessCustomer = isBusinessCustomer;
+    }
+
     public TimeFrame getTimeFrame() {
         return timeFrame;
     }
