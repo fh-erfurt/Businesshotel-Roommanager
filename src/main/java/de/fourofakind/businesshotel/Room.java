@@ -3,6 +3,12 @@ package de.fourofakind.businesshotel;
 public class Room {
 
 
+    public Room(Category category, int areaInSqrMetre, int roomNo) {
+        Category = category;
+        this.areaInSqrMetre = areaInSqrMetre;
+        this.roomNo = roomNo;
+    }
+
     public Category getCategory() {
         return Category;
     }
