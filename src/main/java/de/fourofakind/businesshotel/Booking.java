@@ -2,7 +2,7 @@ package de.fourofakind.businesshotel;
 
 public class Booking {
 
-
+    public Booking() {}
     public Booking(TimeFrame timeFrame, DateFrame dateFrame, String bookingDate, String roomCategory, String specialWishes, float pricing, int empNo, boolean isBusinessCustomer) {
         this.timeFrame = timeFrame;
         this.dateFrame = dateFrame;
@@ -12,6 +12,36 @@ public class Booking {
         this.pricing = pricing;
         this.empNo = empNo;
         this.isBusinessCustomer = isBusinessCustomer;
+    }
+
+    public Booking(TimeFrame timeFrame, DateFrame dateFrame, String bookingDate, ConferenceRoomBooking conferenceRoomBooking,String roomCategory, String specialWishes, float pricing, int empNo, boolean isBusinessCustomer) {
+        this.timeFrame = timeFrame;
+        this.dateFrame = dateFrame;
+        this.bookingDate = bookingDate;
+        this.conferenceRoomBooking = conferenceRoomBooking;
+        this.roomCategory = roomCategory;
+        this.specialWishes = specialWishes;
+        this.pricing = pricing;
+        this.empNo = empNo;
+        this.isBusinessCustomer = isBusinessCustomer;
+    }
+
+    public Booking(TimeFrame timeFrame, DateFrame dateFrame, String bookingDate, HotelRoomBooking hotelRoomBooking,String roomCategory ,String specialWishes, float pricing, int empNo, boolean isBusinessCustomer) {
+        this.timeFrame = timeFrame;
+        this.dateFrame = dateFrame;
+        this.roomCategory = roomCategory;
+        this.bookingDate = bookingDate;
+        this.hotelRoomBooking = hotelRoomBooking;
+        this.specialWishes = specialWishes;
+        this.pricing = pricing;
+        this.empNo = empNo;
+        this.isBusinessCustomer = isBusinessCustomer;
+    }
+    public Booking(TimeFrame timeFrame, DateFrame dateFrame, String bookingDate,HotelRoomBooking hotelRoomBooking,
+                   ConferenceRoomBooking conferenceRoomBooking , String specialWishes, float pricing, int empNo, boolean isBusinessCustomer) {
+
+        this();
+
     }
 
     public TimeFrame getTimeFrame() {
@@ -84,6 +114,8 @@ public class Booking {
     private String bookingDate;
     private String roomCategory;
     private String specialWishes;
+    private ConferenceRoomBooking conferenceRoomBooking;
+    private HotelRoomBooking hotelRoomBooking;
 
     private float pricing;
     private int empNo;
