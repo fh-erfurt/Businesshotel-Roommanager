@@ -106,3 +106,25 @@ Nicht anwesend: Martin
    bei der Projekterstellung und -bearbeitung.
 
 ```
+
+```
+02.12.2020 10:45 Uhr Platform: Webex
+Teilnehmer: Martin, Niklas, Marius, Thomas
+
+1. Projektfortschritt besprochen, Verfeinerung der Klassen besprochen. Gespräch über 
+notwendige Mitteilung bei Ausfällen oder Unpässlichkeiten. 
+Terminänderung auf 11:00 Uhr mittwochs festgelegt.
+
+2. Verteilung der folgenden Aufgaben:
+    Martin:
+        Einrichten der IDE, Installations sämtlicher Tools, mit Hilfe der Tutorialvideos 
+        Anschluss an Github herstellen, Projektstatus importieren/updaten (git clone)
+    Marius:
+        Customer/ sendBookingRequest -> hier muss das Start und Enddate durch 
+        Dateframe ersetzt werden.
+    Thomas:
+        Logger Testweise implementieren / Testmethode für Booking erstellen
+        Konstruktoren der Booking Klasse überladen mit Hotelroom, ConferenceRoom und beidem.
+        Erstellen der Issues zu den Protokollpunkten
+
+```
