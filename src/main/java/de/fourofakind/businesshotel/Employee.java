@@ -2,16 +2,16 @@ package de.fourofakind.businesshotel;
 
 public class Employee
 {
-    Booking BookingList[];
 
     public Employee(int empNo, String empName) {
         this.empNo = empNo;
         this.empName = empName;
     }
 
-    public void createBooking(int BookingNo, int RoomNo, TimeFrame timeFrame, DateFrame dateFrame, String bookingDate, String roomCategory, String specialWishes, float pricing, int empNo, boolean isBusinessCustomer)
+    public Booking createBooking(int BookingNo, int RoomNo, TimeFrame timeFrame, DateFrame dateFrame, String bookingDate, String roomCategory, String specialWishes, float pricing, int empNo, boolean isBusinessCustomer)
     {
-        BookingList[BookingNo]=new Booking(timeFrame, dateFrame, bookingDate, roomCategory, specialWishes,pricing, empNo,isBusinessCustomer);
+        Booking completeBooking =new Booking(timeFrame, dateFrame, bookingDate, roomCategory, specialWishes,pricing, empNo,isBusinessCustomer);
+        return completeBooking;
     }
     public void changeBooking(int BookingNo)
     {

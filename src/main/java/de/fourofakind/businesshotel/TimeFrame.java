@@ -2,7 +2,11 @@ package de.fourofakind.businesshotel;
 
 public class TimeFrame {
 
-
+    public TimeFrame(String startTime, String endTime)
+    {
+        this.startTime = startTime;
+        this.endTime = endTime;
+    }
 
     public String getStartTime() {
         return startTime;

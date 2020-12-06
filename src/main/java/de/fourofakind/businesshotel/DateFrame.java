@@ -2,6 +2,11 @@ package de.fourofakind.businesshotel;
 
 public class DateFrame {
 
+    public DateFrame(String startDate, String endDate)
+    {
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
 
     public String getStartDate() {
         return startDate;
