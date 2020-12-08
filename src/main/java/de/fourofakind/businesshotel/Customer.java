@@ -15,7 +15,7 @@ public class Customer {
         this.paymentMethod = paymentMethod;
     }
 
-    public void sendBookingRequest(DateFrame dateFrame, String name) {
+    public void sendBookingRequest(DateFrame dateFrame, TimeFrame timeFrame) {
 
     }
 
