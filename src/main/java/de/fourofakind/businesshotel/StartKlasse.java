@@ -1,15 +1,19 @@
 package de.fourofakind.businesshotel;
 
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 class StartKlasse {
 
+    public static ArrayList<Booking> BookingList= new ArrayList<>();
+    public static ArrayList<Room> RoomList = new ArrayList<>();
 
 
     public static void main(String[] args)
     {
-        ArrayList<Booking> BookingList= new ArrayList<>();
+    BookingList.add(null); // Buchungsnummern beginnen ab 1
+    RoomList.add(null); //Raumnummer beginnen ab 1
 
     //Geburten
 
@@ -24,8 +28,10 @@ class StartKlasse {
       DateFrame Heute=new DateFrame("Heute","Heute");
 
       //Beispielbuchung und zugehöriger BookingList - Eintrag
-      Booking completeBooking= Employee1.createBooking(1,1,zwoelfBisMittag,Heute,"Heute",
-              "egal","Jacuzzi",5.03f,Employee1.getEmpNo(), false);
-      BookingList.add(completeBooking);
+      Employee1.createBooking(0,1,zwoelfBisMittag,Heute,"egal","Jacuzzi",5.03f, false);
+      Booking toBeChangedBooking= BookingList.get(0);
+      Employee1.changeBooking(0,0,null,null,
+              null,"",0.0f, false);
+      Employee1.deleteBooking(0);
     }
 }
