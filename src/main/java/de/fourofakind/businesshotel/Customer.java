@@ -15,10 +15,9 @@ public class Customer {
         this.paymentMethod = paymentMethod;
     }
 
-    public void sendBookingRequest(String startDate, String endDate, TimeFrame timeframe) {
+    public void sendBookingRequest(DateFrame dateFrame, String name) {
 
     }
-
 
     private int customerID;
 
