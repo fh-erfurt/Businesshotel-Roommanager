@@ -3,26 +3,37 @@ package de.fourofakind.businesshotel;
 
 public class Customer {
 
-    public void setCustomerID(Integer customerID) {
+    enum paymentMethods {
+        debit, paypal, bill
+    }
+
+    public Customer(Integer customerID, ContactDetails contactDetails, paymentMethods paymentMethod) {
+        this.customerID = customerID;
+        this.contactDetails = contactDetails;
+        changePaymentMethod(paymentMethod);
+    }
+
+    public int              getCustomerID() {
+        return this.customerID;
+    }
+    public paymentMethods   getPaymentMethod() {
+        return paymentMethod;
+    }
+
+    public void             setCustomerID(Integer customerID) {
         this.customerID = customerID;
     }
+    public void             sendBookingRequest(DateFrame dateFrame, String name) {
 
-    public void setContactDetails(ContactDetails contactDetails) {
-        this.contactDetails = contactDetails;
     }
-
-    public void setPaymentMethod(PaymentDetails paymentMethod) {
+    public void             changePaymentMethod(paymentMethods paymentMethod) {
         this.paymentMethod = paymentMethod;
     }
 
-    public void sendBookingRequest(DateFrame dateFrame, TimeFrame timeFrame) {
 
-    }
+    private int             customerID;
+    protected               ContactDetails contactDetails;
+    private                 paymentMethods paymentMethod;
 
-    private int customerID;
-
-    private ContactDetails contactDetails;
-
-    private PaymentDetails paymentMethod;
 
 }
