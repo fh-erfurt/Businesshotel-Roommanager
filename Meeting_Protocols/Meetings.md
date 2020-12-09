@@ -128,3 +128,33 @@ Terminänderung auf 11:00 Uhr mittwochs festgelegt.
         Erstellen der Issues zu den Protokollpunkten
 
 ```
+
+```
+09.12.2020 11:00 Uhr Platform: Webex
+Teilnehmer: Martin, Niklas, Thomas
+entschuldigt: Marius
+
+1. Präsentation am 14.12.2020 besprochen und vorgeplant, entsprechende Aufgaben verteilt.
+   Nächste Besprechung für Sonntag 20 Uhr angesetzt um Präsentation vorzubereiten.
+
+    Alle sammeln Informationen über die Fallstricke, denen wir bisher in der Projektarbeit
+    im Team und in der Arbeit am Projekt mit Java begegnet sind, diese fügen wir dann der
+    Präsentation hinzu.
+    Eine Powerpoint muss erstellt werden als Basis für Sonntag, wenn wir die Präsentation 
+    planen.
+
+2. Verteilung der folgenden Aufgaben:
+    Martin:
+        Einrichten der IDE, Installations sämtlicher Tools, mit Hilfe der Tutorialvideos 
+        Anschluss an Github herstellen, Projektstatus importieren/updaten (git clone)
+        Deadline gesetzt: Freitag 19 Uhr
+        Codedokumentation an eigener Klasse und Value-Klassen
+    Marius:
+        Codedokumentation an eigener Klasse und Value-Klassen
+    Thomas:
+        Logger Testweise implementieren / Testmethode für Booking erstellen
+        Codedokumentation an eigener Klasse und Value-Klassen
+        Testfälle für Konstruktoren erstellen
+    Niklas:
+        Codedokumentation an eigener Klasse und Value-Klassen
+```

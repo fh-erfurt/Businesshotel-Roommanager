@@ -1,7 +1,21 @@
 package de.fourofakind.businesshotel;
 
+/**
+ * This is our main class. Every action that is made from an employee or customer will interact with this class.
+ * All information about the Bookingdetails and the Booking itself interacts with this class to.
+ */
+
+
+
+
 public class Booking {
 
+    /**
+     * <p>
+     * The Booking class has many overloaded methods to ensure it can be called with different types of rooms, like conference room or a hotel room.
+     * This is necessary because a hotelroom requires a date only, but a conference room requires a specific time and date.
+     * </p>
+     */
     public Booking() {}
     public Booking(int bookingNo, int roomNo, TimeFrame timeFrame, DateFrame dateFrame, String bookingDate, String roomCategory, String specialWishes, float pricing, int empNo, boolean isBusinessCustomer) {
         this.BookingNo = bookingNo;
