@@ -3,7 +3,9 @@ package de.fourofakind.businesshotel;
 public class Booking {
 
     public Booking() {}
-    public Booking(TimeFrame timeFrame, DateFrame dateFrame, String bookingDate, String roomCategory, String specialWishes, float pricing, int empNo, boolean isBusinessCustomer) {
+    public Booking(int bookingNo, int roomNo, TimeFrame timeFrame, DateFrame dateFrame, String bookingDate, String roomCategory, String specialWishes, float pricing, int empNo, boolean isBusinessCustomer) {
+        this.BookingNo = bookingNo;
+        this.RoomNo = roomNo;
         this.timeFrame = timeFrame;
         this.dateFrame = dateFrame;
         this.bookingDate = bookingDate;
@@ -14,7 +16,9 @@ public class Booking {
         this.isBusinessCustomer = isBusinessCustomer;
     }
 
-    public Booking(TimeFrame timeFrame, DateFrame dateFrame, String bookingDate, ConferenceRoomBooking conferenceRoomBooking,String roomCategory, String specialWishes, float pricing, int empNo, boolean isBusinessCustomer) {
+    public Booking(int bookingNo, int roomNo, TimeFrame timeFrame, DateFrame dateFrame, String bookingDate, ConferenceRoomBooking conferenceRoomBooking,String roomCategory, String specialWishes, float pricing, int empNo, boolean isBusinessCustomer) {
+        this.BookingNo = bookingNo;
+        this.RoomNo = roomNo;
         this.timeFrame = timeFrame;
         this.dateFrame = dateFrame;
         this.bookingDate = bookingDate;
@@ -26,7 +30,9 @@ public class Booking {
         this.isBusinessCustomer = isBusinessCustomer;
     }
 
-    public Booking(TimeFrame timeFrame, DateFrame dateFrame, String bookingDate, HotelRoomBooking hotelRoomBooking,String roomCategory ,String specialWishes, float pricing, int empNo, boolean isBusinessCustomer) {
+    public Booking(int bookingNo, int roomNo,TimeFrame timeFrame, DateFrame dateFrame, String bookingDate, HotelRoomBooking hotelRoomBooking,String roomCategory ,String specialWishes, float pricing, int empNo, boolean isBusinessCustomer) {
+        this.BookingNo = bookingNo;
+        this.RoomNo = roomNo;
         this.timeFrame = timeFrame;
         this.dateFrame = dateFrame;
         this.roomCategory = roomCategory;
@@ -37,7 +43,7 @@ public class Booking {
         this.empNo = empNo;
         this.isBusinessCustomer = isBusinessCustomer;
     }
-    public Booking(TimeFrame timeFrame, DateFrame dateFrame, String bookingDate,HotelRoomBooking hotelRoomBooking,
+    public Booking(int bookingNo, int roomNo,TimeFrame timeFrame, DateFrame dateFrame, String bookingDate,HotelRoomBooking hotelRoomBooking,
                    ConferenceRoomBooking conferenceRoomBooking , String specialWishes, float pricing, int empNo, boolean isBusinessCustomer) {
 
         this();
@@ -116,6 +122,25 @@ public class Booking {
     private String specialWishes;
     private ConferenceRoomBooking conferenceRoomBooking;
     private HotelRoomBooking hotelRoomBooking;
+
+    public int getBookingNo() {
+        return BookingNo;
+    }
+
+    public void setBookingNo(int bookingNo) {
+        BookingNo = bookingNo;
+    }
+
+    public int getRoomNo() {
+        return RoomNo;
+    }
+
+    public void setRoomNo(int roomNo) {
+        RoomNo = roomNo;
+    }
+
+    private int BookingNo;
+    private int RoomNo;
 
     private float pricing;
     private int empNo;
