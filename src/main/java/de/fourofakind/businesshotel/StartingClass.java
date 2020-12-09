@@ -4,7 +4,8 @@ package de.fourofakind.businesshotel;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-class StartKlasse {
+class StartingClass
+{
 
     public static ArrayList<Booking> BookingList= new ArrayList<>();
     public static ArrayList<Room> RoomList = new ArrayList<>();
