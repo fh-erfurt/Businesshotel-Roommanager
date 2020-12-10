@@ -64,8 +64,6 @@ public class Employee
      * @param dateFrame the date span for one or multiple days, of which a room is blocked;
      *                  should allow variable date spans for both types of rooms as a conference room could be used for a congress for multiple days
      *                  and a hotel room can be used for one or multiple nights
-     * @param roomCategory Description of the time of room, should be Suite, Single Room or Double Room for hotel rooms or Little Group or Big Group
-     *                     for conference rooms
      * @param specialWishes contains any special wishes made by a customer, could be an extra bed, room service or wake up service in the morning
      * @param pricing is bound to the room and the amount of time it is used for;
      *                will be generated when creating a booking by the corresponding getPricing method of the Booking class
@@ -74,15 +72,13 @@ public class Employee
      *
      *
      */
-    public void changeBooking(int bookingNo, int roomNo, TimeFrame timeFrame, DateFrame dateFrame, String roomCategory,
+    public void changeBooking(int bookingNo, int roomNo, TimeFrame timeFrame, DateFrame dateFrame,
                               String specialWishes, float pricing, boolean isBusinessCustomer)
     {
-        Booking toBeChangedBooking= BookingList.get(0);
-        if (bookingNo!=0) toBeChangedBooking.setBookingNo(bookingNo);
+        Booking toBeChangedBooking= BookingList.get(bookingNo);
         if (roomNo!=0) toBeChangedBooking.setRoomNo(roomNo);
         if (timeFrame!=null) toBeChangedBooking.setTimeFrame(timeFrame);
         if (dateFrame!=null) toBeChangedBooking.setDateFrame(dateFrame);
-        if (roomCategory!=null) toBeChangedBooking.setRoomCategory(roomCategory);
         if (specialWishes!=null) toBeChangedBooking.setSpecialWishes(specialWishes);
         if (pricing!=0.0f) toBeChangedBooking.setPricing(pricing);
         toBeChangedBooking.setBusinessCustomer(isBusinessCustomer); //

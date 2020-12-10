@@ -30,9 +30,8 @@ class StartingClass
 
       //Beispielbuchung und zugehöriger BookingList - Eintrag
       Employee1.createBooking(0,1,zwoelfBisMittag,Heute,"egal","Jacuzzi",5.03f, false);
-      Booking toBeChangedBooking= BookingList.get(0);
       Employee1.changeBooking(0,0,null,null,
-              null,"",0.0f, false);
+              null,0.0f, false);
       Employee1.deleteBooking(0);
     }
 }
