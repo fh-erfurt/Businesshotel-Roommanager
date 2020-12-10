@@ -16,6 +16,10 @@ class StartingClass
     BookingList.add(null); // Buchungsnummern beginnen ab 1
     RoomList.add(null); //Raumnummer beginnen ab 1
 
+    //Buchungen zum Listen füllen
+
+
+
     //Geburten
 
       Employee Employee1=new Employee(1,"Herbert Schmidt");

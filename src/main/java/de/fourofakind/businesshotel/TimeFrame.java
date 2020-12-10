@@ -1,4 +1,11 @@
 package de.fourofakind.businesshotel;
+/**
+ * <p>
+ * @TimeFrame is a value-class that stores the starting time of a booking and its ending time.
+ * Setter/Getter for the TimeFrame to set or maybe reset the TimeFrame of booking.
+ * </p>
+ */
+
 
 public class TimeFrame {
 

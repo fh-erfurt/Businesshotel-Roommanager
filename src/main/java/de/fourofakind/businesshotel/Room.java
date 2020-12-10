@@ -1,7 +1,12 @@
 package de.fourofakind.businesshotel;
 
 public class Room {
-
+    /**
+     * <p>
+     * The class room holds all vital information of the rooms, its size, its category and roomnumber,
+     * i can also tell whether a room is occupied or not.
+     * </p>
+     */
 
     public Room(Category category, int areaInSqrMetre, int roomNo) {
         Category = category;

@@ -14,6 +14,7 @@ public class Booking {
      * <p>
      * The Booking class has many overloaded methods to ensure it can be called with different types of rooms, like conference room or a hotel room.
      * This is necessary because a hotelroom requires a date only, but a conference room requires a specific time and date.
+     * A detailed list of every @param can be seen on the comments of the Employee-class
      * </p>
      */
     public Booking() {}
@@ -63,6 +64,10 @@ public class Booking {
         this();
 
     }
+
+    public Booking(TimeFrame timeFrame, DateFrame dateFrame, String bookingDate, ConferenceRoomBooking conferenceRoomBooking, String roomCategory, String specialWishes, float pricing, int empNo, boolean isBusinessCustomer) {
+    }
+
 
     public TimeFrame getTimeFrame() {
         return timeFrame;
@@ -130,12 +135,7 @@ public class Booking {
         this.dateFrame = dateFrame;
     }
 
-    private DateFrame dateFrame;
-    private String bookingDate;
-    private String roomCategory;
-    private String specialWishes;
-    private ConferenceRoomBooking conferenceRoomBooking;
-    private HotelRoomBooking hotelRoomBooking;
+
 
     public int getBookingNo() {
         return BookingNo;
@@ -158,6 +158,12 @@ public class Booking {
 
     private float pricing;
     private int empNo;
+    private DateFrame dateFrame;
+    private String bookingDate;
+    private String roomCategory;
+    private String specialWishes;
+    private ConferenceRoomBooking conferenceRoomBooking;
+    private HotelRoomBooking hotelRoomBooking;
 
     private boolean isBusinessCustomer;
 
