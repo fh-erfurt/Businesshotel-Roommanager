@@ -107,7 +107,7 @@ public class Employee
      * @param roomNo Number of the room which is to be changed;
      *               provides the index of the room inside RoomList
      */
-    public void changeRoomDetails(int roomNo, String category, int areaInSqrMetre)
+    public void changeRoomDetails(int roomNo, Category category, int areaInSqrMetre)
     {
         Room toBeChangedRoom=RoomList.get(roomNo);
         if (category!=null) toBeChangedRoom.setCategory(category);
