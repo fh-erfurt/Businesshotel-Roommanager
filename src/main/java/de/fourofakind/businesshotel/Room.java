@@ -38,6 +38,20 @@ public class Room {
         this.roomNo = roomNo;
     }
 
+    /**
+     * introduced the RoomStatus here so we can later get an info about whether the room is occupied or not
+     **/
+
+    public boolean roomstatus boolean getRoomStatus() { return roomstatus; }
+
+    public void setroomstatus(RoomStatus roomstatus) { this.roomstatus = roomstatus; }
+
+    public boolean isNotUsed() {
+        return isNotUsed;
+    }
+
+    public void setNotUsed(boolean notUsed) { isNotUsed() = notUsed; }
+
     public boolean isUsed() {
         return isUsed;
     }
@@ -51,6 +65,7 @@ public class Room {
     private int areaInSqrMetre;
     private int roomNo;
     private boolean isUsed;
+    private boolean isNotUsed;
 
 
 
