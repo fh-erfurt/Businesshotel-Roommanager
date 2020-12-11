@@ -7,10 +7,13 @@ public class ContactDetails {
         firstName, lastName, address, phoneNumber, mailAddress, iban
     }
 
-    public ContactDetails(String firstName, String lastName, String address, String mailAddress) {
+    public ContactDetails(String firstName, String lastName, String streetName, String streetNumber, String postalCode, String cityName, String mailAddress) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.address = address;
+        this.streetName = streetName;
+        this.streetNumber = streetNumber;
+        this.postalCode = postalCode;
+        this.cityName = cityName;
         this.mailAddress = mailAddress;
     }
 
@@ -22,8 +25,17 @@ public class ContactDetails {
         this.lastName = lastName;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setStreetName(String address) {
+        this.streetName = address;
+    }
+    public void setStreetNumber(String address) {
+        this.streetNumber = address;
+    }
+    public void setPostalCode(String address) {
+        this.postalCode = address;
+    }
+    public void setCityName(String address) {
+        this.cityName = address;
     }
 
     public void setMailAddress(String mailAddress) {
@@ -46,8 +58,17 @@ public class ContactDetails {
         return lastName;
     }
 
-    public String getAddress() {
-        return address;
+    public String getStreetName() {
+        return streetName;
+    }
+    public String getStreetNumber() {
+        return streetNumber;
+    }
+    public String getPostalCode() {
+        return postalCode;
+    }
+    public String getCityName() {
+        return cityName;
     }
 
     public String getMailAddress() {
@@ -64,7 +85,10 @@ public class ContactDetails {
 
     private String firstName;
     private String lastName;
-    private String address;
+    private String streetName;
+    private String streetNumber;
+    private String postalCode;
+    private String cityName;
     private String phoneNumber;
     private String mailAddress;
     private String iban ;
