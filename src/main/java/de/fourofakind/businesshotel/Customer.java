@@ -7,7 +7,7 @@ public class Customer {
         debit, paypal, bill
     }
 
-    public Customer(Integer customerID, ContactDetails contactDetails, paymentMethods paymentMethod) {
+    public Customer(int customerID, ContactDetails contactDetails, paymentMethods paymentMethod) {
         this.customerID = customerID;
         this.contactDetails = contactDetails;
         changePaymentMethod(paymentMethod);
@@ -23,7 +23,7 @@ public class Customer {
     public void             setCustomerID(Integer customerID) {
         this.customerID = customerID;
     }
-    public void             sendBookingRequest(DateFrame dateFrame, String name) {
+    public void             sendBookingRequest(DateFrame dateFrame, int customerID) {
 
     }
     public void             changePaymentMethod(paymentMethods paymentMethod) {
