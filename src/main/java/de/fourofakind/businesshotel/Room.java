@@ -38,7 +38,7 @@ public class Room {
         this.roomNo = roomNo;
     }
 
-    public boolean isUsed() {
+    public boolean getUsed() {
         return isUsed;
     }
 
