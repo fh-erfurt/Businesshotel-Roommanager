@@ -3,6 +3,8 @@ package de.fourofakind.businesshotel;
 public class HotelRoom {
 
 
+
+
     public int getBedCount() {
         return bedCount;
     }
