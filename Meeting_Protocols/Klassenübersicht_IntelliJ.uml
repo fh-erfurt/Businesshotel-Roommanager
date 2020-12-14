@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Diagram>
   <ID>JAVA</ID>
-  <OriginalElement>de.fourofakind.businesshotel.ConferenceRoom</OriginalElement>
+  <OriginalElement>de.fourofakind.businesshotel.Booking</OriginalElement>
   <nodes>
     <node x="411.5" y="0.0">de.fourofakind.businesshotel.Booking</node>
-    <node x="1415.2857142857142" y="997.7142857142858">de.fourofakind.businesshotel.HotelRoom</node>
-    <node x="1180.2857142857142" y="997.7142857142858">de.fourofakind.businesshotel.ConferenceRoom</node>
+    <node x="1044.0" y="818.0">de.fourofakind.businesshotel.HotelRoom</node>
+    <node x="786.0" y="818.0">de.fourofakind.businesshotel.ConferenceRoom</node>
+    <node x="1243.0" y="1182.0">de.fourofakind.businesshotel.Category</node>
     <node x="771.0" y="480.0">de.fourofakind.businesshotel.ConferenceRoomBooking</node>
-    <node x="1341.7142857142858" y="2.0">de.fourofakind.businesshotel.DateFrame</node>
-    <node x="1336.4285714285713" y="166.28571428571445">de.fourofakind.businesshotel.TimeFrame</node>
+    <node x="1019.0" y="1156.0">de.fourofakind.businesshotel.DateFrame</node>
+    <node x="782.0" y="1182.0">de.fourofakind.businesshotel.TimeFrame</node>
     <node x="92.5" y="928.0">de.fourofakind.businesshotel.ContactDetails.contactDetails</node>
-    <node x="1294.4285714285713" y="783.5714285714286">de.fourofakind.businesshotel.Room</node>
+    <node x="937.25" y="625.0">de.fourofakind.businesshotel.Room</node>
     <node x="435.0" y="625.0">de.fourofakind.businesshotel.Customer</node>
     <node x="0.0" y="480.5">de.fourofakind.businesshotel.HotelRoomBooking</node>
     <node x="0.0" y="625.0">de.fourofakind.businesshotel.ContactDetails</node>
     <node x="475.0" y="842.0">de.fourofakind.businesshotel.Customer.paymentMethods</node>
-    <node x="786.0" y="625.0">de.fourofakind.businesshotel.Employee</node>
-    <node x="50.0" y="74.85714285714289">de.fourofakind.businesshotel.StartingClass</node>
+    <node x="0.0" y="1182.0">de.fourofakind.businesshotel.Employee</node>
+    <node x="517.0" y="1182.0">de.fourofakind.businesshotel.StartingClass</node>
   </nodes>
   <notes />
   <edges>
@@ -24,11 +25,27 @@
       <point x="0.0" y="-71.5" />
       <point x="0.0" y="83.5" />
     </edge>
+    <edge source="de.fourofakind.businesshotel.ConferenceRoom" target="de.fourofakind.businesshotel.Room">
+      <point x="0.0" y="-38.5" />
+      <point x="905.0" y="793.0" />
+      <point x="981.75" y="793.0" />
+      <point x="-44.5" y="71.5" />
+    </edge>
+    <edge source="de.fourofakind.businesshotel.HotelRoom" target="de.fourofakind.businesshotel.Room">
+      <point x="0.0" y="-38.5" />
+      <point x="1147.5" y="793.0" />
+      <point x="1070.75" y="793.0" />
+      <point x="44.5" y="71.5" />
+    </edge>
     <edge source="de.fourofakind.businesshotel.ConferenceRoomBooking" target="de.fourofakind.businesshotel.Booking">
       <point x="0.0" y="-50.0" />
       <point x="1137.5" y="455.0" />
       <point x="929.0" y="455.0" />
       <point x="172.5" y="215.0" />
+    </edge>
+    <edge source="de.fourofakind.businesshotel.ContactDetails.contactDetails" target="de.fourofakind.businesshotel.ContactDetails">
+      <point x="0.0" y="-104.5" />
+      <point x="0.0" y="126.5" />
     </edge>
     <edge source="de.fourofakind.businesshotel.HotelRoomBooking" target="de.fourofakind.businesshotel.Booking">
       <point x="0.0" y="-49.5" />
@@ -36,12 +53,8 @@
       <point x="584.0" y="455.0" />
       <point x="-172.5" y="215.0" />
     </edge>
-    <edge source="de.fourofakind.businesshotel.ContactDetails.contactDetails" target="de.fourofakind.businesshotel.ContactDetails">
-      <point x="0.0" y="-104.5" />
-      <point x="0.0" y="126.5" />
-    </edge>
   </edges>
-  <settings layout="Hierarchic Group" zoom="0.7000000000000001" x="1274.142857142857" y="450.8571428571428" />
+  <settings layout="Hierarchic Group" zoom="0.5000000000000001" x="8.71428571428578" y="601.9999999999998" />
   <SelectedNodes />
   <Categories>
     <Category>Fields</Category>
