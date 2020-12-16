@@ -1,7 +1,5 @@
 package de.fourofakind.businesshotel;
 
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 class StartingClass
@@ -9,31 +7,33 @@ class StartingClass
 
     public static ArrayList<Booking> BookingList= new ArrayList<>();
     public static ArrayList<Room> RoomList = new ArrayList<>();
+    public static ArrayList<Employee> EmployeeList= new ArrayList<>();
 
 
     public static void main(String[] args)
     {
-    BookingList.add(null); // Buchungsnummern beginnen ab 1
-    RoomList.add(null); //Raumnummer beginnen ab 1
+    BookingList.add(null); // BookingNo beginning at 1
+    RoomList.add(null); //RoomNo beginning at 1
+    EmployeeList.add(null); //EmployeeNo beginning at 1
 
     //Buchungen zum Listen füllen
 
 
 
-    //Geburten
+    //Births
 
-      Employee Employee1=new Employee(1,"Herbert Schmidt");
-      Employee Employee2=new Employee( 2, "Laura Müller");
-      Employee Employee3=new Employee( 3, "Bärbel Schäfer");
-      Employee Employee4=new Employee(4,"Torsten Hillmann");
-      Employee Employee5=new Employee(5,"Sigrid Alster");
+      Employee Employee1=new Employee("Herbert Schmidt");
+      Employee Employee2=new Employee("Laura Müller");
+      Employee Employee3=new Employee("Bärbel Schäfer");
+      Employee Employee4=new Employee("Torsten Hillmann");
+      Employee Employee5=new Employee("Sigrid Alster");
 
-      //Beispiel TimeFrame & DateFrame
+      //Example TimeFrame & DateFrame
       TimeFrame zwoelfBisMittag= new TimeFrame("zwölf","mittag");
       DateFrame Heute=new DateFrame("Heute","Heute");
 
-      //Beispielbuchung und zugehöriger BookingList - Eintrag
-      Employee1.createBooking(0,1,zwoelfBisMittag,Heute,"egal","Jacuzzi",5.03f, false);
+      //Example Booking including BookingList entry
+      Employee1.createBooking(1,zwoelfBisMittag,Heute,"egal","Jacuzzi",5.03f, false);
       Employee1.changeBooking(0,0,null,null,
               null,0.0f, false);
       Employee1.deleteBooking(0);
