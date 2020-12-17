@@ -50,6 +50,8 @@ public class Room {
 
     private int areaInSqrMetre;
     private int roomNo;
+
+  
     private boolean isUsed;
 
 

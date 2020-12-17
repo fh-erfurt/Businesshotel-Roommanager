@@ -65,13 +65,16 @@ public class Booking {
 
     }
 
-    public Booking(TimeFrame timeFrame, DateFrame dateFrame, String bookingDate, ConferenceRoomBooking conferenceRoomBooking, String roomCategory, String specialWishes, float pricing, int empNo, boolean isBusinessCustomer) {
+    public Booking(TimeFrame timeFrame, DateFrame dateFrame, String bookingDate, ConferenceRoomBooking conferenceRoomBooking,
+                   String roomCategory, String specialWishes, float pricing, int empNo, boolean isBusinessCustomer) {
     }
 
 
-    public TimeFrame getTimeFrame() {
+    public TimeFrame getTimeFrame()
+    {
         return timeFrame;
     }
+
     public void setTimeFrame(TimeFrame timeFrame) {
         this.timeFrame = timeFrame;
     }

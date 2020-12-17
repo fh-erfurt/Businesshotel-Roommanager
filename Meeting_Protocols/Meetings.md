@@ -158,3 +158,29 @@ entschuldigt: Marius
     Niklas:
         Codedokumentation an eigener Klasse und Value-Klassen
 ```
+
+```
+13.12.2020 20:00 Uhr Platform: Webex
+Teilnehmer: Martin, Niklas, Thomas, Marius
+
+1. Absprache Ablauf Präsentation, letzte Änderungen an Inhalt und Darstellung. Festlegen
+   der Reihenfolge.
+```
+
+```
+16.12.2020 20:00 Uhr Platform: Webex
+Teilnehmer: Martin, Niklas, Thomas, Marius
+
+1. Absprache der Aufgaben über die Weihnachtszeit.
+
+   Alle:
+        Testklassen für Konstruktoren und nicht triviale Methoden aus der erstellten Klasse erstellen.
+        Instanzen entwerfen in der StartingClass um Gesamtfunktion testen zu können.
+        etwaige fehlende Code Dokumentation nachholen
+   Thomas
+        Issue zum Erstellen der Testklassen und Instanzen in StartingClass anlegen
+        Meeting Protokoll hochladen
+
+
+
+```
