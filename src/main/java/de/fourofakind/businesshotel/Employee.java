@@ -40,16 +40,18 @@ public class Employee
      *                           will be generated when creating a booking by the corresponding getPricing method of the Booking class
      * @param isBusinessCustomer marks the booking to be requested by a business customer or for personal use;
      *                           important for generation of bills and taxes to be used
+     * @return                   returns the Booking created just now
      */
-    public void createBooking (int roomNo, TimeFrame timeFrame, DateFrame dateFrame, String roomCategory, String specialWishes, float pricing,
+    public Booking createBooking (int roomNo, TimeFrame timeFrame, DateFrame dateFrame, String roomCategory, String specialWishes, float pricing,
                                boolean isBusinessCustomer)
     {
         String bookingDate = dateTimeFormat.format(currentDateTime);
         int bookingNo = (BookingList.size() - 1);   // the counting in arraylist begins at 0, so the last element has bookingNo 19, although
                                                     // there are 20 elements --> therefore decreased by 1
         Booking createdBooking = new Booking(bookingNo, roomNo, timeFrame, dateFrame, bookingDate, roomCategory, specialWishes, pricing, this.getEmpNo(), isBusinessCustomer);
-        RoomList.get(roomNo).setUsed(true);
+        //RoomList.get(roomNo).setUsed(true);
         BookingList.add(createdBooking);
+        return createdBooking;
     }
 
 

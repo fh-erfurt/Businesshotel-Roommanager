@@ -23,19 +23,27 @@ class StartingClass
     //Births
 
       Employee Employee1=new Employee("Herbert Schmidt");
+      EmployeeList.add(Employee1);
       Employee Employee2=new Employee("Laura Müller");
+      EmployeeList.add(Employee2);
       Employee Employee3=new Employee("Bärbel Schäfer");
+      EmployeeList.add(Employee3);
       Employee Employee4=new Employee("Torsten Hillmann");
+      EmployeeList.add(Employee4);
       Employee Employee5=new Employee("Sigrid Alster");
-
+      EmployeeList.add(Employee5);
       //Example TimeFrame & DateFrame
       TimeFrame zwoelfBisMittag= new TimeFrame("zwölf","mittag");
       DateFrame Heute=new DateFrame("Heute","Heute");
+      Category Suite= new Category();
+      Room TestRoom = new Room(Suite,20,1);
+
+      RoomList.add(TestRoom);
 
       //Example Booking including BookingList entry
       Employee1.createBooking(1,zwoelfBisMittag,Heute,"egal","Jacuzzi",5.03f, false);
-      Employee1.changeBooking(0,0,null,null,
+      Employee1.changeBooking(1,0,null,null,
               null,0.0f, false);
-      Employee1.deleteBooking(0);
+      Employee1.deleteBooking(1);
     }
 }
