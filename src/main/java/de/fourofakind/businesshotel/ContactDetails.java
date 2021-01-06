@@ -1,6 +1,10 @@
 package de.fourofakind.businesshotel;
 
 //
+/**
+ * object to store personal data of customer
+ */
+
 public class ContactDetails {
 
     enum contactDetails {
