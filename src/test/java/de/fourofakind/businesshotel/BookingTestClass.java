@@ -9,6 +9,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class BookingTestClass {
 
+@BeforeEach
+public void setUp(){
+    int Ball = 3;
+};
+
 
 
 
@@ -16,6 +21,7 @@ public class BookingTestClass {
     public void shouldGiveAllBookingDetails()
     {
         //Given
+        setUp();
         ArrayList<Booking> BookingList= new ArrayList<>();
         ArrayList<Room> RoomList = new ArrayList<>();
         Category Suite = new Category();
