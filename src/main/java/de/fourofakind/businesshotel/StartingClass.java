@@ -9,6 +9,8 @@ class StartingClass
     public static ArrayList<Room> RoomList = new ArrayList<>();
     public static ArrayList<Employee> EmployeeList= new ArrayList<>();
 
+    public static ArrayList<BookingRequest> bookingRequests = new ArrayList<>();
+
 
     public static void main(String[] args)
     {
@@ -16,9 +18,15 @@ class StartingClass
     RoomList.add(null); //RoomNo beginning at 1
     EmployeeList.add(null); //EmployeeNo beginning at 1
 
+    bookingRequests.add(null);
+
     //Buchungen zum Listen füllen
 
-
+    //Customer
+        ContactDetails contactDetail = new ContactDetails("Olaf", "Schubert", "Olaf-Schubert-Straße", "014F", "12345", "Olafsruhe", "bundesolaf@gmail.de");
+        Customer customer = new Customer(0, contactDetail, Customer.paymentMethods.bill);
+        DateFrame bookingDateFrame = new DateFrame("2021-01-03", "2021-01-06");
+        customer.sendBookingRequest(bookingDateFrame);
 
     //Births
 
