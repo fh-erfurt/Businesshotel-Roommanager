@@ -4,10 +4,19 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
+import static de.fourofakind.businesshotel.StartingClass.*;
 
 public class EmployeeTestClass
 {
+
+    TimeFrame zwoelfBisMittag= new TimeFrame("zwölf","mittag");
+    DateFrame Heute=new DateFrame("Heute","Heute");
+    Category Suite= new Category();
+    Room TestRoom = new Room(Suite,20,1);
+
+
+
     @Test
     public void shouldOutputEmployeeNameWhenSuccessful()
     {
@@ -26,13 +35,14 @@ public class EmployeeTestClass
     {
         //Given
         Employee MaxMustermann = new Employee("Max Mustermann");
+        EmployeeList.add(null); //EmployeeNo beginning at 1
 
         //When
         int result = MaxMustermann.getEmpNo();
 
         //Then
-        assertEquals(0,result,"If an Employee is created by its Constructor as the first Employee ever, it should output '0' as its Employee Number, because the " +
-                "arraylist is starting at 0 ");
+        assertEquals(0,result,"If an Employee is created by its Constructor as the first Employee ever, it should output '1' as its Employee Number, because the " +
+                "arraylist is starting at 1 and contains no other Employees ");
     }
 
 
@@ -41,18 +51,12 @@ public class EmployeeTestClass
     public void shouldOutputAllBookingDetailsIfSuccesful()
     {
         //Given
-        ArrayList<Booking> BookingList= new ArrayList<>();
-        ArrayList<Room> RoomList = new ArrayList<>();
-        Category Suite = new Category();
-        Room NullRoom = new Room (Suite,0,0);
-        RoomList.add(NullRoom);
-        Room TestRoom= new Room(Suite, 20, 1);
+
+        RoomList.add(null); //RoomList beginning at 1
         RoomList.add(TestRoom);
         Employee MaxMustermann = new Employee("Max Mustermann");
-        TimeFrame zwoelfBisMittag= new TimeFrame("zwölf","mittag");
-        DateFrame Heute=new DateFrame("Heute","Heute");
 
-        Booking resultBooking= MaxMustermann.createBooking(1,zwoelfBisMittag,Heute,"egal","Jacuzzi",5.03f, false);
+        Booking resultBooking= MaxMustermann.createBooking(1,zwoelfBisMittag,Heute,"egal","Jacuzzi",5.03f, Booking.IsBusinessCustomer.FALSE);
 
 
 
@@ -68,11 +72,64 @@ public class EmployeeTestClass
         result += ", IsBusinessCustomer?: " + resultBooking.isBusinessCustomer();
 
         String expectedResult="RoomNo: 1, StartTime: zwölf, EndTime: mittag, StartDate: Heute, EndDate: Heute, RoomCategory: egal, SpecialWishes: Jacuzzi, Pricing: 5" +
-                ".03, IsBusinessCustomer?: false";
+                ".03, IsBusinessCustomer?: FALSE";
 
 
         //Then
         assertEquals(expectedResult,result,"If the Booking is created according to the details, all details will be told.");
+    }
+
+    @Test
+    public void shouldChangeBookingDataIfSuccesful()
+    {
+        //Given
+
+        RoomList.add(null); //RoomList beginning at 1
+        RoomList.add(TestRoom);
+        BookingList.add(null); //BookingList beginning at 1
+        Employee MaxMustermann = new Employee("Max Mustermann");
+
+        Booking testBooking= MaxMustermann.createBooking(1,zwoelfBisMittag,Heute,"egal","Jacuzzi",5.03f, Booking.IsBusinessCustomer.FALSE);
+        BookingList.add(testBooking);
+
+
+
+        //When
+
+       //Before Change
+        String resultBeforeChanges = "RoomNo: " + testBooking.getRoomNo();
+        resultBeforeChanges += ", StartTime: " + testBooking.getTimeFrame().getStartTime();
+        resultBeforeChanges += ", EndTime: " + testBooking.getTimeFrame().getEndTime();
+        resultBeforeChanges += ", StartDate: " + testBooking.getDateFrame().getStartDate();
+        resultBeforeChanges += ", EndDate: " + testBooking.getDateFrame().getEndDate();
+        resultBeforeChanges += ", RoomCategory: " + testBooking.getRoomCategory();
+        resultBeforeChanges += ", SpecialWishes: " + testBooking.getSpecialWishes();
+        resultBeforeChanges += ", Pricing: " + testBooking.getPricing();
+        resultBeforeChanges += ", IsBusinessCustomer?: " + testBooking.isBusinessCustomer();
+
+        //Actual Change
+        MaxMustermann.changeBooking(1,0,null,null,"Premium Internet",0.0f, Booking.IsBusinessCustomer.NULL);
+
+
+        //After Change
+        String resultAfterChanges = "RoomNo: " + testBooking.getRoomNo();
+        resultAfterChanges += ", StartTime: " + testBooking.getTimeFrame().getStartTime();
+        resultAfterChanges += ", EndTime: " + testBooking.getTimeFrame().getEndTime();
+        resultAfterChanges += ", StartDate: " + testBooking.getDateFrame().getStartDate();
+        resultAfterChanges += ", EndDate: " + testBooking.getDateFrame().getEndDate();
+        resultAfterChanges += ", RoomCategory: " + testBooking.getRoomCategory();
+        resultAfterChanges += ", SpecialWishes: " + testBooking.getSpecialWishes();
+        resultAfterChanges += ", Pricing: " + testBooking.getPricing();
+        resultAfterChanges += ", IsBusinessCustomer?: " + testBooking.isBusinessCustomer();
+
+
+
+
+        //Then
+
+
+        assertNotEquals(resultBeforeChanges,resultAfterChanges,"If the Booking is changed according to the parameters given, specialWishes should be changed to Premium" +
+                " Internet.");
     }
 
 }

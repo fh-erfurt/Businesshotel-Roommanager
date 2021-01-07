@@ -43,12 +43,13 @@ public class Employee
      * @return                   returns the Booking created just now
      */
     public Booking createBooking (int roomNo, TimeFrame timeFrame, DateFrame dateFrame, String roomCategory, String specialWishes, float pricing,
-                               boolean isBusinessCustomer)
+                               Booking.IsBusinessCustomer isBusinessCustomer)
     {
         String bookingDate = dateTimeFormat.format(currentDateTime);
         int bookingNo = (BookingList.size() - 1);   // the counting in arraylist begins at 0, so the last element has bookingNo 19, although
                                                     // there are 20 elements --> therefore decreased by 1
-        Booking createdBooking = new Booking(bookingNo, roomNo, timeFrame, dateFrame, bookingDate, roomCategory, specialWishes, pricing, this.getEmpNo(), isBusinessCustomer);
+        Booking createdBooking = new Booking(bookingNo, roomNo, timeFrame, dateFrame, bookingDate, roomCategory, specialWishes, pricing, this.getEmpNo(),
+                isBusinessCustomer);
         //RoomList.get(roomNo).setUsed(true);
         BookingList.add(createdBooking);
         return createdBooking;
@@ -73,7 +74,7 @@ public class Employee
      *                           important for generation of bills and taxes to be used
      */
     public void changeBooking (int bookingNo, int roomNo, TimeFrame timeFrame, DateFrame dateFrame, String specialWishes, float pricing,
-                               boolean isBusinessCustomer)
+                               Booking.IsBusinessCustomer isBusinessCustomer)
     {
         Booking toBeChangedBooking = BookingList.get(bookingNo); //"loads" the to be changed Booking into the function to work with the object
         if (roomNo != 0) toBeChangedBooking.setRoomNo(roomNo);
