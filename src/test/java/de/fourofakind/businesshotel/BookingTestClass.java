@@ -29,7 +29,7 @@ public class BookingTestClass {
         DateFrame date = new DateFrame("10.12.2020","10.12.2020");
 
         //Booking newBooking = new Booking();
-        Booking createdBooking = new Booking(4,SmallSuite.getRoomNo(), coffeeMeeting,date,"heute","Luxury","Sauna/Spa",160.50f,110,false);
+        Booking createdBooking = new Booking(4,SmallSuite.getRoomNo(), coffeeMeeting,date,"heute","Luxury","Sauna/Spa",160.50f,110, Booking.IsBusinessCustomer.FALSE);
 
 
             //Die Klasse Room gibt keinen String als Antwort auf GetCategory() (eigentlich sollte SmallSuite.getCategory() den String liefern,
@@ -48,7 +48,7 @@ public class BookingTestClass {
         String specialWishes = createdBooking.getSpecialWishes();
         float pricing = createdBooking.getPricing();
         int empNo = createdBooking.getEmpNo();
-        boolean isBusinessCustomer = createdBooking.isBusinessCustomer();
+        Booking.IsBusinessCustomer isBusinessCustomer = createdBooking.isBusinessCustomer();
 
         //Then
 

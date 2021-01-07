@@ -5,11 +5,13 @@ public class HotelRoomBooking extends Booking{
      * This class extends the Booking to the kind of room that has been booked, in this case to a Hotelroom.
      */
 
-    public HotelRoomBooking(int bookingNo, int roomNo, TimeFrame timeFrame, DateFrame dateFrame, String bookingDate, HotelRoomBooking hotelRoomBooking, String roomCategory, String specialWishes, float pricing, int empNo, boolean isBusinessCustomer) {
+    public HotelRoomBooking(int bookingNo, int roomNo, TimeFrame timeFrame, DateFrame dateFrame, String bookingDate, HotelRoomBooking hotelRoomBooking,
+                            String roomCategory, String specialWishes, float pricing, int empNo, IsBusinessCustomer isBusinessCustomer) {
         super(bookingNo, roomNo, timeFrame, dateFrame, bookingDate, hotelRoomBooking, roomCategory, specialWishes, pricing, empNo, isBusinessCustomer);
     }
 
-    public HotelRoomBooking(int bookingNo, int roomNo, TimeFrame timeFrame, DateFrame dateFrame, String bookingDate, HotelRoomBooking hotelRoomBooking, ConferenceRoomBooking conferenceRoomBooking, String specialWishes, float pricing, int empNo, boolean isBusinessCustomer) {
+    public HotelRoomBooking(int bookingNo, int roomNo, TimeFrame timeFrame, DateFrame dateFrame, String bookingDate, HotelRoomBooking hotelRoomBooking,
+                            ConferenceRoomBooking conferenceRoomBooking, String specialWishes, float pricing, int empNo, IsBusinessCustomer isBusinessCustomer) {
         super(bookingNo, roomNo, timeFrame, dateFrame, bookingDate, hotelRoomBooking, conferenceRoomBooking, specialWishes, pricing, empNo, isBusinessCustomer);
     }
     /**

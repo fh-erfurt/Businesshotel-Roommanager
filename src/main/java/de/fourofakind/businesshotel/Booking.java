@@ -10,6 +10,13 @@ package de.fourofakind.businesshotel;
 
 public class Booking {
 
+    enum IsBusinessCustomer
+    {
+        NULL,
+        TRUE,
+        FALSE
+    }
+
     /**
      * <p>
      * The Booking class has many overloaded methods to ensure it can be called with different types of rooms, like conference room or a hotel room.
@@ -18,7 +25,7 @@ public class Booking {
      * </p>
      */
     public Booking() {}
-    public Booking(int bookingNo, int roomNo, TimeFrame timeFrame, DateFrame dateFrame, String bookingDate, String roomCategory, String specialWishes, float pricing, int empNo, boolean isBusinessCustomer) {
+    public Booking(int bookingNo, int roomNo, TimeFrame timeFrame, DateFrame dateFrame, String bookingDate, String roomCategory, String specialWishes, float pricing, int empNo, IsBusinessCustomer isBusinessCustomer) {
         this.BookingNo = bookingNo;
         this.RoomNo = roomNo;
         this.timeFrame = timeFrame;
@@ -31,7 +38,7 @@ public class Booking {
         this.isBusinessCustomer = isBusinessCustomer;
     }
 
-    public Booking(int bookingNo, int roomNo, TimeFrame timeFrame, DateFrame dateFrame, String bookingDate, ConferenceRoomBooking conferenceRoomBooking,String roomCategory, String specialWishes, float pricing, int empNo, boolean isBusinessCustomer) {
+    public Booking(int bookingNo, int roomNo, TimeFrame timeFrame, DateFrame dateFrame, String bookingDate, ConferenceRoomBooking conferenceRoomBooking,String roomCategory, String specialWishes, float pricing, int empNo, IsBusinessCustomer isBusinessCustomer) {
         this.BookingNo = bookingNo;
         this.RoomNo = roomNo;
         this.timeFrame = timeFrame;
@@ -45,7 +52,8 @@ public class Booking {
         this.isBusinessCustomer = isBusinessCustomer;
     }
 
-    public Booking(int bookingNo, int roomNo,TimeFrame timeFrame, DateFrame dateFrame, String bookingDate, HotelRoomBooking hotelRoomBooking,String roomCategory ,String specialWishes, float pricing, int empNo, boolean isBusinessCustomer) {
+    public Booking(int bookingNo, int roomNo,TimeFrame timeFrame, DateFrame dateFrame, String bookingDate, HotelRoomBooking hotelRoomBooking,String roomCategory ,
+                   String specialWishes, float pricing, int empNo, IsBusinessCustomer isBusinessCustomer) {
         this.BookingNo = bookingNo;
         this.RoomNo = roomNo;
         this.timeFrame = timeFrame;
@@ -58,8 +66,8 @@ public class Booking {
         this.empNo = empNo;
         this.isBusinessCustomer = isBusinessCustomer;
     }
-    public Booking(int bookingNo, int roomNo,TimeFrame timeFrame, DateFrame dateFrame, String bookingDate,HotelRoomBooking hotelRoomBooking,
-                   ConferenceRoomBooking conferenceRoomBooking , String specialWishes, float pricing, int empNo, boolean isBusinessCustomer) {
+    public Booking (int bookingNo, int roomNo, TimeFrame timeFrame, DateFrame dateFrame, String bookingDate, HotelRoomBooking hotelRoomBooking,
+                    ConferenceRoomBooking conferenceRoomBooking , String specialWishes, float pricing, int empNo, IsBusinessCustomer isBusinessCustomer) {
 
         this();
 
@@ -99,8 +107,8 @@ public class Booking {
         return empNo;
     }
 
-    public boolean isBusinessCustomer() {
-        return isBusinessCustomer;
+    public IsBusinessCustomer isBusinessCustomer() {
+        return this.isBusinessCustomer;
     }
 
 
@@ -124,7 +132,7 @@ public class Booking {
         this.empNo = empNo;
     }
 
-    public void setBusinessCustomer(boolean businessCustomer) {
+    public void setBusinessCustomer(IsBusinessCustomer businessCustomer) {
         isBusinessCustomer = businessCustomer;
     }
 
@@ -167,8 +175,9 @@ public class Booking {
     private String specialWishes;
     private ConferenceRoomBooking conferenceRoomBooking;
     private HotelRoomBooking hotelRoomBooking;
+    private IsBusinessCustomer isBusinessCustomer;
 
-    private boolean isBusinessCustomer;
+
 
 
 
