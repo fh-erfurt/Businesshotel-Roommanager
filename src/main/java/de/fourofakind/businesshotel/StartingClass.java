@@ -5,22 +5,22 @@ import java.util.ArrayList;
 class StartingClass
 {
 
+    //"Storages"
     public static ArrayList<Booking> BookingList= new ArrayList<>();
     public static ArrayList<Room> RoomList = new ArrayList<>();
     public static ArrayList<Employee> EmployeeList= new ArrayList<>();
-
     public static ArrayList<BookingRequest> bookingRequests = new ArrayList<>();
 
 
     public static void main(String[] args)
     {
+    //ensures Lists beginning at 1 instead of 0
     BookingList.add(null); // BookingNo beginning at 1
     RoomList.add(null); //RoomNo beginning at 1
     EmployeeList.add(null); //EmployeeNo beginning at 1
 
     bookingRequests.add(null);
 
-    //Buchungen zum Listen füllen
 
     //Customer
         ContactDetails contactDetail = new ContactDetails("Olaf", "Schubert", "Olaf-Schubert-Straße", "014F", "12345", "Olafsruhe", "bundesolaf@gmail.de");
@@ -49,9 +49,9 @@ class StartingClass
       RoomList.add(TestRoom);
 
       //Example Booking including BookingList entry
-      Employee1.createBooking(1,zwoelfBisMittag,Heute,"egal","Jacuzzi",5.03f, false);
+      Employee1.createBooking(1,zwoelfBisMittag,Heute,"egal","Jacuzzi",5.03f, Booking.IsBusinessCustomer.FALSE);
       Employee1.changeBooking(1,0,null,null,
-              null,0.0f, false);
+              null,0.0f, Booking.IsBusinessCustomer.NULL);
       Employee1.deleteBooking(1);
     }
 }
