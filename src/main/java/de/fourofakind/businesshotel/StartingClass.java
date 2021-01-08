@@ -11,6 +11,11 @@ class StartingClass
     public static ArrayList<Employee> EmployeeList= new ArrayList<>();
     public static ArrayList<BookingRequest> bookingRequests = new ArrayList<>();
 
+    //Define Roles
+    public static Role GodLikeAdmin = new Role(true,true,true);
+    public static Role RoomAdministrator = new Role(true,false,false);
+    public static Role BookingsManager = new Role(false,true,false);
+    public static Role CustomerRelationshipManager = new Role(false,false,true);
 
     public static void main(String[] args)
     {
