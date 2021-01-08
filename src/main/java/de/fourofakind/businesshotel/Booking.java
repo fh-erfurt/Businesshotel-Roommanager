@@ -1,5 +1,7 @@
 package de.fourofakind.businesshotel;
 
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
 /**
  * This is our main class. Every action that is made from an employee or customer will interact with this class.
  * All information about the Bookingdetails and the Booking itself interacts with this class to.
@@ -16,6 +18,11 @@ public class Booking {
         TRUE,
         FALSE
     }
+    enum BookingType
+    {
+        ConferenceRoomBooking,
+        HotelRoomBooking,
+    }
 
     /**
      * <p>
@@ -24,13 +31,17 @@ public class Booking {
      * A detailed list of every @param can be seen on the comments of the Employee-class
      * </p>
      */
-    public Booking() {}
-    public Booking(int bookingNo, int roomNo, TimeFrame timeFrame, DateFrame dateFrame, String bookingDate, String roomCategory, String specialWishes, float pricing, int empNo, IsBusinessCustomer isBusinessCustomer) {
+
+    public Booking(int bookingNo, int roomNo, TimeFrame timeFrame, DateFrame dateFrame, BookingType bookingType , String roomCategory,
+                   String specialWishes, float pricing, int empNo, IsBusinessCustomer isBusinessCustomer, String changeDate) {
+        DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        LocalDateTime currentDateTime = LocalDateTime.now();
         this.BookingNo = bookingNo;
         this.RoomNo = roomNo;
         this.timeFrame = timeFrame;
         this.dateFrame = dateFrame;
-        this.bookingDate = bookingDate;
+        this.bookingDate = dateTimeFormat.format(currentDateTime);
+        this.bookingType = bookingType;
         this.roomCategory = roomCategory;
         this.specialWishes = specialWishes;
         this.pricing = pricing;
@@ -38,44 +49,12 @@ public class Booking {
         this.isBusinessCustomer = isBusinessCustomer;
     }
 
-    public Booking(int bookingNo, int roomNo, TimeFrame timeFrame, DateFrame dateFrame, String bookingDate, ConferenceRoomBooking conferenceRoomBooking,String roomCategory, String specialWishes, float pricing, int empNo, IsBusinessCustomer isBusinessCustomer) {
-        this.BookingNo = bookingNo;
-        this.RoomNo = roomNo;
-        this.timeFrame = timeFrame;
-        this.dateFrame = dateFrame;
-        this.bookingDate = bookingDate;
-        this.conferenceRoomBooking = conferenceRoomBooking;
-        this.roomCategory = roomCategory;
-        this.specialWishes = specialWishes;
-        this.pricing = pricing;
-        this.empNo = empNo;
-        this.isBusinessCustomer = isBusinessCustomer;
-    }
+//Konstruktor call other constructor
 
-    public Booking(int bookingNo, int roomNo,TimeFrame timeFrame, DateFrame dateFrame, String bookingDate, HotelRoomBooking hotelRoomBooking,String roomCategory ,
-                   String specialWishes, float pricing, int empNo, IsBusinessCustomer isBusinessCustomer) {
-        this.BookingNo = bookingNo;
-        this.RoomNo = roomNo;
-        this.timeFrame = timeFrame;
-        this.dateFrame = dateFrame;
-        this.roomCategory = roomCategory;
-        this.bookingDate = bookingDate;
-        this.hotelRoomBooking = hotelRoomBooking;
-        this.specialWishes = specialWishes;
-        this.pricing = pricing;
-        this.empNo = empNo;
-        this.isBusinessCustomer = isBusinessCustomer;
-    }
-    public Booking (int bookingNo, int roomNo, TimeFrame timeFrame, DateFrame dateFrame, String bookingDate, HotelRoomBooking hotelRoomBooking,
-                    ConferenceRoomBooking conferenceRoomBooking , String specialWishes, float pricing, int empNo, IsBusinessCustomer isBusinessCustomer) {
 
-        this();
 
-    }
 
-    public Booking(TimeFrame timeFrame, DateFrame dateFrame, String bookingDate, ConferenceRoomBooking conferenceRoomBooking,
-                   String roomCategory, String specialWishes, float pricing, int empNo, boolean isBusinessCustomer) {
-    }
+
 
 
     public TimeFrame getTimeFrame()
@@ -176,7 +155,7 @@ public class Booking {
     private ConferenceRoomBooking conferenceRoomBooking;
     private HotelRoomBooking hotelRoomBooking;
     private IsBusinessCustomer isBusinessCustomer;
-
+    private BookingType bookingType;
 
 
 

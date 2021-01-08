@@ -10,10 +10,6 @@ public class HotelRoomBooking extends Booking{
         super(bookingNo, roomNo, timeFrame, dateFrame, bookingDate, hotelRoomBooking, roomCategory, specialWishes, pricing, empNo, isBusinessCustomer);
     }
 
-    public HotelRoomBooking(int bookingNo, int roomNo, TimeFrame timeFrame, DateFrame dateFrame, String bookingDate, HotelRoomBooking hotelRoomBooking,
-                            ConferenceRoomBooking conferenceRoomBooking, String specialWishes, float pricing, int empNo, IsBusinessCustomer isBusinessCustomer) {
-        super(bookingNo, roomNo, timeFrame, dateFrame, bookingDate, hotelRoomBooking, conferenceRoomBooking, specialWishes, pricing, empNo, isBusinessCustomer);
-    }
     /**
      * Later on, here will be a method that calculates the price for the conference room, this is done by taking the hours
      * the room is being booked multiplied by the price per hour. Maybe some special stuff like a beamer or else will be added
