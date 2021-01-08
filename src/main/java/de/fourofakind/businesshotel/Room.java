@@ -1,6 +1,6 @@
 package de.fourofakind.businesshotel;
 
-public class Room {
+public class Room { //TODO: Room abstract deklarieren (nur spezialisierte Raumarten sind erlaubt)
     /**
      * <p>
      * The class room holds all vital information of the rooms, its size, its category and roomnumber,
@@ -8,7 +8,7 @@ public class Room {
      * </p>
      */
 
-    public Room(int roomNo, String category, int areaInSqrMetre) { //sollte nicht benutzt werden, Konstruktoren der Subklassen benutzen!!
+    public Room(int roomNo, String category, int areaInSqrMetre) {
         this.category = category;
         this.areaInSqrMetre = areaInSqrMetre;
         this.roomNo = roomNo;
@@ -47,11 +47,8 @@ public class Room {
     }
 
     private int roomNo;
-    private String category;
+    private String category; //TODO: Datentyp von String zu Enum mit Werten aus der Projektbeschreibung umwandeln
     private int areaInSqrMetre;
-
-
-  
     private boolean isUsed;
 
 
