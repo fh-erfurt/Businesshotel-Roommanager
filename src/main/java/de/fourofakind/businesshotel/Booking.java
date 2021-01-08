@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 
 
 
-public class Booking {
+public abstract class Booking {
 
     enum IsBusinessCustomer
     {
