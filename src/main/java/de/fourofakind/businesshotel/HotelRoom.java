@@ -2,11 +2,13 @@ package de.fourofakind.businesshotel;
 
 public class HotelRoom extends Room{
 
-    public HotelRoom(Category category, int areaInSqrMetre, int roomNo) {
-        super(category, areaInSqrMetre, roomNo);
+    public HotelRoom (int roomNo, String category, int areaInSqrMetre, int bedCount)
+    {
+        super(roomNo, category, areaInSqrMetre);
+        this.bedCount = bedCount;
     }
 
-    public int getBedCount() {
+    public int getBedCount () {
         return bedCount;
     }
 

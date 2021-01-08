@@ -8,7 +8,7 @@ public class Room {
      * </p>
      */
 
-    public Room(int roomNo, String category, int areaInSqrMetre) {
+    public Room(int roomNo, String category, int areaInSqrMetre) { //sollte nicht benutzt werden, Konstruktoren der Subklassen benutzen!!
         this.category = category;
         this.areaInSqrMetre = areaInSqrMetre;
         this.roomNo = roomNo;
