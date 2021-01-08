@@ -58,10 +58,10 @@ public class Employee
         if(this.givenRole.isEnabledToManageBookings()==true) //checks for Rights to manage Bookings
         {
             LocalDateTime currentDateTime = LocalDateTime.now();
+            int bookingNo = BookingList.size();if (bookingType= Booking.BookingType.HotelRoomBooking)  Booking createdBooking = new HotelRoomBooking(bookingNo, roomNo,
+                timeFrame, dateFrame, bookingType, roomCategory, specialWishes, pricing, this.getEmpNo(),isBusinessCustomer);
 
-            String bookingDate = dateTimeFormat.format(currentDateTime);
-            int bookingNo = (BookingList.size() - 1);   // the counting in arraylist begins at 0, so the last element has bookingNo 19, although
-                                                        // there are 20 elements --> therefore decreased by 1
+
             Booking createdBooking = new Booking(bookingNo, roomNo, timeFrame, dateFrame, bookingType, roomCategory, specialWishes, pricing, this.getEmpNo(),
                 isBusinessCustomer);
             //RoomList.get(roomNo).setUsed(true);
@@ -172,8 +172,44 @@ public class Employee
         }
     }
 
+    public Booking findBooking ()
+    {
+        //TODO:
+        //switch cases für verschiedene gegebene parameter
+        //
+        return null;
+    }
 
+    public void showAllBookings()
+    {
+        //TODO:
+        //Ausgabe aller EInträge der BookingList
+    }
 
+    public void manageBookingRequests()
+    {
+        //TODO:
+        //annahme oder ablehnung von buchungsanfragen und entsprechend löschen der request und ggf anlegen einer buchung
+        //--> möglicherweise momentan zufallsbasiert
+    }
+
+    public void createCustomer()
+    {
+        //TODO
+        //Berechtigung hinzufügen, Methoden hinzufügen
+    }
+
+    public void changeCustomer()
+    {
+        //TODO
+        //Berechtigung hinzufügen, Methoden hinzufügen
+    }
+
+    public void deleteCustomer()
+    {
+        //TODO
+        //Berechtigung hinzufügen, Methoden hinzufügen
+    }
 
     //TODO
     //Rollen in Tests zuweisen, Berechtigungen über rollen abfragen

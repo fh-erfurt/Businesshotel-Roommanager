@@ -52,9 +52,10 @@ public class EmployeeTestClass
         RoomList.add(null); //RoomList beginning at 1
         RoomList.add(TestRoom);
         Employee MaxMustermann = new Employee("Max Mustermann");
+        MaxMustermann.setGivenRole(BookingsManager);
 
         Booking resultBooking= MaxMustermann.createBooking(1,zwoelfBisMittag,Heute, Booking.BookingType.HotelRoomBooking,"egal","Jacuzzi",5.03f,
-                Booking.IsBusinessCustomer.FALSE,);
+                Booking.IsBusinessCustomer.FALSE);
 
 
 
