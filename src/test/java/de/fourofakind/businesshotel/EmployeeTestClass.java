@@ -87,8 +87,9 @@ public class EmployeeTestClass
         RoomList.add(TestRoom);
         BookingList.add(null); //BookingList beginning at 1
         Employee MaxMustermann = new Employee("Max Mustermann");
+        MaxMustermann.setGivenRole(BookingsManager);
 
-        Booking testBooking= MaxMustermann.createBooking(1,zwoelfBisMittag,Heute,"egal","Jacuzzi",5.03f, Booking.IsBusinessCustomer.FALSE);
+        Booking testBooking= MaxMustermann.createBooking(1,zwoelfBisMittag,Heute, Booking.BookingType.HotelRoomBooking,"egal","Jacuzzi",5.03f, Booking.IsBusinessCustomer.FALSE);
         BookingList.add(testBooking);
 
 
@@ -139,8 +140,9 @@ public class EmployeeTestClass
         RoomList.add(TestRoom);
         BookingList.add(null); //BookingList beginning at 1
         Employee MaxMustermann = new Employee("Max Mustermann");
+        MaxMustermann.setGivenRole(BookingsManager);
 
-        Booking testBooking= MaxMustermann.createBooking(1,zwoelfBisMittag,Heute,"egal","Jacuzzi",5.03f, Booking.IsBusinessCustomer.FALSE);
+        Booking testBooking= MaxMustermann.createBooking(1,zwoelfBisMittag,Heute, Booking.BookingType.HotelRoomBooking,"egal","Jacuzzi",5.03f, Booking.IsBusinessCustomer.FALSE);
         BookingList.add(testBooking);
 
 
@@ -148,11 +150,11 @@ public class EmployeeTestClass
         //When
 
         //Before Deletion
-        String bookingListBeforeDeletion = ""; //is filled with all Bookings of BookingList before Booking No1 is deleted
+        StringBuilder bookingListBeforeDeletion = new StringBuilder(); //is filled with all Bookings of BookingList before Booking No1 is deleted
         for (Booking booking : BookingList)
         {
-            if (booking==null)bookingListBeforeDeletion +="Dummy";
-            else bookingListBeforeDeletion += booking.toString();
+            if (booking==null) bookingListBeforeDeletion.append("Dummy");
+            else bookingListBeforeDeletion.append(booking.toString());
         }
 
         //Actual Deletion
@@ -160,15 +162,15 @@ public class EmployeeTestClass
 
 
         //After Deletion
-        String bookingListAfterDeletion = ""; //is filled with all Bookings of BookingList after Booking No1 is deleted
+        StringBuilder bookingListAfterDeletion = new StringBuilder(); //is filled with all Bookings of BookingList after Booking No1 is deleted
         for (Booking booking : BookingList)
         {
-            if (booking==null)bookingListAfterDeletion +="Dummy";
-            else bookingListAfterDeletion += booking.toString();
+            if (booking==null) bookingListAfterDeletion.append("Dummy");
+            else bookingListAfterDeletion.append(booking.toString());
         }
 
         //Then
 
-        assertNotEquals(bookingListBeforeDeletion,bookingListAfterDeletion,"If the Booking No 1 is deleted, only the null booking should be left.");
+        assertNotEquals(bookingListBeforeDeletion.toString(), bookingListAfterDeletion.toString(),"If the Booking No 1 is deleted, only the null booking should be left.");
     }
 }
