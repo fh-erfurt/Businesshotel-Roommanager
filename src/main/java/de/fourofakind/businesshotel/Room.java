@@ -8,18 +8,18 @@ public class Room {
      * </p>
      */
 
-    public Room(Category category, int areaInSqrMetre, int roomNo) {
-        Category = category;
+    public Room(int roomNo, String category, int areaInSqrMetre) {
+        this.category = category;
         this.areaInSqrMetre = areaInSqrMetre;
         this.roomNo = roomNo;
     }
 
-    public Category getCategory() {
-        return Category;
+    public String getCategory() {
+        return category;
     }
 
-    public void setCategory(Category category) {
-        Category = category;
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public int getAreaInSqrMetre() {
@@ -46,10 +46,10 @@ public class Room {
         isUsed = used;
     }
 
-    private Category Category;
-
-    private int areaInSqrMetre;
     private int roomNo;
+    private String category;
+    private int areaInSqrMetre;
+
 
   
     private boolean isUsed;

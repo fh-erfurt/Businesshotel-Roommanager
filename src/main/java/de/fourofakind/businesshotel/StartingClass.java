@@ -43,8 +43,7 @@ class StartingClass
       //Example TimeFrame & DateFrame
       TimeFrame zwoelfBisMittag= new TimeFrame("zwölf","mittag");
       DateFrame Heute=new DateFrame("Heute","Heute");
-      Category Suite= new Category();
-      Room TestRoom = new Room(Suite,20,1);
+      Room TestRoom = new Room(1,"Suite",20);
 
       RoomList.add(TestRoom);
 
