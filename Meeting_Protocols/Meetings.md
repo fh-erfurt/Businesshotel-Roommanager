@@ -184,3 +184,30 @@ Teilnehmer: Martin, Niklas, Thomas, Marius
 
 
 ```
+
+```
+06.01.2021 11:00 Uhr Platform: Webex
+Teilnehmer: Martin, Niklas, Thomas, Marius
+
+1. Absprache über offene Aufgaben 
+
+   Alle:
+        Testklassen für Konstruktoren und nicht triviale Methoden aus der erstellten Klasse erstellen->fortsetzen!
+        Instanzen entwerfen in der StartingClass um Gesamtfunktion testen zu können->ergänzen!
+   Thomas
+        Meeting Protokoll hochladen
+	Booking-Methode changeDatetime() implementieren d.h. auch Attribute hinzufügen und erstmal "null" setzen
+	Booking Überarbeiten -> Buchungen aufteilen nicht beide Fällen abdecken wollen.
+   Martin:
+   	Klasse Room erweitern
+	Testfälle erstellen -> Niklas zuarbeiten für Erstellung
+   Niklas:
+   	changeRoom/createRoom Methode für den Employee
+	Variable zur Überprüfung der Rechte eines Employees
+	
+	
+Fragen an Hr. Hecht:
+	@BeforeEach: Wie lege ich sinnvolle Setup Methoden, die ich dann in jedem nachfolgenden Test nutzen kann?
+	Wichtig für Testunterteilung bei createBooking etc.
+
+```
