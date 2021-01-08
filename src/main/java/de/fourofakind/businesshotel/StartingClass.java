@@ -53,7 +53,7 @@ class StartingClass
       RoomList.add(TestRoom);
 
       //Example Booking including BookingList entry
-      Employee1.createBooking(1,zwoelfBisMittag,Heute,"egal","Jacuzzi",5.03f, Booking.IsBusinessCustomer.FALSE);
+      Employee1.createBooking(1,zwoelfBisMittag,Heute, Booking.BookingType.HotelRoomBooking,"egal","Jacuzzi",5.03f, Booking.IsBusinessCustomer.FALSE);
       Employee1.changeBooking(1,0,null,null,
               null,0.0f, Booking.IsBusinessCustomer.NULL);
       Employee1.deleteBooking(1);
