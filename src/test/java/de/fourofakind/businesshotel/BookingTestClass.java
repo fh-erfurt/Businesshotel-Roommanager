@@ -35,9 +35,10 @@ public void setUp(){
         DateFrame date = new DateFrame("10.12.2020","10.12.2020");
 
         //Booking newBooking = new Booking();
-        Booking createdBooking = new Booking(4,BigSuite.getRoomNo(), coffeeMeeting,date,BigSuite.getCategory(),"Luxury",180.05f,400,
+        Booking createdBooking = new ConferenceRoomBooking(4,BigSuite.getRoomNo(), coffeeMeeting,date,BigSuite.getCategory(),"Luxury",180.05f,400,
                 Booking.IsBusinessCustomer.TRUE);
-        Booking testBooking = new Booking(4,SmallSuite.getRoomNo(),coffeeMeeting,date, SmallSuite.getCategory(), "wakeup call every 6 AM",160.5f,110,Booking.IsBusinessCustomer.FALSE);
+        Booking testBooking = new HotelRoomBooking(4,SmallSuite.getRoomNo(),coffeeMeeting,date, SmallSuite.getCategory(), "wakeup call every 6 AM",
+                160.5f,110,Booking.IsBusinessCustomer.FALSE);
 
             //Die Klasse Room gibt keinen String als Antwort auf GetCategory() (eigentlich sollte SmallSuite.getCategory() den String liefern,
             //  da muss noch erweitert werden. bzw. gekürzt, daher die Übergabe eines String von Hand!!!!
@@ -62,7 +63,7 @@ public void setUp(){
 
 
         assertEquals(4,bookingNumber,"If the BookingNo of the createdBooking equals the given Number it should pass!");
-        assertEquals(17,roomNumber,"If the BookingNo of the createdBooking equals the given Number it should pass!");
+        assertEquals(10,roomNumber,"If the BookingNo of the createdBooking equals the given Number it should pass!");
 
 
 
