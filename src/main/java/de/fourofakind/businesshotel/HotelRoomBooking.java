@@ -1,10 +1,10 @@
 package de.fourofakind.businesshotel;
 
 public class HotelRoomBooking extends Booking{
-    public HotelRoomBooking (int bookingNo, int roomNo, TimeFrame timeFrame, DateFrame dateFrame, BookingType bookingType, String roomCategory,
-                             String specialWishes, float pricing, int empNo, IsBusinessCustomer isBusinessCustomer)
+    public HotelRoomBooking (int bookingNo, int roomNo, TimeFrame timeFrame, DateFrame dateFrame, String roomCategory, String specialWishes,
+                             float pricing, int empNo, IsBusinessCustomer isBusinessCustomer)
     {
-        super(bookingNo, roomNo, timeFrame, dateFrame, bookingType, roomCategory, specialWishes, pricing, empNo, isBusinessCustomer);
+        super(bookingNo, roomNo, timeFrame, dateFrame, roomCategory, specialWishes, pricing, empNo, isBusinessCustomer);
     }
 
     /**

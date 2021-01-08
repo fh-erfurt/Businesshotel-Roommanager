@@ -24,9 +24,9 @@ public void setUp(){
         setUp();
         ArrayList<Booking> BookingList= new ArrayList<>();
         ArrayList<Room> RoomList = new ArrayList<>();
-        Category Suite = new Category();
-        Room SmallSuite = new Room (Suite,25,17);
-        Room BigSuite = new Room (Suite, 30,5);
+
+        Room SmallSuite = new Room (20,"Suite",17);
+        Room BigSuite = new Room (10, "Suite",5);
         RoomList.add(SmallSuite);
         RoomList.add(BigSuite);
 
@@ -35,8 +35,9 @@ public void setUp(){
         DateFrame date = new DateFrame("10.12.2020","10.12.2020");
 
         //Booking newBooking = new Booking();
-        Booking createdBooking = new Booking(4,SmallSuite.getRoomNo(), coffeeMeeting,date,"heute","Luxury","Sauna/Spa",160.50f,110, Booking.IsBusinessCustomer.FALSE);
-
+        Booking createdBooking = new Booking(4,BigSuite.getRoomNo(), coffeeMeeting,date,BigSuite.getCategory(),"Luxury",180.05f,400,
+                Booking.IsBusinessCustomer.TRUE);
+        Booking testBooking = new Booking(4,SmallSuite.getRoomNo(),coffeeMeeting,date, SmallSuite.getCategory(), "wakeup call every 6 AM",160.5f,110,Booking.IsBusinessCustomer.FALSE);
 
             //Die Klasse Room gibt keinen String als Antwort auf GetCategory() (eigentlich sollte SmallSuite.getCategory() den String liefern,
             //  da muss noch erweitert werden. bzw. gekürzt, daher die Übergabe eines String von Hand!!!!
