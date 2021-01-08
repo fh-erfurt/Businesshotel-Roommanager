@@ -58,13 +58,22 @@ public class Employee
         if(this.givenRole.isEnabledToManageBookings()==true) //checks for Rights to manage Bookings
         {
             LocalDateTime currentDateTime = LocalDateTime.now();
-            int bookingNo = BookingList.size();if (bookingType= Booking.BookingType.HotelRoomBooking)  Booking createdBooking = new HotelRoomBooking(bookingNo, roomNo,
-                timeFrame, dateFrame, bookingType, roomCategory, specialWishes, pricing, this.getEmpNo(),isBusinessCustomer);
+            int bookingNo = BookingList.size();
 
+            Booking createdBooking=null;
 
-            Booking createdBooking = new Booking(bookingNo, roomNo, timeFrame, dateFrame, bookingType, roomCategory, specialWishes, pricing, this.getEmpNo(),
-                isBusinessCustomer);
-            //RoomList.get(roomNo).setUsed(true);
+            if (bookingType== Booking.BookingType.HotelRoomBooking)
+            {
+                createdBooking = new HotelRoomBooking(bookingNo, roomNo, timeFrame, dateFrame, roomCategory, specialWishes, pricing, this.getEmpNo(),
+                        isBusinessCustomer);
+            }
+            if (bookingType== Booking.BookingType.ConferenceRoomBooking)
+            {
+                createdBooking = new ConferenceRoomBooking(bookingNo, roomNo, timeFrame, dateFrame, roomCategory, specialWishes, pricing, this.getEmpNo(),
+                        isBusinessCustomer);
+            }
+
+            RoomList.get(roomNo).setUsed(true);
             BookingList.add(createdBooking);
             return createdBooking;
         }
@@ -180,34 +189,47 @@ public class Employee
         return null;
     }
 
-    public void showAllBookings()
+    public StringBuilder showAllBookings()
     {
         //TODO:
-        //Ausgabe aller EInträge der BookingList
+        //Ausgabe aller Einträge der BookingList
+
+        StringBuilder allBookings= new StringBuilder();
+
+        for (Booking bookingEntry: BookingList)
+        {
+            allBookings.append(bookingEntry);
+        };
+
+        return allBookings;
     }
 
     public void manageBookingRequests()
     {
-        //TODO:
-        //annahme oder ablehnung von buchungsanfragen und entsprechend löschen der request und ggf anlegen einer buchung
-        //--> möglicherweise momentan zufallsbasiert
+
+        for (BookingRequest bookingRequest: bookingRequests)
+        {
+            //TODO:
+            //annahme oder ablehnung von buchungsanfragen und entsprechend löschen der request und ggf anlegen einer buchung
+            //--> möglicherweise momentan zufallsbasiert
+        }
     }
 
     public void createCustomer()
     {
-        //TODO
+        //TODO: @kalyphenking
         //Berechtigung hinzufügen, Methoden hinzufügen
     }
 
     public void changeCustomer()
     {
-        //TODO
+        //TODO: @kalyphenking
         //Berechtigung hinzufügen, Methoden hinzufügen
     }
 
     public void deleteCustomer()
     {
-        //TODO
+        //TODO: @kalyphenking
         //Berechtigung hinzufügen, Methoden hinzufügen
     }
 
