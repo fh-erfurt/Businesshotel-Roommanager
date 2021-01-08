@@ -2,8 +2,6 @@ package de.fourofakind.businesshotel;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-
 import static org.junit.jupiter.api.Assertions.*;
 import static de.fourofakind.businesshotel.StartingClass.*;
 
@@ -131,5 +129,45 @@ public class EmployeeTestClass
         assertNotEquals(resultBeforeChanges,resultAfterChanges,"If the Booking is changed according to the parameters given, specialWishes should be changed to Premium" +
                 " Internet.");
     }
+    @Test
+    public void shouldDeleteBookingIfSuccesful()
+    {
+        //Given
 
+        RoomList.add(null); //RoomList beginning at 1
+        RoomList.add(TestRoom);
+        BookingList.add(null); //BookingList beginning at 1
+        Employee MaxMustermann = new Employee("Max Mustermann");
+
+        Booking testBooking= MaxMustermann.createBooking(1,zwoelfBisMittag,Heute,"egal","Jacuzzi",5.03f, Booking.IsBusinessCustomer.FALSE);
+        BookingList.add(testBooking);
+
+
+
+        //When
+
+        //Before Deletion
+        String bookingListBeforeDeletion = ""; //is filled with all Bookings of BookingList before Booking No1 is deleted
+        for (Booking booking : BookingList)
+        {
+            if (booking==null)bookingListBeforeDeletion +="Dummy";
+            else bookingListBeforeDeletion += booking.toString();
+        }
+
+        //Actual Deletion
+        MaxMustermann.deleteBooking(1);
+
+
+        //After Deletion
+        String bookingListAfterDeletion = ""; //is filled with all Bookings of BookingList after Booking No1 is deleted
+        for (Booking booking : BookingList)
+        {
+            if (booking==null)bookingListAfterDeletion +="Dummy";
+            else bookingListAfterDeletion += booking.toString();
+        }
+
+        //Then
+
+        assertNotEquals(bookingListBeforeDeletion,bookingListAfterDeletion,"If the Booking No 1 is deleted, only the null booking should be left.");
+    }
 }

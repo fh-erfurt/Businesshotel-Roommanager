@@ -118,6 +118,10 @@ public class Employee
 
     }
 
+    //TODO
+    //CreateRoom + DeleteRoom anlegen
+    //administrativen Rang als attribut hinzufügen? (Berechtigungsabstufung, vorerst als bool)
+
     public int getEmpNo ()
     {
         return empNo;
