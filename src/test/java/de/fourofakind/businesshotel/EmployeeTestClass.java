@@ -10,8 +10,7 @@ public class EmployeeTestClass
 
     TimeFrame zwoelfBisMittag= new TimeFrame("zwölf","mittag");
     DateFrame Heute=new DateFrame("Heute","Heute");
-    Category Suite= new Category();
-    Room TestRoom = new Room(Suite,20,1);
+    Room TestRoom = new Room(1,"Suite",20);
 
 
 
@@ -54,7 +53,8 @@ public class EmployeeTestClass
         RoomList.add(TestRoom);
         Employee MaxMustermann = new Employee("Max Mustermann");
 
-        Booking resultBooking= MaxMustermann.createBooking(1,zwoelfBisMittag,Heute,"egal","Jacuzzi",5.03f, Booking.IsBusinessCustomer.FALSE);
+        Booking resultBooking= MaxMustermann.createBooking(1,zwoelfBisMittag,Heute, Booking.BookingType.HotelRoomBooking,"egal","Jacuzzi",5.03f,
+                Booking.IsBusinessCustomer.FALSE,);
 
 
 
