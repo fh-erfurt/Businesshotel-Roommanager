@@ -200,9 +200,11 @@ public class Employee
         {
             Booking wantedBooking=null;
             int indexOfBookingList=0;
-            while (wantedBooking.getRoomNo()!=RoomNo)
+            while (wantedBooking.getRoomNo()!=RoomNo && indexOfBookingList!=BookingList.size())
             {
+
                 wantedBooking=BookingList.get(indexOfBookingList);
+                indexOfBookingList++;
             }
             searchResults.add(BookingList.get(indexOfBookingList));
         }
@@ -211,9 +213,10 @@ public class Employee
         {
             Booking wantedBooking=null;
             int indexOfBookingList=0;
-            while (wantedBooking.getEmpNo()!=empNo)
+            while (wantedBooking.getEmpNo()!=empNo && indexOfBookingList!=BookingList.size())
             {
                 wantedBooking=BookingList.get(indexOfBookingList);
+                indexOfBookingList++;
             }
             searchResults.add(BookingList.get(indexOfBookingList));
         }
@@ -222,9 +225,10 @@ public class Employee
         {
             Booking wantedBooking=null;
             int indexOfBookingList=0;
-            while (wantedBooking.getDateFrame()!=dateFrame)
+            while (wantedBooking.getDateFrame()!=dateFrame && indexOfBookingList!=BookingList.size())
             {
                 wantedBooking=BookingList.get(indexOfBookingList);
+                indexOfBookingList++;
             }
             searchResults.add(BookingList.get(indexOfBookingList));
         }
@@ -233,9 +237,10 @@ public class Employee
         {
             Booking wantedBooking=null;
             int indexOfBookingList=0;
-            while (wantedBooking.getTimeFrame()!=timeFrame)
+            while (wantedBooking.getTimeFrame()!=timeFrame && indexOfBookingList!=BookingList.size())
             {
                 wantedBooking=BookingList.get(indexOfBookingList);
+                indexOfBookingList++;
             }
             searchResults.add(BookingList.get(indexOfBookingList));
         }
@@ -244,9 +249,10 @@ public class Employee
         {
             Booking wantedBooking=null;
             int indexOfBookingList=0;
-            while (wantedBooking.getBookingDate()!=bookingDate)
+            while (wantedBooking.getBookingDate()!=bookingDate && indexOfBookingList!=BookingList.size())
             {
                 wantedBooking=BookingList.get(indexOfBookingList);
+                indexOfBookingList++;
             }
             searchResults.add(BookingList.get(indexOfBookingList));
         }
@@ -255,9 +261,10 @@ public class Employee
         {
             Booking wantedBooking=null;
             int indexOfBookingList=0;
-            while (wantedBooking.getRoomCategory()!=roomCategory)
+            while (wantedBooking.getRoomCategory()!=roomCategory && indexOfBookingList!=BookingList.size())
             {
                 wantedBooking=BookingList.get(indexOfBookingList);
+                indexOfBookingList++;
             }
             searchResults.add(BookingList.get(indexOfBookingList));
         }
@@ -266,9 +273,10 @@ public class Employee
         {
             Booking wantedBooking=null;
             int indexOfBookingList=0;
-            while (wantedBooking.getSpecialWishes()!=specialWishes)
+            while (wantedBooking.getSpecialWishes()!=specialWishes && indexOfBookingList!=BookingList.size())
             {
                 wantedBooking=BookingList.get(indexOfBookingList);
+                indexOfBookingList++;
             }
             searchResults.add(BookingList.get(indexOfBookingList));
         }
@@ -277,9 +285,10 @@ public class Employee
         {
             Booking wantedBooking=null;
             int indexOfBookingList=0;
-            while (wantedBooking.isBusinessCustomer()!=isBusinessCustomer)
+            while (wantedBooking.isBusinessCustomer()!=isBusinessCustomer && indexOfBookingList!=BookingList.size())
             {
                 wantedBooking=BookingList.get(indexOfBookingList);
+                indexOfBookingList++;
             }
             searchResults.add(BookingList.get(indexOfBookingList));
         }
