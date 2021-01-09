@@ -151,10 +151,9 @@ public abstract class Booking {
     private String bookingDate;
     private String roomCategory;
     private String specialWishes;
-    private ConferenceRoomBooking conferenceRoomBooking;
-    private HotelRoomBooking hotelRoomBooking;
+
     private IsBusinessCustomer isBusinessCustomer;
-    private BookingType bookingType;
+
 
 
 
