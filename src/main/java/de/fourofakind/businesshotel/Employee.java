@@ -15,7 +15,7 @@ public class Employee
 {
     DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
     LocalDateTime currentDateTime = LocalDateTime.now();    //simple implementation of the current datetime, won't be present when working with a
-                                                            // database
+    // database
 
     public Employee (String empName) //Employee without any Rights
     {
@@ -53,27 +53,25 @@ public class Employee
      *                           will be generated when creating a booking by the corresponding getPricing method of the Booking class
      * @param isBusinessCustomer marks the booking to be requested by a business customer or for personal use;
      *                           important for generation of bills and taxes to be used
-     * @return                   returns the Booking created just now
+     * @return returns the Booking created just now
      */
-    public Booking createBooking (int roomNo, TimeFrame timeFrame, DateFrame dateFrame, Booking.BookingType bookingType, String roomCategory, String specialWishes, float pricing,
-                                  Booking.IsBusinessCustomer isBusinessCustomer)
+    public Booking createBooking (int roomNo, TimeFrame timeFrame, DateFrame dateFrame, Booking.BookingType bookingType, String roomCategory, String specialWishes,
+                                  float pricing, Booking.IsBusinessCustomer isBusinessCustomer)
     {
-        if(this.givenRole.isEnabledToManageBookings()==true) //checks for Rights to manage Bookings
+        if (this.getGivenRole().isEnabledToManageBookings()) //checks for Rights to manage Bookings
         {
             LocalDateTime currentDateTime = LocalDateTime.now();
             int bookingNo = BookingList.size();
 
-            Booking createdBooking=null;
+            Booking createdBooking = null;
 
-            if (bookingType== Booking.BookingType.HotelRoomBooking)
+            if (bookingType == Booking.BookingType.HotelRoomBooking)
             {
-                createdBooking = new HotelRoomBooking(bookingNo, roomNo, timeFrame, dateFrame, roomCategory, specialWishes, pricing, this.getEmpNo(),
-                        isBusinessCustomer);
+                createdBooking = new HotelRoomBooking(bookingNo, roomNo, timeFrame, dateFrame, roomCategory, specialWishes, pricing, this.getEmpNo(), isBusinessCustomer);
             }
-            if (bookingType== Booking.BookingType.ConferenceRoomBooking)
+            if (bookingType == Booking.BookingType.ConferenceRoomBooking)
             {
-                createdBooking = new ConferenceRoomBooking(bookingNo, roomNo, timeFrame, dateFrame, roomCategory, specialWishes, pricing, this.getEmpNo(),
-                        isBusinessCustomer);
+                createdBooking = new ConferenceRoomBooking(bookingNo, roomNo, timeFrame, dateFrame, roomCategory, specialWishes, pricing, this.getEmpNo(), isBusinessCustomer);
             }
 
             RoomList.get(roomNo).setUsed(true);
@@ -105,7 +103,7 @@ public class Employee
     public void changeBooking (int bookingNo, int roomNo, TimeFrame timeFrame, DateFrame dateFrame, String specialWishes, float pricing,
                                Booking.IsBusinessCustomer isBusinessCustomer)
     {
-        if(this.givenRole.isEnabledToManageBookings()==true) //checks for Rights to manage Bookings
+        if (this.getGivenRole().isEnabledToManageBookings()) //checks for Rights to manage Bookings
         {
             Booking toBeChangedBooking = BookingList.get(bookingNo); //"loads" the to be changed Booking into the function to work with the object
             if (roomNo != 0) toBeChangedBooking.setRoomNo(roomNo);
@@ -127,7 +125,7 @@ public class Employee
      */
     public void deleteBooking (int bookingNo)
     {
-        if(this.givenRole.isEnabledToManageBookings()==true) //checks for Rights to manage Bookings
+        if (this.getGivenRole().isEnabledToManageBookings()) //checks for Rights to manage Bookings
         {
             int roomNumberOfRoomToBeFree = BookingList.get(bookingNo).getRoomNo();
             Room roomToBeFree = RoomList.get(roomNumberOfRoomToBeFree);
@@ -146,7 +144,7 @@ public class Employee
      */
     public void changeRoomDetails (int roomNo, String category, int areaInSqrMetre)
     {
-        if(this.givenRole.isEnabledToManageRooms()==true) //checks for Rights to manage Rooms
+        if (this.getGivenRole().isEnabledToManageRooms()) //checks for Rights to manage Rooms
         {
             Room toBeChangedRoom = RoomList.get(roomNo);
             if (category != null) toBeChangedRoom.setCategory(category);
@@ -157,13 +155,14 @@ public class Employee
     /**
      * <p>Implementation of the Employee's ability to create a room. Creates a new room according to the given details and adds it to the roomList.
      * Role RoomAdministrator is needed.</p>
+     *
      * @param roomNo
      * @param category
      * @param areaInSqrMetre
      */
-    public void createRoom ( int roomNo, String category, int areaInSqrMetre)
+    public void createRoom (int roomNo, String category, int areaInSqrMetre)
     {
-        if(this.givenRole.isEnabledToManageRooms()==true) //checks for Rights to manage Rooms
+        if (this.getGivenRole().isEnabledToManageRooms()) //checks for Rights to manage Rooms
         {
             Room newRoom = new Room(roomNo, category, areaInSqrMetre);
             RoomList.add(newRoom);
@@ -174,43 +173,140 @@ public class Employee
      * <p>Implementation of the Employee's ability to delete a room entirely. Ensures that unsuable rooms are deleted from the RoomList and can not be used for
      * bookings. Reasons could be a fusion of two or multiple rooms or the purpose of a room has changed entirely.
      * Role RoomAdministrator is needed.</p>
+     *
      * @param roomNo
      */
-    public void deleteRoom ( int roomNo)
+    public void deleteRoom (int roomNo)
     {
-        if(this.givenRole.isEnabledToManageRooms()==true) //checks for Rights to manage Rooms
+        if (this.getGivenRole().isEnabledToManageRooms()) //checks for Rights to manage Rooms
         {
             RoomList.set(roomNo, null);
         }
     }
 
-    public Booking findBooking ()
+    public ArrayList<Booking> findBooking (int BookingNo, int RoomNo, int empNo, DateFrame dateFrame, TimeFrame timeFrame, String bookingDate, String roomCategory,
+                                String specialWishes, Booking.IsBusinessCustomer isBusinessCustomer)
     {
-        //TODO:
-        //switch cases für verschiedene gegebene parameter
-        //
-        return null;
+
+        ArrayList<Booking> searchResults = new ArrayList<>();
+
+        if (BookingNo!=0)
+        {
+            searchResults.add(BookingList.get(BookingNo));
+            return searchResults;
+        }
+
+        if (RoomNo!=0)
+        {
+            Booking wantedBooking=null;
+            int indexOfBookingList=0;
+            while (wantedBooking.getRoomNo()!=RoomNo)
+            {
+                wantedBooking=BookingList.get(indexOfBookingList);
+            }
+            searchResults.add(BookingList.get(indexOfBookingList));
+        }
+
+        if (empNo!=0)
+        {
+            Booking wantedBooking=null;
+            int indexOfBookingList=0;
+            while (wantedBooking.getEmpNo()!=empNo)
+            {
+                wantedBooking=BookingList.get(indexOfBookingList);
+            }
+            searchResults.add(BookingList.get(indexOfBookingList));
+        }
+
+        if (dateFrame!=null)
+        {
+            Booking wantedBooking=null;
+            int indexOfBookingList=0;
+            while (wantedBooking.getDateFrame()!=dateFrame)
+            {
+                wantedBooking=BookingList.get(indexOfBookingList);
+            }
+            searchResults.add(BookingList.get(indexOfBookingList));
+        }
+
+        if (timeFrame!=null)
+        {
+            Booking wantedBooking=null;
+            int indexOfBookingList=0;
+            while (wantedBooking.getTimeFrame()!=timeFrame)
+            {
+                wantedBooking=BookingList.get(indexOfBookingList);
+            }
+            searchResults.add(BookingList.get(indexOfBookingList));
+        }
+
+        if (bookingDate!=null)
+        {
+            Booking wantedBooking=null;
+            int indexOfBookingList=0;
+            while (wantedBooking.getBookingDate()!=bookingDate)
+            {
+                wantedBooking=BookingList.get(indexOfBookingList);
+            }
+            searchResults.add(BookingList.get(indexOfBookingList));
+        }
+
+        if (roomCategory!=null)
+        {
+            Booking wantedBooking=null;
+            int indexOfBookingList=0;
+            while (wantedBooking.getRoomCategory()!=roomCategory)
+            {
+                wantedBooking=BookingList.get(indexOfBookingList);
+            }
+            searchResults.add(BookingList.get(indexOfBookingList));
+        }
+
+        if (specialWishes!=null)
+        {
+            Booking wantedBooking=null;
+            int indexOfBookingList=0;
+            while (wantedBooking.getSpecialWishes()!=specialWishes)
+            {
+                wantedBooking=BookingList.get(indexOfBookingList);
+            }
+            searchResults.add(BookingList.get(indexOfBookingList));
+        }
+
+        if (isBusinessCustomer!=null)
+        {
+            Booking wantedBooking=null;
+            int indexOfBookingList=0;
+            while (wantedBooking.isBusinessCustomer()!=isBusinessCustomer)
+            {
+                wantedBooking=BookingList.get(indexOfBookingList);
+            }
+            searchResults.add(BookingList.get(indexOfBookingList));
+        }
+
+
+        return searchResults;
     }
 
-    public StringBuilder showAllBookings()
+
+    public StringBuilder showAllBookings ()
     {
-        //TODO:
-        //Ausgabe aller Einträge der BookingList
 
-        StringBuilder allBookings= new StringBuilder();
+        StringBuilder allBookings = new StringBuilder();
 
-        for (Booking bookingEntry: BookingList)
+        for (Booking bookingEntry : BookingList)
         {
             allBookings.append(bookingEntry);
-        };
+        }
+
 
         return allBookings;
     }
 
-    public void manageBookingRequests()
+    public void manageBookingRequests ()
     {
 
-        for (BookingRequest bookingRequest: bookingRequests)
+        for (BookingRequest bookingRequest : bookingRequests)
         {
             //TODO:
             //annahme oder ablehnung von buchungsanfragen und entsprechend löschen der request und ggf anlegen einer buchung
@@ -218,69 +314,73 @@ public class Employee
         }
     }
 
-    public void createCustomer(String firstName, String lastName, String streetName, String streetNumber, String postalCode, String cityName, String mailAddress, Customer.paymentMethods paymentMethod, String iban)
+    public void createCustomer (String firstName, String lastName, String streetName, String streetNumber, String postalCode, String cityName, String mailAddress,
+                                Customer.paymentMethods paymentMethod, String iban)
     {
-        //TODO: @kalyphenking
-        //Berechtigung hinzufügen, Methoden hinzufügen
+        if (this.getGivenRole().isEnabledToManageCustomerData())
+        {
+            int customerID = customers.size() - 1;
 
-        int customerID = customers.size() - 1;
+            ContactData contactData = new ContactData(firstName, lastName, streetName, streetNumber, postalCode, cityName, mailAddress);
 
-        ContactData contactData = new ContactData(firstName, lastName, streetName, streetNumber, postalCode, cityName, mailAddress);
+            if (paymentMethod == Customer.paymentMethods.debit)
+            {
+                contactData.setIban(iban);
+            }
 
-        if (paymentMethod == Customer.paymentMethods.debit) {
-            contactData.setIban(iban);
+            Customer newCustomer = new Customer(customerID, contactData, paymentMethod);
+
+            customers.add(newCustomer);
+        }
+    }
+
+    public void changeCustomer (int customerID, String key, String value)
+    {
+        if (this.getGivenRole().isEnabledToManageCustomerData())
+        {
+
+            Customer fetchedCustomer = customers.get(customerID);
+            ContactData fetchedContactData = fetchedCustomer.getContactData();
+
+            switch (key)
+            {
+                case "firstName":
+                    fetchedContactData.setFirstName(value);
+                case "lastName":
+                    fetchedContactData.setLastName(value);
+                case "streetName":
+                    fetchedContactData.setStreetName(value);
+                case "streetNumber":
+                    fetchedContactData.setStreetNumber(value);
+                case "postalCode":
+                    fetchedContactData.setPostalCode(value);
+                case "cityName":
+                    fetchedContactData.setCityName(value);
+                case "mailAddress":
+                    fetchedContactData.setMailAddress(value);
+                case "paymentMethod":
+                    fetchedCustomer.setPaymentMethod(value);
+                case "iban":
+                    fetchedContactData.setIban(value);
+            }
+
+            customers.set(customerID, fetchedCustomer);
         }
 
-        Customer newCustomer = new Customer(customerID, contactData, paymentMethod);
-
-        customers.add(newCustomer);
 
     }
 
-    public void changeCustomer(int customerID, String key, String value)
+    public void deleteCustomer (int customerID)
     {
-        Customer fetchedCustomer = customers.get(customerID);
-        ContactData fetchedContactData = fetchedCustomer.getContactData();
-
-        switch(key) {
-            case "firstName":
-                fetchedContactData.setFirstName(value);
-            case "lastName":
-                fetchedContactData.setLastName(value);
-            case "streetName":
-                fetchedContactData.setStreetName(value);
-            case "streetNumber":
-                fetchedContactData.setStreetNumber(value);
-            case "postalCode":
-                fetchedContactData.setPostalCode(value);
-            case "cityName":
-                fetchedContactData.setCityName(value);
-            case "mailAddress":
-                fetchedContactData.setMailAddress(value);
-            case "paymentMethod":
-                fetchedCustomer.setPaymentMethod(value);
-            case "iban":
-                fetchedContactData.setIban(value);
+        if (this.getGivenRole().isEnabledToManageCustomerData())
+        {
+            customers.set(customerID, null);
         }
 
-        customers.set(customerID, fetchedCustomer);
-
-        //TODO: @kalyphenking
-        //Berechtigung hinzufügen, Methoden hinzufügen
-
-    }
-
-    public void deleteCustomer(int customerID)
-    {
-
-        customers.remove(customerID);
-
-        //TODO: @kalyphenking
-        //Berechtigung hinzufügen, Methoden hinzufügen
     }
 
     //TODO
-    //Rollen in Tests zuweisen, Berechtigungen über rollen abfragen
+    //Rollen in Tests zuweisen
 
 
     public int getEmpNo ()
