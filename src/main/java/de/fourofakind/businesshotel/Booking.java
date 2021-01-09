@@ -4,7 +4,8 @@ import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
 /**
  * This is our main class. Every action that is made from an employee or customer will interact with this class.
- * All information about the Bookingdetails and the Booking itself interacts with this class to.
+ * All information about the Bookingdetails and the Booking itself interacts with this class to. For Java1 only the Employee will be able to alter the
+ * information of a booking.
  */
 
 
@@ -26,9 +27,9 @@ public abstract class Booking {
 
     /**
      * <p>
-     * The Booking class has many overloaded methods to ensure it can be called with different types of rooms, like conference room or a hotel room.
-     * This is necessary because a hotelroom requires a date only, but a conference room requires a specific time and date.
-     * A detailed list of every @param can be seen on the comments of the Employee-class
+     * The Booking class is an abstract class because it is the blueprint for the Conference- and the HotelroomBooking which are the different types
+     * of rooms. Maybe later there will be even other types of what you can make a booking of, in this case we will have to add a enum to BookingType
+     * and a class to this new Booking only.
      * </p>
      */
 
@@ -47,14 +48,6 @@ public abstract class Booking {
         this.empNo = empNo;
         this.isBusinessCustomer = isBusinessCustomer;
     }
-
-//Konstruktor call other constructor
-
-
-
-
-
-
 
     public TimeFrame getTimeFrame()
     {
@@ -94,9 +87,7 @@ public abstract class Booking {
         this.bookingDate = bookingDate;
     }
 
-    public void setRoomCategory(String roomCategory) {
-        this.roomCategory = roomCategory;
-    }
+
 
     public void setSpecialWishes(String specialWishes) {
         this.specialWishes = specialWishes;
@@ -114,7 +105,7 @@ public abstract class Booking {
         isBusinessCustomer = businessCustomer;
     }
 
-    private TimeFrame timeFrame;
+
 
     public DateFrame getDateFrame() {
         return dateFrame;
@@ -142,16 +133,28 @@ public abstract class Booking {
         RoomNo = roomNo;
     }
 
+    public String getChangeBookingDate ()
+    {
+        return changeBookingDate;
+    }
+
+    public void setChangeBookingDate (String changeBookingDate)
+    {
+        this.changeBookingDate = changeBookingDate;
+    }
+
     private int BookingNo;
     private int RoomNo;
 
     private float pricing;
     private int empNo;
     private DateFrame dateFrame;
+    private TimeFrame timeFrame;
     private String bookingDate;
     private String roomCategory;
     private String specialWishes;
 
+    private String changeBookingDate;
     private IsBusinessCustomer isBusinessCustomer;
 
 

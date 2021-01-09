@@ -1,15 +1,18 @@
 package de.fourofakind.businesshotel;
 
 public class HotelRoomBooking extends Booking{
+
+    /**
+ * This class extends the Booking to the kind of room that has been booked, in this case to a Hotelroom.
+ */
+
     public HotelRoomBooking (int bookingNo, int roomNo, TimeFrame timeFrame, DateFrame dateFrame, String roomCategory, String specialWishes,
                              float pricing, int empNo, IsBusinessCustomer isBusinessCustomer)
     {
         super(bookingNo, roomNo, timeFrame, dateFrame, roomCategory, specialWishes, pricing, empNo, isBusinessCustomer);
     }
 
-    /**
-     * This class extends the Booking to the kind of room that has been booked, in this case to a Hotelroom.
-     */
+
 
 
 
