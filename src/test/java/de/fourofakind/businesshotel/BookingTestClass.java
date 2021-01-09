@@ -3,6 +3,9 @@ package de.fourofakind.businesshotel;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -86,7 +89,16 @@ public class BookingTestClass {
         assertTrue(HotelBooking instanceof Booking,"Should pass if ConferenceBooking is an instance of Booking");
     }
 
-    // (int bookingNo, int roomNo, TimeFrame timeFrame, DateFrame dateFrame, String bookingDate, String roomCategory, String specialWishes, float pricing, int empNo, boolean isBusinessCustomer) {
+    @Test
+    public void shouldGiveCorrectBookingDate()
+    {
+        DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        String currentBookingTimeDate = dateTimeFormat.format(currentDateTime);
+        String BookingDate = ConferenceBooking.getBookingDate();
+        System.out.println(BookingDate);
+        assertEquals(currentBookingTimeDate,BookingDate,"Is the Date of Booking the day the test is run? If yes than it should pass!");
+    }
 
 
 
