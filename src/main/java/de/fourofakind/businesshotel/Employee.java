@@ -2,6 +2,7 @@ package de.fourofakind.businesshotel;
 
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 import static de.fourofakind.businesshotel.StartingClass.*;
 
@@ -29,6 +30,8 @@ public class Employee
         this.empNo = EmployeeList.size();
         this.empName = empName;
     }
+
+    public ArrayList<Customer> customers = new ArrayList<>();
 
     /**
      * <p>Implementation of the Employee's ability to create Bookings for Customers
@@ -215,20 +218,63 @@ public class Employee
         }
     }
 
-    public void createCustomer()
+    public void createCustomer(String firstName, String lastName, String streetName, String streetNumber, String postalCode, String cityName, String mailAddress, Customer.paymentMethods paymentMethod, String iban)
     {
         //TODO: @kalyphenking
         //Berechtigung hinzufügen, Methoden hinzufügen
+
+        int customerID = customers.size() - 1;
+
+        ContactData contactData = new ContactData(firstName, lastName, streetName, streetNumber, postalCode, cityName, mailAddress);
+
+        if (paymentMethod == Customer.paymentMethods.debit) {
+            contactData.setIban(iban);
+        }
+
+        Customer newCustomer = new Customer(customerID, contactData, paymentMethod);
+
+        customers.add(newCustomer);
+
     }
 
-    public void changeCustomer()
+    public void changeCustomer(int customerID, String key, String value)
     {
+        Customer fetchedCustomer = customers.get(customerID);
+        ContactData fetchedContactData = fetchedCustomer.getContactData();
+
+        switch(key) {
+            case "firstName":
+                fetchedContactData.setFirstName(value);
+            case "lastName":
+                fetchedContactData.setLastName(value);
+            case "streetName":
+                fetchedContactData.setStreetName(value);
+            case "streetNumber":
+                fetchedContactData.setStreetNumber(value);
+            case "postalCode":
+                fetchedContactData.setPostalCode(value);
+            case "cityName":
+                fetchedContactData.setCityName(value);
+            case "mailAddress":
+                fetchedContactData.setMailAddress(value);
+            case "paymentMethod":
+                fetchedCustomer.setPaymentMethod(value);
+            case "iban":
+                fetchedContactData.setIban(value);
+        }
+
+        customers.set(customerID, fetchedCustomer);
+
         //TODO: @kalyphenking
         //Berechtigung hinzufügen, Methoden hinzufügen
+
     }
 
-    public void deleteCustomer()
+    public void deleteCustomer(int customerID)
     {
+
+        customers.remove(customerID);
+
         //TODO: @kalyphenking
         //Berechtigung hinzufügen, Methoden hinzufügen
     }

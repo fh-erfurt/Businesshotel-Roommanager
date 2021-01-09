@@ -14,11 +14,11 @@ public class Customer
         debit, paypal, bill
     }
 
-    public Customer (int customerID, ContactDetails contactDetails, paymentMethods paymentMethod)
+    public Customer (int customerID, ContactData contactData, paymentMethods paymentMethod)
     {
         this.customerID = customerID;
-        this.contactDetails = contactDetails;
-        changePaymentMethod(paymentMethod);
+        this.contactData = contactData;
+        this.paymentMethod = paymentMethod;
     }
 
     public int getCustomerID ()
@@ -51,14 +51,32 @@ public class Customer
         bookingRequests.add(newRequest);
     }
 
-    public void changePaymentMethod (paymentMethods paymentMethod)
+    public ContactData getContactData() {
+        return this.contactData;
+    }
+
+    public void setPaymentMethod (paymentMethods paymentMethod)
     {
         this.paymentMethod = paymentMethod;
     }
 
+    public void setPaymentMethod (String paymentMethod)
+    {
+        switch(paymentMethod) {
+            case "debit":
+                this.paymentMethod = paymentMethods.debit;
+            case "paypal":
+                this.paymentMethod = paymentMethods.paypal;
+            case "bill":
+                this.paymentMethod = paymentMethods.bill;
+
+        }
+
+    }
+
 
     private int customerID;
-    protected ContactDetails contactDetails;
+    private ContactData contactData;
     private paymentMethods paymentMethod;
 
 

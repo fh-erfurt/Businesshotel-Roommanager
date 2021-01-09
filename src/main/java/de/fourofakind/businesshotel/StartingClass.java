@@ -28,7 +28,7 @@ class StartingClass
 
 
     //Customer
-        ContactDetails contactDetail = new ContactDetails("Olaf", "Schubert", "Olaf-Schubert-Straße", "014F", "12345", "Olafsruhe", "bundesolaf@gmail.de");
+        ContactData contactDetail = new ContactData("Olaf", "Schubert", "Olaf-Schubert-Straße", "014F", "12345", "Olafsruhe", "bundesolaf@gmail.de");
         Customer customer = new Customer(0, contactDetail, Customer.paymentMethods.bill);
         DateFrame bookingDateFrame = new DateFrame("2021-01-03", "2021-01-06");
         customer.sendBookingRequest(bookingDateFrame);

@@ -5,13 +5,15 @@ package de.fourofakind.businesshotel;
  * object to store personal data of customer
  */
 
-public class ContactDetails {
+public class ContactData {
 
-    enum contactDetails {
-        firstName, lastName, address, phoneNumber, mailAddress, iban
+    enum attributes
+    {
+        firstName, lastName, streetName, streetNumber, postalCode, cityName, mailAddress
     }
 
-    public ContactDetails(String firstName, String lastName, String streetName, String streetNumber, String postalCode, String cityName, String mailAddress) {
+    public ContactData(String firstName, String lastName, String streetName, String streetNumber, String postalCode, String cityName, String mailAddress)
+    {
         this.firstName = firstName;
         this.lastName = lastName;
         this.streetName = streetName;
@@ -21,69 +23,87 @@ public class ContactDetails {
         this.mailAddress = mailAddress;
     }
 
-    public void setFirstName(String firstName) {
+    public void setFirstName(String firstName)
+    {
         this.firstName = firstName;
     }
 
-    public void setLastName(String lastName) {
+    public void setLastName(String lastName)
+    {
         this.lastName = lastName;
     }
 
-    public void setStreetName(String address) {
+    public void setStreetName(String address)
+    {
         this.streetName = address;
     }
-    public void setStreetNumber(String address) {
+    public void setStreetNumber(String address)
+    {
         this.streetNumber = address;
     }
-    public void setPostalCode(String address) {
+    public void setPostalCode(String address)
+    {
         this.postalCode = address;
     }
-    public void setCityName(String address) {
+    public void setCityName(String address)
+    {
         this.cityName = address;
     }
 
-    public void setMailAddress(String mailAddress) {
+    public void setMailAddress(String mailAddress)
+    {
         this.mailAddress = mailAddress;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
+    public void setPhoneNumber(String phoneNumber)
+    {
         this.phoneNumber = phoneNumber;
     }
 
-    public void setIban(String iban) {
+    public void setIban(String iban)
+    {
         this.iban = iban;
     }
 
-    public String getFirstName() {
+    public String getFirstName()
+    {
         return firstName;
     }
 
-    public String getLastName() {
+    public String getLastName()
+    {
         return lastName;
     }
 
-    public String getStreetName() {
+    public String getStreetName()
+    {
         return streetName;
     }
-    public String getStreetNumber() {
+    public String getStreetNumber()
+    {
         return streetNumber;
     }
-    public String getPostalCode() {
+    public String getPostalCode()
+    {
         return postalCode;
     }
-    public String getCityName() {
+    public String getCityName()
+    {
         return cityName;
     }
 
-    public String getMailAddress() {
+    public String getMailAddress()
+    {
         return mailAddress;
     }
 
-    public String getPhoneNumber() {
+    public String getPhoneNumber()
+    {
         return phoneNumber;
     }
 
-    public String getIban() {
+    public String getIban()
+    {
         return iban;
     }
 
