@@ -103,7 +103,7 @@ public class Employee
     public void changeBooking (int bookingNo, int roomNo, TimeFrame timeFrame, DateFrame dateFrame, String specialWishes, float pricing,
                                Booking.IsBusinessCustomer isBusinessCustomer)
     {
-        if (this.getGivenRole().isEnabledToManageBookings()) //checks for Rights to manage Bookings
+        if (this.getGivenRole()==BookingsManager) //checks for Rights to manage Bookings
         {
             Booking toBeChangedBooking = BookingList.get(bookingNo); //"loads" the to be changed Booking into the function to work with the object
             if (roomNo != 0) toBeChangedBooking.setRoomNo(roomNo);
@@ -125,7 +125,7 @@ public class Employee
      */
     public void deleteBooking (int bookingNo)
     {
-        if (this.getGivenRole().isEnabledToManageBookings()) //checks for Rights to manage Bookings
+        if (this.getGivenRole()==BookingsManager) //checks for Rights to manage Bookings
         {
             int roomNumberOfRoomToBeFree = BookingList.get(bookingNo).getRoomNo();
             Room roomToBeFree = RoomList.get(roomNumberOfRoomToBeFree);
@@ -144,7 +144,7 @@ public class Employee
      */
     public void changeRoomDetails (int roomNo, String category, int areaInSqrMetre)
     {
-        if (this.getGivenRole().isEnabledToManageRooms()) //checks for Rights to manage Rooms
+        if (this.getGivenRole()==RoomAdministrator) //checks for Rights to manage Rooms
         {
             Room toBeChangedRoom = RoomList.get(roomNo);
             if (category != null) toBeChangedRoom.setCategory(category);
@@ -162,7 +162,7 @@ public class Employee
      */
     public void createRoom (int roomNo, String category, int areaInSqrMetre)
     {
-        if (this.getGivenRole().isEnabledToManageRooms()) //checks for Rights to manage Rooms
+        if (this.getGivenRole()==RoomAdministrator) //checks for Rights to manage Rooms
         {
             Room newRoom = new Room(roomNo, category, areaInSqrMetre);
             RoomList.add(newRoom);
@@ -178,7 +178,7 @@ public class Employee
      */
     public void deleteRoom (int roomNo)
     {
-        if (this.getGivenRole().isEnabledToManageRooms()) //checks for Rights to manage Rooms
+        if (this.getGivenRole()==RoomAdministrator) //checks for Rights to manage Rooms
         {
             RoomList.set(roomNo, null);
         }
@@ -326,7 +326,7 @@ public class Employee
     public void createCustomer (String firstName, String lastName, String streetName, String streetNumber, String postalCode, String cityName, String mailAddress,
                                 Customer.paymentMethods paymentMethod, String iban)
     {
-        if (this.getGivenRole().isEnabledToManageCustomerData())
+        if (this.getGivenRole()==CustomerRelationshipManager)
         {
             int customerID = Customers.size() - 1;
 
@@ -345,7 +345,7 @@ public class Employee
 
     public void changeCustomer (int customerID, String key, String value)
     {
-        if (this.getGivenRole().isEnabledToManageCustomerData())
+        if (this.getGivenRole()==CustomerRelationshipManager)
         {
 
             Customer fetchedCustomer = Customers.get(customerID);
@@ -381,7 +381,7 @@ public class Employee
 
     public void deleteCustomer (int customerID)
     {
-        if (this.getGivenRole().isEnabledToManageCustomerData())
+        if (this.getGivenRole()==CustomerRelationshipManager)
         {
             Customers.set(customerID, null);
         }
