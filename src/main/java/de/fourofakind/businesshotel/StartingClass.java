@@ -6,9 +6,9 @@ class StartingClass
 {
 
     //"Storages"
-    public static ArrayList<Booking> BookingList= new ArrayList<>();
-    public static ArrayList<Room> RoomList = new ArrayList<>();
-    public static ArrayList<Employee> EmployeeList= new ArrayList<>();
+    public static ArrayList<Booking> Bookings = new ArrayList<>();
+    public static ArrayList<Room> Rooms = new ArrayList<>();
+    public static ArrayList<Employee> Employees = new ArrayList<>();
     public static ArrayList<BookingRequest> BookingRequests = new ArrayList<>();
     public static ArrayList<Customer> Customers = new ArrayList<>();
 
@@ -21,11 +21,10 @@ class StartingClass
     public static void main(String[] args)
     {
     //ensures Lists beginning at 1 instead of 0
-    BookingList.add(null); // BookingNo beginning at 1
-    RoomList.add(null); //RoomNo beginning at 1
-    EmployeeList.add(null); //EmployeeNo beginning at 1
-
-    BookingRequests.add(null);
+    Bookings.add(null); // BookingNo beginning at 1
+    Rooms.add(null); //RoomNo beginning at 1
+    Employees.add(null); //EmployeeNo beginning at 1
+    Customers.add(null); //Customers beginning at 1
 
 
     //Customer
@@ -37,23 +36,23 @@ class StartingClass
     //Births
 
       Employee Employee1=new Employee("Herbert Schmidt");
-      EmployeeList.add(Employee1);
+      Employees.add(Employee1);
       Employee Employee2=new Employee("Laura Müller");
-      EmployeeList.add(Employee2);
+      Employees.add(Employee2);
       Employee Employee3=new Employee("Bärbel Schäfer");
-      EmployeeList.add(Employee3);
+      Employees.add(Employee3);
       Employee Employee4=new Employee("Torsten Hillmann");
-      EmployeeList.add(Employee4);
+      Employees.add(Employee4);
       Employee Employee5=new Employee("Sigrid Alster");
-      EmployeeList.add(Employee5);
+      Employees.add(Employee5);
       //Example TimeFrame & DateFrame
       TimeFrame zwoelfBisMittag= new TimeFrame("zwölf","mittag");
       DateFrame Heute=new DateFrame("Heute","Heute");
       Room TestRoom = new Room(1,"Suite",20);
 
-      RoomList.add(TestRoom);
+      Rooms.add(TestRoom);
 
-      //Example Booking including BookingList entry
+      //Example Booking including Bookings entry
       Employee1.createBooking(1,zwoelfBisMittag,Heute, Booking.BookingType.HotelRoomBooking,"egal","Jacuzzi",5.03f, Booking.IsBusinessCustomer.FALSE);
       Employee1.changeBooking(1,0,null,null,
               null,0.0f, Booking.IsBusinessCustomer.NULL);
