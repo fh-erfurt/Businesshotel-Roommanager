@@ -46,7 +46,7 @@ public class StartingClass
         String specialWishes = "Kirschkuchen ohne Kirschen aber mit Banane";
         Booking.IsBusinessCustomer isBusinessCustomer = Booking.IsBusinessCustomer.TRUE;
 
-        customer.sendBookingRequest(defaultTimeFrame, bookingDateFrame, category, specialWishes, isBusinessCustomer);
+        customer.sendBookingRequest(defaultTimeFrame, bookingDateFrame, category, specialWishes);
 
     //Births
 

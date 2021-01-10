@@ -20,6 +20,7 @@ public class Customer
 
     public Customer (int customerID, ContactData contactData, paymentMethods paymentMethod)
     {
+
         this.customerID = customerID;
         this.contactData = contactData;
         this.paymentMethod = paymentMethod;
@@ -44,15 +45,17 @@ public class Customer
      * <p> generates new bookingRequest and add ist to BookingRequests list
      * </p>
      *
+     * @param timeFrame for time of booking
      * @param dateFrame for date of booking
+     * @param roomCategory for type of booking
+     * @param specialWishes for extra wishes
      */
 
     public void sendBookingRequest (TimeFrame timeFrame, DateFrame dateFrame, String roomCategory,
-                                    String specialWishes, Booking.IsBusinessCustomer isBusinessCustomer)
+                                    String specialWishes)
     {
         // setup database request here
-        int customerID = this.customerID;
-        BookingRequest newRequest = new BookingRequest(customerID, timeFrame, dateFrame, roomCategory, specialWishes, isBusinessCustomer);
+        BookingRequest newRequest = new BookingRequest(this.customerID, timeFrame, dateFrame, roomCategory, specialWishes, this.isBusinessCustomer);
         BookingRequests.add(newRequest);
     }
 
@@ -63,6 +66,10 @@ public class Customer
     public void setPaymentMethod (paymentMethods paymentMethod)
     {
         this.paymentMethod = paymentMethod;
+    }
+
+    public void setIsBusinessCustomer(Booking.IsBusinessCustomer isBusinessCustomer) {
+        this.isBusinessCustomer = isBusinessCustomer;
     }
 
     public void setPaymentMethod (String paymentMethod)
@@ -83,6 +90,7 @@ public class Customer
     private int customerID;
     private ContactData contactData;
     private paymentMethods paymentMethod;
+    private Booking.IsBusinessCustomer isBusinessCustomer;
 
 
 }
