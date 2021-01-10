@@ -1,7 +1,11 @@
 package de.fourofakind.businesshotel;
 
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
+import de.fourofakind.businesshotel.bookings.Booking;
+import de.fourofakind.businesshotel.bookings.ConferenceRoomBooking;
+import de.fourofakind.businesshotel.bookings.HotelRoomBooking;
+import de.fourofakind.businesshotel.common.DateFrame;
+import de.fourofakind.businesshotel.common.TimeFrame;
+import de.fourofakind.businesshotel.rooms.Room;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;

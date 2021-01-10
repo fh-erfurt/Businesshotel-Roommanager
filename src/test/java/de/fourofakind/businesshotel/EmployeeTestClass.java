@@ -1,9 +1,14 @@
 package de.fourofakind.businesshotel;
 
+import de.fourofakind.businesshotel.bookings.Booking;
+import de.fourofakind.businesshotel.common.DateFrame;
+import de.fourofakind.businesshotel.common.TimeFrame;
+import de.fourofakind.businesshotel.employees.Employee;
+import de.fourofakind.businesshotel.rooms.Room;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static de.fourofakind.businesshotel.StartingClass.*;
+import static de.fourofakind.businesshotel.customers.StartingClass.*;
 
 public class EmployeeTestClass
 {

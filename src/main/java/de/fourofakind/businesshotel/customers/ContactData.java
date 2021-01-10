@@ -1,4 +1,4 @@
-package de.fourofakind.businesshotel;
+package de.fourofakind.businesshotel.customers;
 
 //
 /**
@@ -7,7 +7,7 @@ package de.fourofakind.businesshotel;
 
 public class ContactData {
 
-    enum attributes
+    public enum attributes
     {
         firstName, lastName, streetName, streetNumber, postalCode, cityName, mailAddress
     }

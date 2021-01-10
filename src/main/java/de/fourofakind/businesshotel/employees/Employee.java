@@ -1,10 +1,23 @@
-package de.fourofakind.businesshotel;
+package de.fourofakind.businesshotel.employees;
+
+import de.fourofakind.businesshotel.bookings.Booking;
+import de.fourofakind.businesshotel.bookings.ConferenceRoomBooking;
+import de.fourofakind.businesshotel.bookings.HotelRoomBooking;
+import de.fourofakind.businesshotel.common.DateFrame;
+import de.fourofakind.businesshotel.common.TimeFrame;
+import de.fourofakind.businesshotel.customers.BookingRequest;
+import de.fourofakind.businesshotel.customers.ContactData;
+import de.fourofakind.businesshotel.customers.Customer;
+import de.fourofakind.businesshotel.customers.Role;
+import de.fourofakind.businesshotel.rooms.ConferenceRoom;
+import de.fourofakind.businesshotel.rooms.HotelRoom;
+import de.fourofakind.businesshotel.rooms.Room;
 
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-import static de.fourofakind.businesshotel.StartingClass.*;
+import static de.fourofakind.businesshotel.customers.StartingClass.*;
 
 
 /**

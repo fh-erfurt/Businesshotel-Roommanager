@@ -1,6 +1,10 @@
-package de.fourofakind.businesshotel;
+package de.fourofakind.businesshotel.bookings;
 
-public class HotelRoomBooking extends Booking{
+import de.fourofakind.businesshotel.common.DateFrame;
+import de.fourofakind.businesshotel.common.TimeFrame;
+
+public class HotelRoomBooking extends Booking
+{
 
     /**
  * This class extends the Booking to the kind of room that has been booked, in this case to a Hotelroom.

@@ -1,4 +1,7 @@
-package de.fourofakind.businesshotel;
+package de.fourofakind.businesshotel.bookings;
+
+import de.fourofakind.businesshotel.common.DateFrame;
+import de.fourofakind.businesshotel.common.TimeFrame;
 
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
@@ -13,13 +16,13 @@ import java.time.LocalDateTime;
 
 public abstract class Booking {
 
-    enum IsBusinessCustomer
+    public enum IsBusinessCustomer
     {
         NULL,
         TRUE,
         FALSE
     }
-    enum BookingType
+    public enum BookingType
     {
         ConferenceRoomBooking,
         HotelRoomBooking,
@@ -33,7 +36,7 @@ public abstract class Booking {
      * </p>
      */
 
-    public Booking(int bookingNo, int roomNo, TimeFrame timeFrame, DateFrame dateFrame,  String roomCategory,
+    public Booking(int bookingNo, int roomNo, TimeFrame timeFrame, DateFrame dateFrame, String roomCategory,
                    String specialWishes, float pricing, int empNo, IsBusinessCustomer isBusinessCustomer) {
         DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         LocalDateTime currentDateTime = LocalDateTime.now();

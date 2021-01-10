@@ -1,4 +1,4 @@
-package de.fourofakind.businesshotel;
+package de.fourofakind.businesshotel.common;
 /**
  * <p>
  * @DateFrame is a value-class that stores the starting date of a booking and its ending date.

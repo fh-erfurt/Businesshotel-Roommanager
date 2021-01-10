@@ -1,6 +1,7 @@
-package de.fourofakind.businesshotel;
+package de.fourofakind.businesshotel.rooms;
 
-public class HotelRoom extends Room{
+public class HotelRoom extends Room
+{
 
     public HotelRoom (int roomNo, String category, int areaInSqrMetre, int bedCount)
     {

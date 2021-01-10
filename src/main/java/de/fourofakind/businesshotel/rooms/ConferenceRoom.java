@@ -1,6 +1,7 @@
-package de.fourofakind.businesshotel;
+package de.fourofakind.businesshotel.rooms;
 
-public class ConferenceRoom extends Room{
+public class ConferenceRoom extends Room
+{
 
     public ConferenceRoom (int roomNo, String category, int areaInSqrMetre, int maxAmountOfParticipants)
     {

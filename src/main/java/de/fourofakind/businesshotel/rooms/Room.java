@@ -1,4 +1,4 @@
-package de.fourofakind.businesshotel;
+package de.fourofakind.businesshotel.rooms;
 
 public class Room { //TODO: Room abstract deklarieren (nur spezialisierte Raumarten sind erlaubt)
     /**

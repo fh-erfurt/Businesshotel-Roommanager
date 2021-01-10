@@ -1,6 +1,8 @@
-package de.fourofakind.businesshotel;
+package de.fourofakind.businesshotel.customers;
 
-import static de.fourofakind.businesshotel.StartingClass.*;
+import de.fourofakind.businesshotel.common.DateFrame;
+
+import static de.fourofakind.businesshotel.customers.StartingClass.*;
 
 /**
  * customer class manages every methode done by the customer and its personal data
@@ -9,7 +11,7 @@ import static de.fourofakind.businesshotel.StartingClass.*;
 public class Customer
 {
 
-    enum paymentMethods
+    public enum paymentMethods
     {
         debit, paypal, bill
     }
