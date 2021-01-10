@@ -32,7 +32,7 @@ public class EmployeeTestClass
     {
         //Given
         Employee MaxMustermann = new Employee("Max Mustermann");
-        EmployeeList.add(null); //EmployeeNo beginning at 1
+        Employees.add(null); //EmployeeNo beginning at 1
 
         //When
         int result = MaxMustermann.getEmpNo();
@@ -49,8 +49,8 @@ public class EmployeeTestClass
     {
         //Given
 
-        RoomList.add(null); //RoomList beginning at 1
-        RoomList.add(TestRoom);
+        Rooms.add(null); //Rooms beginning at 1
+        Rooms.add(TestRoom);
         Employee MaxMustermann = new Employee("Max Mustermann");
         MaxMustermann.setGivenRole(BookingsManager);
 
@@ -83,14 +83,14 @@ public class EmployeeTestClass
     {
         //Given
 
-        RoomList.add(null); //RoomList beginning at 1
-        RoomList.add(TestRoom);
-        BookingList.add(null); //BookingList beginning at 1
+        Rooms.add(null); //Rooms beginning at 1
+        Rooms.add(TestRoom);
+        Bookings.add(null); //Bookings beginning at 1
         Employee MaxMustermann = new Employee("Max Mustermann");
         MaxMustermann.setGivenRole(BookingsManager);
 
         Booking testBooking= MaxMustermann.createBooking(1,zwoelfBisMittag,Heute, Booking.BookingType.HotelRoomBooking,"egal","Jacuzzi",5.03f, Booking.IsBusinessCustomer.FALSE);
-        BookingList.add(testBooking);
+        Bookings.add(testBooking);
 
 
 
@@ -136,22 +136,22 @@ public class EmployeeTestClass
     {
         //Given
 
-        RoomList.add(null); //RoomList beginning at 1
-        RoomList.add(TestRoom);
-        BookingList.add(null); //BookingList beginning at 1
+        Rooms.add(null); //Rooms beginning at 1
+        Rooms.add(TestRoom);
+        Bookings.add(null); //Bookings beginning at 1
         Employee MaxMustermann = new Employee("Max Mustermann");
         MaxMustermann.setGivenRole(BookingsManager);
 
         Booking testBooking= MaxMustermann.createBooking(1,zwoelfBisMittag,Heute, Booking.BookingType.HotelRoomBooking,"egal","Jacuzzi",5.03f, Booking.IsBusinessCustomer.FALSE);
-        BookingList.add(testBooking);
+        Bookings.add(testBooking);
 
 
 
         //When
 
         //Before Deletion
-        StringBuilder bookingListBeforeDeletion = new StringBuilder(); //is filled with all Bookings of BookingList before Booking No1 is deleted
-        for (Booking booking : BookingList)
+        StringBuilder bookingListBeforeDeletion = new StringBuilder(); //is filled with all Bookings of Bookings before Booking No1 is deleted
+        for (Booking booking : Bookings)
         {
             if (booking==null) bookingListBeforeDeletion.append("Dummy");
             else bookingListBeforeDeletion.append(booking.toString());
@@ -162,8 +162,8 @@ public class EmployeeTestClass
 
 
         //After Deletion
-        StringBuilder bookingListAfterDeletion = new StringBuilder(); //is filled with all Bookings of BookingList after Booking No1 is deleted
-        for (Booking booking : BookingList)
+        StringBuilder bookingListAfterDeletion = new StringBuilder(); //is filled with all Bookings of Bookings after Booking No1 is deleted
+        for (Booking booking : Bookings)
         {
             if (booking==null) bookingListAfterDeletion.append("Dummy");
             else bookingListAfterDeletion.append(booking.toString());
