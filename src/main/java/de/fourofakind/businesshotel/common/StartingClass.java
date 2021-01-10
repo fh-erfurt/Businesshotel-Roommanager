@@ -43,7 +43,7 @@ public class StartingClass
         DateFrame bookingDateFrame = new DateFrame("2021-01-03", "2021-01-06");
         TimeFrame defaultTimeFrame = new TimeFrame("14.00", "10.00");
         String category = "HotelRoomBooking";
-        String specialWishes = "Kirschkuchen ohne Kirschen aber mit Banane";
+        String specialWishes = "Kirschkuchen ohne Kirschen aber mit Apfel";
         Booking.IsBusinessCustomer isBusinessCustomer = Booking.IsBusinessCustomer.TRUE;
 
         customer.sendBookingRequest(defaultTimeFrame, bookingDateFrame, category, specialWishes);

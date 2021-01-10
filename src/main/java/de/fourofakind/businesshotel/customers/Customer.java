@@ -54,7 +54,7 @@ public class Customer
     public void sendBookingRequest (TimeFrame timeFrame, DateFrame dateFrame, String roomCategory,
                                     String specialWishes)
     {
-        // setup database request here
+        //setup database request here
         BookingRequest newRequest = new BookingRequest(this.customerID, timeFrame, dateFrame, roomCategory, specialWishes, this.isBusinessCustomer);
         BookingRequests.add(newRequest);
     }
