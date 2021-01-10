@@ -199,98 +199,122 @@ public class Employee
         if (RoomNo!=0)
         {
             Booking wantedBooking=null;
-            int indexOfBookingList=0;
-            while (wantedBooking.getRoomNo()!=RoomNo && indexOfBookingList!=BookingList.size())
+            int indexOfBookingList=1;
+            if(indexOfBookingList<BookingList.size())
             {
+                while (wantedBooking.getRoomNo()!=RoomNo && indexOfBookingList<BookingList.size())
+                {
 
-                wantedBooking=BookingList.get(indexOfBookingList);
-                indexOfBookingList++;
-            }
+                    wantedBooking=BookingList.get(indexOfBookingList);
+                    indexOfBookingList++;
+                }
             searchResults.add(BookingList.get(indexOfBookingList));
+            }
         }
 
         if (empNo!=0)
         {
             Booking wantedBooking=null;
-            int indexOfBookingList=0;
-            while (wantedBooking.getEmpNo()!=empNo && indexOfBookingList!=BookingList.size())
+            int indexOfBookingList=1;
+            if(indexOfBookingList<BookingList.size())
             {
-                wantedBooking=BookingList.get(indexOfBookingList);
-                indexOfBookingList++;
+                while (wantedBooking.getEmpNo() != empNo && indexOfBookingList < BookingList.size())
+                {
+                    wantedBooking = BookingList.get(indexOfBookingList);
+                    indexOfBookingList++;
+                }
+                searchResults.add(BookingList.get(indexOfBookingList));
             }
-            searchResults.add(BookingList.get(indexOfBookingList));
         }
 
         if (dateFrame!=null)
         {
             Booking wantedBooking=null;
-            int indexOfBookingList=0;
-            while (wantedBooking.getDateFrame()!=dateFrame && indexOfBookingList!=BookingList.size())
+            int indexOfBookingList=1;
+            if(indexOfBookingList<BookingList.size())
             {
-                wantedBooking=BookingList.get(indexOfBookingList);
-                indexOfBookingList++;
+                while (wantedBooking.getDateFrame() != dateFrame && indexOfBookingList < BookingList.size())
+                {
+                    wantedBooking = BookingList.get(indexOfBookingList);
+                    indexOfBookingList++;
+                }
+                searchResults.add(BookingList.get(indexOfBookingList));
             }
-            searchResults.add(BookingList.get(indexOfBookingList));
         }
 
         if (timeFrame!=null)
         {
             Booking wantedBooking=null;
-            int indexOfBookingList=0;
-            while (wantedBooking.getTimeFrame()!=timeFrame && indexOfBookingList!=BookingList.size())
+            int indexOfBookingList=1;
+            if(indexOfBookingList<BookingList.size())
             {
-                wantedBooking=BookingList.get(indexOfBookingList);
-                indexOfBookingList++;
+                while (wantedBooking.getTimeFrame() != timeFrame && indexOfBookingList < BookingList.size())
+                {
+                    wantedBooking = BookingList.get(indexOfBookingList);
+                    indexOfBookingList++;
+                }
+                searchResults.add(BookingList.get(indexOfBookingList));
             }
-            searchResults.add(BookingList.get(indexOfBookingList));
         }
 
         if (bookingDate!=null)
         {
             Booking wantedBooking=null;
-            int indexOfBookingList=0;
-            while (wantedBooking.getBookingDate()!=bookingDate && indexOfBookingList!=BookingList.size())
+            int indexOfBookingList=1;
+            if(indexOfBookingList<BookingList.size())
             {
-                wantedBooking=BookingList.get(indexOfBookingList);
-                indexOfBookingList++;
+                while (wantedBooking.getBookingDate() != bookingDate && indexOfBookingList < BookingList.size())
+                {
+                    wantedBooking = BookingList.get(indexOfBookingList);
+                    indexOfBookingList++;
+                }
+                searchResults.add(BookingList.get(indexOfBookingList));
             }
-            searchResults.add(BookingList.get(indexOfBookingList));
         }
 
         if (roomCategory!=null)
         {
             Booking wantedBooking=null;
-            int indexOfBookingList=0;
-            while (wantedBooking.getRoomCategory()!=roomCategory && indexOfBookingList!=BookingList.size())
+            int indexOfBookingList=1;
+            if(indexOfBookingList<BookingList.size())
             {
-                wantedBooking=BookingList.get(indexOfBookingList);
-                indexOfBookingList++;
+                while (wantedBooking.getRoomCategory() != roomCategory && indexOfBookingList < BookingList.size())
+                {
+                    wantedBooking = BookingList.get(indexOfBookingList);
+                    indexOfBookingList++;
+                }
+                searchResults.add(BookingList.get(indexOfBookingList));
             }
-            searchResults.add(BookingList.get(indexOfBookingList));
         }
 
         if (specialWishes!=null)
         {
             Booking wantedBooking=null;
-            int indexOfBookingList=0;
-            while (wantedBooking.getSpecialWishes()!=specialWishes && indexOfBookingList!=BookingList.size())
+            int indexOfBookingList=1;
+            if(indexOfBookingList<BookingList.size())
             {
-                wantedBooking=BookingList.get(indexOfBookingList);
-                indexOfBookingList++;
+                while (wantedBooking.getSpecialWishes() != specialWishes && indexOfBookingList < BookingList.size())
+                {
+                    wantedBooking = BookingList.get(indexOfBookingList);
+                    indexOfBookingList++;
+                }
+                searchResults.add(BookingList.get(indexOfBookingList));
             }
-            searchResults.add(BookingList.get(indexOfBookingList));
         }
 
         if (isBusinessCustomer!=null)
         {
             Booking wantedBooking=null;
-            int indexOfBookingList=0;
-            while (wantedBooking.isBusinessCustomer()!=isBusinessCustomer && indexOfBookingList!=BookingList.size())
+            int indexOfBookingList=1;
+            if(indexOfBookingList<BookingList.size())
             {
-                wantedBooking=BookingList.get(indexOfBookingList);
-                indexOfBookingList++;
+                while (wantedBooking.isBusinessCustomer() != isBusinessCustomer && indexOfBookingList < BookingList.size())
+                {
+                    wantedBooking = BookingList.get(indexOfBookingList);
+                    indexOfBookingList++;
+                }
+                searchResults.add(BookingList.get(indexOfBookingList));
             }
-            searchResults.add(BookingList.get(indexOfBookingList));
         }
 
 
