@@ -37,7 +37,7 @@ public class Customer
     }
 
     /**
-     * <p> generates new bookingRequest and add ist to bookingRequests list
+     * <p> generates new bookingRequest and add ist to BookingRequests list
      * </p>
      *
      * @param dateFrame for date of booking
@@ -48,7 +48,7 @@ public class Customer
         // setup database request here
         int customerID = this.customerID;
         BookingRequest newRequest = new BookingRequest(customerID, dateFrame);
-        bookingRequests.add(newRequest);
+        BookingRequests.add(newRequest);
     }
 
     public ContactData getContactData() {

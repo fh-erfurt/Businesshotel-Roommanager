@@ -31,7 +31,7 @@ public class Employee
         this.empName = empName;
     }
 
-    public ArrayList<Customer> customers = new ArrayList<>();
+
 
     /**
      * <p>Implementation of the Employee's ability to create Bookings for Customers
@@ -315,7 +315,7 @@ public class Employee
     public void manageBookingRequests ()
     {
 
-        for (BookingRequest bookingRequest : bookingRequests)
+        for (BookingRequest bookingRequest : BookingRequests)
         {
             //TODO:
             //annahme oder ablehnung von buchungsanfragen und entsprechend löschen der request und ggf anlegen einer buchung
@@ -328,7 +328,7 @@ public class Employee
     {
         if (this.getGivenRole().isEnabledToManageCustomerData())
         {
-            int customerID = customers.size() - 1;
+            int customerID = Customers.size() - 1;
 
             ContactData contactData = new ContactData(firstName, lastName, streetName, streetNumber, postalCode, cityName, mailAddress);
 
@@ -339,7 +339,7 @@ public class Employee
 
             Customer newCustomer = new Customer(customerID, contactData, paymentMethod);
 
-            customers.add(newCustomer);
+            Customers.add(newCustomer);
         }
     }
 
@@ -348,7 +348,7 @@ public class Employee
         if (this.getGivenRole().isEnabledToManageCustomerData())
         {
 
-            Customer fetchedCustomer = customers.get(customerID);
+            Customer fetchedCustomer = Customers.get(customerID);
             ContactData fetchedContactData = fetchedCustomer.getContactData();
 
             switch (key)
@@ -373,7 +373,7 @@ public class Employee
                     fetchedContactData.setIban(value);
             }
 
-            customers.set(customerID, fetchedCustomer);
+            Customers.set(customerID, fetchedCustomer);
         }
 
 
@@ -383,7 +383,7 @@ public class Employee
     {
         if (this.getGivenRole().isEnabledToManageCustomerData())
         {
-            customers.set(customerID, null);
+            Customers.set(customerID, null);
         }
 
     }

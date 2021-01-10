@@ -9,7 +9,8 @@ class StartingClass
     public static ArrayList<Booking> BookingList= new ArrayList<>();
     public static ArrayList<Room> RoomList = new ArrayList<>();
     public static ArrayList<Employee> EmployeeList= new ArrayList<>();
-    public static ArrayList<BookingRequest> bookingRequests = new ArrayList<>();
+    public static ArrayList<BookingRequest> BookingRequests = new ArrayList<>();
+    public static ArrayList<Customer> Customers = new ArrayList<>();
 
     //Define Roles
     public static Role GodLikeAdmin = new Role(true,true,true);
@@ -24,7 +25,7 @@ class StartingClass
     RoomList.add(null); //RoomNo beginning at 1
     EmployeeList.add(null); //EmployeeNo beginning at 1
 
-    bookingRequests.add(null);
+    BookingRequests.add(null);
 
 
     //Customer
