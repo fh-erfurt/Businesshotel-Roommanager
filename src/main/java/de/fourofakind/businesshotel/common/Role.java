@@ -1,4 +1,4 @@
-package de.fourofakind.businesshotel.customers;
+package de.fourofakind.businesshotel.common;
 
 public class Role
 {
