@@ -7,6 +7,7 @@ import de.fourofakind.businesshotel.customers.Customer;
 import de.fourofakind.businesshotel.employees.Employee;
 import de.fourofakind.businesshotel.rooms.Room;
 
+import java.sql.Time;
 import java.util.ArrayList;
 
 public class StartingClass
@@ -37,8 +38,15 @@ public class StartingClass
     //Customer
         ContactData contactDetail = new ContactData("Olaf", "Schubert", "Olaf-Schubert-Straße", "014F", "12345", "Olafsruhe", "bundesolaf@gmail.de");
         Customer customer = new Customer(0, contactDetail, Customer.paymentMethods.bill);
+
+    //Customer sends request
         DateFrame bookingDateFrame = new DateFrame("2021-01-03", "2021-01-06");
-        customer.sendBookingRequest(bookingDateFrame);
+        TimeFrame defaultTimeFrame = new TimeFrame("14.00", "10.00");
+        String category = "HotelRoomBooking";
+        String specialWishes = "Kirschkuchen ohne Kirschen aber mit Banane";
+        Booking.IsBusinessCustomer isBusinessCustomer = Booking.IsBusinessCustomer.TRUE;
+
+        customer.sendBookingRequest(defaultTimeFrame, bookingDateFrame, category, specialWishes, isBusinessCustomer);
 
     //Births
 

@@ -1,8 +1,10 @@
 package de.fourofakind.businesshotel.customers;
 
+import de.fourofakind.businesshotel.bookings.Booking;
 import de.fourofakind.businesshotel.common.DateFrame;
+import de.fourofakind.businesshotel.common.TimeFrame;
 
-import static de.fourofakind.businesshotel.customers.StartingClass.*;
+import static de.fourofakind.businesshotel.common.StartingClass.*;
 
 /**
  * customer class manages every methode done by the customer and its personal data
@@ -45,11 +47,12 @@ public class Customer
      * @param dateFrame for date of booking
      */
 
-    public void sendBookingRequest (DateFrame dateFrame)
+    public void sendBookingRequest (TimeFrame timeFrame, DateFrame dateFrame, String roomCategory,
+                                    String specialWishes, Booking.IsBusinessCustomer isBusinessCustomer)
     {
         // setup database request here
         int customerID = this.customerID;
-        BookingRequest newRequest = new BookingRequest(customerID, dateFrame);
+        BookingRequest newRequest = new BookingRequest(customerID, timeFrame, dateFrame, roomCategory, specialWishes, isBusinessCustomer);
         BookingRequests.add(newRequest);
     }
 

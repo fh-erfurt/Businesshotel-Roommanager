@@ -8,7 +8,7 @@ import de.fourofakind.businesshotel.rooms.Room;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static de.fourofakind.businesshotel.customers.StartingClass.*;
+import static de.fourofakind.businesshotel.common.StartingClass.*;
 
 public class EmployeeTestClass
 {
