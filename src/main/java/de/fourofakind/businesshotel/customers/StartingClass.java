@@ -3,10 +3,6 @@ package de.fourofakind.businesshotel.customers;
 import de.fourofakind.businesshotel.bookings.Booking;
 import de.fourofakind.businesshotel.common.DateFrame;
 import de.fourofakind.businesshotel.common.TimeFrame;
-import de.fourofakind.businesshotel.customers.BookingRequest;
-import de.fourofakind.businesshotel.customers.ContactData;
-import de.fourofakind.businesshotel.customers.Customer;
-import de.fourofakind.businesshotel.customers.Role;
 import de.fourofakind.businesshotel.employees.Employee;
 import de.fourofakind.businesshotel.rooms.Room;
 
