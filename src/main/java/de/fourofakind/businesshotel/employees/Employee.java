@@ -237,6 +237,7 @@ public class Employee
     {
 
         ArrayList<Booking> searchResults = new ArrayList<>();
+        Booking wantedBooking=null;
 
         if (BookingNo!=0)
         {
@@ -246,10 +247,10 @@ public class Employee
 
         if (RoomNo!=0)
         {
-            Booking wantedBooking=null;
             int indexOfBookingList=1;
             if(indexOfBookingList< Bookings.size())
             {
+                wantedBooking= Bookings.get(1);
                 while (wantedBooking.getRoomNo()!=RoomNo && indexOfBookingList< Bookings.size())
                 {
 
@@ -262,10 +263,11 @@ public class Employee
 
         if (empNo!=0)
         {
-            Booking wantedBooking=null;
+
             int indexOfBookingList=1;
             if(indexOfBookingList< Bookings.size())
             {
+                wantedBooking= Bookings.get(1);
                 while (wantedBooking.getEmpNo() != empNo && indexOfBookingList < Bookings.size())
                 {
                     wantedBooking = Bookings.get(indexOfBookingList);
@@ -277,10 +279,11 @@ public class Employee
 
         if (dateFrame!=null)
         {
-            Booking wantedBooking=null;
+
             int indexOfBookingList=1;
             if(indexOfBookingList< Bookings.size())
             {
+                wantedBooking= Bookings.get(1);
                 while (!wantedBooking.getDateFrame().equals(dateFrame) && indexOfBookingList < Bookings.size())
                 {
                     wantedBooking = Bookings.get(indexOfBookingList);
@@ -292,10 +295,11 @@ public class Employee
 
         if (timeFrame!=null)
         {
-            Booking wantedBooking=null;
+
             int indexOfBookingList=1;
             if(indexOfBookingList< Bookings.size())
             {
+                wantedBooking= Bookings.get(1);
                 while (!wantedBooking.getTimeFrame().equals(timeFrame) && indexOfBookingList < Bookings.size())
                 {
                     wantedBooking = Bookings.get(indexOfBookingList);
@@ -307,10 +311,11 @@ public class Employee
 
         if (bookingDate!=null)
         {
-            Booking wantedBooking=null;
+
             int indexOfBookingList=1;
             if(indexOfBookingList< Bookings.size())
             {
+                wantedBooking= Bookings.get(1);
                 while (!wantedBooking.getBookingDate().equals(bookingDate) && indexOfBookingList < Bookings.size())
                 {
                     wantedBooking = Bookings.get(indexOfBookingList);
@@ -322,10 +327,11 @@ public class Employee
 
         if (roomCategory!=null)
         {
-            Booking wantedBooking=null;
+
             int indexOfBookingList=1;
             if(indexOfBookingList< Bookings.size())
             {
+                wantedBooking= Bookings.get(1);
                 while (!wantedBooking.getRoomCategory().equals(roomCategory) && indexOfBookingList < Bookings.size())
                 {
                     wantedBooking = Bookings.get(indexOfBookingList);
@@ -337,10 +343,11 @@ public class Employee
 
         if (specialWishes!=null)
         {
-            Booking wantedBooking=null;
+
             int indexOfBookingList=1;
             if(indexOfBookingList< Bookings.size())
             {
+                wantedBooking= Bookings.get(1);
                 while (!wantedBooking.getSpecialWishes().equals(specialWishes) && indexOfBookingList < Bookings.size())
                 {
                     wantedBooking = Bookings.get(indexOfBookingList);
@@ -352,10 +359,11 @@ public class Employee
 
         if (isBusinessCustomer!=null)
         {
-            Booking wantedBooking=null;
+
             int indexOfBookingList=1;
             if(indexOfBookingList< Bookings.size())
             {
+                wantedBooking= Bookings.get(1);
                 while (!wantedBooking.isBusinessCustomer().equals(isBusinessCustomer) && indexOfBookingList < Bookings.size())
                 {
                     wantedBooking = Bookings.get(indexOfBookingList);
