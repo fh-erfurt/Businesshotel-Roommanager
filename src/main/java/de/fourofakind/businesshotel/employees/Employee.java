@@ -126,7 +126,7 @@ public class Employee
             if (specialWishes != null) toBeChangedBooking.setSpecialWishes(specialWishes);
             if (pricing != 0.0f) toBeChangedBooking.setPricing(pricing);
             if (isBusinessCustomer != Booking.IsBusinessCustomer.NULL) toBeChangedBooking.setBusinessCustomer(isBusinessCustomer);
-            toBeChangedBooking.setBookingDate(currentDateTime.toString());
+            toBeChangedBooking.setChangeBookingDate(currentDateTime.toString());
         }
     }
 
