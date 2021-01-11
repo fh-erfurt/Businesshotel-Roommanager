@@ -63,9 +63,16 @@ public class StartingClass
       //Example TimeFrame & DateFrame
       TimeFrame zwoelfBisMittag= new TimeFrame("zwölf","mittag");
       DateFrame Heute=new DateFrame("Heute","Heute");
-      Room TestRoom = new Room(1,"Suite",20);
+      Room TestRoom1 = new Room(1,"Single Room",15);
+      Room TestRoom2 = new Room(2,"Suite",40);
+      Room TestRoom3 = new Room(3,"Double Room",20);
+      Room TestRoom4 = new Room(4,"Big Group",50);
 
-      Rooms.add(TestRoom);
+      Rooms.add(TestRoom1);
+      Rooms.add(TestRoom2);
+      Rooms.add(TestRoom3);
+      Rooms.add(TestRoom4);
+
 
       //Example Booking including Bookings entry
       Employee1.createBooking(1,zwoelfBisMittag,Heute, Booking.BookingType.HotelRoomBooking,"egal","Jacuzzi",5.03f, Booking.IsBusinessCustomer.FALSE);

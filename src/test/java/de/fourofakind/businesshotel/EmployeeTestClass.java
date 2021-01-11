@@ -15,7 +15,11 @@ public class EmployeeTestClass
 
     TimeFrame zwoelfBisMittag= new TimeFrame("zwölf","mittag");
     DateFrame Heute=new DateFrame("Heute","Heute");
-    Room TestRoom = new Room(1,"Suite",20);
+    Room TestRoom1 = new Room(1,"Single Room",15);
+    Room TestRoom2 = new Room(2,"Suite",40);
+    Room TestRoom3 = new Room(3,"Double Room",20);
+    Room TestRoom4 = new Room(4,"Big Group",50);
+
 
 
 
@@ -23,10 +27,13 @@ public class EmployeeTestClass
     public void shouldOutputEmployeeNameWhenSuccessful()
     {
         //Given
+        Employees.add(null); //EmployeeNo beginning at 1
+
         Employee MaxMustermann = new Employee("Max Mustermann");
+        Employees.add(MaxMustermann);
 
         //When
-        String result = MaxMustermann.getEmpName();
+        String result = Employees.get(Employees.indexOf(MaxMustermann)).getEmpName();
 
         //Then
         assertEquals("Max Mustermann",result,"If an Employee named Max Mustermann is created by its Constructor it should Output the Name");
@@ -36,14 +43,16 @@ public class EmployeeTestClass
     public void shouldOutputEmployeeNumberWhenSuccessful()
     {
         //Given
-        Employee MaxMustermann = new Employee("Max Mustermann");
         Employees.add(null); //EmployeeNo beginning at 1
 
+        Employee MaxMustermann = new Employee("Max Mustermann");
+        Employees.add(MaxMustermann);
+
         //When
-        int result = MaxMustermann.getEmpNo();
+        int result = Employees.get(Employees.indexOf(MaxMustermann)).getEmpNo();
 
         //Then
-        assertEquals(0,result,"If an Employee is created by its Constructor as the first Employee ever, it should output '1' as its Employee Number, because the " +
+        assertEquals(1,result,"If an Employee is created by its Constructor as the first Employee ever, it should output '1' as its Employee Number, because the " +
                 "arraylist is starting at 1 and contains no other Employees ");
     }
 
@@ -55,9 +64,10 @@ public class EmployeeTestClass
         //Given
 
         Rooms.add(null); //Rooms beginning at 1
-        Rooms.add(TestRoom);
+        Rooms.add(TestRoom1);
         Employee MaxMustermann = new Employee("Max Mustermann");
         MaxMustermann.setGivenRole(BookingsManager);
+        Employees.add(MaxMustermann);
 
         Booking resultBooking= MaxMustermann.createBooking(1,zwoelfBisMittag,Heute, Booking.BookingType.HotelRoomBooking,"egal","Jacuzzi",5.03f,
                 Booking.IsBusinessCustomer.FALSE);
@@ -89,7 +99,7 @@ public class EmployeeTestClass
         //Given
 
         Rooms.add(null); //Rooms beginning at 1
-        Rooms.add(TestRoom);
+        Rooms.add(TestRoom1);
         Bookings.add(null); //Bookings beginning at 1
         Employee MaxMustermann = new Employee("Max Mustermann");
         MaxMustermann.setGivenRole(BookingsManager);
@@ -142,14 +152,26 @@ public class EmployeeTestClass
         //Given
 
         Rooms.add(null); //Rooms beginning at 1
-        Rooms.add(TestRoom);
+        Rooms.add(TestRoom1);
+        Rooms.add(TestRoom2);
+        Rooms.add(TestRoom3);
+        Rooms.add(TestRoom4);
         Bookings.add(null); //Bookings beginning at 1
         Employee MaxMustermann = new Employee("Max Mustermann");
         MaxMustermann.setGivenRole(BookingsManager);
 
-        Booking testBooking= MaxMustermann.createBooking(1,zwoelfBisMittag,Heute, Booking.BookingType.HotelRoomBooking,"egal","Jacuzzi",5.03f, Booking.IsBusinessCustomer.FALSE);
-        Bookings.add(testBooking);
-
+        Booking testBooking1 = MaxMustermann.createBooking(1,zwoelfBisMittag,Heute, Booking.BookingType.HotelRoomBooking,"Single Room","Jacuzzi",5.03f,
+                Booking.IsBusinessCustomer.FALSE);
+        Bookings.add(testBooking1);
+        Booking testBooking2 = MaxMustermann.createBooking(2,zwoelfBisMittag,Heute, Booking.BookingType.HotelRoomBooking,"Suite","extra child bed",10.03f,
+                Booking.IsBusinessCustomer.FALSE);
+        Bookings.add(testBooking2);
+        Booking testBooking3 = MaxMustermann.createBooking(3,zwoelfBisMittag,Heute, Booking.BookingType.HotelRoomBooking,"Double Room","TV",7.03f,
+                Booking.IsBusinessCustomer.FALSE);
+        Bookings.add(testBooking3);
+        Booking testBooking4 = MaxMustermann.createBooking(4,zwoelfBisMittag,Heute, Booking.BookingType.ConferenceRoomBooking,"Big Group","Beamer",5.03f,
+                Booking.IsBusinessCustomer.TRUE);
+        Bookings.add(testBooking4);
 
 
         //When
@@ -158,8 +180,8 @@ public class EmployeeTestClass
         StringBuilder bookingListBeforeDeletion = new StringBuilder(); //is filled with all Bookings of Bookings before Booking No1 is deleted
         for (Booking booking : Bookings)
         {
-            if (booking==null) bookingListBeforeDeletion.append("Dummy");
-            else bookingListBeforeDeletion.append(booking.toString());
+            if (booking==null) bookingListBeforeDeletion.append("Null, ");
+            else bookingListBeforeDeletion.append(booking.toString()+", ");
         }
 
         //Actual Deletion
@@ -170,8 +192,8 @@ public class EmployeeTestClass
         StringBuilder bookingListAfterDeletion = new StringBuilder(); //is filled with all Bookings of Bookings after Booking No1 is deleted
         for (Booking booking : Bookings)
         {
-            if (booking==null) bookingListAfterDeletion.append("Dummy");
-            else bookingListAfterDeletion.append(booking.toString());
+            if (booking==null) bookingListAfterDeletion.append("Null, ");
+            else bookingListAfterDeletion.append(booking.toString()+", ");
         }
 
         //Then

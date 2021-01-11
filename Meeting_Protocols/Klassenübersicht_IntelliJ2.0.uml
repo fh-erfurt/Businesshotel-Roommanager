@@ -3,8 +3,8 @@
   <ID>JAVA</ID>
   <OriginalElement>de.fourofakind.businesshotel</OriginalElement>
   <nodes>
-    <node x="719.0" y="1657.0">de.fourofakind.businesshotel.customers.BookingRequest</node>
     <node x="0.0" y="1137.0">de.fourofakind.businesshotel.employees.Employee</node>
+    <node x="719.0" y="1657.0">de.fourofakind.businesshotel.customers.BookingRequest</node>
     <node x="-387.1666666666665" y="924.6666666666666">de.fourofakind.businesshotel.customers.ContactData.attributes</node>
     <node x="1236.0" y="1657.0">de.fourofakind.businesshotel.common.Role</node>
     <node x="1570.25" y="1137.0">de.fourofakind.businesshotel.rooms.Room</node>
@@ -38,15 +38,15 @@
       <point x="786.0" y="929.0" />
       <point x="-62.25" y="160.0" />
     </edge>
+    <edge source="de.fourofakind.businesshotel.customers.Customer.paymentMethods" target="de.fourofakind.businesshotel.customers.Customer">
+      <point x="0.0" y="-71.5" />
+      <point x="0.0" y="94.5" />
+    </edge>
     <edge source="de.fourofakind.businesshotel.rooms.ConferenceRoom" target="de.fourofakind.businesshotel.rooms.Room">
       <point x="0.0" y="-38.5" />
       <point x="1528.5" y="1305.0" />
       <point x="1610.75" y="1305.0" />
       <point x="-40.5" y="71.5" />
-    </edge>
-    <edge source="de.fourofakind.businesshotel.customers.Customer.paymentMethods" target="de.fourofakind.businesshotel.customers.Customer">
-      <point x="0.0" y="-71.5" />
-      <point x="0.0" y="94.5" />
     </edge>
     <edge source="de.fourofakind.businesshotel.bookings.Booking.IsBusinessCustomer" target="de.fourofakind.businesshotel.bookings.Booking">
       <point x="0.0" y="-71.5" />
@@ -71,8 +71,10 @@
       <point x="62.25" y="160.0" />
     </edge>
   </edges>
-  <settings layout="Hierarchic Group" zoom="0.5000000000000001" x="326.33333333333235" y="1122.6666666666665" />
-  <SelectedNodes />
+  <settings layout="Hierarchic Group" zoom="0.6861240827218146" x="462.0" y="1211.5" />
+  <SelectedNodes>
+    <node>de.fourofakind.businesshotel.employees.Employee</node>
+  </SelectedNodes>
   <Categories>
     <Category>Fields</Category>
     <Category>Constructors</Category>
