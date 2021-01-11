@@ -16,6 +16,66 @@ public class BookingRequest {
         this.isBusinessCustomer = isBusinessCustomer;
     }
 
+    public int getCustomerID ()
+    {
+        return customerID;
+    }
+
+    public void setCustomerID (int customerID)
+    {
+        this.customerID = customerID;
+    }
+
+    public TimeFrame getTimeFrame ()
+    {
+        return timeFrame;
+    }
+
+    public void setTimeFrame (TimeFrame timeFrame)
+    {
+        this.timeFrame = timeFrame;
+    }
+
+    public DateFrame getDateFrame ()
+    {
+        return dateFrame;
+    }
+
+    public void setDateFrame (DateFrame dateFrame)
+    {
+        this.dateFrame = dateFrame;
+    }
+
+    public String getRoomCategory ()
+    {
+        return roomCategory;
+    }
+
+    public void setRoomCategory (String roomCategory)
+    {
+        this.roomCategory = roomCategory;
+    }
+
+    public String getSpecialWishes ()
+    {
+        return specialWishes;
+    }
+
+    public void setSpecialWishes (String specialWishes)
+    {
+        this.specialWishes = specialWishes;
+    }
+
+    public Booking.IsBusinessCustomer getIsBusinessCustomer ()
+    {
+        return isBusinessCustomer;
+    }
+
+    public void setIsBusinessCustomer (Booking.IsBusinessCustomer isBusinessCustomer)
+    {
+        this.isBusinessCustomer = isBusinessCustomer;
+    }
+
     private int customerID;
     private TimeFrame timeFrame;
     private DateFrame dateFrame;
