@@ -73,7 +73,6 @@ public class Employee
     {
         if (this.getGivenRole()==BookingsManager) //checks for Rights to manage Bookings
         {
-            LocalDateTime currentDateTime = LocalDateTime.now();
             int bookingNo = Bookings.size();
 
             Booking createdBooking = null;
@@ -393,6 +392,20 @@ public class Employee
 
         for (BookingRequest bookingRequest : BookingRequests)
         {
+            Booking.BookingType bookingType;
+            switch (bookingRequest.getRoomCategory())
+            {
+                case "Suite":
+                case "Single Room":
+                case "Double Room":
+                    bookingType= Booking.BookingType.HotelRoomBooking;
+                    break;
+                case "Small Group":
+                case "Big Group":
+                    bookingType= Booking.BookingType.ConferenceRoomBooking;
+                    break;
+            }
+
             //TODO:
             //annahme oder ablehnung von buchungsanfragen und entsprechend löschen der request und ggf anlegen einer buchung
             //--> möglicherweise momentan zufallsbasiert
