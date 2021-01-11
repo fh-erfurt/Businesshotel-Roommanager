@@ -49,7 +49,7 @@ public class Room { //TODO: Room abstract deklarieren (nur spezialisierte Raumar
     private int roomNo;
     private String category; //TODO: Datentyp von String zu Enum mit Werten aus der Projektbeschreibung umwandeln
     private int areaInSqrMetre;
-    private boolean isUsed;
+    private boolean isUsed; //TODO: Umwandeln zu TimeFrame und Dateframe datentypen, die den geblockten zeitraum angeben
 
 
 
