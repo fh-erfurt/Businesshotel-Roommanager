@@ -32,7 +32,6 @@ anzupassen. So kann flexibel auf die gültigen Corona-Schutzbestimmung reagiert 
 Projektteam
 * Niklas Wiemuth
 * Marius Lange
-* Martin Jugenheimer
 * Thomas Gebel
 
 
