@@ -1,7 +1,7 @@
 
 # Businesshotel-Roommanager
 Ein Java-Projekt zum Management von Zimmern in einem Businesshotel. 
-[![Build Status](https://github.com/fh-erfurt/Businesshotel-Roommanager/workflows/build/badge.svg)](https://github.com/fh-erfurt/Businesshotel-Roommanager/actions)
+[![Build Status](https://github.com/fh-erfurt/Businesshotel-Roommanager/workflows/JavaCIwithMaven/badge.svg)](https://github.com/fh-erfurt/Businesshotel-Roommanager/actions)
 
 
 ### Dokumentation
