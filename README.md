@@ -68,7 +68,7 @@ Nicht zum Projektumfang gehören:
 ![alt text](Projektübersicht.png "Projektübersicht Bild")
 
 ### Use Case Diagramme
-![alt text](Use Case Diagramme.png "Projektübersicht Bild")
+![alt text](Use%20Case%20Diagramme.png "Projektübersicht Bild")
 
 </details>
 
