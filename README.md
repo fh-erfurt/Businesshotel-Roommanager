@@ -45,6 +45,7 @@ Grobziele sind:
 
 	- Erstellung und Implementierung eines Raumverwaltungssystem
 	- Erstellung und Implementierung eines Buchungsverwaltungssystem
+	- Erstellung und Implementierung eines Kundenverwaltungssystem
 
 ## Abgrenzungskriterien
 Nicht zum Projektumfang gehören:
