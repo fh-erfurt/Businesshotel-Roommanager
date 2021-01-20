@@ -86,7 +86,7 @@ public class Employee
                 createdBooking = new ConferenceRoomBooking(bookingNo, roomNo, timeFrame, dateFrame, roomCategory, specialWishes, pricing, this.getEmpNo(), isBusinessCustomer);
             }
 
-            Rooms.get(roomNo).setUsed(true);
+            //Rooms.get(roomNo).setUsed(true);
             Bookings.add(createdBooking);
             return createdBooking;
         }
@@ -221,6 +221,7 @@ public class Employee
 
 
     /**
+     * <p>Implementation of the Employee's ability to search for a booking by several parameters given. Will later be much more efficient if based on database actions</p>
      * @param BookingNo             number of the booking to be searched for as well as its position in Bookings
      * @param RoomNo                number of the room which is documented in the booking to be searched for
      * @param empNo                 number of the employee that created the booking to be searched for
@@ -228,43 +229,75 @@ public class Employee
      * @param timeFrame             timeframe of the booking to be searched for
      * @param bookingDate           date of the booking to be searched for
      * @param roomCategory          category of the room which is documented in the booking to be searched for
-     * @param specialWishes         special wishes documented in the booking to be searched for
-     * @param isBusinessCustomer    indicates if the booking to be searched for is from business customer or not
      * @return  returns all resulting Booking that match the search criteria
      */
-    public ArrayList<Booking> findBooking (int BookingNo, int RoomNo, int empNo, DateFrame dateFrame, TimeFrame timeFrame, String bookingDate, String roomCategory,
-                                String specialWishes, Booking.IsBusinessCustomer isBusinessCustomer)
+    public ArrayList<Booking> findBooking (int BookingNo, int RoomNo, int empNo, DateFrame dateFrame, TimeFrame timeFrame, String bookingDate, String roomCategory)
     {
 
         ArrayList<Booking> searchResults = new ArrayList<>();
         Booking wantedBooking=null;
+        int indexOfBookingList=1;
 
-        if (BookingNo!=0)
+        if (BookingNo!=0) //if BookingNo is given, only one item could be found
         {
             searchResults.add(Bookings.get(BookingNo));
             return searchResults;
         }
 
-        if (RoomNo!=0)
+        else if (RoomNo!=0 && dateFrame!=null && timeFrame!=null) //if the Room Number a well as the time frame and date frame of the room being used is given, there
+                                                                  // should be only one item found
+                                                                  // more secure if additional search params like roomCategory or BookingDate are given
+
         {
-            int indexOfBookingList=1;
+
             if(indexOfBookingList< Bookings.size())
             {
                 wantedBooking= Bookings.get(1);
                 while (wantedBooking.getRoomNo()!=RoomNo && indexOfBookingList< Bookings.size())
                 {
+                    if (wantedBooking.getDateFrame().equals(dateFrame) )
+                    {
+                        if (wantedBooking.getTimeFrame().equals(timeFrame))
+                        {
+                            if(wantedBooking.getRoomCategory().equals(roomCategory)) //only triggered if roomCategory is given
+                            {
+                                if(wantedBooking.getBookingDate().equals(bookingDate)) //only triggered if booking Date is given
+                                {
+                                    wantedBooking = Bookings.get(indexOfBookingList);
+                                }
+                                else if (bookingDate==null)                            //if booking Date is not given, the resulting booking of the past parameters is
+                                {                                                      // added
+                                    wantedBooking = Bookings.get(indexOfBookingList);
+                                }
 
-                    wantedBooking= Bookings.get(indexOfBookingList);
+                            }
+                            else if (roomCategory==null)                               //if roomCategory is not given, the method will continue searching with the
+                                                                                       // BookingDate, if provided
+                            {
+                                if(wantedBooking.getBookingDate().equals(bookingDate))
+                                {
+                                    wantedBooking = Bookings.get(indexOfBookingList);
+                                }
+                                else if (bookingDate==null)                            //if bookingDate is also not provided, only the booking referring to the past
+                                                                                       // searching params will be added as a result
+                                {
+                                    wantedBooking = Bookings.get(indexOfBookingList);
+                                }
+                            }
+
+
+                        }
+                    }
+
                     indexOfBookingList++;
                 }
+
             searchResults.add(Bookings.get(indexOfBookingList));
             }
         }
 
-        if (empNo!=0)
+        else if (empNo!=0)  //if only the empNo is given, there will be between zero and a lot of entries found; useful to rate an employee's work rate
         {
-
-            int indexOfBookingList=1;
             if(indexOfBookingList< Bookings.size())
             {
                 wantedBooking= Bookings.get(1);
@@ -276,103 +309,6 @@ public class Employee
                 searchResults.add(Bookings.get(indexOfBookingList));
             }
         }
-
-        if (dateFrame!=null)
-        {
-
-            int indexOfBookingList=1;
-            if(indexOfBookingList< Bookings.size())
-            {
-                wantedBooking= Bookings.get(1);
-                while (!wantedBooking.getDateFrame().equals(dateFrame) && indexOfBookingList < Bookings.size())
-                {
-                    wantedBooking = Bookings.get(indexOfBookingList);
-                    indexOfBookingList++;
-                }
-                searchResults.add(Bookings.get(indexOfBookingList));
-            }
-        }
-
-        if (timeFrame!=null)
-        {
-
-            int indexOfBookingList=1;
-            if(indexOfBookingList< Bookings.size())
-            {
-                wantedBooking= Bookings.get(1);
-                while (!wantedBooking.getTimeFrame().equals(timeFrame) && indexOfBookingList < Bookings.size())
-                {
-                    wantedBooking = Bookings.get(indexOfBookingList);
-                    indexOfBookingList++;
-                }
-                searchResults.add(Bookings.get(indexOfBookingList));
-            }
-        }
-
-        if (bookingDate!=null)
-        {
-
-            int indexOfBookingList=1;
-            if(indexOfBookingList< Bookings.size())
-            {
-                wantedBooking= Bookings.get(1);
-                while (!wantedBooking.getBookingDate().equals(bookingDate) && indexOfBookingList < Bookings.size())
-                {
-                    wantedBooking = Bookings.get(indexOfBookingList);
-                    indexOfBookingList++;
-                }
-                searchResults.add(Bookings.get(indexOfBookingList));
-            }
-        }
-
-        if (roomCategory!=null)
-        {
-
-            int indexOfBookingList=1;
-            if(indexOfBookingList< Bookings.size())
-            {
-                wantedBooking= Bookings.get(1);
-                while (!wantedBooking.getRoomCategory().equals(roomCategory) && indexOfBookingList < Bookings.size())
-                {
-                    wantedBooking = Bookings.get(indexOfBookingList);
-                    indexOfBookingList++;
-                }
-                searchResults.add(Bookings.get(indexOfBookingList));
-            }
-        }
-
-        if (specialWishes!=null)
-        {
-
-            int indexOfBookingList=1;
-            if(indexOfBookingList< Bookings.size())
-            {
-                wantedBooking= Bookings.get(1);
-                while (!wantedBooking.getSpecialWishes().equals(specialWishes) && indexOfBookingList < Bookings.size())
-                {
-                    wantedBooking = Bookings.get(indexOfBookingList);
-                    indexOfBookingList++;
-                }
-                searchResults.add(Bookings.get(indexOfBookingList));
-            }
-        }
-
-        if (isBusinessCustomer!=null)
-        {
-
-            int indexOfBookingList=1;
-            if(indexOfBookingList< Bookings.size())
-            {
-                wantedBooking= Bookings.get(1);
-                while (!wantedBooking.isBusinessCustomer().equals(isBusinessCustomer) && indexOfBookingList < Bookings.size())
-                {
-                    wantedBooking = Bookings.get(indexOfBookingList);
-                    indexOfBookingList++;
-                }
-                searchResults.add(Bookings.get(indexOfBookingList));
-            }
-        }
-
 
         return searchResults;
     }
