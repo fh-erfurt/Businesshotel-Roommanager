@@ -336,24 +336,26 @@ public class Employee
 
         for (BookingRequest bookingRequest : BookingRequests)
         {
-            Booking.BookingType bookingType;
-            switch (bookingRequest.getRoomCategory())
+            Booking.BookingType bookingType = switch (bookingRequest.getRoomCategory())
+                    {
+                        case "Suite", "Single Room", "Double Room" -> Booking.BookingType.HotelRoomBooking;
+                        case "Small Group", "Big Group" -> Booking.BookingType.ConferenceRoomBooking;
+                        default -> null;
+                    };
+            if (bookingType== Booking.BookingType.ConferenceRoomBooking)
             {
-                case "Suite":
-                case "Single Room":
-                case "Double Room":
-                    bookingType= Booking.BookingType.HotelRoomBooking;
-                    break;
-                case "Small Group":
-                case "Big Group":
-                    bookingType= Booking.BookingType.ConferenceRoomBooking;
-                    break;
+                //TODO: Freien Raum der gewünschten Kategorie zum richtigen Zeitpunkt suchen (falls nicht vorhanden, Request ablehnen)
             }
-
-            //TODO:
-            //annahme oder ablehnung von buchungsanfragen und entsprechend löschen der request und ggf anlegen einer buchung
-            //--> möglicherweise momentan zufallsbasiert
-        }
+            else if (bookingType== Booking.BookingType.HotelRoomBooking)
+            {
+                //TODO: Freien Raum der gewünschten Kategorie zum richtigen Zeitpunkt suchen (falls nicht vorhanden, Request ablehnen)
+            }
+            else if(bookingType==null)
+                throw new IllegalArgumentException();
+                //TODO:
+                //annahme oder ablehnung von buchungsanfragen und entsprechend löschen der request und ggf anlegen einer buchung
+                //--> möglicherweise momentan zufallsbasiert
+            }
     }
 
     public void createCustomer (String firstName, String lastName, String streetName, String streetNumber, String postalCode, String cityName, String mailAddress,
@@ -421,8 +423,7 @@ public class Employee
 
     }
 
-    //TODO
-    //Rollen in Tests zuweisen
+
 
 
     public int getEmpNo ()
