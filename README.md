@@ -101,7 +101,8 @@ Jeder alles Einrichten um auf ein und demselben Ordner arbeiten zu können. Choc
 Teilnehmer: Niklas, Marius, Thomas 
 Krank: Martin
 
-Ideen vorgestellt für Projekte. Daraus wird im Anschluss eine Umfrage in Telegramm erstellt, die bis Ende des Tages beantwortet sein sollte.
+Ideen vorgestellt für Projekte. Daraus wird im Anschluss eine Umfrage in Telegramm erstellt, 
+die bis Ende des Tages beantwortet sein sollte.
 Themavorschläge:
 Thomas:
   Zimmerverwaltung
