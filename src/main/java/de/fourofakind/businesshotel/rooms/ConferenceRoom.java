@@ -1,5 +1,8 @@
 package de.fourofakind.businesshotel.rooms;
 
+import de.fourofakind.businesshotel.common.DateFrame;
+import de.fourofakind.businesshotel.common.TimeFrame;
+
 public class ConferenceRoom extends Room
 {
 
@@ -29,6 +32,29 @@ public class ConferenceRoom extends Room
     private boolean hasScreen;
     private boolean hasComputer;
     private boolean hasTV;
+
+    public DateFrame getDateFrame ()
+    {
+        return dateFrame;
+    }
+
+    public void setDateFrame (DateFrame dateFrame)
+    {
+        this.dateFrame = dateFrame;
+    }
+
+    public TimeFrame getTimeFrame ()
+    {
+        return timeFrame;
+    }
+
+    public void setTimeFrame (TimeFrame timeFrame)
+    {
+        this.timeFrame = timeFrame;
+    }
+
+    private DateFrame dateFrame;
+    private TimeFrame timeFrame;
 
 
 

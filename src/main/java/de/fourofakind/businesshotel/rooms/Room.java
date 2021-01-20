@@ -1,4 +1,10 @@
 package de.fourofakind.businesshotel.rooms;
+import de.fourofakind.businesshotel.common.DateFrame;
+import de.fourofakind.businesshotel.common.TimeFrame;
+
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
+
 
 public class Room { //TODO: Room abstract deklarieren (nur spezialisierte Raumarten sind erlaubt)
     /**

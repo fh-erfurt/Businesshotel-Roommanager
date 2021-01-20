@@ -1,5 +1,7 @@
 package de.fourofakind.businesshotel.rooms;
 
+import de.fourofakind.businesshotel.common.DateFrame;
+
 public class HotelRoom extends Room
 {
 
@@ -28,6 +30,18 @@ public class HotelRoom extends Room
     private boolean hasTV;
     private boolean hasKitchen;
     private boolean hasCoffeemaker;
+
+    public DateFrame getDateframe ()
+    {
+        return dateframe;
+    }
+
+    public void setDateframe (DateFrame dateframe)
+    {
+        this.dateframe = dateframe;
+    }
+
+    private DateFrame dateframe;
 
 
 }
