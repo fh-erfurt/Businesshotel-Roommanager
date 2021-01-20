@@ -181,7 +181,7 @@ public class Employee
      * @param hasComputer               tells whether there is a computer in the room
      * @param hasTV                     tells whether there is a TV in the room
      */
-    public void createConferenceRoom (int roomNo, String category, int areaInSqrMetre, int maxAmountOfParticipants, int amountOfWhiteboards,
+    public Room createConferenceRoom (int roomNo, String category, int areaInSqrMetre, int maxAmountOfParticipants, int amountOfWhiteboards,
                                       int amountOfBeamer, boolean hasScreen, boolean hasComputer, boolean hasTV)
     {
         if (this.getGivenRole()==RoomAdministrator) //checks for Rights to manage Rooms
@@ -189,7 +189,11 @@ public class Employee
             Room newRoom = new ConferenceRoom(roomNo, category, areaInSqrMetre, maxAmountOfParticipants, amountOfWhiteboards,amountOfBeamer,
                     hasScreen,hasComputer,hasTV);
             Rooms.add(newRoom);
+            return newRoom;
         }
+        Room newRoom = new ConferenceRoom(roomNo, category, areaInSqrMetre, maxAmountOfParticipants, amountOfWhiteboards,amountOfBeamer,
+                hasScreen,hasComputer,hasTV);
+        return newRoom;
     }
 
     /**
@@ -205,14 +209,18 @@ public class Employee
      * @param hasKitchen        tells if there is a kitchen to cook in the room
      * @param hasCoffeemaker    tells if there is a Coffeemaker in the room
      */
-    public void createHotelRoom (int roomNo, String category, int areaInSqrMetre, int bedCount, boolean hasSpeedLAN, boolean hasTV, boolean hasKitchen,
+    public Room createHotelRoom (int roomNo, String category, int areaInSqrMetre, int bedCount, boolean hasSpeedLAN, boolean hasTV,
+                                 boolean hasKitchen,
                                  boolean hasCoffeemaker)
     {
         if (this.getGivenRole()==RoomAdministrator) //checks for Rights to manage Rooms
         {
             Room newRoom = new HotelRoom(roomNo, category, areaInSqrMetre, bedCount,hasSpeedLAN,hasTV,hasKitchen,hasCoffeemaker);
-            Rooms.add(newRoom);
+            //Rooms.add(newRoom);
+            return newRoom;
         }
+        Room newRoom = new HotelRoom(roomNo, category, areaInSqrMetre, bedCount,hasSpeedLAN,hasTV,hasKitchen,hasCoffeemaker);
+        return newRoom;
     }
 
 

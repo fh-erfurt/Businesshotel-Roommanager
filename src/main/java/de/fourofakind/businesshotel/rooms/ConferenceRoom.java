@@ -32,6 +32,8 @@ public class ConferenceRoom extends Room
     private boolean hasScreen;
     private boolean hasComputer;
     private boolean hasTV;
+    private DateFrame dateFrame;
+    private TimeFrame timeFrame;
 
     public DateFrame getDateFrame ()
     {
@@ -53,8 +55,7 @@ public class ConferenceRoom extends Room
         this.timeFrame = timeFrame;
     }
 
-    private DateFrame dateFrame;
-    private TimeFrame timeFrame;
+
 
 
 

@@ -16,20 +16,65 @@ public class HotelRoom extends Room
         this.hasCoffeemaker = hasCoffeemaker;
     }
 
-    public int getBedCount () {
+
+    public int getBedCount ()
+    {
         return bedCount;
     }
 
-    public void setBedCount(int bedCount) {
+    public void setBedCount (int bedCount)
+    {
         this.bedCount = bedCount;
     }
 
     private int bedCount;
 
+    public boolean isHasSpeedLAN ()
+    {
+        return hasSpeedLAN;
+    }
+
+    public void setHasSpeedLAN (boolean hasSpeedLAN)
+    {
+        this.hasSpeedLAN = hasSpeedLAN;
+    }
+
+    public boolean isHasTV ()
+    {
+        return hasTV;
+    }
+
+    public void setHasTV (boolean hasTV)
+    {
+        this.hasTV = hasTV;
+    }
+
+    public boolean isHasKitchen ()
+    {
+        return hasKitchen;
+    }
+
+    public void setHasKitchen (boolean hasKitchen)
+    {
+        this.hasKitchen = hasKitchen;
+    }
+
+
+    public boolean isHasCoffeemaker ()
+    {
+        return hasCoffeemaker;
+    }
+
+    public void setHasCoffeemaker (boolean hasCoffeemaker)
+    {
+        this.hasCoffeemaker = hasCoffeemaker;
+    }
+
     private boolean hasSpeedLAN;
     private boolean hasTV;
     private boolean hasKitchen;
     private boolean hasCoffeemaker;
+    private DateFrame dateframe;
 
     public DateFrame getDateframe ()
     {
@@ -41,7 +86,7 @@ public class HotelRoom extends Room
         this.dateframe = dateframe;
     }
 
-    private DateFrame dateframe;
+
 
 
 }
