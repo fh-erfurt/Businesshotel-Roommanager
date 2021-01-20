@@ -8,7 +8,7 @@ Ein Java-Projekt zum Management von Zimmern in einem Businesshotel.
 
 ___
 
-#### Projektbeschreibung
+#### 1.Projektbeschreibung
 ```
 
 Es soll ein Management-System für die Zimmer eines Businesshotels entwickelt werden. Der Mitarbeiter 
@@ -29,17 +29,58 @@ anzupassen. So kann flexibel auf die gültigen Corona-Schutzbestimmung reagiert 
 
 ```
 
-Projektteam
+
+<details>
+<summary> Allgemeine Projektübersicht </summary>
+<br>
+
+## Projektteam
 * Niklas Wiemuth
 * Marius Lange
 * Thomas Gebel
 
+## Anforderungsbeschreibung
+Grobziele sind:
 
-### Grafische Darstellung der Projektübersicht
+	- Erstellung und Implementierung eines Raumverwaltungssystem
+	- Erstellung und Implementierung eines Buchungsverwaltungssystem
+
+## Abgrenzungskriterien
+Nicht zum Projektumfang gehören:
+
+	- Personalverwaltung
+	- Lohnbuchhaltung/Zeiterfassung
+	- Rechnung und Mahnwesen
+	
+</details>
+
+
+<details>
+<summary> Grafiken </summary>
+<br>
+
+### Projektübersicht
 ![alt text](Projektübersicht.png "Projektübersicht Bild")
 
-```
-Kategorien Hotelzimmer: Suite, Einzelzimmer, Doppelzimmer
-Kategorien Konferenzräume: Großgruppen, Kleingruppen
+### Klassendiagramm
+![alt text](Projektübersicht.png "Projektübersicht Bild")
 
-```
+### Use Case Diagramme
+![alt text](Projektübersicht.png "Projektübersicht Bild")
+
+</details>
+
+<details>
+<summary> Verwendete Software </summary>
+<br>
+
+* [IntelliJ](https://www.jetbrains.com/de-de/idea/) - IDE für JAVA
+* [draw.io](https://app.diagrams.net/) - Tool für die Erstellung der Diagramme
+* [Office](https://www.office.com/) - Office Programm
+* [Git](https://git-scm.com/) - Versionskontrolle
+* [Webex](https://www.webex.com/de/video-conferencing.html) - Kommunikationsmittel für regelmäßige Meetings
+* [Telegram](https://telegram.org/) - Kommunikationsmittel zum schnellen Austausch
+
+</details>
+
+
