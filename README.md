@@ -4,7 +4,6 @@ Ein Java-Projekt zum Management von Zimmern in einem Businesshotel.<br>
 [![Build Status](https://github.com/fh-erfurt/Businesshotel-Roommanager/workflows/JavaCIwithMaven/badge.svg)](https://github.com/fh-erfurt/Businesshotel-Roommanager/actions)
 ![CodeFactor](https://img.shields.io/badge/JAVA-15-blue)
 [![License](http://img.shields.io/:license-mit-blue.svg)](https://github.com/fh-erfurt/Businesshotel-Roommanager/blob/master/LICENSE)
-[![GitHub issues](https://img.shields.io/github/issues/Naereen/StrapDown.js.svg)](https://github.com/fh-erfurt/Businesshotel-Roommanager/issues)
 
 ### Dokumentation
 
