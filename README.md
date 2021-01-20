@@ -74,10 +74,10 @@ Nicht zum Projektumfang gehören:
 <summary> Meeting Protokolle </summary>
 <br>
 
-###Meetings Protocol
+Meetings Protocol
 
 ```
-##06.11.2020 12:00 Platform: Webex
+06.11.2020 12:00 Platform: Webex
 Teilnehmer: Niklas, Marius, Thomas
 
 Projektthema: Ideen sammeln, Hotel wurde als Vorschlag gebracht, so als Zimmerverwaltung oder ähnliches, 
@@ -97,7 +97,7 @@ Jeder alles Einrichten um auf ein und demselben Ordner arbeiten zu können. Choc
 	Doku anlegen
 ```
 ```
-##11.11.2020 10:00 Platform: Webex
+11.11.2020 10:00 Platform: Webex
 Teilnehmer: Niklas, Marius, Thomas 
 Krank: Martin
 
@@ -141,7 +141,7 @@ Die Ausarbeitung zur Selbstvorstellung werden dann zusammengestellt in Folie fü
 ```
 
 ```
-##20.11.2020 10:00 Platform: Webex
+20.11.2020 10:00 Platform: Webex
 Teilnehmer: Niklas, Marius, Martin, Thomas
 
 1. Projektbeschreibung Substantive, Verben und Eigenschaften für Klassen/Methoden 
@@ -164,7 +164,7 @@ im Projekt besprochen. Notwendigkeit der Klassenentwürfe.
 ```
 
 ```
-##25.11.2020 10:00 Platform: Webex
+25.11.2020 10:00 Platform: Webex
 Teilnehmer: Niklas, Marius, Thomas
 Nicht anwesend: Martin
 
@@ -184,7 +184,7 @@ Nicht anwesend: Martin
 ```
 
 ```
-##02.12.2020 10:45 Uhr Platform: Webex
+02.12.2020 10:45 Uhr Platform: Webex
 Teilnehmer: Martin, Niklas, Marius, Thomas
 
 1. Projektfortschritt besprochen, Verfeinerung der Klassen besprochen. Gespräch über 
@@ -236,7 +236,7 @@ entschuldigt: Marius
 ```
 
 ```
-#13.12.2020 20:00 Uhr Platform: Webex
+13.12.2020 20:00 Uhr Platform: Webex
 Teilnehmer: Martin, Niklas, Thomas, Marius
 
 1. Absprache Ablauf Präsentation, letzte Änderungen an Inhalt und Darstellung. Festlegen
