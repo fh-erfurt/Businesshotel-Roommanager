@@ -175,12 +175,19 @@ public class Employee
      * @param category                  category of the room, depending on if it is a hotel room (suite, single room, double room) or conference room (big group, small group)
      * @param areaInSqrMetre            area of the room in square metres
      * @param maxAmountOfParticipants   maximal amount of people allowed in the room according to current corona guidelines, later depending on amount of seats
+     * @param amountOfWhiteboards       tells how many Whiteboards are in the room
+     * @param amountOfBeamer            tells how many beamers are in the room
+     * @param hasScreen                 tells whether there is a screen for the presentation of data
+     * @param hasComputer               tells whether there is a computer in the room
+     * @param hasTV                     tells whether there is a TV in the room
      */
-    public void createConferenceRoom (int roomNo, String category, int areaInSqrMetre, int maxAmountOfParticipants)
+    public void createConferenceRoom (int roomNo, String category, int areaInSqrMetre, int maxAmountOfParticipants, int amountOfWhiteboards,
+                                      int amountOfBeamer, boolean hasScreen, boolean hasComputer, boolean hasTV)
     {
         if (this.getGivenRole()==RoomAdministrator) //checks for Rights to manage Rooms
         {
-            Room newRoom = new ConferenceRoom(roomNo, category, areaInSqrMetre, maxAmountOfParticipants);
+            Room newRoom = new ConferenceRoom(roomNo, category, areaInSqrMetre, maxAmountOfParticipants, amountOfWhiteboards,amountOfBeamer,
+                    hasScreen,hasComputer,hasTV);
             Rooms.add(newRoom);
         }
     }
@@ -193,12 +200,17 @@ public class Employee
      * @param category          category of the room, depending on if it is a hotel room (suite, single room, double room) or conference room (big group, small group)
      * @param areaInSqrMetre    area of the room in square metres
      * @param bedCount          amount of beds in the hotel room
+     * @param hasSpeedLAN       tells if the room has a SpeedLan Connection avaiable
+     * @param hasTV             tells if the room has a TV
+     * @param hasKitchen        tells if there is a kitchen to cook in the room
+     * @param hasCoffeemaker    tells if there is a Coffeemaker in the room
      */
-    public void createHotelRoom (int roomNo, String category, int areaInSqrMetre, int bedCount)
+    public void createHotelRoom (int roomNo, String category, int areaInSqrMetre, int bedCount, boolean hasSpeedLAN, boolean hasTV, boolean hasKitchen,
+                                 boolean hasCoffeemaker)
     {
         if (this.getGivenRole()==RoomAdministrator) //checks for Rights to manage Rooms
         {
-            Room newRoom = new HotelRoom(roomNo, category, areaInSqrMetre, bedCount);
+            Room newRoom = new HotelRoom(roomNo, category, areaInSqrMetre, bedCount,hasSpeedLAN,hasTV,hasKitchen,hasCoffeemaker);
             Rooms.add(newRoom);
         }
     }
