@@ -4,39 +4,39 @@
   <OriginalElement>de.fourofakind.businesshotel</OriginalElement>
   <nodes>
     <node x="0.0" y="1137.0">de.fourofakind.businesshotel.employees.Employee</node>
-    <node x="719.0" y="1657.0">de.fourofakind.businesshotel.customers.BookingRequest</node>
-    <node x="-387.1666666666665" y="924.6666666666666">de.fourofakind.businesshotel.customers.ContactData.attributes</node>
-    <node x="1236.0" y="1657.0">de.fourofakind.businesshotel.common.Role</node>
-    <node x="1570.25" y="1137.0">de.fourofakind.businesshotel.rooms.Room</node>
-    <node x="599.25" y="579.0">de.fourofakind.businesshotel.bookings.Booking</node>
-    <node x="1535.0" y="1657.0">de.fourofakind.businesshotel.common.TimeFrame</node>
-    <node x="256.0" y="982.0">de.fourofakind.businesshotel.bookings.ConferenceRoomBooking</node>
-    <node x="1408.0" y="1330.0">de.fourofakind.businesshotel.rooms.ConferenceRoom</node>
+    <node x="853.0" y="1657.0">de.fourofakind.businesshotel.customers.BookingRequest</node>
+    <node x="99.5" y="303.0">de.fourofakind.businesshotel.customers.ContactData.attributes</node>
+    <node x="1370.0" y="1657.0">de.fourofakind.businesshotel.common.Role</node>
+    <node x="162.25" y="1657.0">de.fourofakind.businesshotel.rooms.Room</node>
+    <node x="687.75" y="579.0">de.fourofakind.businesshotel.bookings.Booking</node>
+    <node x="1669.0" y="1657.0">de.fourofakind.businesshotel.common.TimeFrame</node>
+    <node x="0.0" y="982.0">de.fourofakind.businesshotel.bookings.ConferenceRoomBooking</node>
+    <node x="0.0" y="1850.0">de.fourofakind.businesshotel.rooms.ConferenceRoom</node>
     <node x="866.0" y="982.0">de.fourofakind.businesshotel.bookings.HotelRoomBooking</node>
     <node x="759.5" y="1376.0">de.fourofakind.businesshotel.customers.Customer.paymentMethods</node>
-    <node x="1766.0" y="1657.0">de.fourofakind.businesshotel.common.DateFrame</node>
-    <node x="1669.0" y="1330.0">de.fourofakind.businesshotel.rooms.HotelRoom</node>
-    <node x="-486.6666666666665" y="621.6666666666666">de.fourofakind.businesshotel.customers.ContactData</node>
-    <node x="-1026.9999999999998" y="1453.0">de.fourofakind.businesshotel.EmployeeTestClass</node>
+    <node x="0.0" y="1972.0">de.fourofakind.businesshotel.common.DateFrame</node>
+    <node x="261.0" y="1850.0">de.fourofakind.businesshotel.rooms.HotelRoom</node>
+    <node x="1408.0" y="1137.0">de.fourofakind.businesshotel.EmployeeTestClass</node>
+    <node x="0.0" y="0.0">de.fourofakind.businesshotel.customers.ContactData</node>
     <node x="1445.0" y="960.0">de.fourofakind.businesshotel.bookings.Booking.BookingType</node>
-    <node x="-1025.9999999999998" y="1165.0">de.fourofakind.businesshotel.common.StartingClass</node>
+    <node x="516.0" y="1657.0">de.fourofakind.businesshotel.common.StartingClass</node>
     <node x="677.0" y="1137.0">de.fourofakind.businesshotel.customers.Customer</node>
-    <node x="0.0" y="949.0">de.fourofakind.businesshotel.bookings.Booking.IsBusinessCustomer</node>
     <node x="1113.0" y="1137.0">de.fourofakind.businesshotel.BookingTestClass</node>
+    <node x="610.0" y="949.0">de.fourofakind.businesshotel.bookings.Booking.IsBusinessCustomer</node>
   </nodes>
   <notes />
   <edges>
     <edge source="de.fourofakind.businesshotel.bookings.Booking.BookingType" target="de.fourofakind.businesshotel.bookings.Booking">
       <point x="0.0" y="-60.5" />
       <point x="1545.5" y="919.0" />
-      <point x="1035.0" y="919.0" />
+      <point x="1123.5" y="919.0" />
       <point x="186.75" y="160.0" />
     </edge>
     <edge source="de.fourofakind.businesshotel.bookings.ConferenceRoomBooking" target="de.fourofakind.businesshotel.bookings.Booking">
       <point x="0.0" y="-38.5" />
-      <point x="551.0" y="929.0" />
-      <point x="786.0" y="929.0" />
-      <point x="-62.25" y="160.0" />
+      <point x="295.0" y="919.0" />
+      <point x="750.0" y="919.0" />
+      <point x="-186.75" y="160.0" />
     </edge>
     <edge source="de.fourofakind.businesshotel.customers.Customer.paymentMethods" target="de.fourofakind.businesshotel.customers.Customer">
       <point x="0.0" y="-71.5" />
@@ -44,20 +44,20 @@
     </edge>
     <edge source="de.fourofakind.businesshotel.rooms.ConferenceRoom" target="de.fourofakind.businesshotel.rooms.Room">
       <point x="0.0" y="-38.5" />
-      <point x="1528.5" y="1305.0" />
-      <point x="1610.75" y="1305.0" />
+      <point x="120.5" y="1825.0" />
+      <point x="202.75" y="1825.0" />
       <point x="-40.5" y="71.5" />
     </edge>
     <edge source="de.fourofakind.businesshotel.bookings.Booking.IsBusinessCustomer" target="de.fourofakind.businesshotel.bookings.Booking">
       <point x="0.0" y="-71.5" />
-      <point x="118.0" y="919.0" />
-      <point x="661.5" y="919.0" />
-      <point x="-186.75" y="160.0" />
+      <point x="728.0" y="929.0" />
+      <point x="874.5" y="929.0" />
+      <point x="-62.25" y="160.0" />
     </edge>
     <edge source="de.fourofakind.businesshotel.rooms.HotelRoom" target="de.fourofakind.businesshotel.rooms.Room">
       <point x="0.0" y="-38.5" />
-      <point x="1774.0" y="1305.0" />
-      <point x="1691.75" y="1305.0" />
+      <point x="366.0" y="1825.0" />
+      <point x="283.75" y="1825.0" />
       <point x="40.5" y="71.5" />
     </edge>
     <edge source="de.fourofakind.businesshotel.customers.ContactData.attributes" target="de.fourofakind.businesshotel.customers.ContactData">
@@ -67,14 +67,12 @@
     <edge source="de.fourofakind.businesshotel.bookings.HotelRoomBooking" target="de.fourofakind.businesshotel.bookings.Booking">
       <point x="0.0" y="-38.5" />
       <point x="1145.5" y="929.0" />
-      <point x="910.5" y="929.0" />
+      <point x="999.0" y="929.0" />
       <point x="62.25" y="160.0" />
     </edge>
   </edges>
-  <settings layout="Hierarchic Group" zoom="0.6861240827218146" x="462.0" y="1211.5" />
-  <SelectedNodes>
-    <node>de.fourofakind.businesshotel.employees.Employee</node>
-  </SelectedNodes>
+  <settings layout="Hierarchic Group" zoom="0.6575875486381322" x="561.870184503822" y="1219.6762457767466" />
+  <SelectedNodes />
   <Categories>
     <Category>Fields</Category>
     <Category>Constructors</Category>
