@@ -4,6 +4,7 @@ import de.fourofakind.businesshotel.bookings.Booking;
 import de.fourofakind.businesshotel.bookings.ConferenceRoomBooking;
 import de.fourofakind.businesshotel.bookings.HotelRoomBooking;
 import de.fourofakind.businesshotel.common.DateFrame;
+import de.fourofakind.businesshotel.common.FullDate;
 import de.fourofakind.businesshotel.common.TimeFrame;
 import de.fourofakind.businesshotel.customers.BookingRequest;
 import de.fourofakind.businesshotel.customers.ContactData;
@@ -62,14 +63,11 @@ public class Employee
      * @param roomCategory       Description of the time of room, should be Suite, Single Room or Double Room for hotel rooms or Little Group or Big Group
      *                           for conference rooms
      * @param specialWishes      contains any special wishes made by a customer, could be an extra bed, room service or wake up service in the morning
-     * @param pricing            is bound to the room and the amount of time it is used for;
-     *                           will be generated when creating a booking by the corresponding getPricing method of the Booking class
      * @param isBusinessCustomer marks the booking to be requested by a business customer or for personal use;
      *                           important for generation of bills and taxes to be used
      * @return returns the Booking created just now
      */
-    public Booking createBooking (int roomNo, TimeFrame timeFrame, DateFrame dateFrame, Booking.BookingType bookingType, String roomCategory, String specialWishes,
-                                  float pricing, Booking.IsBusinessCustomer isBusinessCustomer)
+    public Booking createBooking (int roomNo, TimeFrame timeFrame, DateFrame dateFrame, Booking.BookingType bookingType, String roomCategory, String specialWishes, Booking.IsBusinessCustomer isBusinessCustomer)
     {
         if (this.getGivenRole()==BookingsManager) //checks for Rights to manage Bookings
         {
@@ -79,11 +77,11 @@ public class Employee
 
             if (bookingType == Booking.BookingType.HotelRoomBooking)
             {
-                createdBooking = new HotelRoomBooking(bookingNo, roomNo, timeFrame, dateFrame, roomCategory, specialWishes, pricing, this.getEmpNo(), isBusinessCustomer);
+                createdBooking = new HotelRoomBooking(bookingNo, roomNo, timeFrame, dateFrame, roomCategory, specialWishes, this.getEmpNo(), isBusinessCustomer);
             }
             if (bookingType == Booking.BookingType.ConferenceRoomBooking)
             {
-                createdBooking = new ConferenceRoomBooking(bookingNo, roomNo, timeFrame, dateFrame, roomCategory, specialWishes, pricing, this.getEmpNo(), isBusinessCustomer);
+                createdBooking = new ConferenceRoomBooking(bookingNo, roomNo, timeFrame, dateFrame, roomCategory, specialWishes, this.getEmpNo(), isBusinessCustomer);
             }
 
             //Rooms.get(roomNo).setUsed(true);
@@ -362,19 +360,45 @@ public class Employee
                         case "Small Group", "Big Group" -> Booking.BookingType.ConferenceRoomBooking;
                         default -> null;
                     };
-            if (bookingType== Booking.BookingType.ConferenceRoomBooking)
+            if(bookingType==null) throw new IllegalArgumentException();
+            else
             {
-                //TODO: Freien Raum der gewünschten Kategorie zum richtigen Zeitpunkt suchen (falls nicht vorhanden, Request ablehnen)
+                for (Room Room:Rooms)
+                {
+                    for (de.fourofakind.businesshotel.common.FullDate FullDate:Room.getRoomOcupiedAtList())
+                    {
+                        if(FullDate.getDateFrame().equals(bookingRequest.getDateFrame()))
+                        {
+                            DeclinedBookingRequests.add(bookingRequest);
+                            BookingRequests.remove(bookingRequest);
+                            break;
+                        }
+                        else if(FullDate.getTimeFrame().equals(bookingRequest.getTimeFrame()))
+                        {
+                            DeclinedBookingRequests.add(bookingRequest);
+                            BookingRequests.remove(bookingRequest);
+                            break;
+                        }
+                        else
+                        {
+                            if (bookingType== Booking.BookingType.ConferenceRoomBooking)
+                            {
+                                this.createBooking(Room.getRoomNo(),bookingRequest.getTimeFrame(),
+                                        bookingRequest.getDateFrame(),bookingType,bookingRequest.getRoomCategory(), bookingRequest.getSpecialWishes(),
+                                        bookingRequest.getIsBusinessCustomer());
+                            }
+                            else if (bookingType== Booking.BookingType.HotelRoomBooking)
+                            {
+                                this.createBooking(Room.getRoomNo(),bookingRequest.getTimeFrame(),
+                                        bookingRequest.getDateFrame(),bookingType,bookingRequest.getRoomCategory(), bookingRequest.getSpecialWishes(),
+                                        bookingRequest.getIsBusinessCustomer());
+                            }
+                        }
+                    }
+                }
             }
-            else if (bookingType== Booking.BookingType.HotelRoomBooking)
-            {
-                //TODO: Freien Raum der gewünschten Kategorie zum richtigen Zeitpunkt suchen (falls nicht vorhanden, Request ablehnen)
-            }
-            else if(bookingType==null)
-                throw new IllegalArgumentException();
-                //TODO:
-                //annahme oder ablehnung von buchungsanfragen und entsprechend löschen der request und ggf anlegen einer buchung
-                //--> möglicherweise momentan zufallsbasiert
+
+
             }
     }
 

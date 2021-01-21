@@ -17,6 +17,7 @@ public class StartingClass
     public static ArrayList<Employee> Employees = new ArrayList<>();
     public static ArrayList<BookingRequest> BookingRequests = new ArrayList<>();
     public static ArrayList<Customer> Customers = new ArrayList<>();
+    public static ArrayList<BookingRequest> DeclinedBookingRequests = new ArrayList<>();
 
     //Define Roles
     public static Role GodLikeAdmin = new Role(true,true,true);

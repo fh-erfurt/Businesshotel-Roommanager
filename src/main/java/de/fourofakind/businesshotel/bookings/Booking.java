@@ -37,7 +37,7 @@ public abstract class Booking {
      */
 
     public Booking(int bookingNo, int roomNo, TimeFrame timeFrame, DateFrame dateFrame, String roomCategory,
-                   String specialWishes, float pricing, int empNo, IsBusinessCustomer isBusinessCustomer) {
+                   String specialWishes, int empNo, IsBusinessCustomer isBusinessCustomer) {
         DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         LocalDateTime currentDateTime = LocalDateTime.now();
         this.bookingNo = bookingNo;
@@ -47,10 +47,10 @@ public abstract class Booking {
         this.bookingDate = dateTimeFormat.format(currentDateTime);
         this.roomCategory = roomCategory;
         this.specialWishes = specialWishes;
-        this.pricing = pricing;
         this.empNo = empNo;
         this.isBusinessCustomer = isBusinessCustomer;
     }
+
 
     public TimeFrame getTimeFrame()
     {
@@ -96,9 +96,6 @@ public abstract class Booking {
         this.specialWishes = specialWishes;
     }
 
-    public void setPricing(float pricing) {
-        this.pricing = pricing;
-    }
 
     public void setEmpNo(int empNo) {
         this.empNo = empNo;
@@ -145,6 +142,8 @@ public abstract class Booking {
     {
         this.changeBookingDate = changeBookingDate;
     }
+
+
 
     private int bookingNo;
     private int roomNo;

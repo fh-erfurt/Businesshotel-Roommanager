@@ -160,16 +160,16 @@ public class EmployeeTestClass
         Employee MaxMustermann = new Employee("Max Mustermann");
         MaxMustermann.setGivenRole(BookingsManager);
 
-        Booking testBooking1 = MaxMustermann.createBooking(1,zwoelfBisMittag,Heute, Booking.BookingType.HotelRoomBooking,"Single Room","Jacuzzi",5.03f,
+        Booking testBooking1 = MaxMustermann.createBooking(1,zwoelfBisMittag,Heute, Booking.BookingType.HotelRoomBooking,"Single Room","Jacuzzi",
                 Booking.IsBusinessCustomer.FALSE);
         Bookings.add(testBooking1);
-        Booking testBooking2 = MaxMustermann.createBooking(2,zwoelfBisMittag,Heute, Booking.BookingType.HotelRoomBooking,"Suite","extra child bed",10.03f,
+        Booking testBooking2 = MaxMustermann.createBooking(2,zwoelfBisMittag,Heute, Booking.BookingType.HotelRoomBooking,"Suite","extra child bed",
                 Booking.IsBusinessCustomer.FALSE);
         Bookings.add(testBooking2);
-        Booking testBooking3 = MaxMustermann.createBooking(3,zwoelfBisMittag,Heute, Booking.BookingType.HotelRoomBooking,"Double Room","TV",7.03f,
+        Booking testBooking3 = MaxMustermann.createBooking(3,zwoelfBisMittag,Heute, Booking.BookingType.HotelRoomBooking,"Double Room","TV",
                 Booking.IsBusinessCustomer.FALSE);
         Bookings.add(testBooking3);
-        Booking testBooking4 = MaxMustermann.createBooking(4,zwoelfBisMittag,Heute, Booking.BookingType.ConferenceRoomBooking,"Big Group","Beamer",5.03f,
+        Booking testBooking4 = MaxMustermann.createBooking(4,zwoelfBisMittag,Heute, Booking.BookingType.ConferenceRoomBooking,"Big Group","Beamer",
                 Booking.IsBusinessCustomer.TRUE);
         Bookings.add(testBooking4);
 
@@ -199,5 +199,35 @@ public class EmployeeTestClass
         //Then
 
         assertNotEquals(bookingListBeforeDeletion.toString(), bookingListAfterDeletion.toString(),"If the Booking No 1 is deleted, only the null booking should be left.");
+    }
+
+    @Test
+    void findBooking ()
+    {
+    }
+
+    @Test
+    void showAllBookings ()
+    {
+    }
+
+    @Test
+    void manageBookingRequests ()
+    {
+    }
+
+    @Test
+    void createCustomer ()
+    {
+    }
+
+    @Test
+    void changeCustomer ()
+    {
+    }
+
+    @Test
+    void deleteCustomer ()
+    {
     }
 }

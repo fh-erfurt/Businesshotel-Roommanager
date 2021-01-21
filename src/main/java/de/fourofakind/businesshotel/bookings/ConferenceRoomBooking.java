@@ -9,10 +9,10 @@ public class ConferenceRoomBooking extends Booking
      * This class extends the Booking to the kind of room that has been booked, in this case to a conferenceRoom
      */
 
-    public ConferenceRoomBooking (int bookingNo, int roomNo, TimeFrame timeFrame, DateFrame dateFrame, String roomCategory, String specialWishes,
-                                  float pricing, int empNo, IsBusinessCustomer isBusinessCustomer)
+    public ConferenceRoomBooking (int bookingNo, int roomNo, TimeFrame timeFrame, DateFrame dateFrame, String roomCategory, String specialWishes, int empNo, IsBusinessCustomer isBusinessCustomer)
     {
-        super(bookingNo, roomNo, timeFrame, dateFrame, roomCategory, specialWishes, pricing, empNo, isBusinessCustomer);
+        super(bookingNo, roomNo, timeFrame, dateFrame, roomCategory, specialWishes, empNo, isBusinessCustomer);
+        this.pricing=calculatePricing(0);
     }
 
 
@@ -23,14 +23,19 @@ public class ConferenceRoomBooking extends Booking
      * the room is being booked multiplied by the price per hour. Maybe some special stuff like a beamer or else will be added
      * to the calulation.
      */
-    public float getPricing(float hours)
+    public float calculatePricing(int hours)
     {
-    //hier wird dann noch eine Logik implementiert, die den Preis berechnet.
+    //TODO:hier wird dann noch eine Logik implementiert, die den Preis berechnet.
 
-    return hours;
+    return 0.0f;
     }
 
+    public float getPricing ()
+    {
+        return pricing;
+    }
 
+    private float pricing;
 
 
 }
