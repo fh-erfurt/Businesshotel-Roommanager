@@ -1,9 +1,11 @@
 package de.fourofakind.businesshotel.rooms;
 import de.fourofakind.businesshotel.common.DateFrame;
+import de.fourofakind.businesshotel.common.FullDate;
 import de.fourofakind.businesshotel.common.TimeFrame;
 
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 
 public class Room { //TODO: Room abstract deklarieren (nur spezialisierte Raumarten sind erlaubt)
@@ -52,6 +54,18 @@ public class Room { //TODO: Room abstract deklarieren (nur spezialisierte Raumar
         isUsed = used;
     }
 
+    public ArrayList<FullDate> getRoomOcupiedAtList ()
+    {
+        return roomOccupationList;
+    }
+
+    public void setRoomAsOcupiedToList (FullDate fullDate)
+    {
+        this.roomOccupationList.add(fullDate);
+
+    }
+
+    private ArrayList<FullDate> roomOccupationList = new ArrayList<FullDate>();
     private int roomNo;
     private String category; //TODO: Datentyp von String zu Enum mit Werten aus der Projektbeschreibung umwandeln
     private int areaInSqrMetre;
