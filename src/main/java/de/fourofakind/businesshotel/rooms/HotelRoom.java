@@ -29,9 +29,9 @@ public class HotelRoom extends Room
         this.bedCount = bedCount;
     }
 
-    private int bedCount;
 
-    public boolean isHasSpeedLAN ()
+
+    public boolean hasSpeedLAN ()
     {
         return hasSpeedLAN;
     }
@@ -41,7 +41,7 @@ public class HotelRoom extends Room
         this.hasSpeedLAN = hasSpeedLAN;
     }
 
-    public boolean isHasTV ()
+    public boolean hasTV ()
     {
         return hasTV;
     }
@@ -51,7 +51,7 @@ public class HotelRoom extends Room
         this.hasTV = hasTV;
     }
 
-    public boolean isHasKitchen ()
+    public boolean hasKitchen ()
     {
         return hasKitchen;
     }
@@ -61,7 +61,7 @@ public class HotelRoom extends Room
         this.hasKitchen = hasKitchen;
     }
 
-    public boolean isHasCoffeemaker ()
+    public boolean hasCoffeemaker ()
     {
         return hasCoffeemaker;
     }
@@ -71,7 +71,7 @@ public class HotelRoom extends Room
         this.hasCoffeemaker = hasCoffeemaker;
     }
 
-
+    private int bedCount;
     private boolean hasSpeedLAN;
     private boolean hasTV;
     private boolean hasKitchen;

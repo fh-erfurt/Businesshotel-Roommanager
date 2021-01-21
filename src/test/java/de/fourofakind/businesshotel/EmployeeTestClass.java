@@ -7,6 +7,8 @@ import de.fourofakind.businesshotel.employees.Employee;
 import de.fourofakind.businesshotel.rooms.Room;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static de.fourofakind.businesshotel.common.StartingClass.*;
 
@@ -69,8 +71,7 @@ public class EmployeeTestClass
         MaxMustermann.setGivenRole(BookingsManager);
         Employees.add(MaxMustermann);
 
-        Booking resultBooking= MaxMustermann.createBooking(1,zwoelfBisMittag,Heute, Booking.BookingType.HotelRoomBooking,"egal","Jacuzzi",5.03f,
-                Booking.IsBusinessCustomer.FALSE);
+        Booking resultBooking= MaxMustermann.createBooking(1,zwoelfBisMittag,Heute, Booking.BookingType.HotelRoomBooking,"egal","Jacuzzi",false);
 
 
 
@@ -104,9 +105,9 @@ public class EmployeeTestClass
         Employee MaxMustermann = new Employee("Max Mustermann");
         MaxMustermann.setGivenRole(BookingsManager);
 
-        Booking testBooking= MaxMustermann.createBooking(1,zwoelfBisMittag,Heute, Booking.BookingType.HotelRoomBooking,"egal","Jacuzzi",5.03f, Booking.IsBusinessCustomer.FALSE);
+        Booking testBooking= MaxMustermann.createBooking(1,zwoelfBisMittag,Heute, Booking.BookingType.HotelRoomBooking,"egal","Jacuzzi", false);
         Bookings.add(testBooking);
-
+        int bookingNoOfBookingToBeChanged= testBooking.getBookingNo();
 
 
         //When
@@ -123,7 +124,19 @@ public class EmployeeTestClass
         resultBeforeChanges += ", IsBusinessCustomer?: " + testBooking.isBusinessCustomer();
 
         //Actual Change
-        MaxMustermann.changeBooking(1,0,null,null,"Premium Internet",0.0f, Booking.IsBusinessCustomer.NULL);
+        ArrayList<String> toBeChangedValues =new ArrayList<>();
+        ArrayList<Object> changedValues =new ArrayList<>();
+        toBeChangedValues.add("SpecialWishes");
+        changedValues.add("Premium Internet");
+        try
+        {
+        if(MaxMustermann.changeBooking(bookingNoOfBookingToBeChanged,toBeChangedValues, changedValues)) System.out.println("Klappt.");
+
+        }
+        catch (IllegalArgumentException e)
+        {
+            System.out.println(e.getMessage());
+        }
 
 
         //After Change
@@ -161,16 +174,16 @@ public class EmployeeTestClass
         MaxMustermann.setGivenRole(BookingsManager);
 
         Booking testBooking1 = MaxMustermann.createBooking(1,zwoelfBisMittag,Heute, Booking.BookingType.HotelRoomBooking,"Single Room","Jacuzzi",
-                Booking.IsBusinessCustomer.FALSE);
+                false);
         Bookings.add(testBooking1);
         Booking testBooking2 = MaxMustermann.createBooking(2,zwoelfBisMittag,Heute, Booking.BookingType.HotelRoomBooking,"Suite","extra child bed",
-                Booking.IsBusinessCustomer.FALSE);
+                false);
         Bookings.add(testBooking2);
         Booking testBooking3 = MaxMustermann.createBooking(3,zwoelfBisMittag,Heute, Booking.BookingType.HotelRoomBooking,"Double Room","TV",
-                Booking.IsBusinessCustomer.FALSE);
+                false);
         Bookings.add(testBooking3);
         Booking testBooking4 = MaxMustermann.createBooking(4,zwoelfBisMittag,Heute, Booking.BookingType.ConferenceRoomBooking,"Big Group","Beamer",
-                Booking.IsBusinessCustomer.TRUE);
+                true);
         Bookings.add(testBooking4);
 
 

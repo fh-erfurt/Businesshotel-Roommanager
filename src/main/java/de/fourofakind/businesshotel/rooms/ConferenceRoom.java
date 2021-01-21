@@ -26,14 +26,6 @@ public class ConferenceRoom extends Room
         this.maxAmountOfParticipants = maxAmountOfParticipants;
     }
 
-    private int maxAmountOfParticipants;
-    private int amountOfWhiteboards;
-    private int amountOfBeamer;
-    private boolean hasScreen;
-    private boolean hasComputer;
-    private boolean hasTV;
-    private DateFrame dateFrame;
-    private TimeFrame timeFrame;
 
     public DateFrame getDateFrame ()
     {
@@ -57,6 +49,64 @@ public class ConferenceRoom extends Room
 
 
 
+    public int getAmountOfWhiteboards ()
+    {
+        return amountOfWhiteboards;
+    }
+
+    public void setAmountOfWhiteboards (int amountOfWhiteboards)
+    {
+        this.amountOfWhiteboards = amountOfWhiteboards;
+    }
+
+    public int getAmountOfBeamer ()
+    {
+        return amountOfBeamer;
+    }
+
+    public void setAmountOfBeamer (int amountOfBeamer)
+    {
+        this.amountOfBeamer = amountOfBeamer;
+    }
+
+    public boolean hasScreen ()
+    {
+        return hasScreen;
+    }
+
+    public void setHasScreen (boolean hasScreen)
+    {
+        this.hasScreen = hasScreen;
+    }
+
+    public boolean hasComputer ()
+    {
+        return hasComputer;
+    }
+
+    public void setHasComputer (boolean hasComputer)
+    {
+        this.hasComputer = hasComputer;
+    }
+
+    public boolean hasTV ()
+    {
+        return hasTV;
+    }
+
+    public void setHasTV (boolean hasTV)
+    {
+        this.hasTV = hasTV;
+    }
+
+    private int maxAmountOfParticipants;
+    private int amountOfWhiteboards;
+    private int amountOfBeamer;
+    private boolean hasScreen;
+    private boolean hasComputer;
+    private boolean hasTV;
+    private DateFrame dateFrame;
+    private TimeFrame timeFrame;
 
 
 

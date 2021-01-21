@@ -16,12 +16,6 @@ import java.time.LocalDateTime;
 
 public abstract class Booking {
 
-    public enum IsBusinessCustomer
-    {
-        NULL,
-        TRUE,
-        FALSE
-    }
     public enum BookingType
     {
         ConferenceRoomBooking,
@@ -37,7 +31,7 @@ public abstract class Booking {
      */
 
     public Booking(int bookingNo, int roomNo, TimeFrame timeFrame, DateFrame dateFrame, String roomCategory,
-                   String specialWishes, int empNo, IsBusinessCustomer isBusinessCustomer) {
+                   String specialWishes, int empNo, boolean isBusinessCustomer) {
         DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         LocalDateTime currentDateTime = LocalDateTime.now();
         this.bookingNo = bookingNo;
@@ -50,6 +44,7 @@ public abstract class Booking {
         this.empNo = empNo;
         this.isBusinessCustomer = isBusinessCustomer;
     }
+
 
 
     public TimeFrame getTimeFrame()
@@ -81,7 +76,7 @@ public abstract class Booking {
         return empNo;
     }
 
-    public IsBusinessCustomer isBusinessCustomer() {
+    public boolean isBusinessCustomer() {
         return this.isBusinessCustomer;
     }
 
@@ -101,7 +96,7 @@ public abstract class Booking {
         this.empNo = empNo;
     }
 
-    public void setBusinessCustomer(IsBusinessCustomer businessCustomer) {
+    public void setBusinessCustomer(boolean businessCustomer) {
         isBusinessCustomer = businessCustomer;
     }
 
@@ -157,7 +152,7 @@ public abstract class Booking {
     private String specialWishes;
 
     private String changeBookingDate;
-    private IsBusinessCustomer isBusinessCustomer;
+    private boolean isBusinessCustomer;
 
 
 

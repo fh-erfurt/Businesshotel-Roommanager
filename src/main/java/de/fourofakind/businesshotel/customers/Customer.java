@@ -68,7 +68,7 @@ public class Customer
         this.paymentMethod = paymentMethod;
     }
 
-    public void setIsBusinessCustomer(Booking.IsBusinessCustomer isBusinessCustomer) {
+    public void setIsBusinessCustomer(boolean isBusinessCustomer) {
         this.isBusinessCustomer = isBusinessCustomer;
     }
 
@@ -90,7 +90,7 @@ public class Customer
     private int customerID;
     private ContactData contactData;
     private paymentMethods paymentMethod;
-    private Booking.IsBusinessCustomer isBusinessCustomer;
+    private boolean isBusinessCustomer;
 
 
 }

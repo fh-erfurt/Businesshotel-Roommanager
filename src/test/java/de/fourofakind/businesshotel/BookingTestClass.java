@@ -28,10 +28,9 @@ public class BookingTestClass {
     DateFrame date = new DateFrame("10.12.2020","10.12.2020");
 
     //Booking newBooking = new Booking();
-    Booking ConferenceBooking = new ConferenceRoomBooking(4,BigSuite.getRoomNo(), coffeeMeeting,date,BigSuite.getCategory(),"Luxury",180.05f,400,
-            Booking.IsBusinessCustomer.TRUE);
-    Booking HotelBooking = new HotelRoomBooking(4,SmallSuite.getRoomNo(),coffeeMeeting,date, SmallSuite.getCategory(), "wakeup call every 6 AM",
-            160.5f,110,Booking.IsBusinessCustomer.FALSE);
+    Booking ConferenceBooking = new ConferenceRoomBooking(4,BigSuite.getRoomNo(), coffeeMeeting,date,BigSuite.getCategory(),"Luxury",400,
+            true);
+    Booking HotelBooking = new HotelRoomBooking(4,SmallSuite.getRoomNo(),coffeeMeeting,date, SmallSuite.getCategory(), "wakeup call every 6 AM",110,false);
 
 
 
@@ -55,7 +54,7 @@ public class BookingTestClass {
         String specialWishes = ConferenceBooking.getSpecialWishes();
         float pricing = ConferenceBooking.getPricing();
         int empNo = ConferenceBooking.getEmpNo();
-        Booking.IsBusinessCustomer isBusinessCustomer = ConferenceBooking.isBusinessCustomer();
+        boolean isBusinessCustomer = ConferenceBooking.isBusinessCustomer();
 
         //Then
         assertEquals(4,bookingNumber,"If the BookingNo of the ConferenceBooking equals the given Number it should pass!");

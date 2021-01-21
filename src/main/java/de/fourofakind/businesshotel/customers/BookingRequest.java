@@ -7,7 +7,7 @@ import de.fourofakind.businesshotel.common.TimeFrame;
 public class BookingRequest {
 
     public BookingRequest (int customerID, TimeFrame timeFrame, DateFrame dateFrame, String roomCategory,
-                           String specialWishes, Booking.IsBusinessCustomer isBusinessCustomer) {
+                           String specialWishes, boolean isBusinessCustomer) {
         this.customerID = customerID;
         this.timeFrame = timeFrame;
         this.dateFrame = dateFrame;
@@ -66,12 +66,12 @@ public class BookingRequest {
         this.specialWishes = specialWishes;
     }
 
-    public Booking.IsBusinessCustomer getIsBusinessCustomer ()
+    public boolean getIsBusinessCustomer ()
     {
         return isBusinessCustomer;
     }
 
-    public void setIsBusinessCustomer (Booking.IsBusinessCustomer isBusinessCustomer)
+    public void setIsBusinessCustomer (boolean isBusinessCustomer)
     {
         this.isBusinessCustomer = isBusinessCustomer;
     }
@@ -81,5 +81,5 @@ public class BookingRequest {
     private DateFrame dateFrame;
     private String roomCategory;
     private String specialWishes;
-    private Booking.IsBusinessCustomer isBusinessCustomer;
+    private boolean isBusinessCustomer;
 }

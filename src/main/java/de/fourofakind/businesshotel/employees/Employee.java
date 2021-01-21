@@ -4,7 +4,6 @@ import de.fourofakind.businesshotel.bookings.Booking;
 import de.fourofakind.businesshotel.bookings.ConferenceRoomBooking;
 import de.fourofakind.businesshotel.bookings.HotelRoomBooking;
 import de.fourofakind.businesshotel.common.DateFrame;
-import de.fourofakind.businesshotel.common.FullDate;
 import de.fourofakind.businesshotel.common.TimeFrame;
 import de.fourofakind.businesshotel.customers.BookingRequest;
 import de.fourofakind.businesshotel.customers.ContactData;
@@ -67,7 +66,7 @@ public class Employee
      *                           important for generation of bills and taxes to be used
      * @return returns the Booking created just now
      */
-    public Booking createBooking (int roomNo, TimeFrame timeFrame, DateFrame dateFrame, Booking.BookingType bookingType, String roomCategory, String specialWishes, Booking.IsBusinessCustomer isBusinessCustomer)
+    public Booking createBooking (int roomNo, TimeFrame timeFrame, DateFrame dateFrame, Booking.BookingType bookingType, String roomCategory, String specialWishes, boolean isBusinessCustomer)
     {
         if (this.getGivenRole()==BookingsManager) //checks for Rights to manage Bookings
         {
@@ -88,43 +87,69 @@ public class Employee
             Bookings.add(createdBooking);
             return createdBooking;
         }
-        return null;
+        else throw new IllegalCallerException("The caller does not inherit the Rights to do this");
     }
 
 
     /**
-     * <p>Implementation of the Employee's ability to change one or multiple attributes of a Booking
-     * same params as createBooking, but some can be null-like values, if they should not be changed.
+     *<p>Implementation of the Employee's ability to change one or multiple attributes of a Booking
+     *same params as createBooking, but some can be null-like values, if they should not be changed.
      * Role BookingManager is needed.</p>
-     *
-     * @param bookingNo          Number of the Booking as well as its position inside Bookings
-     * @param roomNo             Number of the Room which is used as well as its position inside Rooms
-     * @param timeFrame          the time span in which the corresponding room will be used;
-     *                           should contain fixed time spans for hotel rooms and variable time spans for conference rooms
-     * @param dateFrame          the date span for one or multiple days, of which a room is blocked;
-     *                           should allow variable date spans for both types of rooms as a conference room could be used for a congress for multiple days
-     *                           and a hotel room can be used for one or multiple nights
-     * @param specialWishes      contains any special wishes made by a customer, could be an extra bed, room service or wake up service in the morning
-     * @param pricing            is bound to the room and the amount of time it is used for;
-     *                           will be generated when creating a booking by the corresponding getPricing method of the Booking class
-     * @param isBusinessCustomer marks the booking to be requested by a business customer or for personal use;
-     *                           important for generation of bills and taxes to be used
+     * @param bookingNo                 Number of the Booking as well as its position inside Bookings
+     * @param toBeChangedValues         contains all values named by string, that need to be changed
+     * @param changedValues             contains all changed Values, needs to be casted to the right datatype
+     * @throws IllegalArgumentException
      */
-    public void changeBooking (int bookingNo, int roomNo, TimeFrame timeFrame, DateFrame dateFrame, String specialWishes, float pricing,
-                               Booking.IsBusinessCustomer isBusinessCustomer)
+    public boolean changeBooking (int bookingNo, ArrayList<String> toBeChangedValues, ArrayList<Object> changedValues) throws IllegalArgumentException
     {
         currentDateTime = LocalDateTime.now();
-        if (this.getGivenRole()==BookingsManager) //checks for Rights to manage Bookings
+        if (this.getGivenRole()==BookingsManager && toBeChangedValues.size() != 0) //checks for Rights to manage Bookings
         {
-            Booking toBeChangedBooking = Bookings.get(bookingNo); //"loads" the to be changed Booking into the function to work with the object
-            if (roomNo != 0) toBeChangedBooking.setRoomNo(roomNo);
-            if (timeFrame != null) toBeChangedBooking.setTimeFrame(timeFrame);
-            if (dateFrame != null) toBeChangedBooking.setDateFrame(dateFrame);
-            if (specialWishes != null) toBeChangedBooking.setSpecialWishes(specialWishes);
-            if (pricing != 0.0f) toBeChangedBooking.setPricing(pricing);
-            if (isBusinessCustomer != Booking.IsBusinessCustomer.NULL) toBeChangedBooking.setBusinessCustomer(isBusinessCustomer);
-            toBeChangedBooking.setChangeBookingDate(currentDateTime.toString());
+            if(toBeChangedValues.size()== changedValues.size())
+            {
+                Booking toBeChangedBooking = Bookings.get(bookingNo); //"loads" the to be changed Booking into the function to work with the object
+                boolean changeHappened = false;
+
+                for (int amountOfChangedValues = 0; amountOfChangedValues < toBeChangedValues.size(); amountOfChangedValues++)
+                {
+                    if (toBeChangedValues.get(amountOfChangedValues).equals("roomNo"))
+                    {
+                        toBeChangedBooking.setRoomNo((Integer) changedValues.get(amountOfChangedValues));
+                        changeHappened = true;
+                    }
+                    if (toBeChangedValues.get(amountOfChangedValues).equals("timeFrame"))
+                    {
+                        toBeChangedBooking.setTimeFrame((TimeFrame) changedValues.get(amountOfChangedValues));
+                        changeHappened = true;
+                    }
+                    if (toBeChangedValues.get(amountOfChangedValues).equals("dateFrame"))
+                    {
+                        toBeChangedBooking.setDateFrame((DateFrame) changedValues.get(amountOfChangedValues));
+                        changeHappened = true;
+                    }
+                    if (toBeChangedValues.get(amountOfChangedValues).equals("specialWishes"))
+                    {
+                        toBeChangedBooking.setSpecialWishes((String) changedValues.get(amountOfChangedValues));
+                        changeHappened = true;
+                    }
+                    if (toBeChangedValues.get(amountOfChangedValues).equals("isBusinessCustomer"))
+                    {
+                        toBeChangedBooking.setBusinessCustomer((Boolean) changedValues.get(amountOfChangedValues));
+                        changeHappened = true;
+                    }
+
+                    if (changeHappened)
+                    {
+                        toBeChangedBooking.setChangeBookingDate(currentDateTime.toString());
+                        return true;
+                    }
+
+                }
+            }
+            else throw new IllegalArgumentException("There are too few arguments given. Both List must contain the same amount of params.");
         }
+        else throw new IllegalCallerException("The caller does not inherit the Rights to do this");
+        return false;
     }
 
 
@@ -144,6 +169,7 @@ public class Employee
             roomToBeFree.setUsed(false);
             Bookings.set(bookingNo, null);    //instead of remove() to keep the relation of the position of a booking in Bookings to its bookingNo
         }
+        else throw new IllegalCallerException("The caller does not inherit the Rights to do this");
     }
 
     /**
@@ -154,15 +180,46 @@ public class Employee
      * @param roomNo            Number of the room which is to be changed; provides the index of the room inside Rooms
      * @param category          category of the room if needed to be changed due to real world changes
      * @param areaInSqrMetre    area of the rumber if changed in real world
+     * @param maxAmountOfParticipants   maximal amount of people allowed in the room according to current corona guidelines, later depending on amount of seats
+     * @param bedCount          amount of beds in the hotel room
+     * @param amountOfWhiteboards       tells how many Whiteboards are in the room
+     * @param amountOfBeamer            tells how many beamers are in the room
+     * @param hasScreen                 tells whether there is a screen for the presentation of data
+     * @param hasComputer               tells whether there is a computer in the room
+     * @param hasSpeedLAN       tells if the room has a SpeedLan Connection avaiable
+     * @param hasTV                     tells whether there is a TV in the room
+     * @param hasKitchen                tells if there is a kitchen to cook in the room
+     * @param hasCoffeemaker            tells if there is a Coffeemaker in the room
      */
-    public void changeRoomDetails (int roomNo, String category, int areaInSqrMetre)
+    public void changeRoomDetails (int roomNo, ArrayList<String> toBeChangedValues, String category, int areaInSqrMetre, int maxAmountOfParticipants,int bedCount, int amountOfWhiteboards, int amountOfBeamer,
+                                   boolean hasScreen, boolean hasComputer, boolean hasSpeedLAN, boolean hasTV, boolean hasKitchen, boolean hasCoffeemaker )
     {
         if (this.getGivenRole()==RoomAdministrator) //checks for Rights to manage Rooms
         {
             Room toBeChangedRoom = Rooms.get(roomNo);
             if (category != null) toBeChangedRoom.setCategory(category);
             if (areaInSqrMetre != 0) toBeChangedRoom.setAreaInSqrMetre(areaInSqrMetre);
+            if (toBeChangedRoom instanceof HotelRoom)
+            {
+                HotelRoom toBeChangedHotelRoom=(HotelRoom) toBeChangedRoom;
+                if (bedCount!=toBeChangedHotelRoom.getBedCount()) {toBeChangedHotelRoom.setBedCount(bedCount);}
+                if (!hasSpeedLAN==toBeChangedHotelRoom.hasSpeedLAN()) {toBeChangedHotelRoom.setHasSpeedLAN(hasSpeedLAN);}
+                if (!hasTV==toBeChangedHotelRoom.hasTV()) {toBeChangedHotelRoom.setHasTV(hasTV);}
+                if (!hasKitchen==toBeChangedHotelRoom.hasKitchen()) {toBeChangedHotelRoom.setHasKitchen(hasKitchen);}
+                if (!hasCoffeemaker==toBeChangedHotelRoom.hasCoffeemaker()) {toBeChangedHotelRoom.setHasCoffeemaker(hasCoffeemaker);}
+            }
+            else if (toBeChangedRoom instanceof ConferenceRoom)
+            {
+                ConferenceRoom toBeChangedConferenceRoom=(ConferenceRoom) toBeChangedRoom;
+                if (maxAmountOfParticipants!=toBeChangedConferenceRoom.getMaxAmountOfParticipants()) {toBeChangedConferenceRoom.setMaxAmountOfParticipants(maxAmountOfParticipants);}
+                if (amountOfWhiteboards!=toBeChangedConferenceRoom.getAmountOfWhiteboards()) {toBeChangedConferenceRoom.setAmountOfWhiteboards(amountOfWhiteboards);}
+                if (amountOfBeamer!=toBeChangedConferenceRoom.getAmountOfBeamer()) {toBeChangedConferenceRoom.setAmountOfBeamer(amountOfBeamer); }
+                if (!hasScreen==toBeChangedConferenceRoom.hasScreen()) {toBeChangedConferenceRoom.setHasScreen(hasScreen);}
+                if (!hasComputer==toBeChangedConferenceRoom.hasComputer()) {toBeChangedConferenceRoom.setHasComputer(hasComputer);}
+                if (!hasTV==toBeChangedConferenceRoom.hasTV()) {toBeChangedConferenceRoom.setHasTV(hasTV);}
+            }
         }
+        else throw new IllegalCallerException("The caller does not inherit the Rights to do this");
     }
 
     /**
@@ -189,9 +246,7 @@ public class Employee
             Rooms.add(newRoom);
             return newRoom;
         }
-        Room newRoom = new ConferenceRoom(roomNo, category, areaInSqrMetre, maxAmountOfParticipants, amountOfWhiteboards,amountOfBeamer,
-                hasScreen,hasComputer,hasTV);
-        return newRoom;
+        else throw new IllegalCallerException("The caller does not inherit the Rights to do this");
     }
 
     /**
@@ -209,16 +264,15 @@ public class Employee
      */
     public Room createHotelRoom (int roomNo, String category, int areaInSqrMetre, int bedCount, boolean hasSpeedLAN, boolean hasTV,
                                  boolean hasKitchen,
-                                 boolean hasCoffeemaker)
+                                 boolean hasCoffeemaker) throws IllegalCallerException
     {
         if (this.getGivenRole()==RoomAdministrator) //checks for Rights to manage Rooms
         {
             Room newRoom = new HotelRoom(roomNo, category, areaInSqrMetre, bedCount,hasSpeedLAN,hasTV,hasKitchen,hasCoffeemaker);
-            //Rooms.add(newRoom);
+            Rooms.add(newRoom);
             return newRoom;
         }
-        Room newRoom = new HotelRoom(roomNo, category, areaInSqrMetre, bedCount,hasSpeedLAN,hasTV,hasKitchen,hasCoffeemaker);
-        return newRoom;
+        else throw new IllegalCallerException("The caller does not inherit the Rights to do this");
     }
 
 
@@ -229,12 +283,13 @@ public class Employee
      *
      * @param roomNo    number of the room to be deleted
      */
-    public void deleteRoom (int roomNo)
+    public void deleteRoom (int roomNo) throws IllegalCallerException
     {
         if (this.getGivenRole()==RoomAdministrator) //checks for Rights to manage Rooms
         {
             Rooms.set(roomNo, null);
         }
+        else throw new IllegalCallerException("The caller does not inherit the Rights to do this");
     }
 
 
@@ -343,67 +398,70 @@ public class Employee
         for (Booking bookingEntry : Bookings)
         {
             allBookings.append(bookingEntry);
+            allBookings.append(", ");
         }
-
+        allBookings.setLength(allBookings.length()-2); //trims last comma
 
         return allBookings;
     }
 
-    public void manageBookingRequests ()
+    public void manageBookingRequests () throws IllegalCallerException
     {
-
-        for (BookingRequest bookingRequest : BookingRequests)
+        if(this.getGivenRole()==BookingsManager)
         {
-            Booking.BookingType bookingType = switch (bookingRequest.getRoomCategory())
-                    {
-                        case "Suite", "Single Room", "Double Room" -> Booking.BookingType.HotelRoomBooking;
-                        case "Small Group", "Big Group" -> Booking.BookingType.ConferenceRoomBooking;
-                        default -> null;
-                    };
-            if(bookingType==null) throw new IllegalArgumentException();
-            else
+
+            for (BookingRequest bookingRequest : BookingRequests)
             {
-                for (Room Room:Rooms)
+                Booking.BookingType bookingType = switch (bookingRequest.getRoomCategory())
+                        {
+                            case "Suite", "Single Room", "Double Room" -> Booking.BookingType.HotelRoomBooking;
+                            case "Small Group", "Big Group" -> Booking.BookingType.ConferenceRoomBooking;
+                            default -> null;
+                        };
+                if(bookingType==null) throw new IllegalArgumentException();
+                else
                 {
-                    for (de.fourofakind.businesshotel.common.FullDate FullDate:Room.getRoomOcupiedAtList())
+                    for (Room Room:Rooms)
                     {
-                        if(FullDate.getDateFrame().equals(bookingRequest.getDateFrame()))
+                        for (de.fourofakind.businesshotel.common.FullDate FullDate:Room.getRoomOcupiedAtList())
                         {
-                            DeclinedBookingRequests.add(bookingRequest);
-                            BookingRequests.remove(bookingRequest);
-                            break;
-                        }
-                        else if(FullDate.getTimeFrame().equals(bookingRequest.getTimeFrame()))
-                        {
-                            DeclinedBookingRequests.add(bookingRequest);
-                            BookingRequests.remove(bookingRequest);
-                            break;
-                        }
-                        else
-                        {
-                            if (bookingType== Booking.BookingType.ConferenceRoomBooking)
+                            if(FullDate.getDateFrame().equals(bookingRequest.getDateFrame()))
                             {
-                                this.createBooking(Room.getRoomNo(),bookingRequest.getTimeFrame(),
-                                        bookingRequest.getDateFrame(),bookingType,bookingRequest.getRoomCategory(), bookingRequest.getSpecialWishes(),
-                                        bookingRequest.getIsBusinessCustomer());
+                                DeclinedBookingRequests.add(bookingRequest);
+                                BookingRequests.remove(bookingRequest);
+                                break;
                             }
-                            else if (bookingType== Booking.BookingType.HotelRoomBooking)
+                            else if(FullDate.getTimeFrame().equals(bookingRequest.getTimeFrame()))
                             {
-                                this.createBooking(Room.getRoomNo(),bookingRequest.getTimeFrame(),
-                                        bookingRequest.getDateFrame(),bookingType,bookingRequest.getRoomCategory(), bookingRequest.getSpecialWishes(),
-                                        bookingRequest.getIsBusinessCustomer());
+                                DeclinedBookingRequests.add(bookingRequest);
+                                BookingRequests.remove(bookingRequest);
+                                break;
+                            }
+                            else
+                            {
+                                if (bookingType.equals(Booking.BookingType.ConferenceRoomBooking))
+                                {
+                                    this.createBooking(Room.getRoomNo(),bookingRequest.getTimeFrame(),
+                                            bookingRequest.getDateFrame(),bookingType,bookingRequest.getRoomCategory(), bookingRequest.getSpecialWishes(),
+                                            bookingRequest.getIsBusinessCustomer());
+                                }
+                                else
+                                {
+                                    this.createBooking(Room.getRoomNo(),bookingRequest.getTimeFrame(),
+                                            bookingRequest.getDateFrame(),bookingType,bookingRequest.getRoomCategory(), bookingRequest.getSpecialWishes(),
+                                            bookingRequest.getIsBusinessCustomer());
+                                }
                             }
                         }
                     }
                 }
             }
-
-
-            }
+        }
+        else throw new IllegalCallerException("The caller does not inherit the Rights to do this");
     }
 
     public void createCustomer (String firstName, String lastName, String streetName, String streetNumber, String postalCode, String cityName, String mailAddress,
-                                Customer.paymentMethods paymentMethod, String iban)
+                                Customer.paymentMethods paymentMethod, String iban) throws IllegalCallerException
     {
         if (this.getGivenRole()==CustomerRelationshipManager)
         {
@@ -420,9 +478,10 @@ public class Employee
 
             Customers.add(newCustomer);
         }
+        else throw new IllegalCallerException("The caller does not inherit the Rights to do this");
     }
 
-    public void changeCustomer (int customerID, String key, String value)
+    public void changeCustomer (int customerID, String key, String value) throws IllegalCallerException
     {
         if (this.getGivenRole()==CustomerRelationshipManager)
         {
@@ -454,17 +513,17 @@ public class Employee
 
             Customers.set(customerID, fetchedCustomer);
         }
-
+        else throw new IllegalCallerException("The caller does not inherit the Rights to do this");
 
     }
 
-    public void deleteCustomer (int customerID)
+    public void deleteCustomer (int customerID) throws IllegalCallerException
     {
         if (this.getGivenRole()==CustomerRelationshipManager)
         {
             Customers.set(customerID, null);
         }
-
+        else throw new IllegalCallerException("The caller does not inherit the Rights to do this");
     }
 
 
