@@ -2,6 +2,8 @@ package de.fourofakind.businesshotel.rooms;
 
 import de.fourofakind.businesshotel.common.DateFrame;
 
+import java.util.ArrayList;
+
 public class HotelRoom extends Room
 {
 
@@ -59,7 +61,6 @@ public class HotelRoom extends Room
         this.hasKitchen = hasKitchen;
     }
 
-
     public boolean isHasCoffeemaker ()
     {
         return hasCoffeemaker;
@@ -70,10 +71,14 @@ public class HotelRoom extends Room
         this.hasCoffeemaker = hasCoffeemaker;
     }
 
+
     private boolean hasSpeedLAN;
     private boolean hasTV;
     private boolean hasKitchen;
     private boolean hasCoffeemaker;
+
+
+
     private DateFrame dateframe;
 
     public DateFrame getDateframe ()
