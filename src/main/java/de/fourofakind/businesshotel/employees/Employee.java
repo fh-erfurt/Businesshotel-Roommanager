@@ -96,43 +96,43 @@ public class Employee
      *same params as createBooking, but some can be null-like values, if they should not be changed.
      * Role BookingManager is needed.</p>
      * @param bookingNo                 Number of the Booking as well as its position inside Bookings
-     * @param toBeChangedValues         contains all values named by string, that need to be changed
+     * @param toBeChangedAttributes         contains all values named by string, that need to be changed
      * @param changedValues             contains all changed Values, needs to be casted to the right datatype
      * @throws IllegalArgumentException
      */
-    public boolean changeBooking (int bookingNo, ArrayList<String> toBeChangedValues, ArrayList<Object> changedValues) throws IllegalArgumentException
+    public boolean changeBooking (int bookingNo, ArrayList<String> toBeChangedAttributes, ArrayList<Object> changedValues) throws IllegalArgumentException
     {
         currentDateTime = LocalDateTime.now();
-        if (this.getGivenRole()==BookingsManager && toBeChangedValues.size() != 0) //checks for Rights to manage Bookings
+        if (this.getGivenRole()==BookingsManager && toBeChangedAttributes.size() != 0) //checks for Rights to manage Bookings
         {
-            if(toBeChangedValues.size()== changedValues.size())
+            if(toBeChangedAttributes.size()== changedValues.size())
             {
                 Booking toBeChangedBooking = Bookings.get(bookingNo); //"loads" the to be changed Booking into the function to work with the object
                 boolean changeHappened = false;
 
-                for (int amountOfChangedValues = 0; amountOfChangedValues < toBeChangedValues.size(); amountOfChangedValues++)
+                for (int amountOfChangedValues = 0; amountOfChangedValues < toBeChangedAttributes.size(); amountOfChangedValues++)
                 {
-                    if (toBeChangedValues.get(amountOfChangedValues).equals("roomNo"))
+                    if (toBeChangedAttributes.get(amountOfChangedValues).equals("roomNo"))
                     {
                         toBeChangedBooking.setRoomNo((Integer) changedValues.get(amountOfChangedValues));
                         changeHappened = true;
                     }
-                    if (toBeChangedValues.get(amountOfChangedValues).equals("timeFrame"))
+                    if (toBeChangedAttributes.get(amountOfChangedValues).equals("timeFrame"))
                     {
                         toBeChangedBooking.setTimeFrame((TimeFrame) changedValues.get(amountOfChangedValues));
                         changeHappened = true;
                     }
-                    if (toBeChangedValues.get(amountOfChangedValues).equals("dateFrame"))
+                    if (toBeChangedAttributes.get(amountOfChangedValues).equals("dateFrame"))
                     {
                         toBeChangedBooking.setDateFrame((DateFrame) changedValues.get(amountOfChangedValues));
                         changeHappened = true;
                     }
-                    if (toBeChangedValues.get(amountOfChangedValues).equals("specialWishes"))
+                    if (toBeChangedAttributes.get(amountOfChangedValues).equals("specialWishes"))
                     {
                         toBeChangedBooking.setSpecialWishes((String) changedValues.get(amountOfChangedValues));
                         changeHappened = true;
                     }
-                    if (toBeChangedValues.get(amountOfChangedValues).equals("isBusinessCustomer"))
+                    if (toBeChangedAttributes.get(amountOfChangedValues).equals("isBusinessCustomer"))
                     {
                         toBeChangedBooking.setBusinessCustomer((Boolean) changedValues.get(amountOfChangedValues));
                         changeHappened = true;
@@ -172,51 +172,86 @@ public class Employee
         else throw new IllegalCallerException("The caller does not inherit the Rights to do this");
     }
 
+
     /**
      * <p>Implementation of the Employee's ability to change attributes of a room to save details of real world changes to the room
      * does not change the number of a room or its use case (hotel room or conference room).
      * Role RoomAdministrator is needed.</p>
-     *
-     * @param roomNo            Number of the room which is to be changed; provides the index of the room inside Rooms
-     * @param category          category of the room if needed to be changed due to real world changes
-     * @param areaInSqrMetre    area of the rumber if changed in real world
-     * @param maxAmountOfParticipants   maximal amount of people allowed in the room according to current corona guidelines, later depending on amount of seats
-     * @param bedCount          amount of beds in the hotel room
-     * @param amountOfWhiteboards       tells how many Whiteboards are in the room
-     * @param amountOfBeamer            tells how many beamers are in the room
-     * @param hasScreen                 tells whether there is a screen for the presentation of data
-     * @param hasComputer               tells whether there is a computer in the room
-     * @param hasSpeedLAN       tells if the room has a SpeedLan Connection avaiable
-     * @param hasTV                     tells whether there is a TV in the room
-     * @param hasKitchen                tells if there is a kitchen to cook in the room
-     * @param hasCoffeemaker            tells if there is a Coffeemaker in the room
+     * @param roomNo                       Number of the room which is to be changed; provides the index of the room inside Rooms
+     * @param toBeChangedAttributes        contains all values named by string, that need to be changed
+     * @param changedValues                contains all changed Values, needs to be casted to the right datatype
      */
-    public void changeRoomDetails (int roomNo, ArrayList<String> toBeChangedValues, String category, int areaInSqrMetre, int maxAmountOfParticipants,int bedCount, int amountOfWhiteboards, int amountOfBeamer,
-                                   boolean hasScreen, boolean hasComputer, boolean hasSpeedLAN, boolean hasTV, boolean hasKitchen, boolean hasCoffeemaker )
+    public void changeRoomDetails (int roomNo, ArrayList<String> toBeChangedAttributes, ArrayList<Object> changedValues)
     {
-        if (this.getGivenRole()==RoomAdministrator) //checks for Rights to manage Rooms
+        if (this.getGivenRole()==RoomAdministrator && toBeChangedAttributes.size() != 0) //checks for Rights to manage Rooms
         {
-            Room toBeChangedRoom = Rooms.get(roomNo);
-            if (category != null) toBeChangedRoom.setCategory(category);
-            if (areaInSqrMetre != 0) toBeChangedRoom.setAreaInSqrMetre(areaInSqrMetre);
-            if (toBeChangedRoom instanceof HotelRoom)
+            if(toBeChangedAttributes.size()== changedValues.size())
             {
-                HotelRoom toBeChangedHotelRoom=(HotelRoom) toBeChangedRoom;
-                if (bedCount!=toBeChangedHotelRoom.getBedCount()) {toBeChangedHotelRoom.setBedCount(bedCount);}
-                if (!hasSpeedLAN==toBeChangedHotelRoom.hasSpeedLAN()) {toBeChangedHotelRoom.setHasSpeedLAN(hasSpeedLAN);}
-                if (!hasTV==toBeChangedHotelRoom.hasTV()) {toBeChangedHotelRoom.setHasTV(hasTV);}
-                if (!hasKitchen==toBeChangedHotelRoom.hasKitchen()) {toBeChangedHotelRoom.setHasKitchen(hasKitchen);}
-                if (!hasCoffeemaker==toBeChangedHotelRoom.hasCoffeemaker()) {toBeChangedHotelRoom.setHasCoffeemaker(hasCoffeemaker);}
-            }
-            else if (toBeChangedRoom instanceof ConferenceRoom)
-            {
-                ConferenceRoom toBeChangedConferenceRoom=(ConferenceRoom) toBeChangedRoom;
-                if (maxAmountOfParticipants!=toBeChangedConferenceRoom.getMaxAmountOfParticipants()) {toBeChangedConferenceRoom.setMaxAmountOfParticipants(maxAmountOfParticipants);}
-                if (amountOfWhiteboards!=toBeChangedConferenceRoom.getAmountOfWhiteboards()) {toBeChangedConferenceRoom.setAmountOfWhiteboards(amountOfWhiteboards);}
-                if (amountOfBeamer!=toBeChangedConferenceRoom.getAmountOfBeamer()) {toBeChangedConferenceRoom.setAmountOfBeamer(amountOfBeamer); }
-                if (!hasScreen==toBeChangedConferenceRoom.hasScreen()) {toBeChangedConferenceRoom.setHasScreen(hasScreen);}
-                if (!hasComputer==toBeChangedConferenceRoom.hasComputer()) {toBeChangedConferenceRoom.setHasComputer(hasComputer);}
-                if (!hasTV==toBeChangedConferenceRoom.hasTV()) {toBeChangedConferenceRoom.setHasTV(hasTV);}
+                Room toBeChangedRoom = Rooms.get(roomNo);
+                for (int amountOfChangedValues = 0; amountOfChangedValues < toBeChangedAttributes.size(); amountOfChangedValues++)
+                {
+                    if (toBeChangedAttributes.get(amountOfChangedValues).equals("category"))
+                    {
+                        toBeChangedRoom.setCategory((String)changedValues.get(amountOfChangedValues));
+                    }
+                    if (toBeChangedAttributes.get(amountOfChangedValues).equals("areaInSqrMetre"))
+                    {
+                        toBeChangedRoom.setAreaInSqrMetre((Integer)changedValues.get(amountOfChangedValues));
+                    }
+
+                    if (toBeChangedRoom instanceof HotelRoom)
+                    {
+                        HotelRoom toBeChangedHotelRoom = (HotelRoom) toBeChangedRoom;
+                        if (toBeChangedAttributes.get(amountOfChangedValues).equals("bedCount"))
+                        {
+                            toBeChangedHotelRoom.setBedCount((Integer)changedValues.get(amountOfChangedValues));
+                        }
+                        if (toBeChangedAttributes.get(amountOfChangedValues).equals("hasSpeedLAN"))
+                        {
+                            toBeChangedHotelRoom.setHasSpeedLAN((Boolean)changedValues.get(amountOfChangedValues));
+                        }
+                        if (toBeChangedAttributes.get(amountOfChangedValues).equals("hasTV"))
+                        {
+                            toBeChangedHotelRoom.setHasTV((Boolean)changedValues.get(amountOfChangedValues));
+                        }
+                        if (toBeChangedAttributes.get(amountOfChangedValues).equals("hasKitchen"))
+                        {
+                            toBeChangedHotelRoom.setHasKitchen((Boolean)changedValues.get(amountOfChangedValues));
+                        }
+                        if (toBeChangedAttributes.get(amountOfChangedValues).equals("hasCoffeemaker"))
+                        {
+                            toBeChangedHotelRoom.setHasCoffeemaker((Boolean)changedValues.get(amountOfChangedValues));
+                        }
+                    }
+                    else if (toBeChangedRoom instanceof ConferenceRoom)
+                    {
+                        ConferenceRoom toBeChangedConferenceRoom = (ConferenceRoom) toBeChangedRoom;
+                        if (toBeChangedAttributes.get(amountOfChangedValues).equals("maxAmountOfParticipants"))
+                        {
+                            toBeChangedConferenceRoom.setMaxAmountOfParticipants((Integer)changedValues.get(amountOfChangedValues));
+                        }
+                        if (toBeChangedAttributes.get(amountOfChangedValues).equals("amountOfWhiteboards"))
+                        {
+                            toBeChangedConferenceRoom.setAmountOfWhiteboards((Integer)changedValues.get(amountOfChangedValues));
+                        }
+                        if (toBeChangedAttributes.get(amountOfChangedValues).equals("amountOfBeamer"))
+                        {
+                            toBeChangedConferenceRoom.setAmountOfBeamer((Integer)changedValues.get(amountOfChangedValues));
+                        }
+                        if (toBeChangedAttributes.get(amountOfChangedValues).equals("hasScreen"))
+                        {
+                            toBeChangedConferenceRoom.setHasScreen((Boolean)changedValues.get(amountOfChangedValues));
+                        }
+                        if (toBeChangedAttributes.get(amountOfChangedValues).equals("hasComputer"))
+                        {
+                            toBeChangedConferenceRoom.setHasComputer((Boolean)changedValues.get(amountOfChangedValues));
+                        }
+                        if (toBeChangedAttributes.get(amountOfChangedValues).equals("hasTV"))
+                        {
+                            toBeChangedConferenceRoom.setHasTV((Boolean)changedValues.get(amountOfChangedValues));
+                        }
+                    }
+                }
             }
         }
         else throw new IllegalCallerException("The caller does not inherit the Rights to do this");

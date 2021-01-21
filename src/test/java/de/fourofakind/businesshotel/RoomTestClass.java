@@ -18,7 +18,7 @@ public class RoomTestClass
 {
 
     //Setup for Tests
-    Employee Mitarbeiter1 = new Employee("Mitarbeiter1");
+    Employee Mitarbeiter1 = new Employee("Mitarbeiter1",RoomAdministrator);
     Room newHotelRoom = Mitarbeiter1.createHotelRoom(7,"",60,2,true,true,false,true);
     Room newConferenceRoom = Mitarbeiter1.createConferenceRoom(14,"",45,12,2,1,true,false,false);
     DateFrame christmasHoliday = new DateFrame("23.12.2021", "27.12.2021");
