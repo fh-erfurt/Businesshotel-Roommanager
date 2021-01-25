@@ -3,12 +3,13 @@ package de.fourofakind.businesshotel;
 import de.fourofakind.businesshotel.bookings.Booking;
 import de.fourofakind.businesshotel.bookings.ConferenceRoomBooking;
 import de.fourofakind.businesshotel.common.DateFrame;
-import de.fourofakind.businesshotel.common.Role;
 import de.fourofakind.businesshotel.common.TimeFrame;
 import de.fourofakind.businesshotel.customers.Customer;
+import de.fourofakind.businesshotel.customers.BookingRequest;
 import de.fourofakind.businesshotel.employees.Employee;
 import de.fourofakind.businesshotel.rooms.ConferenceRoom;
 import de.fourofakind.businesshotel.rooms.HotelRoom;
+import de.fourofakind.businesshotel.rooms.Room;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -16,15 +17,20 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 import static de.fourofakind.businesshotel.common.StartingClass.*;
 
+/**
+ * <p>Test Class to test all of the Employee's abilities</p>
+ */
 public class EmployeeTestClass
 {
+    //Dummy entries for each static List to secure all lists index=objectNo relations
     TimeFrame NullTimeFrame=new TimeFrame("","");
     DateFrame NullDateFrame=new DateFrame("","");
     ConferenceRoom NullRoom= new ConferenceRoom(0, ConferenceRoom.Category.SMALLGROUP,0,0,0,0,false,false,false); //present to
-    ConferenceRoomBooking NullBooking= new ConferenceRoomBooking(0,0,NullTimeFrame,NullDateFrame,"","",0,false);
+    ConferenceRoomBooking NullBooking= new ConferenceRoomBooking(0,0,NullTimeFrame,NullDateFrame,Room.Category.SINGLE,"",0,false);
     Employee NullEmployee = new Employee("");
 
 
+    //example instances of different classes used in the test cases
     TimeFrame zwoelfBisMittag= new TimeFrame("zwölf","mittag");
     DateFrame Heute=new DateFrame("Heute","Heute");
     HotelRoom TestRoom1 = new HotelRoom (1, HotelRoom.Category.SINGLE,50,4,true,false,false,true);
@@ -33,8 +39,9 @@ public class EmployeeTestClass
     ConferenceRoom TestRoom4 = new ConferenceRoom(4, ConferenceRoom.Category.BIGGROUP,60,24,3,2,true,true,true);
 
 
-
-
+    /**
+     * <p>Test of the Employee Constructor to ensure correct function of the constructor and storing of an employee in the 'Employees' list</p>
+     */
     @Test
     public void shouldOutputEmployeeNameWhenSuccessful()
     {
@@ -51,6 +58,9 @@ public class EmployeeTestClass
         assertEquals("Max Mustermann",result,"If an Employee named Max Mustermann is created by its Constructor it should Output the Name");
     }
 
+    /**
+     * <p>Second Test of the Employee Constructor to ensure correct function of the constructor and storing of an employee in the 'Employees' list</p>
+     */
     @Test
     public void shouldOutputEmployeeNumberWhenSuccessful()
     {
@@ -69,7 +79,10 @@ public class EmployeeTestClass
     }
 
 
-
+    /**
+     * <p>Test of an Employee's ability to create a booking according to given parameters and storing it into the 'Bookings' list
+     * Prove of the function's reliability is given by putting out all of the booking's details </p>
+     */
     @Test
     public void shouldOutputAllBookingDetailsIfSuccesful()
     {
@@ -79,9 +92,8 @@ public class EmployeeTestClass
         Rooms.add(TestRoom1);
         Employee MaxMustermann = new Employee("Max Mustermann");
         MaxMustermann.setGivenRole(BookingsManager);
-        Employees.add(MaxMustermann);
 
-        Booking resultBooking= MaxMustermann.createBooking(1,zwoelfBisMittag,Heute, Booking.BookingType.HotelRoomBooking,"egal","Jacuzzi",false);
+        Booking resultBooking= MaxMustermann.createBooking(1,zwoelfBisMittag,Heute, Booking.BookingType.HotelRoomBooking,Room.Category.SINGLE,"Jacuzzi",false);
 
 
 
@@ -96,13 +108,17 @@ public class EmployeeTestClass
         result += ", Pricing: " + resultBooking.getPricing();
         result += ", IsBusinessCustomer?: " + resultBooking.isBusinessCustomer();
 
-        String expectedResult="RoomNo: 1, StartTime: zwölf, EndTime: mittag, StartDate: Heute, EndDate: Heute, RoomCategory: egal, SpecialWishes: Jacuzzi, Pricing: 0.0, IsBusinessCustomer?: false";
+        String expectedResult="RoomNo: 1, StartTime: zwölf, EndTime: mittag, StartDate: Heute, EndDate: Heute, RoomCategory: Room.Category.SINGLE, SpecialWishes: Jacuzzi, Pricing: 0.0, IsBusinessCustomer?: false";
 
 
         //Then
         assertEquals(expectedResult,result,"If the Booking is created according to the details, all details will be told.");
     }
 
+    /**
+     *<p>Test of an Employee's ability to change a booking according to given parameters
+     * Prove of the function's reliability is given by putting out all of the booking's details before and after the change and comparing them</p>
+     */
     @Test
     public void shouldChangeBookingDataIfSuccesful()
     {
@@ -114,7 +130,7 @@ public class EmployeeTestClass
         Employee MaxMustermann = new Employee("Max Mustermann");
         MaxMustermann.setGivenRole(BookingsManager);
 
-        Booking testBooking= MaxMustermann.createBooking(1,zwoelfBisMittag,Heute, Booking.BookingType.HotelRoomBooking,"egal","Jacuzzi", false);
+        Booking testBooking= MaxMustermann.createBooking(1,zwoelfBisMittag,Heute, Booking.BookingType.HotelRoomBooking,Room.Category.SINGLE,"Jacuzzi", false);
         Bookings.add(testBooking);
         int bookingNoOfBookingToBeChanged= testBooking.getBookingNo();
 
@@ -139,8 +155,7 @@ public class EmployeeTestClass
         changedValues.add("Premium Internet");
         try
         {
-        if(MaxMustermann.changeBooking(bookingNoOfBookingToBeChanged,toBeChangedValues, changedValues)) System.out.println("Klappt.");
-
+            MaxMustermann.changeBooking(bookingNoOfBookingToBeChanged,toBeChangedValues, changedValues);
         }
         catch (IllegalArgumentException e)
         {
@@ -163,13 +178,14 @@ public class EmployeeTestClass
 
 
         //Then
-        System.out.println(resultBeforeChanges);
-        System.out.println(resultAfterChanges);
-
         assertNotEquals(resultBeforeChanges,resultAfterChanges,"If the Booking is changed according to the parameters given, specialWishes should be changed to Premium"
                         + " Internet.");
     }
 
+    /**
+     *<p>Test of an Employee's ability to delete a booking according to given bookingNo and storing it into the 'Bookings' list
+     * Prove of the function's reliability is given by putting out all of the booking's details </p>
+     */
     @Test
     public void shouldDeleteBookingIfSuccesful()
     {
@@ -184,16 +200,16 @@ public class EmployeeTestClass
         Employee MaxMustermann = new Employee("Max Mustermann");
         MaxMustermann.setGivenRole(BookingsManager);
 
-        Booking testBooking1 = MaxMustermann.createBooking(1,zwoelfBisMittag,Heute, Booking.BookingType.HotelRoomBooking,"Single Room","Jacuzzi",
+        Booking testBooking1 = MaxMustermann.createBooking(1,zwoelfBisMittag,Heute, Booking.BookingType.HotelRoomBooking, Room.Category.SINGLE,"Jacuzzi",
                 false);
         Bookings.add(testBooking1);
-        Booking testBooking2 = MaxMustermann.createBooking(2,zwoelfBisMittag,Heute, Booking.BookingType.HotelRoomBooking,"Suite","extra child bed",
+        Booking testBooking2 = MaxMustermann.createBooking(2,zwoelfBisMittag,Heute, Booking.BookingType.HotelRoomBooking,Room.Category.SUITE,"extra child bed",
                 false);
         Bookings.add(testBooking2);
-        Booking testBooking3 = MaxMustermann.createBooking(3,zwoelfBisMittag,Heute, Booking.BookingType.HotelRoomBooking,"Double Room","TV",
+        Booking testBooking3 = MaxMustermann.createBooking(3,zwoelfBisMittag,Heute, Booking.BookingType.HotelRoomBooking,Room.Category.DOUBLE,"TV",
                 false);
         Bookings.add(testBooking3);
-        Booking testBooking4 = MaxMustermann.createBooking(4,zwoelfBisMittag,Heute, Booking.BookingType.ConferenceRoomBooking,"Big Group","Beamer",
+        Booking testBooking4 = MaxMustermann.createBooking(4,zwoelfBisMittag,Heute, Booking.BookingType.ConferenceRoomBooking,Room.Category.BIGGROUP,"Beamer",
                 true);
         Bookings.add(testBooking4);
 
@@ -225,6 +241,9 @@ public class EmployeeTestClass
         assertNotEquals(bookingListBeforeDeletion.toString(), bookingListAfterDeletion.toString(),"If the Booking No 1 is deleted, only the null booking should be left.");
     }
 
+    /**
+     *
+     */
     @Test
     void findBooking ()
     {
@@ -235,14 +254,14 @@ public class EmployeeTestClass
         Employee MaxMustermann = new Employee("Max Mustermann");
         MaxMustermann.setGivenRole(BookingsManager);
 
-        Booking testBooking1 = MaxMustermann.createBooking(1,zwoelfBisMittag,Heute, Booking.BookingType.HotelRoomBooking,"Single Room","Jacuzzi",
+        Booking testBooking1 = MaxMustermann.createBooking(1,zwoelfBisMittag,Heute, Booking.BookingType.HotelRoomBooking, Room.Category.SINGLE,"Jacuzzi",
                 false);
         Bookings.add(testBooking1);
 
         //When
 
-        Booking foundBookingByBookNo=MaxMustermann.findBooking(Bookings.indexOf(testBooking1),0,0,null,null,"","").get(0); //search by bookingNo
-        Booking foundBookingByRoomNoPlusTimeAndDate=MaxMustermann.findBooking(0,1,0,Heute,zwoelfBisMittag,"","").get(0); //search by RoomNo, TimeFrame and DateFrame
+        Booking foundBookingByBookNo=MaxMustermann.findBooking(Bookings.indexOf(testBooking1),0,0,null,null,"",null).get(0); //search by bookingNo
+        Booking foundBookingByRoomNoPlusTimeAndDate=MaxMustermann.findBooking(0,1,0,Heute,zwoelfBisMittag,"",null).get(0); //search by RoomNo, TimeFrame and DateFrame
         Booking expectedBooking=testBooking1;
 
         //Then
@@ -250,6 +269,9 @@ public class EmployeeTestClass
                 "If working correctly, both search Methods should give the same result and therefore both should exactly be the same booking created in preparation to this test.");
     }
 
+    /**
+     *
+     */
     @Test
     void showAllBookings ()
     {
@@ -260,7 +282,7 @@ public class EmployeeTestClass
         MaxMustermann.setGivenRole(BookingsManager);
         Employees.add(MaxMustermann);
         System.out.println("Before createBooking");
-        MaxMustermann.createBooking(1,zwoelfBisMittag,Heute, Booking.BookingType.HotelRoomBooking,"egal","Jacuzzi",false);
+        MaxMustermann.createBooking(1,zwoelfBisMittag,Heute, Booking.BookingType.HotelRoomBooking,Room.Category.SINGLE,"Jacuzzi",false);
         //MaxMustermann.createBooking(2,zwoelfBisMittag,Heute, Booking.BookingType.HotelRoomBooking,"egal","Meerblick",true);
         System.out.println("After createBooking");
         //When
@@ -269,7 +291,7 @@ public class EmployeeTestClass
         ExpectedOutput.append("Raum: 1, ");
         ExpectedOutput.append("von zwölf bis mittag, ");
         ExpectedOutput.append("von Heute bis Heute, ");
-        ExpectedOutput.append("Raum-Kategorie: egal, ");
+        ExpectedOutput.append("Raum-Kategorie: Room.Category.SINGLE, ");
         ExpectedOutput.append("Besondere Wünsche: Jacuzzi, ");
         ExpectedOutput.append("erstellt durch Mitarbeiter Nummer 0, ");
         ExpectedOutput.append("Business Kunde? false; ");
@@ -289,9 +311,32 @@ public class EmployeeTestClass
                 "returned.");
     }
 
+
+    /**
+     *
+     */
     @Test
     void manageBookingRequests ()
     {
+        //Given
+        Rooms.add(NullRoom); //Rooms beginning at 1
+        Rooms.add(TestRoom1);
+        Employee MaxMustermann = new Employee("Max Mustermann");
+        MaxMustermann.setGivenRole(BookingsManager);
+        Customer TestCustomer= MaxMustermann.createCustomer("Mannig","faltige","Möglichkeiten","für","kreative","Namen","gehen einem irgendwann", Customer.paymentMethods.paypal,"aus");
+
+        //When
+
+        ArrayList<BookingRequest> BookingRequestsBefore = BookingRequests;
+
+        TestCustomer.sendBookingRequest(zwoelfBisMittag,Heute,Room.Category.SUITE,"");
+
+
+        ArrayList<BookingRequest> BookingRequestsAfter = BookingRequests;
+
+        //Then
+        assertNotEquals(BookingRequestsBefore,BookingRequestsAfter);
+
     }
 
 

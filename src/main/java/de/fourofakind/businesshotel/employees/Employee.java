@@ -345,7 +345,7 @@ public class Employee
      * @param roomCategory          category of the room which is documented in the booking to be searched for
      * @return  returns all resulting Booking that match the search criteria
      */
-    public ArrayList<Booking> findBooking (int BookingNo, int RoomNo, int empNo, DateFrame dateFrame, TimeFrame timeFrame, String bookingDate, String roomCategory)
+    public ArrayList<Booking> findBooking (int BookingNo, int RoomNo, int empNo, DateFrame dateFrame, TimeFrame timeFrame, String bookingDate, Room.Category roomCategory)
     {
 
         ArrayList<Booking> searchResults = new ArrayList<>();
@@ -499,24 +499,24 @@ public class Employee
                     {
                         for (de.fourofakind.businesshotel.common.FullDate FullDate: room.getRoomOccupiedAtList())
                         {
-                            if(FullDate.getDateFrame().equals(bookingRequest.getDateFrame()))
+                            if(room.getCategory().equals(bookingRequest.getRoomCategory()))
                             {
-                                DeclinedBookingRequests.add(bookingRequest);
-                                BookingRequests.remove(bookingRequest);
-                                break;
-                            }
-                            else if(FullDate.getTimeFrame().equals(bookingRequest.getTimeFrame()))
-                            {
-                                DeclinedBookingRequests.add(bookingRequest);
-                                BookingRequests.remove(bookingRequest);
-                                break;
-                            }
-                            else
-                            {
-                                this.createBooking(room.getRoomNo(),bookingRequest.getTimeFrame(),
-                                        bookingRequest.getDateFrame(),bookingType,bookingRequest.getRoomCategory(), bookingRequest.getSpecialWishes(),
-                                        bookingRequest.getIsBusinessCustomer());
-                                BookingRequests.remove(bookingRequest);
+                                if (FullDate.getDateFrame().equals(bookingRequest.getDateFrame()))
+                                {
+                                    DeclinedBookingRequests.add(bookingRequest);
+                                    BookingRequests.remove(bookingRequest);
+                                    break;
+                                } else if (FullDate.getTimeFrame().equals(bookingRequest.getTimeFrame()))
+                                {
+                                    DeclinedBookingRequests.add(bookingRequest);
+                                    BookingRequests.remove(bookingRequest);
+                                    break;
+                                } else
+                                {
+                                    this.createBooking(room.getRoomNo(), bookingRequest.getTimeFrame(), bookingRequest.getDateFrame(), bookingType, bookingRequest.getRoomCategory(),
+                                            bookingRequest.getSpecialWishes(), bookingRequest.getIsBusinessCustomer());
+                                    BookingRequests.remove(bookingRequest);
+                                }
                             }
                         }
                     }

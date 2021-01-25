@@ -26,13 +26,13 @@ abstract public class Room {
         this.roomNo = roomNo;
     }
 
-//    public String getCategory() {
-//        return category;
-//    }
+    public Category getCategory() {
+        return category;
+    }
 
-//    public void setCategory(String category) {
-//        this.category = category;
-//    }
+    public void setCategory(Category category) {
+        this.category = category;
+    }
 
     public int getAreaInSqrMetre() {
         return areaInSqrMetre;
@@ -71,7 +71,7 @@ abstract public class Room {
 
     private ArrayList<FullDate> roomOccupationList = new ArrayList<FullDate>();
     private int roomNo;
-//    private String category;
+    private Category category;
     private int areaInSqrMetre;
     private boolean isUsed;
 
