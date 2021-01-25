@@ -9,6 +9,7 @@ import de.fourofakind.businesshotel.rooms.ConferenceRoom;
 import de.fourofakind.businesshotel.rooms.Room;
 import org.junit.jupiter.api.Test;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -165,6 +166,7 @@ public class EmployeeTestClass
         assertNotEquals(resultBeforeChanges,resultAfterChanges,"If the Booking is changed according to the parameters given, specialWishes should be changed to Premium"
                         + " Internet.");
     }
+
     @Test
     public void shouldDeleteBookingIfSuccesful()
     {
@@ -247,9 +249,10 @@ public class EmployeeTestClass
         Employee MaxMustermann = new Employee("Max Mustermann");
         MaxMustermann.setGivenRole(BookingsManager);
         Employees.add(MaxMustermann);
-
+        System.out.println("Before createBooking");
         MaxMustermann.createBooking(1,zwoelfBisMittag,Heute, Booking.BookingType.HotelRoomBooking,"egal","Jacuzzi",false);
-
+        //MaxMustermann.createBooking(2,zwoelfBisMittag,Heute, Booking.BookingType.HotelRoomBooking,"egal","Meerblick",true);
+        System.out.println("After createBooking");
         //When
         StringBuilder ExpectedOutput = new StringBuilder();
         ExpectedOutput.append("Buchung Nummer: 0, ");
@@ -261,12 +264,12 @@ public class EmployeeTestClass
         ExpectedOutput.append("erstellt durch Mitarbeiter Nummer 0, ");
         ExpectedOutput.append("Business Kunde? false; ");
 
-
+        System.out.println(ExpectedOutput);
         StringBuilder ActualOutput= MaxMustermann.showAllBookings();
-
+        System.out.println(ActualOutput);
 
         //Then
-        System.out.println(ExpectedOutput.getClass().getName());
+        //System.out.println(ExpectedOutput.getClass().getName());
 //        /assertEquals(ExpectedOutput.toString(), ActualOutput.toString(),"As only one Booking is added to the Bookings list, there should be only " +
            // "one booking returned.");
 

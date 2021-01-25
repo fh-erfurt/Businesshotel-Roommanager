@@ -494,7 +494,7 @@ public class Employee
                 {
                     for (Room Room:Rooms)
                     {
-                        for (de.fourofakind.businesshotel.common.FullDate FullDate:Room.getRoomOcupiedAtList())
+                        for (de.fourofakind.businesshotel.common.FullDate FullDate:Room.getRoomOccupiedAtList())
                         {
                             if(FullDate.getDateFrame().equals(bookingRequest.getDateFrame()))
                             {

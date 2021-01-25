@@ -54,12 +54,12 @@ public class Room { //TODO: Room abstract deklarieren (nur spezialisierte Raumar
         isUsed = used;
     }
 
-    public ArrayList<FullDate> getRoomOcupiedAtList ()
+    public ArrayList<FullDate> getRoomOccupiedAtList ()
     {
         return roomOccupationList;
     }
 
-    public void setRoomAsOcupiedToList (FullDate fullDate)
+    public void setRoomAsOccupiedToList (FullDate fullDate)
     {
         this.roomOccupationList.add(fullDate);
 

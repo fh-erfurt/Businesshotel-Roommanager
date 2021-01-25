@@ -51,11 +51,11 @@ public class RoomTestClass
     }
 
     @Test
-    public void shouldTellIfRoomIsOccupied()
+    public void shouldGiveRoomOccupationDetails()
     {
-    newHotelRoom.setRoomAsOcupiedToList(dateOfOccupationChristmas);
-    newHotelRoom.setRoomAsOcupiedToList(dateOfOccupationNewYear);
-     ArrayList<FullDate> results = newHotelRoom.getRoomOcupiedAtList();
+    newHotelRoom.setRoomAsOccupiedToList(dateOfOccupationChristmas);
+    newHotelRoom.setRoomAsOccupiedToList(dateOfOccupationNewYear);
+     ArrayList<FullDate> results = newHotelRoom.getRoomOccupiedAtList();
     results.forEach((fullDate -> System.out.println(fullDate.getDateFrame().getStartDate())));
     }
 
