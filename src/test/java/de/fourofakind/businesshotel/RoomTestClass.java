@@ -44,10 +44,10 @@ public class RoomTestClass
     @Test
     public void shouldGiveHotelRoomDetailsWhenSuccessful()
     {
-        Rooms.add(newHotelRoom);
-        assertTrue(Rooms.get(0).getRoomNo()==7, "Should be 7 as the room was created with this RoomNo");
+
+        assertEquals(1,Rooms.get(1).getRoomNo(), "Should be 7 as the room was created with this RoomNo");
         //assertTrue(Rooms.get() ? true : false, "Should give the Category of the Room as it is set");
-        assertTrue(Rooms.get(0).getAreaInSqrMetre()==60 ? true : false, "Should give true if the area is the same set earlier for the Room");
+        assertEquals(60,Rooms.get(1).getAreaInSqrMetre(), "Should give true if the area is the same set earlier for the Room");
         //still impossible to access the methods of its child
 
     }
@@ -75,28 +75,30 @@ public class RoomTestClass
         //assertEquals(expectedResult,result,"If the Booking is created according to the details, all details will be told.");
     }
 
+
+
+
     @Test
-    public void DeleteRoomsTest()
+    public void DeleteRoomsTestWithAdminRight()
     {
-        Rooms.forEach(room -> System.out.print(room.getRoomNo()));
-        int roomsBeforeDeletion = Rooms.size();
-        System.out.println();
-        System.out.println("RoomCountBefore: "+ roomsBeforeDeletion);
         System.out.println("Is Employee a RoomAdmin: " + Mitarbeiter1.getGivenRole().isEnabledToManageRooms());
-
+        assertEquals(2, Rooms.get(2).getRoomNo(),"Room No. 2 should be on second position if created");
         Mitarbeiter1.deleteRoom(2);
-        int roomsAfterDeletion = Rooms.size();
-        System.out.println("RoomCountAfter: " + roomsAfterDeletion);
-        Rooms.forEach(room -> System.out.print(room.getRoomNo()));
-
-
-
-
-
-
-
+        assertEquals(null, Rooms.get(2),"Room No. 2 Should be Empty if deleted");
 
     }
+
+    @Test
+    public void DeleteRoomTestWithoutAdminRight()
+    {
+        //Make Mitarbeiter1 a employee without the right to delete rooms
+
+        Mitarbeiter1.setGivenRole(null);
+
+
+        assertThrows(IllegalCallerException.class, ()->{Mitarbeiter1.deleteRoom(2);});
+    }
+
 
 
 
