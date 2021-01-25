@@ -464,7 +464,7 @@ public class Employee
             allBookings.append(", ");
             allBookings.append("Business Kunde? ");
             allBookings.append(bookingEntry.isBusinessCustomer());
-            allBookings.append(";");
+            allBookings.append("; ");
         }
 
         return allBookings;
