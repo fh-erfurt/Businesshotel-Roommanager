@@ -131,7 +131,7 @@ public class EmployeeTestClass
         //Actual Change
         ArrayList<String> toBeChangedValues =new ArrayList<>();
         ArrayList<Object> changedValues =new ArrayList<>();
-        toBeChangedValues.add("SpecialWishes");
+        toBeChangedValues.add("specialWishes");
         changedValues.add("Premium Internet");
         try
         {
@@ -159,10 +159,11 @@ public class EmployeeTestClass
 
 
         //Then
+        System.out.println(resultBeforeChanges);
+        System.out.println(resultAfterChanges);
 
-
-        assertNotEquals(resultBeforeChanges,resultAfterChanges,"If the Booking is changed according to the parameters given, specialWishes should be changed to Premium" +
-                " Internet.");
+        assertNotEquals(resultBeforeChanges,resultAfterChanges,"If the Booking is changed according to the parameters given, specialWishes should be changed to Premium"
+                        + " Internet.");
     }
     @Test
     public void shouldDeleteBookingIfSuccesful()

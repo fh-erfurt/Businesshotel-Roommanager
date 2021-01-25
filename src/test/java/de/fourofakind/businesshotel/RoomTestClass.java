@@ -43,9 +43,9 @@ public class RoomTestClass
     public void shouldGiveHotelRoomDetailsWhenSuccessful()
     {
         Rooms.add(newHotelRoom);
-        boolean roomNo = Rooms.get(0).getRoomNo()==7 ? true : false;
-        boolean category = Rooms.get(0).getCategory()=="" ? true : false;
-        boolean area = Rooms.get(0).getAreaInSqrMetre()==60 ? true : false;
+        assertTrue(Rooms.get(0).getRoomNo()==7, "Should be 7 as the room was created with this RoomNo");
+        assertTrue(Rooms.get(0).getCategory()=="" ? true : false, "Should give the Category of the Room as it is set");
+        assertTrue(Rooms.get(0).getAreaInSqrMetre()==60 ? true : false, "Should give true if the area is the same set earlier for the Room");
 
 
     }
