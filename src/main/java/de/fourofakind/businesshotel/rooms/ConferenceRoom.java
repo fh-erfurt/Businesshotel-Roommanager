@@ -6,10 +6,15 @@ import de.fourofakind.businesshotel.common.TimeFrame;
 public class ConferenceRoom extends Room
 {
 
-    public ConferenceRoom (int roomNo, String category, int areaInSqrMetre, int maxAmountOfParticipants, int amountOfWhiteboards,
+    public enum Category {
+        BIGGROUP, SMALLGROUP
+    }
+
+    public ConferenceRoom (int roomNo, Category category, int areaInSqrMetre, int maxAmountOfParticipants, int amountOfWhiteboards,
                            int amountOfBeamer, boolean hasScreen, boolean hasComputer, boolean hasTV)
     {
-        super(roomNo, category, areaInSqrMetre);
+        super(roomNo, areaInSqrMetre);
+        this.category = category;
         this.maxAmountOfParticipants = maxAmountOfParticipants;
         this.amountOfWhiteboards = amountOfWhiteboards;
         this.amountOfBeamer = amountOfBeamer;
@@ -46,7 +51,6 @@ public class ConferenceRoom extends Room
     {
         this.timeFrame = timeFrame;
     }
-
 
 
     public int getAmountOfWhiteboards ()
@@ -102,11 +106,15 @@ public class ConferenceRoom extends Room
     private int maxAmountOfParticipants;
     private int amountOfWhiteboards;
     private int amountOfBeamer;
+
     private boolean hasScreen;
     private boolean hasComputer;
     private boolean hasTV;
+
     private DateFrame dateFrame;
     private TimeFrame timeFrame;
+
+    private Category category;
 
 
 

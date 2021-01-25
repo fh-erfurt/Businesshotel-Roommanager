@@ -190,10 +190,10 @@ public class Employee
                 Room toBeChangedRoom = Rooms.get(roomNo);
                 for (int amountOfChangedValues = 0; amountOfChangedValues < toBeChangedAttributes.size(); amountOfChangedValues++)
                 {
-                    if (toBeChangedAttributes.get(amountOfChangedValues).equals("category"))
-                    {
-                        toBeChangedRoom.setCategory((String)changedValues.get(amountOfChangedValues));
-                    }
+//                    if (toBeChangedAttributes.get(amountOfChangedValues).equals("category"))
+//                    {
+//                        toBeChangedRoom.setCategory((String)changedValues.get(amountOfChangedValues));
+//                    }
                     if (toBeChangedAttributes.get(amountOfChangedValues).equals("areaInSqrMetre"))
                     {
                         toBeChangedRoom.setAreaInSqrMetre((Integer)changedValues.get(amountOfChangedValues));
@@ -271,12 +271,13 @@ public class Employee
      * @param hasComputer               tells whether there is a computer in the room
      * @param hasTV                     tells whether there is a TV in the room
      */
-    public Room createConferenceRoom (int roomNo, String category, int areaInSqrMetre, int maxAmountOfParticipants, int amountOfWhiteboards,
+    public ConferenceRoom createConferenceRoom (int roomNo, ConferenceRoom.Category category, int areaInSqrMetre, int maxAmountOfParticipants,
+                                                int amountOfWhiteboards,
                                       int amountOfBeamer, boolean hasScreen, boolean hasComputer, boolean hasTV)
     {
         if (this.getGivenRole()==RoomAdministrator) //checks for Rights to manage Rooms
         {
-            Room newRoom = new ConferenceRoom(roomNo, category, areaInSqrMetre, maxAmountOfParticipants, amountOfWhiteboards,amountOfBeamer,
+            ConferenceRoom newRoom = new ConferenceRoom(roomNo, category, areaInSqrMetre, maxAmountOfParticipants, amountOfWhiteboards,amountOfBeamer,
                     hasScreen,hasComputer,hasTV);
             Rooms.add(newRoom);
             return newRoom;
@@ -297,13 +298,13 @@ public class Employee
      * @param hasKitchen        tells if there is a kitchen to cook in the room
      * @param hasCoffeemaker    tells if there is a Coffeemaker in the room
      */
-    public Room createHotelRoom (int roomNo, String category, int areaInSqrMetre, int bedCount, boolean hasSpeedLAN, boolean hasTV,
+    public HotelRoom createHotelRoom (int roomNo, HotelRoom.Category category, int areaInSqrMetre, int bedCount, boolean hasSpeedLAN, boolean hasTV,
                                  boolean hasKitchen,
                                  boolean hasCoffeemaker) throws IllegalCallerException
     {
         if (this.getGivenRole()==RoomAdministrator) //checks for Rights to manage Rooms
         {
-            Room newRoom = new HotelRoom(roomNo, category, areaInSqrMetre, bedCount,hasSpeedLAN,hasTV,hasKitchen,hasCoffeemaker);
+            HotelRoom newRoom = new HotelRoom(roomNo, category, areaInSqrMetre, bedCount,hasSpeedLAN,hasTV,hasKitchen,hasCoffeemaker);
             Rooms.add(newRoom);
             return newRoom;
         }

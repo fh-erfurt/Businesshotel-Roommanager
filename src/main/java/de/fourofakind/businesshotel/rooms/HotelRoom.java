@@ -4,13 +4,20 @@ import de.fourofakind.businesshotel.common.DateFrame;
 
 import java.util.ArrayList;
 
+
+
 public class HotelRoom extends Room
 {
 
-    public HotelRoom (int roomNo, String category, int areaInSqrMetre, int bedCount, boolean hasSpeedLAN, boolean hasTV, boolean hasKitchen,
+    public enum Category {
+        SINGLE, DOUBLE, SUIT
+    }
+
+    public HotelRoom (int roomNo, Category category, int areaInSqrMetre, int bedCount, boolean hasSpeedLAN, boolean hasTV, boolean hasKitchen,
                       boolean hasCoffeemaker)
     {
-        super(roomNo, category, areaInSqrMetre);
+        super(roomNo, areaInSqrMetre);
+        this.category = category;
         this.bedCount = bedCount;
         this.hasSpeedLAN = hasSpeedLAN;
         this.hasTV = hasTV;
@@ -77,14 +84,13 @@ public class HotelRoom extends Room
     private boolean hasKitchen;
     private boolean hasCoffeemaker;
 
-
-
     private DateFrame dateframe;
-
     public DateFrame getDateframe ()
     {
         return dateframe;
     }
+
+    private Category category;
 
     public void setDateframe (DateFrame dateframe)
     {
