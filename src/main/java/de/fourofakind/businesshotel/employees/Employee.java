@@ -321,11 +321,9 @@ public class Employee
      */
     public void deleteRoom (int roomNo) throws IllegalCallerException
     {
-        System.out.println("method called");
-        System.out.println(roomNo);
         if (this.getGivenRole()==RoomAdministrator) //checks for Rights to manage Rooms
         {
-            System.out.println("it is admin");
+            System.out.println("incoming");
             Rooms.set(roomNo, null);
         }
         else throw new IllegalCallerException("The caller does not inherit the Rights to do this");
