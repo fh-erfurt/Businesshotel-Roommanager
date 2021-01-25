@@ -5,6 +5,7 @@ import de.fourofakind.businesshotel.bookings.ConferenceRoomBooking;
 import de.fourofakind.businesshotel.bookings.HotelRoomBooking;
 import de.fourofakind.businesshotel.common.DateFrame;
 import de.fourofakind.businesshotel.common.TimeFrame;
+import de.fourofakind.businesshotel.rooms.HotelRoom;
 import de.fourofakind.businesshotel.rooms.Room;
 import org.junit.jupiter.api.Test;
 
@@ -21,16 +22,17 @@ public class BookingTestClass {
     ArrayList<Booking> BookingList= new ArrayList<>();
     ArrayList<Room> RoomList = new ArrayList<>();
 
-    public static Room SmallSuite = new Room (20,"Suite",17);
-    public static Room BigSuite = new Room (10, "Suite",5);
+    public static HotelRoom SmallSuite = new HotelRoom (20, HotelRoom.Category.SINGLE,17,2,false,false,true,true);
+    public static HotelRoom BigSuite = new HotelRoom (10, HotelRoom.Category.DOUBLE,5,2,true,true,false,true);
 
     TimeFrame coffeeMeeting = new TimeFrame("15:00","16:00");
     DateFrame date = new DateFrame("10.12.2020","10.12.2020");
 
     //Booking newBooking = new Booking();
-    Booking ConferenceBooking = new ConferenceRoomBooking(4,BigSuite.getRoomNo(), coffeeMeeting,date,BigSuite.getCategory(),"Luxury",400,
+    Booking ConferenceBooking = new ConferenceRoomBooking(4,BigSuite.getRoomNo(), coffeeMeeting,date,BigSuite.getCategory().name(),"Luxury",400,
             true);
-    Booking HotelBooking = new HotelRoomBooking(4,SmallSuite.getRoomNo(),coffeeMeeting,date, SmallSuite.getCategory(), "wakeup call every 6 AM",110,false);
+    Booking HotelBooking = new HotelRoomBooking(4,SmallSuite.getRoomNo(),coffeeMeeting,date, SmallSuite.getCategory().name(), "wakeup call every 6 AM",
+            110,false);
 
 
 
@@ -43,7 +45,7 @@ public class BookingTestClass {
 
         //When
         //get everything from created Booking
-
+        System.out.println(SmallSuite.getCategory());
         int bookingNumber = ConferenceBooking.getBookingNo();
         int roomNumber = ConferenceBooking.getRoomNo();
         String timeFrameStart = ConferenceBooking.getTimeFrame().getStartTime();

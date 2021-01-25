@@ -90,6 +90,16 @@ public class HotelRoom extends Room
         return dateframe;
     }
 
+    public Category getCategory ()
+    {
+        return category;
+    }
+
+    public void setCategory (Category category)
+    {
+        this.category = category;
+    }
+
     private Category category;
 
     public void setDateframe (DateFrame dateframe)

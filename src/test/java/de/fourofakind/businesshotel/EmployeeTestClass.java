@@ -6,6 +6,7 @@ import de.fourofakind.businesshotel.common.DateFrame;
 import de.fourofakind.businesshotel.common.TimeFrame;
 import de.fourofakind.businesshotel.employees.Employee;
 import de.fourofakind.businesshotel.rooms.ConferenceRoom;
+import de.fourofakind.businesshotel.rooms.HotelRoom;
 import de.fourofakind.businesshotel.rooms.Room;
 import org.junit.jupiter.api.Test;
 
@@ -19,17 +20,17 @@ public class EmployeeTestClass
 {
     TimeFrame NullTimeFrame=new TimeFrame("","");
     DateFrame NullDateFrame=new DateFrame("","");
-    ConferenceRoom NullRoom= new ConferenceRoom(0,"",0,0,0,0,false,false,false); //present to
+    ConferenceRoom NullRoom= new ConferenceRoom(0, ConferenceRoom.Category.SMALLGROUP,0,0,0,0,false,false,false); //present to
     ConferenceRoomBooking NullBooking= new ConferenceRoomBooking(0,0,NullTimeFrame,NullDateFrame,"","",0,false);
     Employee NullEmployee = new Employee("");
 
 
     TimeFrame zwoelfBisMittag= new TimeFrame("zwölf","mittag");
     DateFrame Heute=new DateFrame("Heute","Heute");
-    Room TestRoom1 = new Room(1,"Single Room",15);
-    Room TestRoom2 = new Room(2,"Suite",40);
-    Room TestRoom3 = new Room(3,"Double Room",20);
-    Room TestRoom4 = new Room(4,"Big Group",50);
+    HotelRoom TestRoom1 = new HotelRoom (1, HotelRoom.Category.SINGLE,50,4,true,false,false,true);
+    HotelRoom TestRoom2 = new HotelRoom(2, HotelRoom.Category.SUIT,40,2,false,false,true,false);
+    HotelRoom TestRoom3 = new HotelRoom(3, HotelRoom.Category.SINGLE,20,1,true,false,true,false);
+    ConferenceRoom TestRoom4 = new ConferenceRoom(4, ConferenceRoom.Category.BIGGROUP,60,24,3,2,true,true,true);
 
 
     @Test
