@@ -108,7 +108,7 @@ public class EmployeeTestClass
         result += ", Pricing: " + resultBooking.getPricing();
         result += ", IsBusinessCustomer?: " + resultBooking.isBusinessCustomer();
 
-        String expectedResult="RoomNo: 1, StartTime: zwölf, EndTime: mittag, StartDate: Heute, EndDate: Heute, RoomCategory: Room.Category.SINGLE, SpecialWishes: Jacuzzi, Pricing: 0.0, IsBusinessCustomer?: false";
+        String expectedResult="RoomNo: 1, StartTime: zwölf, EndTime: mittag, StartDate: Heute, EndDate: Heute, RoomCategory: SINGLE, SpecialWishes: Jacuzzi, Pricing: 0.0, IsBusinessCustomer?: false";
 
 
         //Then
@@ -262,10 +262,9 @@ public class EmployeeTestClass
 
         Booking foundBookingByBookNo=MaxMustermann.findBooking(Bookings.indexOf(testBooking1),0,0,null,null,"",null).get(0); //search by bookingNo
         Booking foundBookingByRoomNoPlusTimeAndDate=MaxMustermann.findBooking(0,1,0,Heute,zwoelfBisMittag,"",null).get(0); //search by RoomNo, TimeFrame and DateFrame
-        Booking expectedBooking=testBooking1;
 
         //Then
-        assertTrue(foundBookingByBookNo.equals(expectedBooking) && foundBookingByRoomNoPlusTimeAndDate.equals(expectedBooking),
+        assertTrue(foundBookingByBookNo.equals(testBooking1) && foundBookingByRoomNoPlusTimeAndDate.equals(testBooking1),
                 "If working correctly, both search Methods should give the same result and therefore both should exactly be the same booking created in preparation to this test.");
     }
 
@@ -322,21 +321,32 @@ public class EmployeeTestClass
         Rooms.add(NullRoom); //Rooms beginning at 1
         Rooms.add(TestRoom1);
         Employee MaxMustermann = new Employee("Max Mustermann");
-        MaxMustermann.setGivenRole(BookingsManager);
+        MaxMustermann.setGivenRole(CustomerRelationshipManager);
+        Employee PeterMustermann = new Employee("Peter Mustermann");
+        PeterMustermann.setGivenRole(BookingsManager);
+
+
         Customer TestCustomer= MaxMustermann.createCustomer("Mannig","faltige","Möglichkeiten","für","kreative","Namen","gehen einem irgendwann", Customer.paymentMethods.paypal,"aus");
 
         //When
 
-        ArrayList<BookingRequest> BookingRequestsBefore = BookingRequests;
+        ArrayList<BookingRequest> BookingRequestsBeforeRequest= new ArrayList<BookingRequest>();
+        BookingRequestsBeforeRequest.addAll(BookingRequests);
 
         TestCustomer.sendBookingRequest(zwoelfBisMittag,Heute,Room.Category.SUITE,"");
 
+        ArrayList<BookingRequest> BookingRequestsAfterRequest = new ArrayList<BookingRequest>();
+        BookingRequestsAfterRequest.addAll(BookingRequests);
 
-        ArrayList<BookingRequest> BookingRequestsAfter = BookingRequests;
+
+        PeterMustermann.manageBookingRequests();
+
+        ArrayList<BookingRequest> BookingRequestsAfterRequestManagement = new ArrayList<BookingRequest>();
+        BookingRequestsAfterRequestManagement.addAll(BookingRequests);
 
         //Then
-        assertNotEquals(BookingRequestsBefore,BookingRequestsAfter);
-
+        assertNotEquals(BookingRequestsBeforeRequest,BookingRequestsAfterRequest,"If the test is succesful, the bookingRequests list should now have one entry instead of none");
+        assertNotEquals(BookingRequestsAfterRequest,BookingRequestsAfterRequestManagement,"If the test is succesful, the bookingRequests list should now have no entry instead of one");
     }
 
 

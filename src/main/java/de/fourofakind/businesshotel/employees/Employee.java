@@ -479,7 +479,7 @@ public class Employee
      * @throws IllegalCallerException in case of someone using the function without the BookingsManager Role and its inherited Rights to manage bookings
      * @throws IllegalArgumentException in case of a booking being neither a HotelRoomBooking nor a onferenceRoomBooking, which should never occur
      */
-    public void manageBookingRequests () throws IllegalCallerException, IllegalArgumentException
+    public void manageBookingRequests () throws IllegalCallerException
     {
         if(this.getGivenRole()==BookingsManager)
         {
@@ -490,33 +490,28 @@ public class Employee
                         {
                             case SUITE, SINGLE, DOUBLE -> Booking.BookingType.HotelRoomBooking;
                             case SMALLGROUP, BIGGROUP -> Booking.BookingType.ConferenceRoomBooking;
-                            default -> null;
                         };
-                if(bookingType==null) throw new IllegalArgumentException();
-                else
+                for (Room room :Rooms)
                 {
-                    for (Room room :Rooms)
+                    for (de.fourofakind.businesshotel.common.FullDate FullDate: room.getRoomOccupiedAtList())
                     {
-                        for (de.fourofakind.businesshotel.common.FullDate FullDate: room.getRoomOccupiedAtList())
+                        if(room.getCategory().equals(bookingRequest.getRoomCategory()))
                         {
-                            if(room.getCategory().equals(bookingRequest.getRoomCategory()))
+                            if (FullDate.getDateFrame().equals(bookingRequest.getDateFrame()))
                             {
-                                if (FullDate.getDateFrame().equals(bookingRequest.getDateFrame()))
-                                {
-                                    DeclinedBookingRequests.add(bookingRequest);
-                                    BookingRequests.remove(bookingRequest);
-                                    break;
-                                } else if (FullDate.getTimeFrame().equals(bookingRequest.getTimeFrame()))
-                                {
-                                    DeclinedBookingRequests.add(bookingRequest);
-                                    BookingRequests.remove(bookingRequest);
-                                    break;
-                                } else
-                                {
-                                    this.createBooking(room.getRoomNo(), bookingRequest.getTimeFrame(), bookingRequest.getDateFrame(), bookingType, bookingRequest.getRoomCategory(),
-                                            bookingRequest.getSpecialWishes(), bookingRequest.getIsBusinessCustomer());
-                                    BookingRequests.remove(bookingRequest);
-                                }
+                                DeclinedBookingRequests.add(bookingRequest);
+                                BookingRequests.remove(bookingRequest);
+                                break;
+                            } else if (FullDate.getTimeFrame().equals(bookingRequest.getTimeFrame()))
+                            {
+                                DeclinedBookingRequests.add(bookingRequest);
+                                BookingRequests.remove(bookingRequest);
+                                break;
+                            } else
+                            {
+                                this.createBooking(room.getRoomNo(), bookingRequest.getTimeFrame(), bookingRequest.getDateFrame(), bookingType, bookingRequest.getRoomCategory(),
+                                        bookingRequest.getSpecialWishes(), bookingRequest.getIsBusinessCustomer());
+                                BookingRequests.remove(bookingRequest);
                             }
                         }
                     }
