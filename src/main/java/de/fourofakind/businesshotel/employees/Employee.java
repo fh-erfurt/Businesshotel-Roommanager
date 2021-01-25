@@ -544,7 +544,7 @@ public class Employee
      * @param iban
      * @throws IllegalCallerException in case of someone using the function without the CustomerRelationshipManager Role and its inherited rights to manage customers
      */
-    public void createCustomer (String firstName, String lastName, String streetName, String streetNumber, String postalCode, String cityName, String mailAddress,
+    public Customer createCustomer (String firstName, String lastName, String streetName, String streetNumber, String postalCode, String cityName, String mailAddress,
                                 Customer.paymentMethods paymentMethod, String iban) throws IllegalCallerException
     {
         if (this.getGivenRole()==CustomerRelationshipManager)
@@ -555,12 +555,13 @@ public class Employee
 
             if (paymentMethod == Customer.paymentMethods.debit)
             {
-                contactData.setIban(iban);
+                contactData.setPaymentCredentials(iban);
             }
 
             Customer newCustomer = new Customer(customerID, contactData, paymentMethod);
 
             Customers.add(newCustomer);
+            return newCustomer;
         }
         else throw new IllegalCallerException("The caller does not inherit the Rights to do this");
     }
@@ -601,7 +602,7 @@ public class Employee
                 case "paymentMethod":
                     fetchedCustomer.setPaymentMethod(value);
                 case "iban":
-                    fetchedContactData.setIban(value);
+                    fetchedContactData.setPaymentCredentials(value);
             }
 
             Customers.set(customerID, fetchedCustomer);

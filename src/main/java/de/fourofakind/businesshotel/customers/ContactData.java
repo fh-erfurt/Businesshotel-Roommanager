@@ -60,9 +60,9 @@ public class ContactData {
         this.phoneNumber = phoneNumber;
     }
 
-    public void setIban(String iban)
+    public void setPaymentCredentials (String paymentCredentials)
     {
-        this.iban = iban;
+        this.paymentCredentials = paymentCredentials;
     }
 
     public String getFirstName()
@@ -102,9 +102,9 @@ public class ContactData {
         return phoneNumber;
     }
 
-    public String getIban()
+    public String getPaymentCredentials ()
     {
-        return iban;
+        return paymentCredentials;
     }
 
     private String firstName;
@@ -115,5 +115,5 @@ public class ContactData {
     private String cityName;
     private String phoneNumber;
     private String mailAddress;
-    private String iban ;
+    private String paymentCredentials;
 }
