@@ -266,8 +266,13 @@ public class EmployeeTestClass
 
 
         //Then
+        System.out.println(ExpectedOutput.getClass().getName());
+//        /assertEquals(ExpectedOutput.toString(), ActualOutput.toString(),"As only one Booking is added to the Bookings list, there should be only " +
+           // "one booking returned.");
 
-        assertEquals(ExpectedOutput.toString(), ActualOutput.toString(),"As only one Booking is added to the Bookings list, there should be only one booking returned.");
+        assertTrue(ExpectedOutput.length()==ActualOutput.length(), "Should have the same length");
+        assertTrue(ExpectedOutput.compareTo(ActualOutput)==0,"As only one Booking is added to the Bookings list, there should be only one booking " +
+                "returned.");
     }
 
     @Test
