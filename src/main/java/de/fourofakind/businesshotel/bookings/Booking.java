@@ -2,6 +2,7 @@ package de.fourofakind.businesshotel.bookings;
 
 import de.fourofakind.businesshotel.common.DateFrame;
 import de.fourofakind.businesshotel.common.TimeFrame;
+import de.fourofakind.businesshotel.rooms.Room;
 
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
@@ -30,7 +31,7 @@ public abstract class Booking {
      * </p>
      */
 
-    public Booking(int bookingNo, int roomNo, TimeFrame timeFrame, DateFrame dateFrame, String roomCategory,
+    public Booking(int bookingNo, int roomNo, TimeFrame timeFrame, DateFrame dateFrame, Room.Category roomCategory,
                    String specialWishes, int empNo, boolean isBusinessCustomer) {
         DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         LocalDateTime currentDateTime = LocalDateTime.now();
@@ -60,7 +61,7 @@ public abstract class Booking {
         return bookingDate;
     }
 
-    public String getRoomCategory() {
+    public Room.Category getRoomCategory() {
         return roomCategory;
     }
 
@@ -148,7 +149,7 @@ public abstract class Booking {
     private DateFrame dateFrame;
     private TimeFrame timeFrame;
     private String bookingDate;
-    private String roomCategory;
+    private Room.Category roomCategory;
     private String specialWishes;
 
     private String changeBookingDate;

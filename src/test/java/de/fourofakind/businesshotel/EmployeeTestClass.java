@@ -3,7 +3,9 @@ package de.fourofakind.businesshotel;
 import de.fourofakind.businesshotel.bookings.Booking;
 import de.fourofakind.businesshotel.bookings.ConferenceRoomBooking;
 import de.fourofakind.businesshotel.common.DateFrame;
+import de.fourofakind.businesshotel.common.Role;
 import de.fourofakind.businesshotel.common.TimeFrame;
+import de.fourofakind.businesshotel.customers.Customer;
 import de.fourofakind.businesshotel.employees.Employee;
 import de.fourofakind.businesshotel.rooms.ConferenceRoom;
 import de.fourofakind.businesshotel.rooms.HotelRoom;
@@ -29,6 +31,8 @@ public class EmployeeTestClass
     HotelRoom TestRoom2 = new HotelRoom(2, HotelRoom.Category.SUITE,40,2,false,false,true,false);
     HotelRoom TestRoom3 = new HotelRoom(3, HotelRoom.Category.SINGLE,20,1,true,false,true,false);
     ConferenceRoom TestRoom4 = new ConferenceRoom(4, ConferenceRoom.Category.BIGGROUP,60,24,3,2,true,true,true);
+
+
 
 
     @Test
@@ -296,6 +300,32 @@ public class EmployeeTestClass
     @Test
     void createCustomer ()
     {
+
+
+        Employee testTemployee = new Employee("Bill Gates", CustomerRelationshipManager);
+
+//        testTemployee.setGivenRole();
+
+        testTemployee.createCustomer("Tom",
+                                    "Hanks",
+                                    "Tom-Hanks-Street",
+                                    "13", "19025",
+                                    "Tom-Hanks-Haußen",
+                                    "tomhengst@gmail.com",
+                                    Customer.paymentMethods.bill,
+                                    "");
+
+        testTemployee.createCustomer("Billie",
+                                    "Eilish",
+                                    "Iwo Street",
+                                    "5", "65198",
+                                    "Billiefeld",
+                                    "badguy@t-online.de",
+                                    Customer.paymentMethods.paypal,
+                                    "");
+
+        for(Customer elem : Customers)
+            System.out.println("FirstName: " + elem.getContactData().getFirstName());
     }
 
     @Test

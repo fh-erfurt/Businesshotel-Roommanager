@@ -9,11 +9,11 @@ import java.util.ArrayList;
 public class HotelRoom extends Room
 {
 
-    public enum Category {
-        SINGLE, DOUBLE, SUITE
-    }
+//    public enum Category {
+//        SINGLE, DOUBLE, SUITE
+//    }
 
-    public HotelRoom (int roomNo, Category category, int areaInSqrMetre, int bedCount, boolean hasSpeedLAN, boolean hasTV, boolean hasKitchen,
+    public HotelRoom (int roomNo, Room.Category category, int areaInSqrMetre, int bedCount, boolean hasSpeedLAN, boolean hasTV, boolean hasKitchen,
                       boolean hasCoffeemaker)
     {
         super(roomNo, areaInSqrMetre);
@@ -90,17 +90,17 @@ public class HotelRoom extends Room
         return dateframe;
     }
 
-    public Category getCategory ()
+    public Room.Category getCategory ()
     {
         return category;
     }
 
-    public void setCategory (Category category)
+    public void setCategory (Room.Category category)
     {
         this.category = category;
     }
 
-    private Category category;
+    private Room.Category category;
 
     public void setDateframe (DateFrame dateframe)
     {

@@ -6,11 +6,11 @@ import de.fourofakind.businesshotel.common.TimeFrame;
 public class ConferenceRoom extends Room
 {
 
-    public enum Category {
-        BIGGROUP, SMALLGROUP
-    }
+//    public enum Category {
+//        BIGGROUP, SMALLGROUP
+//    }
 
-    public ConferenceRoom (int roomNo, Category category, int areaInSqrMetre, int maxAmountOfParticipants, int amountOfWhiteboards,
+    public ConferenceRoom (int roomNo, Room.Category category, int areaInSqrMetre, int maxAmountOfParticipants, int amountOfWhiteboards,
                            int amountOfBeamer, boolean hasScreen, boolean hasComputer, boolean hasTV)
     {
         super(roomNo, areaInSqrMetre);
@@ -103,6 +103,16 @@ public class ConferenceRoom extends Room
         this.hasTV = hasTV;
     }
 
+    public Room.Category getCategory ()
+    {
+        return category;
+    }
+
+    public void setCategory (Room.Category category)
+    {
+        this.category = category;
+    }
+
     private int maxAmountOfParticipants;
     private int amountOfWhiteboards;
     private int amountOfBeamer;
@@ -114,7 +124,7 @@ public class ConferenceRoom extends Room
     private DateFrame dateFrame;
     private TimeFrame timeFrame;
 
-    private Category category;
+    private Room.Category category;
 
 
 

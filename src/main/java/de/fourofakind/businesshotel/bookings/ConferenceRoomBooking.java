@@ -2,6 +2,7 @@ package de.fourofakind.businesshotel.bookings;
 
 import de.fourofakind.businesshotel.common.DateFrame;
 import de.fourofakind.businesshotel.common.TimeFrame;
+import de.fourofakind.businesshotel.rooms.Room;
 
 public class ConferenceRoomBooking extends Booking
 {
@@ -9,7 +10,7 @@ public class ConferenceRoomBooking extends Booking
      * This class extends the Booking to the kind of room that has been booked, in this case to a conferenceRoom
      */
 
-    public ConferenceRoomBooking (int bookingNo, int roomNo, TimeFrame timeFrame, DateFrame dateFrame, String roomCategory, String specialWishes, int empNo, boolean isBusinessCustomer)
+    public ConferenceRoomBooking (int bookingNo, int roomNo, TimeFrame timeFrame, DateFrame dateFrame, Room.Category roomCategory, String specialWishes, int empNo, boolean isBusinessCustomer)
     {
         super(bookingNo, roomNo, timeFrame, dateFrame, roomCategory, specialWishes, empNo, isBusinessCustomer);
         this.pricing=calculatePricing(0);
