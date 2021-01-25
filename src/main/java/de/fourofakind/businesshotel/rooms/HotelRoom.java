@@ -10,7 +10,7 @@ public class HotelRoom extends Room
 {
 
     public enum Category {
-        SINGLE, DOUBLE, SUIT
+        SINGLE, DOUBLE, SUITE
     }
 
     public HotelRoom (int roomNo, Category category, int areaInSqrMetre, int bedCount, boolean hasSpeedLAN, boolean hasTV, boolean hasKitchen,

@@ -7,10 +7,8 @@ import de.fourofakind.businesshotel.common.TimeFrame;
 import de.fourofakind.businesshotel.employees.Employee;
 import de.fourofakind.businesshotel.rooms.ConferenceRoom;
 import de.fourofakind.businesshotel.rooms.HotelRoom;
-import de.fourofakind.businesshotel.rooms.Room;
 import org.junit.jupiter.api.Test;
 
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -28,7 +26,7 @@ public class EmployeeTestClass
     TimeFrame zwoelfBisMittag= new TimeFrame("zwölf","mittag");
     DateFrame Heute=new DateFrame("Heute","Heute");
     HotelRoom TestRoom1 = new HotelRoom (1, HotelRoom.Category.SINGLE,50,4,true,false,false,true);
-    HotelRoom TestRoom2 = new HotelRoom(2, HotelRoom.Category.SUIT,40,2,false,false,true,false);
+    HotelRoom TestRoom2 = new HotelRoom(2, HotelRoom.Category.SUITE,40,2,false,false,true,false);
     HotelRoom TestRoom3 = new HotelRoom(3, HotelRoom.Category.SINGLE,20,1,true,false,true,false);
     ConferenceRoom TestRoom4 = new ConferenceRoom(4, ConferenceRoom.Category.BIGGROUP,60,24,3,2,true,true,true);
 
