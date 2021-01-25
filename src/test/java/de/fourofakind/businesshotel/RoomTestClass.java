@@ -47,6 +47,7 @@ public class RoomTestClass
         boolean category = Rooms.get(0).getCategory()=="" ? true : false;
         boolean area = Rooms.get(0).getAreaInSqrMetre()==60 ? true : false;
 
+
     }
 
     @Test
