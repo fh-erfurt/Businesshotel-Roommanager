@@ -29,9 +29,9 @@ public class BookingTestClass {
     DateFrame date = new DateFrame("10.12.2020","10.12.2020");
 
     //Booking newBooking = new Booking();
-    Booking ConferenceBooking = new ConferenceRoomBooking(4,BigSuite.getRoomNo(), coffeeMeeting,date,BigSuite.getCategory().name(),"Luxury",400,
+    Booking ConferenceBooking = new ConferenceRoomBooking(4,BigSuite.getRoomNo(), coffeeMeeting,date, Room.Category.BIGGROUP,"Luxury",400,
             true);
-    Booking HotelBooking = new HotelRoomBooking(4,SmallSuite.getRoomNo(),coffeeMeeting,date, SmallSuite.getCategory().name(), "wakeup call every 6 AM",
+    Booking HotelBooking = new HotelRoomBooking(4,SmallSuite.getRoomNo(),coffeeMeeting,date, Room.Category.SUITE, "wakeup call every 6 AM",
             110,false);
 
 
@@ -52,7 +52,7 @@ public class BookingTestClass {
         String timeFrameEnd = ConferenceBooking.getTimeFrame().getEndTime();
         String dateFrameStart = ConferenceBooking.getDateFrame().getStartDate();
         String dateFrameEnd = ConferenceBooking.getDateFrame().getEndDate();
-        String roomCategory = ConferenceBooking.getRoomCategory();
+        //String roomCategory = ConferenceBooking.getRoomCategory();
         String specialWishes = ConferenceBooking.getSpecialWishes();
         float pricing = ConferenceBooking.getPricing();
         int empNo = ConferenceBooking.getEmpNo();
