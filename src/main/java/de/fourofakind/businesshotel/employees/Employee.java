@@ -66,7 +66,7 @@ public class Employee
      *                           important for generation of bills and taxes to be used
      * @return returns the Booking created just now
      */
-    public Booking createBooking (int roomNo, TimeFrame timeFrame, DateFrame dateFrame, Booking.BookingType bookingType, String roomCategory, String specialWishes, boolean isBusinessCustomer)
+    public Booking createBooking (int roomNo, TimeFrame timeFrame, DateFrame dateFrame, Booking.BookingType bookingType, Room.Category roomCategory, String specialWishes, boolean isBusinessCustomer)
     {
         if (this.getGivenRole()==BookingsManager) //checks for Rights to manage Bookings
         {
@@ -490,8 +490,8 @@ public class Employee
             {
                 Booking.BookingType bookingType = switch (bookingRequest.getRoomCategory())
                         {
-                            case "Suite", "Single Room", "Double Room" -> Booking.BookingType.HotelRoomBooking;
-                            case "Small Group", "Big Group" -> Booking.BookingType.ConferenceRoomBooking;
+                            case SUITE, SINGLE, DOUBLE -> Booking.BookingType.HotelRoomBooking;
+                            case SMALLGROUP, BIGGROUP -> Booking.BookingType.ConferenceRoomBooking;
                             default -> null;
                         };
                 if(bookingType==null) throw new IllegalArgumentException();

@@ -3,10 +3,11 @@ package de.fourofakind.businesshotel.customers;
 import de.fourofakind.businesshotel.bookings.Booking;
 import de.fourofakind.businesshotel.common.DateFrame;
 import de.fourofakind.businesshotel.common.TimeFrame;
+import de.fourofakind.businesshotel.rooms.Room;
 
 public class BookingRequest {
 
-    public BookingRequest (int customerID, TimeFrame timeFrame, DateFrame dateFrame, String roomCategory,
+    public BookingRequest (int customerID, TimeFrame timeFrame, DateFrame dateFrame, Room.Category roomCategory,
                            String specialWishes, boolean isBusinessCustomer) {
         this.customerID = customerID;
         this.timeFrame = timeFrame;
@@ -46,12 +47,12 @@ public class BookingRequest {
         this.dateFrame = dateFrame;
     }
 
-    public String getRoomCategory ()
+    public Room.Category getRoomCategory ()
     {
         return roomCategory;
     }
 
-    public void setRoomCategory (String roomCategory)
+    public void setRoomCategory (Room.Category roomCategory)
     {
         this.roomCategory = roomCategory;
     }
@@ -79,7 +80,7 @@ public class BookingRequest {
     private int customerID;
     private TimeFrame timeFrame;
     private DateFrame dateFrame;
-    private String roomCategory;
+    private Room.Category roomCategory;
     private String specialWishes;
     private boolean isBusinessCustomer;
 }

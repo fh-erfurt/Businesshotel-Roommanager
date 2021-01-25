@@ -16,6 +16,10 @@ abstract public class Room {
      * </p>
      */
 
+    public enum Category {
+        SINGLE, DOUBLE, SUITE, BIGGROUP, SMALLGROUP
+    }
+
     public Room(int roomNo, int areaInSqrMetre) {
 //        this.category = category;
         this.areaInSqrMetre = areaInSqrMetre;
