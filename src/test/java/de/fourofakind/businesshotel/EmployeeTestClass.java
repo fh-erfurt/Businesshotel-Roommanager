@@ -1,9 +1,11 @@
 package de.fourofakind.businesshotel;
 
 import de.fourofakind.businesshotel.bookings.Booking;
+import de.fourofakind.businesshotel.bookings.ConferenceRoomBooking;
 import de.fourofakind.businesshotel.common.DateFrame;
 import de.fourofakind.businesshotel.common.TimeFrame;
 import de.fourofakind.businesshotel.employees.Employee;
+import de.fourofakind.businesshotel.rooms.ConferenceRoom;
 import de.fourofakind.businesshotel.rooms.Room;
 import org.junit.jupiter.api.Test;
 
@@ -14,6 +16,12 @@ import static de.fourofakind.businesshotel.common.StartingClass.*;
 
 public class EmployeeTestClass
 {
+    TimeFrame NullTimeFrame=new TimeFrame("","");
+    DateFrame NullDateFrame=new DateFrame("","");
+    ConferenceRoom NullRoom= new ConferenceRoom(0,"",0,0,0,0,false,false,false); //present to
+    ConferenceRoomBooking NullBooking= new ConferenceRoomBooking(0,0,NullTimeFrame,NullDateFrame,"","",0,false);
+    Employee NullEmployee = new Employee("");
+
 
     TimeFrame zwoelfBisMittag= new TimeFrame("zwölf","mittag");
     DateFrame Heute=new DateFrame("Heute","Heute");
@@ -23,13 +31,11 @@ public class EmployeeTestClass
     Room TestRoom4 = new Room(4,"Big Group",50);
 
 
-
-
     @Test
     public void shouldOutputEmployeeNameWhenSuccessful()
     {
         //Given
-        Employees.add(null); //EmployeeNo beginning at 1
+        Employees.add(NullEmployee); //EmployeeNo beginning at 1
 
         Employee MaxMustermann = new Employee("Max Mustermann");
         Employees.add(MaxMustermann);
@@ -45,7 +51,7 @@ public class EmployeeTestClass
     public void shouldOutputEmployeeNumberWhenSuccessful()
     {
         //Given
-        Employees.add(null); //EmployeeNo beginning at 1
+        Employees.add(NullEmployee); //EmployeeNo beginning at 1
 
         Employee MaxMustermann = new Employee("Max Mustermann");
         Employees.add(MaxMustermann);
@@ -65,7 +71,7 @@ public class EmployeeTestClass
     {
         //Given
 
-        Rooms.add(null); //Rooms beginning at 1
+        Rooms.add(NullRoom); //Rooms beginning at 1
         Rooms.add(TestRoom1);
         Employee MaxMustermann = new Employee("Max Mustermann");
         MaxMustermann.setGivenRole(BookingsManager);
@@ -86,8 +92,7 @@ public class EmployeeTestClass
         result += ", Pricing: " + resultBooking.getPricing();
         result += ", IsBusinessCustomer?: " + resultBooking.isBusinessCustomer();
 
-        String expectedResult="RoomNo: 1, StartTime: zwölf, EndTime: mittag, StartDate: Heute, EndDate: Heute, RoomCategory: egal, SpecialWishes: Jacuzzi, Pricing: 5" +
-                ".03, IsBusinessCustomer?: FALSE";
+        String expectedResult="RoomNo: 1, StartTime: zwölf, EndTime: mittag, StartDate: Heute, EndDate: Heute, RoomCategory: egal, SpecialWishes: Jacuzzi, Pricing: 0.0, IsBusinessCustomer?: false";
 
 
         //Then
@@ -99,9 +104,9 @@ public class EmployeeTestClass
     {
         //Given
 
-        Rooms.add(null); //Rooms beginning at 1
+        Rooms.add(NullRoom); //Rooms beginning at 1
         Rooms.add(TestRoom1);
-        Bookings.add(null); //Bookings beginning at 1
+        Bookings.add(NullBooking); //Bookings beginning at 1
         Employee MaxMustermann = new Employee("Max Mustermann");
         MaxMustermann.setGivenRole(BookingsManager);
 
@@ -164,12 +169,12 @@ public class EmployeeTestClass
     {
         //Given
 
-        Rooms.add(null); //Rooms beginning at 1
+        Rooms.add(NullRoom); //Rooms beginning at 1
         Rooms.add(TestRoom1);
         Rooms.add(TestRoom2);
         Rooms.add(TestRoom3);
         Rooms.add(TestRoom4);
-        Bookings.add(null); //Bookings beginning at 1
+        Bookings.add(NullBooking); //Bookings beginning at 1
         Employee MaxMustermann = new Employee("Max Mustermann");
         MaxMustermann.setGivenRole(BookingsManager);
 
@@ -217,17 +222,60 @@ public class EmployeeTestClass
     @Test
     void findBooking ()
     {
+        //Given
+        Rooms.add(NullRoom); //Rooms beginning at 1
+        Bookings.add(NullBooking); //Bookings beginning at 1
+        Rooms.add(TestRoom1);
+        Employee MaxMustermann = new Employee("Max Mustermann");
+        MaxMustermann.setGivenRole(BookingsManager);
+
+        Booking testBooking1 = MaxMustermann.createBooking(1,zwoelfBisMittag,Heute, Booking.BookingType.HotelRoomBooking,"Single Room","Jacuzzi",
+                false);
+        Bookings.add(testBooking1);
+
+        //When
+
     }
 
     @Test
     void showAllBookings ()
     {
+        //Given
+        Rooms.add(NullRoom); //Rooms beginning at 1
+        Rooms.add(TestRoom1);
+        Employee MaxMustermann = new Employee("Max Mustermann");
+        MaxMustermann.setGivenRole(BookingsManager);
+        Employees.add(MaxMustermann);
+
+        MaxMustermann.createBooking(1,zwoelfBisMittag,Heute, Booking.BookingType.HotelRoomBooking,"egal","Jacuzzi",false);
+
+        //When
+        StringBuilder ExpectedOutput = new StringBuilder();
+        ExpectedOutput.append("Buchung Nummer: 0, ");
+        ExpectedOutput.append("Raum: 1, ");
+        ExpectedOutput.append("von zwölf bis mittag, ");
+        ExpectedOutput.append("von Heute bis Heute, ");
+        ExpectedOutput.append("Raum-Kategorie: egal, ");
+        ExpectedOutput.append("Besondere Wünsche: Jacuzzi, ");
+        ExpectedOutput.append("erstellt durch Mitarbeiter Nummer 0, ");
+        ExpectedOutput.append("Business Kunde? false;");
+
+
+        StringBuilder ActualOutput= MaxMustermann.showAllBookings();
+
+
+        //Then
+
+        assertEquals(ExpectedOutput.toString(), ActualOutput.toString(),"As only one Booking is added to the Bookings list, there should be only one booking returned.");
     }
 
     @Test
     void manageBookingRequests ()
     {
     }
+
+
+
 
     @Test
     void createCustomer ()

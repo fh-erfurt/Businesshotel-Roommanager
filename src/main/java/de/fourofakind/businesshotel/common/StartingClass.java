@@ -20,7 +20,7 @@ public class StartingClass
     public static ArrayList<BookingRequest> DeclinedBookingRequests = new ArrayList<>();
 
     //Define Roles
-    public static Role GodLikeAdmin = new Role(true,true,true);
+    public static Role GodLikeAdmin = new Role(true,true,true); // for later admin-like rights
     public static Role RoomAdministrator = new Role(true,false,false);
     public static Role BookingsManager = new Role(false,true,false);
     public static Role CustomerRelationshipManager = new Role(false,false,true);

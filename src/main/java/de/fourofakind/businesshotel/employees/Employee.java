@@ -83,7 +83,7 @@ public class Employee
                 createdBooking = new ConferenceRoomBooking(bookingNo, roomNo, timeFrame, dateFrame, roomCategory, specialWishes, this.getEmpNo(), isBusinessCustomer);
             }
 
-            //Rooms.get(roomNo).setUsed(true);
+            Rooms.get(roomNo).setUsed(true);
             Bookings.add(createdBooking);
             return createdBooking;
         }
@@ -329,7 +329,10 @@ public class Employee
 
 
     /**
-     * <p>Implementation of the Employee's ability to search for a booking by several parameters given. Will later be much more efficient if based on database actions</p>
+     * <p>Implementation of the Employee's ability to search for a booking by several parameters given. Will later be much more efficient if based on database actions.
+     * It is possible to search only by EmpNo to determine an Employee's work rate, to search only by bookingNo, which should always return only one booking and to search by a RoomNo and a dateframe and
+     * a timeframe, when the room should be used. In the last case there are used even further defined parameters like bookingDate or roomCategory, but only if given. Not all Parameters have to be set
+     * to use the function, not known information should be given with "null" or 0, depending on the data type.</p>
      * @param BookingNo             number of the booking to be searched for as well as its position in Bookings
      * @param RoomNo                number of the room which is documented in the booking to be searched for
      * @param empNo                 number of the employee that created the booking to be searched for
@@ -423,6 +426,8 @@ public class Employee
 
 
     /**
+     * <p>The implementation of a Listing feature, to analyze all Bookings. For now the function does not need any arguments, later it will be further developed to change the given view by several
+     * aspects needed</p>
      * @return all Bookings inside Bookings
      */
     public StringBuilder showAllBookings ()
@@ -432,15 +437,46 @@ public class Employee
 
         for (Booking bookingEntry : Bookings)
         {
-            allBookings.append(bookingEntry);
+            allBookings.append("Buchung Nummer: ");
+            allBookings.append(bookingEntry.getBookingNo());
             allBookings.append(", ");
+            allBookings.append("Raum: ");
+            allBookings.append(bookingEntry.getRoomNo());
+            allBookings.append(", ");
+            allBookings.append("von ");
+            allBookings.append(bookingEntry.getTimeFrame().getStartTime());
+            allBookings.append(" bis ");
+            allBookings.append(bookingEntry.getTimeFrame().getEndTime());
+            allBookings.append(", ");
+            allBookings.append("von ");
+            allBookings.append(bookingEntry.getDateFrame().getStartDate());
+            allBookings.append(" bis ");
+            allBookings.append(bookingEntry.getDateFrame().getEndDate());
+            allBookings.append(", ");
+            allBookings.append("Raum-Kategorie: ");
+            allBookings.append(bookingEntry.getRoomCategory());
+            allBookings.append(", ");
+            allBookings.append("Besondere Wünsche: ");
+            allBookings.append(bookingEntry.getSpecialWishes());
+            allBookings.append(", ");
+            allBookings.append("erstellt durch Mitarbeiter Nummer ");
+            allBookings.append(bookingEntry.getEmpNo());
+            allBookings.append(", ");
+            allBookings.append("Business Kunde? ");
+            allBookings.append(bookingEntry.isBusinessCustomer());
+            allBookings.append(";");
         }
-        allBookings.setLength(allBookings.length()-2); //trims last comma
 
         return allBookings;
     }
 
-    public void manageBookingRequests () throws IllegalCallerException
+
+    /**
+     * <p>The implementation of an autonomous managing of customer requests, based on whether or not a suitable room is free at the time given.</p>
+     * @throws IllegalCallerException in case of someone using the function without the BookingsManager Role and its inherited Rights to manage bookings
+     * @throws IllegalArgumentException in case of a booking being neither a HotelRoomBooking nor a onferenceRoomBooking, which should never occur
+     */
+    public void manageBookingRequests () throws IllegalCallerException, IllegalArgumentException
     {
         if(this.getGivenRole()==BookingsManager)
         {
@@ -495,6 +531,22 @@ public class Employee
         else throw new IllegalCallerException("The caller does not inherit the Rights to do this");
     }
 
+
+
+
+    /**
+     * <p></p>
+     * @param firstName
+     * @param lastName
+     * @param streetName
+     * @param streetNumber
+     * @param postalCode
+     * @param cityName
+     * @param mailAddress
+     * @param paymentMethod
+     * @param iban
+     * @throws IllegalCallerException in case of someone using the function without the CustomerRelationshipManager Role and its inherited rights to manage customers
+     */
     public void createCustomer (String firstName, String lastName, String streetName, String streetNumber, String postalCode, String cityName, String mailAddress,
                                 Customer.paymentMethods paymentMethod, String iban) throws IllegalCallerException
     {
@@ -516,6 +568,15 @@ public class Employee
         else throw new IllegalCallerException("The caller does not inherit the Rights to do this");
     }
 
+
+
+    /**
+     * <p></p>
+     * @param customerID
+     * @param key
+     * @param value
+     * @throws IllegalCallerException in case of someone using the function without the CustomerRelationshipManager Role and its inherited rights to manage customers
+     */
     public void changeCustomer (int customerID, String key, String value) throws IllegalCallerException
     {
         if (this.getGivenRole()==CustomerRelationshipManager)
@@ -552,6 +613,12 @@ public class Employee
 
     }
 
+
+    /**
+     * <p></p>
+     * @param customerID
+     * @throws IllegalCallerException in case of someone using the function without the CustomerRelationshipManager Role and its inherited rights to manage customers
+     */
     public void deleteCustomer (int customerID) throws IllegalCallerException
     {
         if (this.getGivenRole()==CustomerRelationshipManager)
