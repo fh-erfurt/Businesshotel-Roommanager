@@ -19,8 +19,9 @@ public class RoomTestClass
 
     //Setup for Tests
     Employee Mitarbeiter1 = new Employee("Mitarbeiter1",RoomAdministrator);
-    Room newHotelRoom = Mitarbeiter1.createHotelRoom(7,"",60,2,true,true,false,true);
-    Room newConferenceRoom = Mitarbeiter1.createConferenceRoom(14,"",45,12,2,1,true,false,false);
+    Room NullRoom = Mitarbeiter1.createHotelRoom(0,"",60,2,true,true,false,true);
+    Room newHotelRoom = Mitarbeiter1.createHotelRoom(1,"",60,2,true,true,false,true);
+    Room newConferenceRoom = Mitarbeiter1.createConferenceRoom(2,"",45,12,2,1,true,false,false);
     DateFrame christmasHoliday = new DateFrame("23.12.2021", "27.12.2021");
     DateFrame newYearsEveHoliday = new DateFrame("30.12.2021", "02.01.2022");
     TimeFrame fromEightToTen = new TimeFrame("08:00", "22:00");
@@ -55,8 +56,45 @@ public class RoomTestClass
     {
     newHotelRoom.setRoomAsOccupiedToList(dateOfOccupationChristmas);
     newHotelRoom.setRoomAsOccupiedToList(dateOfOccupationNewYear);
-     ArrayList<FullDate> results = newHotelRoom.getRoomOccupiedAtList();
-    results.forEach((fullDate -> System.out.println(fullDate.getDateFrame().getStartDate())));
+    ArrayList<FullDate> results = newHotelRoom.getRoomOccupiedAtList();
+    results.forEach((Date -> System.out.println(Date.getDateFrame().getStartDate())));
+    String StartDate = results.get(0).getDateFrame().getStartDate();
+    String EndDate = results.get(0).getDateFrame().getEndDate();
+    String StartTime = results.get(0).getTimeFrame().getStartTime();
+    String EndTime = results.get(0).getTimeFrame().getEndTime();
+
+    System.out.println("Dates stored in List: " + results.size());
+
+    assertEquals(2,results.size(),"Should give 2 cause there are 2 Dates saved to the List");
+    assertEquals("23.12.2021" , StartDate, "Should give StartDate equal to ensure the used-status right to the room");
+    assertEquals("27.12.2021" , EndDate, "Should give EndDate equal to ensure the used-status right to the room");
+    assertEquals("08:00" , StartTime, "Should give Starttime equal to ensure the used-status right to the room");
+    assertEquals("22:00" , EndTime, "Should give EndTime equal to ensure the used-status right to the room");
+
+        //assertEquals(expectedResult,result,"If the Booking is created according to the details, all details will be told.");
+    }
+
+    @Test
+    public void DeleteRoomsTest()
+    {
+        Rooms.forEach(room -> System.out.print(room.getRoomNo()));
+        int roomsBeforeDeletion = Rooms.size();
+        System.out.println();
+        System.out.println("RoomCountBefore: "+ roomsBeforeDeletion);
+        System.out.println("Is Employee a RoomAdmin: " + Mitarbeiter1.getGivenRole().isEnabledToManageRooms());
+
+        Mitarbeiter1.deleteRoom(2);
+        int roomsAfterDeletion = Rooms.size();
+        System.out.println("RoomCountAfter: " + roomsAfterDeletion);
+        Rooms.forEach(room -> System.out.print(room.getRoomNo()));
+
+
+
+
+
+
+
+
     }
 
 
