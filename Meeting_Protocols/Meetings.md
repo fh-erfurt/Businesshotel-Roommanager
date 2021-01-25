@@ -211,3 +211,30 @@ Fragen an Hr. Hecht:
 	Wichtig für Testunterteilung bei createBooking etc.
 
 ```
+```
+13.01.2021 11 Uhr Telegramm
+Teilnehmer: Marius, Niklas, Thomas
+	
+	Kurzbesprechung per Telegramm. Teamverkleinerung und Neuzuteilung der offenen Aufgaben auf die anderen Teammitglieder.
+
+```
+```
+20.01.2021 11:00 Uhr Platform: Webex
+Teilnehmer: Niklas, Thomas, Marius
+
+1. Absprache über offene Aufgaben 
+
+   Alle:
+	Testfälle abschließen
+	Dokumentation JAVADOC abschließen
+   Thomas
+        Meeting Protokoll hochladen
+	Mehr Eigenschaften für Räume erstellen
+	Einführen eines Zeitplans um Zeiträume zu erfassen, wann Raum belegt ist
+	Github Tests zum Laufen bringen
+   Marius:
+	Testfälle Customer implementieren	
+	
+   Zur nächsten Besprechung am 25.01.2020 muss 90 % stehen, dass nur noch primär wirklich Dokuarbeit und Feinarbeit nötig ist.
+   Deadline ist der 01.02.2021.
+```
