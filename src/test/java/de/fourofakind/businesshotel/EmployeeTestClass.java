@@ -237,6 +237,13 @@ public class EmployeeTestClass
 
         //When
 
+        Booking foundBookingByBookNo=MaxMustermann.findBooking(Bookings.indexOf(testBooking1),0,0,null,null,"","").get(0); //search by bookingNo
+        Booking foundBookingByRoomNoPlusTimeAndDate=MaxMustermann.findBooking(0,1,0,Heute,zwoelfBisMittag,"","").get(0); //search by RoomNo, TimeFrame and DateFrame
+        Booking expectedBooking=testBooking1;
+
+        //Then
+        assertTrue(foundBookingByBookNo.equals(expectedBooking) && foundBookingByRoomNoPlusTimeAndDate.equals(expectedBooking),
+                "If working correctly, both search Methods should give the same result and therefore both should exactly be the same booking created in preparation to this test.");
     }
 
     @Test

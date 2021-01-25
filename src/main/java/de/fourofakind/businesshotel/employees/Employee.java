@@ -497,9 +497,9 @@ public class Employee
                 if(bookingType==null) throw new IllegalArgumentException();
                 else
                 {
-                    for (Room Room:Rooms)
+                    for (Room room :Rooms)
                     {
-                        for (de.fourofakind.businesshotel.common.FullDate FullDate:Room.getRoomOccupiedAtList())
+                        for (de.fourofakind.businesshotel.common.FullDate FullDate: room.getRoomOccupiedAtList())
                         {
                             if(FullDate.getDateFrame().equals(bookingRequest.getDateFrame()))
                             {
@@ -515,18 +515,10 @@ public class Employee
                             }
                             else
                             {
-                                if (bookingType.equals(Booking.BookingType.ConferenceRoomBooking))
-                                {
-                                    this.createBooking(Room.getRoomNo(),bookingRequest.getTimeFrame(),
-                                            bookingRequest.getDateFrame(),bookingType,bookingRequest.getRoomCategory(), bookingRequest.getSpecialWishes(),
-                                            bookingRequest.getIsBusinessCustomer());
-                                }
-                                else
-                                {
-                                    this.createBooking(Room.getRoomNo(),bookingRequest.getTimeFrame(),
-                                            bookingRequest.getDateFrame(),bookingType,bookingRequest.getRoomCategory(), bookingRequest.getSpecialWishes(),
-                                            bookingRequest.getIsBusinessCustomer());
-                                }
+                                this.createBooking(room.getRoomNo(),bookingRequest.getTimeFrame(),
+                                        bookingRequest.getDateFrame(),bookingType,bookingRequest.getRoomCategory(), bookingRequest.getSpecialWishes(),
+                                        bookingRequest.getIsBusinessCustomer());
+                                BookingRequests.remove(bookingRequest);
                             }
                         }
                     }

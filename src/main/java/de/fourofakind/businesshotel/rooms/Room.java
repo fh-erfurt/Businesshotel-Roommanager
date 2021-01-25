@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 
-abstract public class Room { //TODO: Room abstract deklarieren (nur spezialisierte Raumarten sind erlaubt)
+abstract public class Room {
     /**
      * <p>
      * The class room holds all vital information of the rooms, its size, its category and roomnumber,
@@ -67,9 +67,9 @@ abstract public class Room { //TODO: Room abstract deklarieren (nur spezialisier
 
     private ArrayList<FullDate> roomOccupationList = new ArrayList<FullDate>();
     private int roomNo;
-//    private String category; //TODO: Datentyp von String zu Enum mit Werten aus der Projektbeschreibung umwandeln
+//    private String category;
     private int areaInSqrMetre;
-    private boolean isUsed; //TODO: Umwandeln zu TimeFrame und Dateframe datentypen, die den geblockten zeitraum angeben
+    private boolean isUsed;
 
 
 
