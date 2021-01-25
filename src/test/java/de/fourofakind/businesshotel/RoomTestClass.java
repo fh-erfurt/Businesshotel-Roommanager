@@ -46,7 +46,7 @@ public class RoomTestClass
         assertTrue(Rooms.get(0).getRoomNo()==7, "Should be 7 as the room was created with this RoomNo");
         assertTrue(Rooms.get(0).getCategory()=="" ? true : false, "Should give the Category of the Room as it is set");
         assertTrue(Rooms.get(0).getAreaInSqrMetre()==60 ? true : false, "Should give true if the area is the same set earlier for the Room");
-
+        //still impossible to access the methods of its child
 
     }
 

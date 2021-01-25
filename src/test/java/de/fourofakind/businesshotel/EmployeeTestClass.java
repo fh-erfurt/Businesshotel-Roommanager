@@ -243,7 +243,6 @@ public class EmployeeTestClass
     {
         //Given
         Rooms.add(NullRoom); //Rooms beginning at 1
-        Bookings.add(NullBooking); //Bookings beginning at 1
         Rooms.add(TestRoom1);
         Employee MaxMustermann = new Employee("Max Mustermann");
         MaxMustermann.setGivenRole(BookingsManager);
@@ -253,20 +252,7 @@ public class EmployeeTestClass
 
         //When
         StringBuilder ExpectedOutput = new StringBuilder();
-
-       //NullBooking berücksichtigen
         ExpectedOutput.append("Buchung Nummer: 0, ");
-        ExpectedOutput.append("Raum: 0, ");
-        ExpectedOutput.append("von  bis , ");
-        ExpectedOutput.append("von  bis , ");
-        ExpectedOutput.append("Raum-Kategorie: , ");
-        ExpectedOutput.append("Besondere Wünsche: , ");
-        ExpectedOutput.append("erstellt durch Mitarbeiter Nummer 0, ");
-        ExpectedOutput.append("Business Kunde? false; ");
-
-
-        //eigentliche TestBooking
-        ExpectedOutput.append("Buchung Nummer: 1, ");
         ExpectedOutput.append("Raum: 1, ");
         ExpectedOutput.append("von zwölf bis mittag, ");
         ExpectedOutput.append("von Heute bis Heute, ");
@@ -280,8 +266,14 @@ public class EmployeeTestClass
 
 
         //Then
+        System.out.println(ExpectedOutput.getClass().getName());
+//        /assertEquals(ExpectedOutput.toString(), ActualOutput.toString(),"As only one Booking is added to the Bookings list, there should be only " +
+           // "one booking returned.");
 
-        assertEquals(ExpectedOutput, ActualOutput,"As only one Booking is added to the Bookings list, there should be only one booking returned.");
+        assertEquals(ExpectedOutput, ActualOutput,"As only one Booking is added to the Bookings list, there should be only one real booking and the nullbooking returned.");
+        assertTrue(ExpectedOutput.length()==ActualOutput.length(), "Should have the same length");
+        assertTrue(ExpectedOutput.compareTo(ActualOutput)==0,"As only one Booking is added to the Bookings list, there should be only one real booking and the nullbooking" +
+                "returned.");
     }
 
     @Test

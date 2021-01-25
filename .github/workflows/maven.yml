@@ -21,4 +21,4 @@ jobs:
       with:
         java-version: 15
     - name: Build with Maven
-      run: mvn --batch-mode --update-snapshots verify
+      run: mvn -B test --no-transfer-progress --file pom.xml
