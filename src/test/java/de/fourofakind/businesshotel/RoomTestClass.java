@@ -21,8 +21,8 @@ public class RoomTestClass
     //Setup for Tests
     Employee Mitarbeiter1 = new Employee("Mitarbeiter1",RoomAdministrator);
     Room NullRoom = Mitarbeiter1.createHotelRoom(0, HotelRoom.Category.SINGLE,60,2,true,true,false,true);
-    Room newHotelRoom = Mitarbeiter1.createHotelRoom(1, HotelRoom.Category.DOUBLE,60,2,true,true,false,true);
-    Room newConferenceRoom = Mitarbeiter1.createConferenceRoom(2, ConferenceRoom.Category.BIGGROUP,45,12,2,1,true,false,false);
+    HotelRoom newHotelRoom = Mitarbeiter1.createHotelRoom(1, HotelRoom.Category.DOUBLE,60,2,true,true,false,true);
+    ConferenceRoom newConferenceRoom = Mitarbeiter1.createConferenceRoom(2, ConferenceRoom.Category.BIGGROUP,45,12,2,1,true,false,false);
     DateFrame christmasHoliday = new DateFrame("23.12.2021", "27.12.2021");
     DateFrame newYearsEveHoliday = new DateFrame("30.12.2021", "02.01.2022");
     TimeFrame fromEightToTen = new TimeFrame("08:00", "22:00");
@@ -45,11 +45,16 @@ public class RoomTestClass
     public void shouldGiveHotelRoomDetailsWhenSuccessful()
     {
 
-        assertEquals(1,Rooms.get(1).getRoomNo(), "Should be 7 as the room was created with this RoomNo");
-        //assertTrue(Rooms.get() ? true : false, "Should give the Category of the Room as it is set");
-        assertEquals(60,Rooms.get(1).getAreaInSqrMetre(), "Should give true if the area is the same set earlier for the Room");
-        //still impossible to access the methods of its child
+        assertEquals(1, newHotelRoom.getRoomNo(), "Should give Set RoomNo of Object HotelRoom");
+        assertEquals(Room.Category.DOUBLE, newHotelRoom.getCategory(), "Should give Set Category of Object HotelRoom");
+        assertEquals(60, newHotelRoom.getAreaInSqrMetre(), "Should give true if the area is the same set earlier for the Room");
+        assertEquals(2, newHotelRoom.getBedCount(), "Should give set bedcount at creation");
+        assertEquals(true, newHotelRoom.hasSpeedLAN(), "Should tell if SpeedLan present");
+        assertEquals(true, newHotelRoom.hasTV(), "Should tell if TV is present");
+        assertEquals(false, newHotelRoom.hasKitchen(), "Should tell if Kitchen is present in Room");
+        assertEquals(true, newHotelRoom.hasCoffeemaker(), "Should tell if Coffeemaker is present");
 
+        HotelRoom newHotelRoom = Mitarbeiter1.createHotelRoom(1, HotelRoom.Category.DOUBLE,60,2,true,true,false,true);
     }
 
     @Test
@@ -98,6 +103,18 @@ public class RoomTestClass
 
         assertThrows(IllegalCallerException.class, ()->{Mitarbeiter1.deleteRoom(2);});
     }
+
+
+    @Test
+    public void changeRoomDetailsWithAdminRights()
+    {
+
+
+
+    }
+}
+
+
 
 
 
@@ -150,4 +167,4 @@ public class RoomTestClass
 
 
 
-}
+
