@@ -261,7 +261,8 @@ public class EmployeeTestClass
     }
 
     /**
-     *
+     *<p>Test of an Employee's ability to show all bookings e.g. for analysis
+     * Prove of the function's reliability is given by comparing the results of the function showAllBookings and the handmade expectedOutput StringBuilder object</p>
      */
     @Test
     void showAllBookings () //only working as a single test, seems like a bug, but no reason for NullPointerException found
@@ -300,7 +301,7 @@ public class EmployeeTestClass
 
 
     /**
-     *
+     *<p>Test of the implemnetation an autonomous management of customer requests, based on whether or not a suitable room is free at the time given.</p>
      */
     @Test
     void manageBookingRequests ()
@@ -337,7 +338,10 @@ public class EmployeeTestClass
         //does not work because manageBookingRequests seems to not access the same arraylists BookingRequests and DeclinedBookingRequests as Customer or does not delete the request
     }
 
-
+    /**
+     *<p>Test of the implementation of Roles as a right management tool
+     * Prove of the function's reliability is given by a successful creation of a customer without an exception</p>
+     */
     @Test
     void TestRightManagementIfRoleGiven ()
     {
@@ -352,6 +356,11 @@ public class EmployeeTestClass
                 "gehen einem irgendwann", Customer.paymentMethods.paypal, "aus"), "If the calling Employee inherits the CustomerRelationshipManager Role, the test will succeed and the Customer will be created");
     }
 
+
+    /**
+     *<p>Test of the implementation of Roles as a right management tool
+     * Prove of the function's reliability is given by a not successful creation of a customer, but with the throw of an IllegalCallerException</p>
+     */
     @Test
     void TestRightManagementIfNoRoleGiven ()
     {

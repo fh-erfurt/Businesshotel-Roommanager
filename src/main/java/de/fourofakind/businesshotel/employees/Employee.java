@@ -477,7 +477,7 @@ public class Employee
 
 
     /**
-     * <p>The implementation of an autonomous managing of customer requests, based on whether or not a suitable room is free at the time given.</p>
+     * <p>The implementation of an autonomous management of customer requests, based on whether or not a suitable room is free at the time given.</p>
      * @throws IllegalCallerException in case of someone using the function without the BookingsManager Role and its inherited Rights to manage bookings
      * @throws IllegalArgumentException in case of a booking being neither a HotelRoomBooking nor a onferenceRoomBooking, which should never occur
      */
