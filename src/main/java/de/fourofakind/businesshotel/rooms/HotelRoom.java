@@ -34,8 +34,6 @@ public class HotelRoom extends Room
         this.bedCount = bedCount;
     }
 
-
-
     public boolean hasSpeedLAN ()
     {
         return hasSpeedLAN;
@@ -76,18 +74,6 @@ public class HotelRoom extends Room
         this.hasCoffeemaker = hasCoffeemaker;
     }
 
-    private int bedCount;
-    private boolean hasSpeedLAN;
-    private boolean hasTV;
-    private boolean hasKitchen;
-    private boolean hasCoffeemaker;
-
-    private DateFrame dateframe;
-    public DateFrame getDateframe ()
-    {
-        return dateframe;
-    }
-
     public Room.Category getCategory ()
     {
         return category;
@@ -98,12 +84,16 @@ public class HotelRoom extends Room
         this.category = category;
     }
 
+
+    private int bedCount;
+    private boolean hasSpeedLAN;
+    private boolean hasTV;
+    private boolean hasKitchen;
+    private boolean hasCoffeemaker;
     private Room.Category category;
 
-    public void setDateframe (DateFrame dateframe)
-    {
-        this.dateframe = dateframe;
-    }
+
+
 
 
 

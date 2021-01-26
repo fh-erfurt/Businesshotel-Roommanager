@@ -18,7 +18,6 @@ abstract public class Room {
     }
 
     public Room(int roomNo, int areaInSqrMetre) {
-//        this.category = category;
         this.areaInSqrMetre = areaInSqrMetre;
         this.roomNo = roomNo;
     }

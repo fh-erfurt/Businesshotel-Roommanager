@@ -32,25 +32,7 @@ public class ConferenceRoom extends Room
     }
 
 
-    public DateFrame getDateFrame ()
-    {
-        return dateFrame;
-    }
 
-    public void setDateFrame (DateFrame dateFrame)
-    {
-        this.dateFrame = dateFrame;
-    }
-
-    public TimeFrame getTimeFrame ()
-    {
-        return timeFrame;
-    }
-
-    public void setTimeFrame (TimeFrame timeFrame)
-    {
-        this.timeFrame = timeFrame;
-    }
 
 
     public int getAmountOfWhiteboards ()
@@ -120,9 +102,6 @@ public class ConferenceRoom extends Room
     private boolean hasScreen;
     private boolean hasComputer;
     private boolean hasTV;
-
-    private DateFrame dateFrame;
-    private TimeFrame timeFrame;
 
     private Room.Category category;
 
