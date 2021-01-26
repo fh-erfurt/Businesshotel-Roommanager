@@ -542,7 +542,7 @@ public class Employee
     {
         if (this.getGivenRole()==CustomerRelationshipManager)
         {
-            int customerID = Customers.size() - 1;
+            int customerID = Customers.size();
 
             ContactData contactData = new ContactData(firstName, lastName, streetName, streetNumber, postalCode, cityName, mailAddress);
 
@@ -614,7 +614,10 @@ public class Employee
     {
         if (this.getGivenRole()==CustomerRelationshipManager)
         {
-            Customers.set(customerID, null);
+//            Customers.set(customerID, null);
+            Customers.remove(customerID);
+
+
         }
         else throw new IllegalCallerException("The caller does not inherit the Rights to do this");
     }

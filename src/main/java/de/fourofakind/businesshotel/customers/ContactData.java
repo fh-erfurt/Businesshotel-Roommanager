@@ -7,10 +7,10 @@ package de.fourofakind.businesshotel.customers;
 
 public class ContactData {
 
-    public enum attributes
-    {
-        firstName, lastName, streetName, streetNumber, postalCode, cityName, mailAddress
-    }
+//    public enum attributes
+//    {
+//        firstName, lastName, streetName, streetNumber, postalCode, cityName, mailAddress
+//    }
 
     public ContactData(String firstName, String lastName, String streetName, String streetNumber, String postalCode, String cityName, String mailAddress)
     {
@@ -92,7 +92,7 @@ public class ContactData {
         return cityName;
     }
 
-    public String getMailAddress()
+    public String getEmailAddress ()
     {
         return mailAddress;
     }

@@ -352,44 +352,138 @@ public class EmployeeTestClass
 
 
 
+    //support function to output Customers ArrayList
+    void outputCustomer() {
+        for(Customer customer : Customers)
+        {
+            System.out.println("id: " + String.valueOf(customer.getCustomerID()));
+            System.out.println("firstName: " + customer.getContactData().getFirstName());
+            System.out.println("lastName: " + customer.getContactData().getLastName());
+            System.out.println("street: " + customer.getContactData().getStreetName());
+            System.out.println("streetNumber: " + customer.getContactData().getStreetNumber());
+            System.out.println("postalCode: " + customer.getContactData().getPostalCode());
+            System.out.println("City: " + customer.getContactData().getCityName());
+            System.out.println("emailAddress: " + customer.getContactData().getEmailAddress());
+
+            Customer.paymentMethods paymentMethod = customer.getPaymentMethod();
+
+            switch (paymentMethod) {
+                case bill:
+                    System.out.println("paymentmethod: bill");
+                    break;
+                case paypal:
+                    System.out.println("paymentmethod: paypal");
+                    break;
+                case debit:
+                    System.out.println("paymentmethod: debit");
+                    break;
+            }
+
+            System.out.println("paymentCredentials: " + customer.getContactData().getPaymentCredentials());
+            System.out.println();
+        }
+    }
+
     @Test
     void createCustomer ()
     {
-
-
-        Employee testTemployee = new Employee("Bill Gates", CustomerRelationshipManager);
+        System.out.println();
+        System.out.println("createCustomer");
+        System.out.println();
+        Employee testEmployee = new Employee("Bill Gates", CustomerRelationshipManager);
 
 //        testTemployee.setGivenRole();
 
-        testTemployee.createCustomer("Tom",
+        testEmployee.createCustomer("Tom",
                                     "Hanks",
                                     "Tom-Hanks-Street",
-                                    "13", "19025",
+                                    "13",
+                                    "19025",
                                     "Tom-Hanks-Haußen",
                                     "tomhengst@gmail.com",
-                                    Customer.paymentMethods.bill,
-                                    "");
-
-        testTemployee.createCustomer("Billie",
-                                    "Eilish",
-                                    "Iwo Street",
-                                    "5", "65198",
-                                    "Billiefeld",
-                                    "badguy@t-online.de",
                                     Customer.paymentMethods.paypal,
                                     "");
 
-        for(Customer elem : Customers)
-            System.out.println("FirstName: " + elem.getContactData().getFirstName());
+        testEmployee.createCustomer("Billie",
+                                    "Eilish",
+                                    "Iwo Street",
+                                    "5",
+                                    "65198",
+                                    "Billiefeld",
+                                    "badguy@t-online.de",
+                                    Customer.paymentMethods.bill,
+                                    "");
+
+        testEmployee.createCustomer("Andrew Lloyd",
+                                    "Webber",
+                                    "Musical Straße",
+                                    "72",
+                                    "51984",
+                                    "Frankfurt",
+                                    "starlightexpress@web.de",
+                                    Customer.paymentMethods.debit,
+                                    "DE19763248624679159875");
+
+        outputCustomer();
     }
 
     @Test
     void changeCustomer ()
     {
+        createCustomer();
+        System.out.println();
+        System.out.println("changeCustomer");
+        System.out.println();
+
+//
+        Employee testEmployee = new Employee("Bill Gates", CustomerRelationshipManager);
+
+        testEmployee.changeCustomer(1, "firstName", "Billie Eilish Pirate Baird");
+        testEmployee.changeCustomer(1, "lastName", "O’Connell");
+
+//        for(Customer elem : Customers)
+        System.out.println("id: " + String.valueOf(Customers.get(1).getCustomerID()));
+        System.out.println("firstName: " + Customers.get(1).getContactData().getFirstName());
+        System.out.println("lastName: " + Customers.get(1).getContactData().getLastName());
+        System.out.println("street: " + Customers.get(1).getContactData().getStreetName());
+        System.out.println("streetNumber: " + Customers.get(1).getContactData().getStreetNumber());
+        System.out.println("postalCode: " + Customers.get(1).getContactData().getPostalCode());
+        System.out.println("City: " + Customers.get(1).getContactData().getCityName());
+        System.out.println("emailAddress: " + Customers.get(1).getContactData().getEmailAddress());
+
+        Customer.paymentMethods paymentMethod = Customers.get(1).getPaymentMethod();
+
+        switch (paymentMethod) {
+            case bill:
+                System.out.println("paymentmethod: bill");
+                break;
+            case paypal:
+                System.out.println("paymentmethod: paypal");
+                break;
+            case debit:
+                System.out.println("paymentmethod: debit");
+                break;
+        }
+
+//        outputCustomer();
+
+
+
     }
 
     @Test
     void deleteCustomer ()
     {
+
+        createCustomer();
+        System.out.println();
+        System.out.println("deleteCustomer");
+        System.out.println();
+
+        Employee testEmployee = new Employee("Bill Gates", CustomerRelationshipManager);
+
+        testEmployee.deleteCustomer(0);
+
+        outputCustomer();
     }
 }
