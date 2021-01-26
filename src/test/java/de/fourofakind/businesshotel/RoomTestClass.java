@@ -54,7 +54,20 @@ public class RoomTestClass
         assertEquals(false, newHotelRoom.hasKitchen(), "Should tell if Kitchen is present in Room");
         assertEquals(true, newHotelRoom.hasCoffeemaker(), "Should tell if Coffeemaker is present");
 
-        HotelRoom newHotelRoom = Mitarbeiter1.createHotelRoom(1, HotelRoom.Category.DOUBLE,60,2,true,true,false,true);
+    }
+
+    @Test
+    public void shouldGiveConferenceRoomDetailsWhenSuccessful()
+    {
+        assertEquals(2, newConferenceRoom.getRoomNo(), "Should give Set RoomNo of Object HotelRoom");
+        assertEquals(Room.Category.BIGGROUP, newConferenceRoom.getCategory(), "Should give Set Category of Object HotelRoom");
+        assertEquals(45, newConferenceRoom.getAreaInSqrMetre(), "Should give true if the area is the same set earlier for the Room");
+        assertEquals(12, newConferenceRoom.getMaxAmountOfParticipants(), "Should give maximum Participants for the specified room");
+        assertEquals(1, newConferenceRoom.getAmountOfBeamer(), "Should tell the amount of Beamers inside the room");
+        assertEquals(false, newConferenceRoom.hasTV(), "Should tell if TV is present");
+        assertEquals(true, newConferenceRoom.hasScreen(), "Should tell if a Screen is present in Room");
+        assertEquals(false, newConferenceRoom.hasComputer(), "Should tell if Computer is inside the room");
+
     }
 
     @Test
