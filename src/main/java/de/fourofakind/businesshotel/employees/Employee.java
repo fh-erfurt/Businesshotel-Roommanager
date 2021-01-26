@@ -4,6 +4,7 @@ import de.fourofakind.businesshotel.bookings.Booking;
 import de.fourofakind.businesshotel.bookings.ConferenceRoomBooking;
 import de.fourofakind.businesshotel.bookings.HotelRoomBooking;
 import de.fourofakind.businesshotel.common.DateFrame;
+import de.fourofakind.businesshotel.common.FullDate;
 import de.fourofakind.businesshotel.common.TimeFrame;
 import de.fourofakind.businesshotel.customers.BookingRequest;
 import de.fourofakind.businesshotel.customers.ContactData;
@@ -16,6 +17,7 @@ import de.fourofakind.businesshotel.rooms.Room;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 
 import static de.fourofakind.businesshotel.common.StartingClass.*;
 
@@ -479,7 +481,7 @@ public class Employee
      * @throws IllegalCallerException in case of someone using the function without the BookingsManager Role and its inherited Rights to manage bookings
      * @throws IllegalArgumentException in case of a booking being neither a HotelRoomBooking nor a onferenceRoomBooking, which should never occur
      */
-    public void manageBookingRequests () throws IllegalCallerException
+    public void manageBookingRequests () throws NoSuchElementException
     {
         if(this.getGivenRole()==BookingsManager)
         {
@@ -514,6 +516,7 @@ public class Employee
                                 BookingRequests.remove(bookingRequest);
                             }
                         }
+                        else throw new NoSuchElementException("There is no Room of this type present at all");
                     }
                 }
             }
