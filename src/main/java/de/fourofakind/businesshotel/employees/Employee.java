@@ -141,7 +141,7 @@ public class Employee
 
                     if (changeHappened)
                     {
-                        toBeChangedBooking.setChangeBookingDate(currentDateTime.toString());
+                        toBeChangedBooking.setChangeDate(currentDateTime.toString());
                         return true;
                     }
 

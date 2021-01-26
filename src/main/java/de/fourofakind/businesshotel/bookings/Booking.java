@@ -129,14 +129,14 @@ public abstract class Booking {
         this.roomNo = roomNo;
     }
 
-    public String getChangeBookingDate ()
+    public String getChangeDate ()
     {
-        return changeBookingDate;
+        return changeDate;
     }
 
-    public void setChangeBookingDate (String changeBookingDate)
+    public void setChangeDate (String changeDate)
     {
-        this.changeBookingDate = changeBookingDate;
+        this.changeDate = changeDate;
     }
 
 
@@ -152,7 +152,7 @@ public abstract class Booking {
     private Room.Category roomCategory;
     private String specialWishes;
 
-    private String changeBookingDate;
+    private String changeDate;
     private boolean isBusinessCustomer;
 
 
