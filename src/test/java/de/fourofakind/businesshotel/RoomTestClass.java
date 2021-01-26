@@ -15,6 +15,11 @@ import static de.fourofakind.businesshotel.common.StartingClass.RoomAdministrato
 import static de.fourofakind.businesshotel.common.StartingClass.Rooms;
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * <p>All tests refering to the Room, from the check if it is created correctly to the check of the changes made</p>
+ */
+
+
 public class RoomTestClass
 {
 
@@ -41,6 +46,10 @@ public class RoomTestClass
         assertTrue(newConferenceRoom instanceof Room,"Should give createdConferenceroom as Instance of Room");
     }
 
+
+    /**
+     * <p>These tests checks if the created room has been created correctly with all its data given</p>
+     */
     @Test
     public void shouldGiveHotelRoomDetailsWhenSuccessful()
     {
@@ -70,7 +79,10 @@ public class RoomTestClass
 
     }
 
-    @Test
+    /**
+     * <p>This test checks if the room is set correctly as "occupied", according to the data it has been set with</p>
+     */
+        @Test
     public void shouldGiveRoomOccupationDetails()
     {
     newHotelRoom.setRoomAsOccupiedToList(dateOfOccupationChristmas);
@@ -95,7 +107,10 @@ public class RoomTestClass
 
 
 
-
+    /**
+     * <p>Checks if the room is deleted the right way from the rooms list. One test is with the needed rights the other without, to test
+     * if the "role-check" is working</p>
+     */
     @Test
     public void DeleteRoomsTestWithAdminRight()
     {
@@ -117,7 +132,10 @@ public class RoomTestClass
         assertThrows(IllegalCallerException.class, ()->{Mitarbeiter1.deleteRoom(2);});
     }
 
-
+    /**
+     * <p>Checks if the room contains the correct data after it has been changed by a employee. Test is performed with admin rights and once
+     * without those right, to see if a error is thrown</p>
+     */
     @Test
     public void changeRoomDetailsWithAdminRights()
     {
