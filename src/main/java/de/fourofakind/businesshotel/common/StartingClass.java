@@ -8,6 +8,10 @@ import de.fourofakind.businesshotel.rooms.Room;
 
 import java.util.ArrayList;
 
+
+/**
+ * A class acting as the shared storage of the projet for now, will be exchanged with an external database later in Java2
+ */
 public class StartingClass
 {
 

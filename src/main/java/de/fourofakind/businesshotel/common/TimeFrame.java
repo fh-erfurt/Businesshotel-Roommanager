@@ -3,7 +3,7 @@ package de.fourofakind.businesshotel.common;
  * <p>
  * @TimeFrame is a value-class that stores the starting time of a booking and its ending time.
  * Setter/Getter for the TimeFrame to set or maybe reset the TimeFrame of booking.
- * The format of the startTime and the endTime must be as follows: HH:HH e.g.(12:30)
+ * The format of the startTime and the endTime must be as following: HH:HH e.g.(12:30)
  * Consider to add some sort of error-detection into input-phase.
  * </p>
  */

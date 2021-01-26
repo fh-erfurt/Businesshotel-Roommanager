@@ -5,19 +5,18 @@ import de.fourofakind.businesshotel.bookings.ConferenceRoomBooking;
 import de.fourofakind.businesshotel.common.DateFrame;
 import de.fourofakind.businesshotel.common.FullDate;
 import de.fourofakind.businesshotel.common.TimeFrame;
-import de.fourofakind.businesshotel.customers.Customer;
 import de.fourofakind.businesshotel.customers.BookingRequest;
+import de.fourofakind.businesshotel.customers.Customer;
 import de.fourofakind.businesshotel.employees.Employee;
 import de.fourofakind.businesshotel.rooms.ConferenceRoom;
 import de.fourofakind.businesshotel.rooms.HotelRoom;
 import de.fourofakind.businesshotel.rooms.Room;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.function.Executable;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static de.fourofakind.businesshotel.common.StartingClass.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * <p>Test Class to test all of the Employee's abilities</p>

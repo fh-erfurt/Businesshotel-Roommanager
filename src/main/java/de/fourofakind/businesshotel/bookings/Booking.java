@@ -4,8 +4,8 @@ import de.fourofakind.businesshotel.common.DateFrame;
 import de.fourofakind.businesshotel.common.TimeFrame;
 import de.fourofakind.businesshotel.rooms.Room;
 
-import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 /**
  * This is our main class. Every action that is made from an employee or customer will interact with this class.
  * All information about the Bookingdetails and the Booking itself interacts with this class to. For Java1 only the Employee will be able to alter the

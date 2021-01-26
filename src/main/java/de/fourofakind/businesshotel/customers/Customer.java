@@ -1,11 +1,10 @@
 package de.fourofakind.businesshotel.customers;
 
-import de.fourofakind.businesshotel.bookings.Booking;
 import de.fourofakind.businesshotel.common.DateFrame;
 import de.fourofakind.businesshotel.common.TimeFrame;
 import de.fourofakind.businesshotel.rooms.Room;
 
-import static de.fourofakind.businesshotel.common.StartingClass.*;
+import static de.fourofakind.businesshotel.common.StartingClass.BookingRequests;
 
 /**
  * customer class manages every methode done by the customer and its personal data

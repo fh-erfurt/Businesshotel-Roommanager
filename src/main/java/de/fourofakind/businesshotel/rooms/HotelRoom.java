@@ -2,8 +2,6 @@ package de.fourofakind.businesshotel.rooms;
 
 import de.fourofakind.businesshotel.common.DateFrame;
 
-import java.util.ArrayList;
-
 
 
 public class HotelRoom extends Room
