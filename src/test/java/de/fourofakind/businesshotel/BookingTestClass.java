@@ -27,7 +27,7 @@ public class BookingTestClass {
     public static HotelRoom BigSuite = new HotelRoom (10, HotelRoom.Category.DOUBLE,5,2,true,true,false,true);
 
     TimeFrame coffeeMeeting = new TimeFrame("15:00","16:00");
-    DateFrame date = new DateFrame("10.12.2020","10.12.2020");
+    DateFrame date = new DateFrame("10.12.2020","11.12.2020");
 
     //Booking newBooking = new Booking();
     Booking ConferenceBooking = new ConferenceRoomBooking(4,12,BigSuite.getRoomNo(), coffeeMeeting,date, Room.Category.BIGGROUP,"Luxury",400,

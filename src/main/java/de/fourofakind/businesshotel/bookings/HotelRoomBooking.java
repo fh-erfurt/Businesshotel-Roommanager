@@ -4,6 +4,12 @@ import de.fourofakind.businesshotel.common.DateFrame;
 import de.fourofakind.businesshotel.common.TimeFrame;
 import de.fourofakind.businesshotel.rooms.Room;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+import java.time.temporal.ChronoUnit;
+import java.util.Locale;
+
 public class HotelRoomBooking extends Booking
 {
 
@@ -29,13 +35,30 @@ public class HotelRoomBooking extends Booking
      */
     public float calculatePricing(int nights)
     {
+            DateTimeFormatter germanFormatter = DateTimeFormatter.ofLocalizedDate(
+            FormatStyle.MEDIUM).withLocale(Locale.GERMAN);
+
             //TODO:Algorithmus
-            float price = nights * 90.50f;
+            String startDate = getDateFrame().getStartDate();
+            String endDate = getDateFrame().getEndDate();
+
+
+
+            LocalDate dateStart = LocalDate.parse(startDate, germanFormatter);
+            LocalDate dateEnd = LocalDate.parse(endDate, germanFormatter);
+
+        //LocalDate dateStart = LocalDate.parse(startDate);
+          //  LocalDate dateEnd = LocalDate.parse(endDate);
+
+            long nightsSpent = ChronoUnit.DAYS.between(dateStart,dateEnd);
+
+        System.out.println(nightsSpent);
+            float price = nightsSpent * 90.50f;
 
 
 
 
-        return 0.0f;
+        return price;
     }
 
     public float getPricing ()
