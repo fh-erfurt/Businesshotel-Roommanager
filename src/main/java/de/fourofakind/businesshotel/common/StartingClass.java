@@ -29,8 +29,4 @@ public class StartingClass
     public static Role BookingsManager = new Role(false,true,false);
     public static Role CustomerRelationshipManager = new Role(false,false,true);
 
-    public static void main(String[] args)
-    {
-
-    }
 }
