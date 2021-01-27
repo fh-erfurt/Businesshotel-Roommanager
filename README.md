@@ -65,7 +65,7 @@ Nicht zum Projektumfang gehören:
 ![alt text](Projektübersicht.png "Projektübersicht Bild")
 
 ### Klassendiagramm
-<div style="width: 960px; height: 720px; margin: 10px; position: relative;"><iframe allowfullscreen frameborder="0" style="width:960px; height:720px" src="https://app.lucidchart.com/documents/embeddedchart/a40ae055-f8f2-4327-a619-a60917353941" id="3.i-Cmkx0-UH"></iframe></div>
+![alt text](Klassendiagramm.png "Klassenübersicht Bild")
 
 ### Use Case Diagramme
 ![alt text](Use%20Case%20Diagramme.png "Projektübersicht Bild")
@@ -300,6 +300,7 @@ Fragen an Hr. Hecht:
 
 * [IntelliJ](https://www.jetbrains.com/de-de/idea/) - IDE für JAVA
 * [draw.io](https://app.diagrams.net/) - Tool für die Erstellung der Diagramme
+* [lucidchart](https://app.lucidchart.com/) - Tool für die Erstellung der Diagramme
 * [Office](https://www.office.com/) - Office Programm
 * [Git](https://git-scm.com/) - Versionskontrolle
 * [Webex](https://www.webex.com/de/video-conferencing.html) - Kommunikationsmittel für regelmäßige Meetings
