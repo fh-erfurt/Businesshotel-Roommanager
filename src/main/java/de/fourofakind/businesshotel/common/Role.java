@@ -1,5 +1,9 @@
 package de.fourofakind.businesshotel.common;
 
+/**
+ * <p>This class implements an early version of a right management system. Currently there are 4 roles an actor of the system can inherit- three of which inherit one right each and the fourth
+ * inheriting all rights, e.g. for administritative reasons. There will be more role models later which should be given by special personal.</p>
+ */
 public class Role
 {
     public Role (boolean isEnabledToManageRooms, boolean isEnabledToManageBookings, boolean isEnabledToManageCustomerData)

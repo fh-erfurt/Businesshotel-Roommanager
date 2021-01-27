@@ -22,7 +22,8 @@ import static de.fourofakind.businesshotel.common.StartingClass.*;
 
 
 /**
- * This is our main actor in our application for now. It maintains Bookings and Rooms and interacts with Customers.
+ * This is the main actor in our application for now. It maintains Bookings and Rooms and interacts with Customers. Employees can acquire several roles and there fore inherit rights to do different
+ * tasks each. Later there will be different employee specializations for different jobs inside the company using the software.
  */
 
 public class Employee
