@@ -366,7 +366,7 @@ public class Employee
     {
 
         ArrayList<Booking> searchResults = new ArrayList<>();
-        Booking wantedBooking=null;
+        Booking wantedBooking;
         int indexOfBookingList=1;
 
         if (BookingNo!=0) //if BookingNo is given, only one item could be found
@@ -598,23 +598,25 @@ public class Employee
             switch (key)
             {
                 case "firstName":
-                    fetchedContactData.setFirstName(value);changeHappened = true;
+                    fetchedContactData.setFirstName(value);
                 case "lastName":
-                    fetchedContactData.setLastName(value);changeHappened = true;
+                    fetchedContactData.setLastName(value);
                 case "streetName":
-                    fetchedContactData.setStreetName(value);changeHappened = true;
+                    fetchedContactData.setStreetName(value);
                 case "streetNumber":
-                    fetchedContactData.setStreetNumber(value);changeHappened = true;
+                    fetchedContactData.setStreetNumber(value);
                 case "postalCode":
-                    fetchedContactData.setPostalCode(value);changeHappened = true;
+                    fetchedContactData.setPostalCode(value);
                 case "cityName":
-                    fetchedContactData.setCityName(value);changeHappened = true;
+                    fetchedContactData.setCityName(value);
                 case "mailAddress":
-                    fetchedContactData.setMailAddress(value);changeHappened = true;
+                    fetchedContactData.setMailAddress(value);
                 case "paymentMethod":
-                    fetchedCustomer.setPaymentMethod(value);changeHappened = true;
+                    fetchedCustomer.setPaymentMethod(value);
                 case "iban":
-                    fetchedContactData.setPaymentCredentials(value);changeHappened = true;
+                    fetchedContactData.setPaymentCredentials(value);
+
+                changeHappened = true;
             }
 
             Customers.set(customerID, fetchedCustomer);
@@ -642,38 +644,35 @@ public class Employee
     }
 
 
-
+    //Setter/Getter
 
     public int getEmpNo ()
     {
         return empNo;
     }
-
     public void setEmpNo (int empNo)
     {
         this.empNo = empNo;
     }
-
     public String getEmpName ()
     {
         return empName;
     }
-
     public void setEmpName (String empName)
     {
         this.empName = empName;
     }
-
     public Role getGivenRole ()
     {
         return givenRole;
     }
-
     public void setGivenRole (Role givenRole)
     {
         this.givenRole = givenRole;
     }
 
+
+    //Attributes
     private int empNo;
     private String empName;
     private Role givenRole;
