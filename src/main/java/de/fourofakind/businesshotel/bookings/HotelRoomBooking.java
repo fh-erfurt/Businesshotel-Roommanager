@@ -21,7 +21,7 @@ public class HotelRoomBooking extends Booking
                              String specialWishes, int empNo, boolean isBusinessCustomer)
     {
         super(bookingNo, customerID ,roomNo, timeFrame, dateFrame, roomCategory, specialWishes, empNo, isBusinessCustomer);
-        this.pricing=this.calculatePricing(); //TODO: braucht noch Pflege
+        this.pricing=this.calculatePricing(pricing = 0.0f); //TODO: braucht noch Pflege
     }
 
 
@@ -33,7 +33,7 @@ public class HotelRoomBooking extends Booking
      * the room is being booked multiplied by the price per hour. Maybe some special stuff like a beamer or else will be added
      * to the calulation.
      */
-    public float calculatePricing()
+    public float calculatePricing(float roomPricePerUnit)
     {
             DateTimeFormatter germanFormatter = DateTimeFormatter.ofLocalizedDate(
             FormatStyle.MEDIUM).withLocale(Locale.GERMAN);
@@ -47,7 +47,7 @@ public class HotelRoomBooking extends Booking
             long nightsSpent = ChronoUnit.DAYS.between(dateStart,dateEnd);
 
 
-            float price = nightsSpent * 90.50f;   //#TODO Preis verweis auf den Room
+            float price = nightsSpent * roomPricePerUnit;   //#TODO Preis verweis auf den Room
 
         return price;
     }

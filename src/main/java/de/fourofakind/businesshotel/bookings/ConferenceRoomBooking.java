@@ -25,7 +25,7 @@ public class ConferenceRoomBooking extends Booking
                                   String specialWishes, int empNo, boolean isBusinessCustomer)
     {
         super(bookingNo, customerID, roomNo, timeFrame, dateFrame, roomCategory, specialWishes, empNo, isBusinessCustomer);
-        this.pricing=calculatePricing();
+        this.pricing=calculatePricing(pricing=0.0f);
     }
 
 
@@ -38,7 +38,7 @@ public class ConferenceRoomBooking extends Booking
      * After an hour the price can be calculated sharp for every minute if necessary. Therefore the minutes are divided by 60 and added to each
      * start and endtime.
      */
-    public float calculatePricing()
+    public float calculatePricing(float roomPricePerUnit)
     {
             String startTime = getTimeFrame().getStartTime();
             String endTime = getTimeFrame().getEndTime();
@@ -74,7 +74,7 @@ public class ConferenceRoomBooking extends Booking
         }
         else
         {
-            price = usageHours * 12;   //#TODO Preis Verweis auf den Room
+            price = usageHours * roomPricePerUnit;   //#TODO Preis Verweis auf den Room
         }
             return price;
     }

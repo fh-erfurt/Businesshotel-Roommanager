@@ -5,6 +5,7 @@ import de.fourofakind.businesshotel.bookings.ConferenceRoomBooking;
 import de.fourofakind.businesshotel.bookings.HotelRoomBooking;
 import de.fourofakind.businesshotel.common.DateFrame;
 import de.fourofakind.businesshotel.common.TimeFrame;
+import de.fourofakind.businesshotel.rooms.ConferenceRoom;
 import de.fourofakind.businesshotel.rooms.HotelRoom;
 import de.fourofakind.businesshotel.rooms.Room;
 import org.junit.jupiter.api.Test;
@@ -23,8 +24,9 @@ public class BookingTestClass {
     ArrayList<Booking> BookingList= new ArrayList<>();
     ArrayList<Room> RoomList = new ArrayList<>();
 
-    public static HotelRoom SmallSuite = new HotelRoom (20, HotelRoom.Category.SINGLE,17,2,false,false,true,true,55);
+    public static HotelRoom SmallSuite = new HotelRoom (20, HotelRoom.Category.SINGLE,17,2,false,false,true,true,550);
     public static HotelRoom BigSuite = new HotelRoom (10, HotelRoom.Category.DOUBLE,5,2,true,true,false,true,60);
+    public static ConferenceRoom NVidiaShowRoom = new ConferenceRoom(12, Room.Category.BIGGROUP,55,20,2,1,true,true,false,15);
 
     TimeFrame coffeeMeeting = new TimeFrame("15:00","16:45");
     DateFrame date = new DateFrame("10.12.2020","11.12.2020");
@@ -38,15 +40,15 @@ public class BookingTestClass {
     @Test
     public void isHotelRoomPricingCalculatedCorrectly()
     {
-        float priceToPay = HotelBooking.calculatePricing();
-        System.out.println("Zu zahlen: " + priceToPay);
+        float priceToPay = HotelBooking.calculatePricing(SmallSuite.getPricePerUnit());  //#TODO get the room from the Booking not just as roomNo.
+        assertEquals(550.0,priceToPay,"Should calculate the Price for the Booking for the Room and the days it is used");
     }
 
     @Test
     public void isConferenceRoomPricingCalculatedCorrectly()
     {
-        float priceToPay = ConferenceBooking.calculatePricing();
-        System.out.println("Zu zahlen: " + priceToPay);
+        float priceToPay = ConferenceBooking.calculatePricing(NVidiaShowRoom.getPricePerUnit());
+        assertEquals(26.25,priceToPay,"Should calculate the Price for the Booking for the Room and the hours it is used");
     }
 
 
@@ -58,14 +60,12 @@ public class BookingTestClass {
 
         //When
         //get everything from created Booking
-        System.out.println(SmallSuite.getCategory());
         int bookingNumber = ConferenceBooking.getBookingNo();
         int roomNumber = ConferenceBooking.getRoomNo();
         String timeFrameStart = ConferenceBooking.getTimeFrame().getStartTime();
         String timeFrameEnd = ConferenceBooking.getTimeFrame().getEndTime();
         String dateFrameStart = ConferenceBooking.getDateFrame().getStartDate();
         String dateFrameEnd = ConferenceBooking.getDateFrame().getEndDate();
-        //String roomCategory = ConferenceBooking.getRoomCategory();
         String specialWishes = ConferenceBooking.getSpecialWishes();
         float pricing = ConferenceBooking.getPricing();
         int empNo = ConferenceBooking.getEmpNo();
