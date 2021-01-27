@@ -25,9 +25,9 @@ public class RoomTestClass
 
     //Setup for Tests
     Employee Mitarbeiter1 = new Employee("Mitarbeiter1",RoomAdministrator);
-    Room NullRoom = Mitarbeiter1.createHotelRoom(0, HotelRoom.Category.SINGLE,60,2,true,true,false,true);
-    HotelRoom newHotelRoom = Mitarbeiter1.createHotelRoom(1, HotelRoom.Category.DOUBLE,60,2,true,true,false,true);
-    ConferenceRoom newConferenceRoom = Mitarbeiter1.createConferenceRoom(2, ConferenceRoom.Category.BIGGROUP,45,12,2,1,true,false,false);
+    Room NullRoom = Mitarbeiter1.createHotelRoom(0, HotelRoom.Category.SINGLE,60,2,true,true,false,true,0);
+    HotelRoom newHotelRoom = Mitarbeiter1.createHotelRoom(1, HotelRoom.Category.DOUBLE,60,2,true,true,false,true,60);
+    ConferenceRoom newConferenceRoom = Mitarbeiter1.createConferenceRoom(2, ConferenceRoom.Category.BIGGROUP,45,12,2,1,true,false,false,20);
     DateFrame christmasHoliday = new DateFrame("23.12.2021", "27.12.2021");
     DateFrame newYearsEveHoliday = new DateFrame("30.12.2021", "02.01.2022");
     TimeFrame fromEightToTen = new TimeFrame("08:00", "22:00");

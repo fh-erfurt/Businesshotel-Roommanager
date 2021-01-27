@@ -23,8 +23,8 @@ public class BookingTestClass {
     ArrayList<Booking> BookingList= new ArrayList<>();
     ArrayList<Room> RoomList = new ArrayList<>();
 
-    public static HotelRoom SmallSuite = new HotelRoom (20, HotelRoom.Category.SINGLE,17,2,false,false,true,true);
-    public static HotelRoom BigSuite = new HotelRoom (10, HotelRoom.Category.DOUBLE,5,2,true,true,false,true);
+    public static HotelRoom SmallSuite = new HotelRoom (20, HotelRoom.Category.SINGLE,17,2,false,false,true,true,55);
+    public static HotelRoom BigSuite = new HotelRoom (10, HotelRoom.Category.DOUBLE,5,2,true,true,false,true,60);
 
     TimeFrame coffeeMeeting = new TimeFrame("15:00","16:45");
     DateFrame date = new DateFrame("10.12.2020","11.12.2020");

@@ -11,9 +11,9 @@ public class ConferenceRoom extends Room
 //    }
 
     public ConferenceRoom (int roomNo, Room.Category category, int areaInSqrMetre, int maxAmountOfParticipants, int amountOfWhiteboards,
-                           int amountOfBeamer, boolean hasScreen, boolean hasComputer, boolean hasTV)
+                           int amountOfBeamer, boolean hasScreen, boolean hasComputer, boolean hasTV,float pricePerUnit)
     {
-        super(roomNo, areaInSqrMetre);
+        super(roomNo, areaInSqrMetre,pricePerUnit);
         this.category = category;
         this.maxAmountOfParticipants = maxAmountOfParticipants;
         this.amountOfWhiteboards = amountOfWhiteboards;

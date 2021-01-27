@@ -26,7 +26,7 @@ public class EmployeeTestClass
     //Dummy entries for each static List to secure all lists index=objectNo relations
     TimeFrame NullTimeFrame = new TimeFrame("", "");
     DateFrame NullDateFrame = new DateFrame("", "");
-    ConferenceRoom NullRoom = new ConferenceRoom(0, ConferenceRoom.Category.SMALLGROUP, 0, 0, 0, 0, false, false, false); //present to
+    ConferenceRoom NullRoom = new ConferenceRoom(0, ConferenceRoom.Category.SMALLGROUP, 0, 0, 0, 0, false, false, false,0.0f); //present to
     ConferenceRoomBooking NullBooking = new ConferenceRoomBooking(0, 0, 0,NullTimeFrame, NullDateFrame, Room.Category.SINGLE, "", 0, false);
     Employee NullEmployee = new Employee("");
 
@@ -37,10 +37,10 @@ public class EmployeeTestClass
     //example instances of different classes used in the test cases
     TimeFrame zwoelfBisMittag = new TimeFrame("zwölf", "mittag");
     DateFrame Heute = new DateFrame("Heute", "Heute");
-    HotelRoom TestRoom1 = new HotelRoom(1, HotelRoom.Category.SINGLE, 50, 4, true, false, false, true);
-    HotelRoom TestRoom2 = new HotelRoom(2, HotelRoom.Category.SUITE, 40, 2, false, false, true, false);
-    HotelRoom TestRoom3 = new HotelRoom(3, HotelRoom.Category.SINGLE, 20, 1, true, false, true, false);
-    ConferenceRoom TestRoom4 = new ConferenceRoom(4, ConferenceRoom.Category.BIGGROUP, 60, 24, 3, 2, true, true, true);
+    HotelRoom TestRoom1 = new HotelRoom(1, HotelRoom.Category.SINGLE, 50, 4, true, false, false, true,90.5f);
+    HotelRoom TestRoom2 = new HotelRoom(2, HotelRoom.Category.SUITE, 40, 2, false, false, true, false, 80f);
+    HotelRoom TestRoom3 = new HotelRoom(3, HotelRoom.Category.SINGLE, 20, 1, true, false, true, false, 65);
+    ConferenceRoom TestRoom4 = new ConferenceRoom(4, ConferenceRoom.Category.BIGGROUP, 60, 24, 3, 2, true, true, true, 15);
 
 
     /**

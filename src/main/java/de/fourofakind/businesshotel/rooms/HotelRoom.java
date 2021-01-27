@@ -12,9 +12,9 @@ public class HotelRoom extends Room
 //    }
 
     public HotelRoom (int roomNo, Room.Category category, int areaInSqrMetre, int bedCount, boolean hasSpeedLAN, boolean hasTV, boolean hasKitchen,
-                      boolean hasCoffeemaker)
+                      boolean hasCoffeemaker,float pricePerUnit)
     {
-        super(roomNo, areaInSqrMetre);
+        super(roomNo, areaInSqrMetre,pricePerUnit);
         this.category = category;
         this.bedCount = bedCount;
         this.hasSpeedLAN = hasSpeedLAN;

@@ -294,12 +294,12 @@ public class Employee
      */
     public ConferenceRoom createConferenceRoom (int roomNo, ConferenceRoom.Category category, int areaInSqrMetre, int maxAmountOfParticipants,
                                                 int amountOfWhiteboards,
-                                      int amountOfBeamer, boolean hasScreen, boolean hasComputer, boolean hasTV)
+                                      int amountOfBeamer, boolean hasScreen, boolean hasComputer, boolean hasTV, float pricePerUnit)
     {
         if (this.getGivenRole()==RoomAdministrator) //checks for Rights to manage Rooms
         {
             ConferenceRoom newRoom = new ConferenceRoom(roomNo, category, areaInSqrMetre, maxAmountOfParticipants, amountOfWhiteboards,amountOfBeamer,
-                    hasScreen,hasComputer,hasTV);
+                    hasScreen,hasComputer,hasTV,pricePerUnit);
             Rooms.add(newRoom);
             return newRoom;
         }
@@ -321,11 +321,11 @@ public class Employee
      */
     public HotelRoom createHotelRoom (int roomNo, HotelRoom.Category category, int areaInSqrMetre, int bedCount, boolean hasSpeedLAN, boolean hasTV,
                                  boolean hasKitchen,
-                                 boolean hasCoffeemaker) throws IllegalCallerException
+                                 boolean hasCoffeemaker, float pricePerUnit) throws IllegalCallerException
     {
         if (this.getGivenRole()==RoomAdministrator) //checks for Rights to manage Rooms
         {
-            HotelRoom newRoom = new HotelRoom(roomNo, category, areaInSqrMetre, bedCount,hasSpeedLAN,hasTV,hasKitchen,hasCoffeemaker);
+            HotelRoom newRoom = new HotelRoom(roomNo, category, areaInSqrMetre, bedCount,hasSpeedLAN,hasTV,hasKitchen,hasCoffeemaker, pricePerUnit);
             Rooms.add(newRoom);
             return newRoom;
         }

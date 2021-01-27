@@ -17,9 +17,10 @@ abstract public class Room {
         SINGLE, DOUBLE, SUITE, BIGGROUP, SMALLGROUP
     }
 
-    public Room(int roomNo, int areaInSqrMetre) {
+    public Room(int roomNo, int areaInSqrMetre, float pricePerUnit) {
         this.areaInSqrMetre = areaInSqrMetre;
         this.roomNo = roomNo;
+        this.pricePerUnit = pricePerUnit;
     }
 
     public Category getCategory() {
@@ -70,6 +71,18 @@ abstract public class Room {
     private Category category;
     private int areaInSqrMetre;
     private boolean isUsed;
+
+    public float getPricePerUnit ()
+    {
+        return pricePerUnit;
+    }
+
+    public void setPricePerUnit (float pricePerUnit)
+    {
+        this.pricePerUnit = pricePerUnit;
+    }
+
+    private float pricePerUnit;
 
 
 
