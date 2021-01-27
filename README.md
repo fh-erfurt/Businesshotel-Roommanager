@@ -65,7 +65,7 @@ Nicht zum Projektumfang gehören:
 ![alt text](Projektübersicht.png "Projektübersicht Bild")
 
 ### Klassendiagramm
-![alt text](Projektübersicht.png "Projektübersicht Bild")
+<div style="width: 960px; height: 720px; margin: 10px; position: relative;"><iframe allowfullscreen frameborder="0" style="width:960px; height:720px" src="https://app.lucidchart.com/documents/embeddedchart/a40ae055-f8f2-4327-a619-a60917353941" id="3.i-Cmkx0-UH"></iframe></div>
 
 ### Use Case Diagramme
 ![alt text](Use%20Case%20Diagramme.png "Projektübersicht Bild")
