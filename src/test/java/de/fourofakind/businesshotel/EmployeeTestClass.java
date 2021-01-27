@@ -24,8 +24,8 @@ import static org.junit.jupiter.api.Assertions.*;
 public class EmployeeTestClass
 {
     //Dummy entries for each static List to secure all lists index=objectNo relations
-    TimeFrame NullTimeFrame = new TimeFrame("", "");
-    DateFrame NullDateFrame = new DateFrame("", "");
+    TimeFrame NullTimeFrame = new TimeFrame("12:00", "12:05");
+    DateFrame NullDateFrame = new DateFrame("01.01.2000", "01.01.2000");
     ConferenceRoom NullRoom = new ConferenceRoom(0, ConferenceRoom.Category.SMALLGROUP, 0, 0, 0, 0, false, false, false,0.0f); //present to
     ConferenceRoomBooking NullBooking = new ConferenceRoomBooking(0, 0, 0,NullTimeFrame, NullDateFrame, Room.Category.SINGLE, "", 0, false);
     Employee NullEmployee = new Employee("");
@@ -35,8 +35,8 @@ public class EmployeeTestClass
 
 
     //example instances of different classes used in the test cases
-    TimeFrame zwoelfBisMittag = new TimeFrame("zwölf", "mittag");
-    DateFrame Heute = new DateFrame("Heute", "Heute");
+    TimeFrame zwoelfBisMittag = new TimeFrame("12:00", "12:05");
+    DateFrame Heute = new DateFrame("20.02.2020", "20.02.2020");
     HotelRoom TestRoom1 = new HotelRoom(1, HotelRoom.Category.SINGLE, 50, 4, true, false, false, true,90.5f);
     HotelRoom TestRoom2 = new HotelRoom(2, HotelRoom.Category.SUITE, 40, 2, false, false, true, false, 80f);
     HotelRoom TestRoom3 = new HotelRoom(3, HotelRoom.Category.SINGLE, 20, 1, true, false, true, false, 65);
@@ -111,7 +111,7 @@ public class EmployeeTestClass
         result += ", Pricing: " + resultBooking.getPricing();
         result += ", IsBusinessCustomer?: " + resultBooking.isBusinessCustomer();
 
-        String expectedResult = "RoomNo: 1, StartTime: zwölf, EndTime: mittag, StartDate: Heute, EndDate: Heute, RoomCategory: SINGLE, SpecialWishes: Jacuzzi, Pricing: 0.0, IsBusinessCustomer?: false";
+        String expectedResult = "RoomNo: 1, StartTime: 12:00, EndTime: 12:05, StartDate: 20.02.2020, EndDate: 20.02.2020, RoomCategory: SINGLE, SpecialWishes: Jacuzzi, Pricing: 0.0, IsBusinessCustomer?: false";
 
 
         //Then
@@ -289,8 +289,8 @@ public class EmployeeTestClass
         StringBuilder ExpectedOutput = new StringBuilder();
         ExpectedOutput.append("Buchung Nummer: 0, ");
         ExpectedOutput.append("Raum: 1, ");
-        ExpectedOutput.append("von zwölf bis mittag, ");
-        ExpectedOutput.append("von Heute bis Heute, ");
+        ExpectedOutput.append("von 12:00 bis 12:05, ");
+        ExpectedOutput.append("von 20.02.2020 bis 20.02.2020, ");
         ExpectedOutput.append("Raum-Kategorie: SINGLE, ");
         ExpectedOutput.append("Besondere Wünsche: Jacuzzi, ");
         ExpectedOutput.append("erstellt durch Mitarbeiter Nummer 0, ");
