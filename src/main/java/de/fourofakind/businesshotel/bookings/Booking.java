@@ -31,11 +31,12 @@ public abstract class Booking {
      * </p>
      */
 
-    public Booking(int bookingNo, int roomNo, TimeFrame timeFrame, DateFrame dateFrame, Room.Category roomCategory,
+    public Booking(int bookingNo, int customerID ,int roomNo, TimeFrame timeFrame, DateFrame dateFrame, Room.Category roomCategory,
                    String specialWishes, int empNo, boolean isBusinessCustomer) {
         DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         LocalDateTime currentDateTime = LocalDateTime.now();
         this.bookingNo = bookingNo;
+        this.customerID = customerID;
         this.roomNo = roomNo;
         this.timeFrame = timeFrame;
         this.dateFrame = dateFrame;
@@ -151,6 +152,18 @@ public abstract class Booking {
     private String bookingDate;
     private Room.Category roomCategory;
     private String specialWishes;
+
+    public int getCustomerID ()
+    {
+        return customerID;
+    }
+
+    public void setCustomerID (int customerID)
+    {
+        this.customerID = customerID;
+    }
+
+    private int customerID;
 
     private String changeDate;
     private boolean isBusinessCustomer;

@@ -27,8 +27,11 @@ public class EmployeeTestClass
     TimeFrame NullTimeFrame = new TimeFrame("", "");
     DateFrame NullDateFrame = new DateFrame("", "");
     ConferenceRoom NullRoom = new ConferenceRoom(0, ConferenceRoom.Category.SMALLGROUP, 0, 0, 0, 0, false, false, false); //present to
-    ConferenceRoomBooking NullBooking = new ConferenceRoomBooking(0, 0, NullTimeFrame, NullDateFrame, Room.Category.SINGLE, "", 0, false);
+    ConferenceRoomBooking NullBooking = new ConferenceRoomBooking(0, 0, 0,NullTimeFrame, NullDateFrame, Room.Category.SINGLE, "", 0, false);
     Employee NullEmployee = new Employee("");
+
+    //(int bookingNo, int customerID, int roomNo, TimeFrame timeFrame, DateFrame dateFrame, Room.Category roomCategory,
+    //String specialWishes, int empNo, boolean isBusinessCustomer)
 
 
     //example instances of different classes used in the test cases
@@ -93,7 +96,8 @@ public class EmployeeTestClass
         Employee MaxMustermann = new Employee("Max Mustermann");
         MaxMustermann.setGivenRole(BookingsManager);
 
-        Booking resultBooking = MaxMustermann.createBooking(1, zwoelfBisMittag, Heute, Booking.BookingType.HotelRoomBooking, Room.Category.SINGLE, "Jacuzzi", false);
+        Booking resultBooking = MaxMustermann.createBooking(1, 4,zwoelfBisMittag, Heute, Booking.BookingType.HotelRoomBooking, Room.Category.SINGLE,
+                "Jacuzzi", false);
 
 
         //When
@@ -129,7 +133,8 @@ public class EmployeeTestClass
         Employee MaxMustermann = new Employee("Max Mustermann");
         MaxMustermann.setGivenRole(BookingsManager);
 
-        Booking testBooking = MaxMustermann.createBooking(1, zwoelfBisMittag, Heute, Booking.BookingType.HotelRoomBooking, Room.Category.SINGLE, "Jacuzzi", false);
+        Booking testBooking = MaxMustermann.createBooking(1, 4,zwoelfBisMittag, Heute, Booking.BookingType.HotelRoomBooking, Room.Category.SINGLE,
+                "Jacuzzi", false);
         Bookings.add(testBooking);
         int bookingNoOfBookingToBeChanged = testBooking.getBookingNo();
 
@@ -196,13 +201,17 @@ public class EmployeeTestClass
         Employee MaxMustermann = new Employee("Max Mustermann");
         MaxMustermann.setGivenRole(BookingsManager);
 
-        Booking testBooking1 = MaxMustermann.createBooking(1, zwoelfBisMittag, Heute, Booking.BookingType.HotelRoomBooking, Room.Category.SINGLE, "Jacuzzi", false);
+        Booking testBooking1 = MaxMustermann.createBooking(1, 4,zwoelfBisMittag, Heute, Booking.BookingType.HotelRoomBooking, Room.Category.SINGLE,
+                "Jacuzzi", false);
         Bookings.add(testBooking1);
-        Booking testBooking2 = MaxMustermann.createBooking(2, zwoelfBisMittag, Heute, Booking.BookingType.HotelRoomBooking, Room.Category.SUITE, "extra child bed", false);
+        Booking testBooking2 = MaxMustermann.createBooking(2, 3,zwoelfBisMittag, Heute, Booking.BookingType.HotelRoomBooking, Room.Category.SUITE,
+                "extra child bed", false);
         Bookings.add(testBooking2);
-        Booking testBooking3 = MaxMustermann.createBooking(3, zwoelfBisMittag, Heute, Booking.BookingType.HotelRoomBooking, Room.Category.DOUBLE, "TV", false);
+        Booking testBooking3 = MaxMustermann.createBooking(3, 2,zwoelfBisMittag, Heute, Booking.BookingType.HotelRoomBooking, Room.Category.DOUBLE,
+                "TV", false);
         Bookings.add(testBooking3);
-        Booking testBooking4 = MaxMustermann.createBooking(4, zwoelfBisMittag, Heute, Booking.BookingType.ConferenceRoomBooking, Room.Category.BIGGROUP, "Beamer", true);
+        Booking testBooking4 = MaxMustermann.createBooking(4, 2,zwoelfBisMittag, Heute, Booking.BookingType.ConferenceRoomBooking,
+                Room.Category.BIGGROUP, "Beamer", true);
         Bookings.add(testBooking4);
 
 
@@ -247,7 +256,8 @@ public class EmployeeTestClass
         Employee MaxMustermann = new Employee("Max Mustermann");
         MaxMustermann.setGivenRole(BookingsManager);
 
-        Booking testBooking1 = MaxMustermann.createBooking(1, zwoelfBisMittag, Heute, Booking.BookingType.HotelRoomBooking, Room.Category.SINGLE, "Jacuzzi", false);
+        Booking testBooking1 = MaxMustermann.createBooking(1, 2,zwoelfBisMittag, Heute, Booking.BookingType.HotelRoomBooking, Room.Category.SINGLE,
+                "Jacuzzi", false);
         Bookings.add(testBooking1);
 
         //When
@@ -272,7 +282,7 @@ public class EmployeeTestClass
         Employee MaxMustermann = new Employee("Max Mustermann");
         MaxMustermann.setGivenRole(BookingsManager);
         Employees.add(MaxMustermann);
-        MaxMustermann.createBooking(1, zwoelfBisMittag, Heute, Booking.BookingType.HotelRoomBooking, Room.Category.SINGLE, "Jacuzzi", false);
+        MaxMustermann.createBooking(1, 14,zwoelfBisMittag, Heute, Booking.BookingType.HotelRoomBooking, Room.Category.SINGLE, "Jacuzzi", false);
 
 
         //When

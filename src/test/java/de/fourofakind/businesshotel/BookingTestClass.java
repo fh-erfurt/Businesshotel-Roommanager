@@ -30,12 +30,17 @@ public class BookingTestClass {
     DateFrame date = new DateFrame("10.12.2020","10.12.2020");
 
     //Booking newBooking = new Booking();
-    Booking ConferenceBooking = new ConferenceRoomBooking(4,BigSuite.getRoomNo(), coffeeMeeting,date, Room.Category.BIGGROUP,"Luxury",400,
+    Booking ConferenceBooking = new ConferenceRoomBooking(4,12,BigSuite.getRoomNo(), coffeeMeeting,date, Room.Category.BIGGROUP,"Luxury",400,
             true);
-    Booking HotelBooking = new HotelRoomBooking(4,SmallSuite.getRoomNo(),coffeeMeeting,date, Room.Category.SUITE, "wakeup call every 6 AM",
+    HotelRoomBooking HotelBooking = new HotelRoomBooking(4,12,SmallSuite.getRoomNo(),coffeeMeeting,date, Room.Category.SUITE, "wakeup call every 6 AM",
             110,false);
 
-
+    @Test
+    public void isPricingCalculatedCorrectly()
+    {
+        float priceToPay = HotelBooking.calculatePricing(4);
+        System.out.println(priceToPay);
+    }
 
 
     //SettingUP END

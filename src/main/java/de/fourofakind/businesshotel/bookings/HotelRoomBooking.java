@@ -11,9 +11,10 @@ public class HotelRoomBooking extends Booking
  * This class extends the Booking to the kind of room that has been booked, in this case to a Hotelroom.
  */
 
-    public HotelRoomBooking (int bookingNo, int roomNo, TimeFrame timeFrame, DateFrame dateFrame, Room.Category roomCategory, String specialWishes, int empNo, boolean isBusinessCustomer)
+    public HotelRoomBooking (int bookingNo, int customerID,int roomNo, TimeFrame timeFrame, DateFrame dateFrame, Room.Category roomCategory,
+                             String specialWishes, int empNo, boolean isBusinessCustomer)
     {
-        super(bookingNo, roomNo, timeFrame, dateFrame, roomCategory, specialWishes, empNo, isBusinessCustomer);
+        super(bookingNo, customerID ,roomNo, timeFrame, dateFrame, roomCategory, specialWishes, empNo, isBusinessCustomer);
         this.pricing=this.calculatePricing(0); //TODO: braucht noch Pflege
     }
 
@@ -29,6 +30,10 @@ public class HotelRoomBooking extends Booking
     public float calculatePricing(int nights)
     {
             //TODO:Algorithmus
+            float price = nights * 90.50f;
+
+
+
 
         return 0.0f;
     }

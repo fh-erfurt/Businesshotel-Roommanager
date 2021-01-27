@@ -67,7 +67,8 @@ public class Employee
      *                           important for generation of bills and taxes to be used
      * @return returns the Booking created just now
      */
-    public Booking createBooking (int roomNo, TimeFrame timeFrame, DateFrame dateFrame, Booking.BookingType bookingType, Room.Category roomCategory, String specialWishes, boolean isBusinessCustomer)
+    public Booking createBooking (int roomNo, int customerID, TimeFrame timeFrame, DateFrame dateFrame, Booking.BookingType bookingType,
+                                  Room.Category roomCategory, String specialWishes, boolean isBusinessCustomer)
     {
         if (this.getGivenRole()==BookingsManager) //checks for Rights to manage Bookings
         {
@@ -77,11 +78,14 @@ public class Employee
 
             if (bookingType == Booking.BookingType.HotelRoomBooking)
             {
-                createdBooking = new HotelRoomBooking(bookingNo, roomNo, timeFrame, dateFrame, roomCategory, specialWishes, this.getEmpNo(), isBusinessCustomer);
+                createdBooking = new HotelRoomBooking(bookingNo, customerID, roomNo, timeFrame, dateFrame, roomCategory, specialWishes,
+                        this.getEmpNo(), isBusinessCustomer);
             }
             if (bookingType == Booking.BookingType.ConferenceRoomBooking)
             {
-                createdBooking = new ConferenceRoomBooking(bookingNo, roomNo, timeFrame, dateFrame, roomCategory, specialWishes, this.getEmpNo(), isBusinessCustomer);
+                createdBooking = new ConferenceRoomBooking(bookingNo, customerID, roomNo, timeFrame, dateFrame, roomCategory, specialWishes,
+                        this.getEmpNo(),
+                        isBusinessCustomer);
             }
 
             Rooms.get(roomNo).setUsed(true);
@@ -526,7 +530,9 @@ public class Employee
                                 break;
                             } else
                             {
-                                this.createBooking(room.getRoomNo(), bookingRequest.getTimeFrame(), bookingRequest.getDateFrame(), bookingType, bookingRequest.getRoomCategory(),
+                                this.createBooking(room.getRoomNo(), bookingRequest.getCustomerID(), bookingRequest.getTimeFrame(),
+                                        bookingRequest.getDateFrame(),
+                                        bookingType, bookingRequest.getRoomCategory(),
                                         bookingRequest.getSpecialWishes(), bookingRequest.getIsBusinessCustomer());
                                 BookingRequests.remove(bookingRequest);
                             }
