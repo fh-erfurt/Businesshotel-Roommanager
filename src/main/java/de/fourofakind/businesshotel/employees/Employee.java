@@ -182,13 +182,16 @@ public class Employee
      * @param toBeChangedAttributes        contains all values named by string, that need to be changed
      * @param changedValues                contains all changed Values, needs to be casted to the right datatype
      */
-    public void changeRoomDetails (int roomNo, ArrayList<String> toBeChangedAttributes, ArrayList<Object> changedValues)
+    public boolean changeRoomDetails (int roomNo, ArrayList<String> toBeChangedAttributes, ArrayList<Object> changedValues)
     {
+        boolean changeHappened = false;
+
         if (this.getGivenRole()==RoomAdministrator && toBeChangedAttributes.size() != 0) //checks for Rights to manage Rooms
         {
             if(toBeChangedAttributes.size()== changedValues.size())
             {
                 Room toBeChangedRoom = Rooms.get(roomNo);
+
                 for (int amountOfChangedValues = 0; amountOfChangedValues < toBeChangedAttributes.size(); amountOfChangedValues++)
                 {
 //                    if (toBeChangedAttributes.get(amountOfChangedValues).equals("category"))
@@ -206,22 +209,27 @@ public class Employee
                         if (toBeChangedAttributes.get(amountOfChangedValues).equals("bedCount"))
                         {
                             toBeChangedHotelRoom.setBedCount((Integer)changedValues.get(amountOfChangedValues));
+                            changeHappened = true;
                         }
                         if (toBeChangedAttributes.get(amountOfChangedValues).equals("hasSpeedLAN"))
                         {
                             toBeChangedHotelRoom.setHasSpeedLAN((Boolean)changedValues.get(amountOfChangedValues));
+                            changeHappened = true;
                         }
                         if (toBeChangedAttributes.get(amountOfChangedValues).equals("hasTV"))
                         {
                             toBeChangedHotelRoom.setHasTV((Boolean)changedValues.get(amountOfChangedValues));
+                            changeHappened = true;
                         }
                         if (toBeChangedAttributes.get(amountOfChangedValues).equals("hasKitchen"))
                         {
                             toBeChangedHotelRoom.setHasKitchen((Boolean)changedValues.get(amountOfChangedValues));
+                            changeHappened = true;
                         }
                         if (toBeChangedAttributes.get(amountOfChangedValues).equals("hasCoffeemaker"))
                         {
                             toBeChangedHotelRoom.setHasCoffeemaker((Boolean)changedValues.get(amountOfChangedValues));
+                            changeHappened = true;
                         }
                     }
                     else if (toBeChangedRoom instanceof ConferenceRoom)
@@ -230,32 +238,40 @@ public class Employee
                         if (toBeChangedAttributes.get(amountOfChangedValues).equals("maxAmountOfParticipants"))
                         {
                             toBeChangedConferenceRoom.setMaxAmountOfParticipants((Integer)changedValues.get(amountOfChangedValues));
+                            changeHappened = true;
                         }
                         if (toBeChangedAttributes.get(amountOfChangedValues).equals("amountOfWhiteboards"))
                         {
                             toBeChangedConferenceRoom.setAmountOfWhiteboards((Integer)changedValues.get(amountOfChangedValues));
+                            changeHappened = true;
                         }
                         if (toBeChangedAttributes.get(amountOfChangedValues).equals("amountOfBeamer"))
                         {
                             toBeChangedConferenceRoom.setAmountOfBeamer((Integer)changedValues.get(amountOfChangedValues));
+                            changeHappened = true;
                         }
                         if (toBeChangedAttributes.get(amountOfChangedValues).equals("hasScreen"))
                         {
                             toBeChangedConferenceRoom.setHasScreen((Boolean)changedValues.get(amountOfChangedValues));
+                            changeHappened = true;
                         }
                         if (toBeChangedAttributes.get(amountOfChangedValues).equals("hasComputer"))
                         {
                             toBeChangedConferenceRoom.setHasComputer((Boolean)changedValues.get(amountOfChangedValues));
+                            changeHappened = true;
                         }
                         if (toBeChangedAttributes.get(amountOfChangedValues).equals("hasTV"))
                         {
                             toBeChangedConferenceRoom.setHasTV((Boolean)changedValues.get(amountOfChangedValues));
+                            changeHappened = true;
                         }
+                        return changeHappened;
                     }
                 }
             }
         }
         else throw new IllegalCallerException("The caller does not inherit the Rights to do this");
+        return changeHappened;
     }
 
     /**
@@ -570,8 +586,9 @@ public class Employee
      * @param value
      * @throws IllegalCallerException in case of someone using the function without the CustomerRelationshipManager Role and its inherited rights to manage customers
      */
-    public void changeCustomer (int customerID, String key, String value) throws IllegalCallerException
+    public boolean changeCustomer (int customerID, String key, String value) throws IllegalCallerException
     {
+        boolean changeHappened = false;
         if (this.getGivenRole()==CustomerRelationshipManager)
         {
 
@@ -581,29 +598,29 @@ public class Employee
             switch (key)
             {
                 case "firstName":
-                    fetchedContactData.setFirstName(value);
+                    fetchedContactData.setFirstName(value);changeHappened = true;
                 case "lastName":
-                    fetchedContactData.setLastName(value);
+                    fetchedContactData.setLastName(value);changeHappened = true;
                 case "streetName":
-                    fetchedContactData.setStreetName(value);
+                    fetchedContactData.setStreetName(value);changeHappened = true;
                 case "streetNumber":
-                    fetchedContactData.setStreetNumber(value);
+                    fetchedContactData.setStreetNumber(value);changeHappened = true;
                 case "postalCode":
-                    fetchedContactData.setPostalCode(value);
+                    fetchedContactData.setPostalCode(value);changeHappened = true;
                 case "cityName":
-                    fetchedContactData.setCityName(value);
+                    fetchedContactData.setCityName(value);changeHappened = true;
                 case "mailAddress":
-                    fetchedContactData.setMailAddress(value);
+                    fetchedContactData.setMailAddress(value);changeHappened = true;
                 case "paymentMethod":
-                    fetchedCustomer.setPaymentMethod(value);
+                    fetchedCustomer.setPaymentMethod(value);changeHappened = true;
                 case "iban":
-                    fetchedContactData.setPaymentCredentials(value);
+                    fetchedContactData.setPaymentCredentials(value);changeHappened = true;
             }
 
             Customers.set(customerID, fetchedCustomer);
+            return changeHappened;
         }
         else throw new IllegalCallerException("The caller does not inherit the Rights to do this");
-
     }
 
 
