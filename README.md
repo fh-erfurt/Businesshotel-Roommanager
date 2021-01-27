@@ -317,7 +317,35 @@ Teilnehmer: Niklas, Thomas, Marius
    Zur nächsten Besprechung am 25.01.2020 muss 90 % stehen, dass nur noch primär wirklich Dokuarbeit und Feinarbeit nötig ist.
    Deadline ist der 01.02.2021.
 ```
+```
+27.01.2021 11:00 Uhr Platform: Webex
+Teilnehmer: Niklas, Thomas, Marius
 
+1. Absprache über offene Aufgaben 
+
+   Alle:
+        Testfälle abschließen und Kommentieren für alle Tests
+        Kommentare in Value/Common Klassen einfügen (Bsp: Fulldate)
+        Dokumentation JAVADOC abschließen
+        Sammeln für Präsentation "Lessons Learned"
+        Sinnige Try-Catch-Blöcker ergänzen
+        Code aufräumen
+        Anordnung Getter/Setter und Member als Block getrennt
+    
+   Thomas
+        Meeting Protokoll hochladen
+        Preisberechnung-Methode erstellen Konferenz/Hotelzimmer
+        Tests in Github Gangbar machen
+        
+   Niklas
+        change Methods abändern zu Rückgabewert Boolean
+        Use-cases zu eigenen Methoden entwerfen -> Employee
+   Marius
+        Use-cases zu eigenen Methoden entwerfen -> Customer
+        
+   Nächstes Meeting im Webex dazu am 29.01.2021 10 Uhr. Bis dahin müssen Aufgaben erfüllt sein.	
+   
+```
 </details>
 
 <details>
