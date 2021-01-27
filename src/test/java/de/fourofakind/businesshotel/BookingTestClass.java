@@ -26,20 +26,27 @@ public class BookingTestClass {
     public static HotelRoom SmallSuite = new HotelRoom (20, HotelRoom.Category.SINGLE,17,2,false,false,true,true);
     public static HotelRoom BigSuite = new HotelRoom (10, HotelRoom.Category.DOUBLE,5,2,true,true,false,true);
 
-    TimeFrame coffeeMeeting = new TimeFrame("15:00","16:00");
+    TimeFrame coffeeMeeting = new TimeFrame("15:00","16:45");
     DateFrame date = new DateFrame("10.12.2020","11.12.2020");
 
     //Booking newBooking = new Booking();
-    Booking ConferenceBooking = new ConferenceRoomBooking(4,12,BigSuite.getRoomNo(), coffeeMeeting,date, Room.Category.BIGGROUP,"Luxury",400,
+    ConferenceRoomBooking ConferenceBooking = new ConferenceRoomBooking(4,12,BigSuite.getRoomNo(), coffeeMeeting,date, Room.Category.BIGGROUP,"Luxury",400,
             true);
     HotelRoomBooking HotelBooking = new HotelRoomBooking(4,12,SmallSuite.getRoomNo(),coffeeMeeting,date, Room.Category.SUITE, "wakeup call every 6 AM",
             110,false);
 
     @Test
-    public void isPricingCalculatedCorrectly()
+    public void isHotelRoomPricingCalculatedCorrectly()
     {
-        float priceToPay = HotelBooking.calculatePricing(4);
-        System.out.println(priceToPay);
+        float priceToPay = HotelBooking.calculatePricing();
+        System.out.println("Zu zahlen: " + priceToPay);
+    }
+
+    @Test
+    public void isConferenceRoomPricingCalculatedCorrectly()
+    {
+        float priceToPay = ConferenceBooking.calculatePricing();
+        System.out.println("Zu zahlen: " + priceToPay);
     }
 
 
