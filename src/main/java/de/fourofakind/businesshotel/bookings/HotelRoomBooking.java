@@ -38,11 +38,8 @@ public class HotelRoomBooking extends Booking
             DateTimeFormatter germanFormatter = DateTimeFormatter.ofLocalizedDate(
             FormatStyle.MEDIUM).withLocale(Locale.GERMAN);
 
-            //TODO:Algorithmus
             String startDate = getDateFrame().getStartDate();
             String endDate = getDateFrame().getEndDate();
-
-
 
             LocalDate dateStart = LocalDate.parse(startDate, germanFormatter);
             LocalDate dateEnd = LocalDate.parse(endDate, germanFormatter);
