@@ -47,12 +47,9 @@ abstract public class Room {
         this.roomNo = roomNo;
     }
 
-    public boolean isUsed() {
-        return isUsed;
-    }
-
-    public void setUsed(boolean used) {
-        isUsed = used;
+    public void setRoomAsFreeToList()
+    {
+        roomOccupationList.set(this.roomNo,null);
     }
 
     public ArrayList<FullDate> getRoomOccupiedAtList ()
@@ -70,7 +67,7 @@ abstract public class Room {
     private int roomNo;
     private Category category;
     private int areaInSqrMetre;
-    private boolean isUsed;
+
 
     public float getPricePerUnit ()
     {
