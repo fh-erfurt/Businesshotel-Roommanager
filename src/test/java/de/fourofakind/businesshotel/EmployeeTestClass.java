@@ -395,6 +395,9 @@ public class EmployeeTestClass
 
 
     //support function to output Customers ArrayList
+    /**
+     *<p>Output customers in Customers ArrayList</p>
+     */
     void outputCustomer ()
     {
         for (Customer customer : Customers)
@@ -428,6 +431,9 @@ public class EmployeeTestClass
         }
     }
 
+    /**
+     * <p>Test of an Employee's ability to create a customer and add it to Customers ArrayList </p>
+     */
     @Test
     void createCustomer ()
     {
@@ -446,7 +452,9 @@ public class EmployeeTestClass
 
         outputCustomer();
     }
-
+    /**
+     * <p>Test of an Employee's ability to change a customer in Customers ArrayList </p>
+     */
     @Test
     void changeCustomer ()
     {
@@ -491,6 +499,9 @@ public class EmployeeTestClass
 
     }
 
+    /**
+     * <p>Test of an Employee's ability to delete a customer from Customers ArrayList </p>
+     */
     @Test
     void deleteCustomer ()
     {

@@ -4,6 +4,10 @@ import de.fourofakind.businesshotel.common.DateFrame;
 import de.fourofakind.businesshotel.common.TimeFrame;
 import de.fourofakind.businesshotel.rooms.Room;
 
+/**
+ * class to store the requierements of a booking that will be stored in an ArrayList for processing by employee
+ */
+
 public class BookingRequest {
 
     public BookingRequest (int customerID, TimeFrame timeFrame, DateFrame dateFrame, Room.Category roomCategory,
