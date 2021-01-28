@@ -60,7 +60,6 @@ abstract public class Room {
     public void setRoomAsOccupiedToList (FullDate fullDate)
     {
         this.roomOccupationList.add(fullDate);
-
     }
 
     private ArrayList<FullDate> roomOccupationList = new ArrayList<FullDate>();

@@ -43,13 +43,13 @@ public class RoomTestClass
     @Test
     public void IsCreatedHotelRoomInstanceOfRoom()
     {
-        assertTrue(newHotelRoom instanceof Room,"Should give createdHotelroom as Instance of Room");
+        assertNotNull(newHotelRoom, "Should give createdHotelroom as Instance of Room");
     }
 
     @Test
     public void IsCreatedConferenceRoomInstanceOfRoom()
     {
-        assertTrue(newConferenceRoom instanceof Room,"Should give createdConferenceroom as Instance of Room");
+        assertNotNull(newConferenceRoom, "Should give createdConferenceroom as Instance of Room");
     }
 
 
@@ -64,10 +64,10 @@ public class RoomTestClass
         assertEquals(Room.Category.DOUBLE, newHotelRoom.getCategory(), "Should give Set Category of Object HotelRoom");
         assertEquals(60, newHotelRoom.getAreaInSqrMetre(), "Should give true if the area is the same set earlier for the Room");
         assertEquals(2, newHotelRoom.getBedCount(), "Should give set bedcount at creation");
-        assertEquals(true, newHotelRoom.hasSpeedLAN(), "Should tell if SpeedLan present");
-        assertEquals(true, newHotelRoom.hasTV(), "Should tell if TV is present");
-        assertEquals(false, newHotelRoom.hasKitchen(), "Should tell if Kitchen is present in Room");
-        assertEquals(true, newHotelRoom.hasCoffeemaker(), "Should tell if Coffeemaker is present");
+        assertTrue(newHotelRoom.hasSpeedLAN(), "Should tell if SpeedLan present");
+        assertTrue(newHotelRoom.hasTV(), "Should tell if TV is present");
+        assertFalse(newHotelRoom.hasKitchen(), "Should tell if Kitchen is present in Room");
+        assertTrue(newHotelRoom.hasCoffeemaker(), "Should tell if Coffeemaker is present");
 
     }
 
@@ -79,9 +79,9 @@ public class RoomTestClass
         assertEquals(45, newConferenceRoom.getAreaInSqrMetre(), "Should give true if the area is the same set earlier for the Room");
         assertEquals(12, newConferenceRoom.getMaxAmountOfParticipants(), "Should give maximum Participants for the specified room");
         assertEquals(1, newConferenceRoom.getAmountOfBeamer(), "Should tell the amount of Beamers inside the room");
-        assertEquals(false, newConferenceRoom.hasTV(), "Should tell if TV is present");
-        assertEquals(true, newConferenceRoom.hasScreen(), "Should tell if a Screen is present in Room");
-        assertEquals(false, newConferenceRoom.hasComputer(), "Should tell if Computer is inside the room");
+        assertFalse(newConferenceRoom.hasTV(), "Should tell if TV is present");
+        assertTrue(newConferenceRoom.hasScreen(), "Should tell if a Screen is present in Room");
+        assertFalse(newConferenceRoom.hasComputer(), "Should tell if Computer is inside the room");
 
     }
 
@@ -121,7 +121,7 @@ public class RoomTestClass
         System.out.println("Is Employee a RoomAdmin: " + Mitarbeiter1.getGivenRole().isEnabledToManageRooms());
         assertEquals(2, Rooms.get(2).getRoomNo(),"Room No. 2 should be on second position if created");
         Mitarbeiter1.deleteRoom(2);
-        assertEquals(null, Rooms.get(2),"Room No. 2 Should be Empty if deleted");
+        assertNull(Rooms.get(2), "Room No. 2 Should be Empty if deleted");
     }
     /**
      * <p>
@@ -139,7 +139,7 @@ public class RoomTestClass
         Mitarbeiter1.setGivenRole(null);
 
 
-        assertThrows(IllegalCallerException.class, ()->{Mitarbeiter1.deleteRoom(2);},"Should pass if error is thrown because employee has no rights" +
+        assertThrows(IllegalCallerException.class, ()-> Mitarbeiter1.deleteRoom(2),"Should pass if error is thrown because employee has no rights" +
                 " to delete a Room");
     }
 
@@ -150,12 +150,12 @@ public class RoomTestClass
     @Test
     public void changeRoomDetailsWithAdminRights()
     {
-        ArrayList<String> toBeChangedList = new ArrayList<String>();
+        ArrayList<String> toBeChangedList = new ArrayList<>();
         toBeChangedList.add("areaInSqrMetre");
         toBeChangedList.add("pricePerUnit");
         toBeChangedList.add("hasKitchen");
 
-        ArrayList<Object> changedValues = new ArrayList<Object>();
+        ArrayList<Object> changedValues = new ArrayList<>();
         changedValues.add(100);
         changedValues.add(120);
         changedValues.add(true);
@@ -169,17 +169,17 @@ public class RoomTestClass
     public void changeRoomDetailsWithoutAdminRights()
     {
         Mitarbeiter1.setGivenRole(null);
-        ArrayList<String> toBeChangedList = new ArrayList<String>();
+        ArrayList<String> toBeChangedList = new ArrayList<>();
         toBeChangedList.add("areaInSqrMetre");
         toBeChangedList.add("pricePerUnit");
         toBeChangedList.add("hasKitchen");
 
-        ArrayList<Object> changedValues = new ArrayList<Object>();
+        ArrayList<Object> changedValues = new ArrayList<>();
         changedValues.add(100);
-        changedValues.add(120);
+        changedValues.add(120.0);
         changedValues.add(true);
 
-        assertThrows(IllegalCallerException.class, ()->{Mitarbeiter1.changeRoomDetails(1, toBeChangedList, changedValues);;},"Should throw an " +
+        assertThrows(IllegalCallerException.class, ()-> Mitarbeiter1.changeRoomDetails(1, toBeChangedList, changedValues),"Should throw an " +
                 "error to pass, ´cause the employee has no right to change a detail of the room");
     }
 }
