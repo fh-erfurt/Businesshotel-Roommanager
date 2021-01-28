@@ -214,6 +214,10 @@ public class Employee
                     {
                         toBeChangedRoom.setAreaInSqrMetre((Integer)changedValues.get(amountOfChangedValues));
                     }
+                    if (toBeChangedAttributes.get(amountOfChangedValues).equals("pricePerUnit"))
+                    {
+                        toBeChangedRoom.setPricePerUnit((Float)changedValues.get(amountOfChangedValues));
+                    }
 
                     if (toBeChangedRoom instanceof HotelRoom)
                     {
