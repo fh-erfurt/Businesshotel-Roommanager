@@ -139,7 +139,8 @@ public class RoomTestClass
         Mitarbeiter1.setGivenRole(null);
 
 
-        assertThrows(IllegalCallerException.class, ()->{Mitarbeiter1.deleteRoom(2);});
+        assertThrows(IllegalCallerException.class, ()->{Mitarbeiter1.deleteRoom(2);},"Should pass if error is thrown because employee has no rights" +
+                " to delete a Room");
     }
 
     /**
@@ -149,35 +150,41 @@ public class RoomTestClass
     @Test
     public void changeRoomDetailsWithAdminRights()
     {
+        ArrayList<String> toBeChangedList = new ArrayList<String>();
+        toBeChangedList.add("areaInSqrMetre");
+        toBeChangedList.add("pricePerUnit");
+        toBeChangedList.add("hasKitchen");
 
+        ArrayList<Object> changedValues = new ArrayList<Object>();
+        changedValues.add(100);
+        changedValues.add(120);
+        changedValues.add(true);
 
+        boolean changesMade = Mitarbeiter1.changeRoomDetails(1, toBeChangedList, changedValues);
 
+        assertTrue(changesMade,"Should give true if the changes were set to the room");
+    }
+
+    @Test
+    public void changeRoomDetailsWithoutAdminRights()
+    {
+        Mitarbeiter1.setGivenRole(null);
+        ArrayList<String> toBeChangedList = new ArrayList<String>();
+        toBeChangedList.add("areaInSqrMetre");
+        toBeChangedList.add("pricePerUnit");
+        toBeChangedList.add("hasKitchen");
+
+        ArrayList<Object> changedValues = new ArrayList<Object>();
+        changedValues.add(100);
+        changedValues.add(120);
+        changedValues.add(true);
+
+        assertThrows(IllegalCallerException.class, ()->{Mitarbeiter1.changeRoomDetails(1, toBeChangedList, changedValues);;},"Should throw an " +
+                "error to pass, ´cause the employee has no right to change a detail of the room");
     }
 }
 
 
-
-
-
-
-
-
-    //wie in der Gruppe besprochen,: sinnvolle Tests für Employee.createRoom(), Employee.deleteRoom() und Employee.changeRoomDetails() erstellen,
-    //am besten in einer RoomTestClass
-
-
-
-    /*Rooms.add(newConferenceRoom);
-        System.out.println(Rooms.get(0).getAreaInSqrMetre());
-
-    //int result = Rooms.get(Rooms.indexOf()).getRoomNo();
-
-        for(int i = 0; i < Rooms.size(); i++)
-    {
-        System.out.println(Rooms.get(i).getRoomNo());
-    }
-
-    //System.out.println(Rooms.size());*/
 
 
 
