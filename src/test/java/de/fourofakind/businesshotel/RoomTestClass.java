@@ -34,6 +34,12 @@ public class RoomTestClass
     FullDate dateOfOccupationChristmas = new FullDate( christmasHoliday, fromEightToTen);
     FullDate dateOfOccupationNewYear = new FullDate( newYearsEveHoliday, fromEightToTen);
 
+    /**
+     * <p>
+     * The following two tests are designed to check if the created room, Hotel- or Conferenceroom is actually an instance of the abstract class
+     * Room.
+     * </p>
+     */
     @Test
     public void IsCreatedHotelRoomInstanceOfRoom()
     {
@@ -101,8 +107,6 @@ public class RoomTestClass
     assertEquals("27.12.2021" , EndDate, "Should give EndDate equal to ensure the used-status right to the room");
     assertEquals("08:00" , StartTime, "Should give Starttime equal to ensure the used-status right to the room");
     assertEquals("22:00" , EndTime, "Should give EndTime equal to ensure the used-status right to the room");
-
-        //assertEquals(expectedResult,result,"If the Booking is created according to the details, all details will be told.");
     }
 
 
@@ -118,8 +122,14 @@ public class RoomTestClass
         assertEquals(2, Rooms.get(2).getRoomNo(),"Room No. 2 should be on second position if created");
         Mitarbeiter1.deleteRoom(2);
         assertEquals(null, Rooms.get(2),"Room No. 2 Should be Empty if deleted");
-
     }
+    /**
+     * <p>
+     * This test purpose is to check if an employee that is not allowed to delete a room is actually unable to do so.
+     * The role of the employee has to be "RoomAdministrator", if it is any different admin or someone without rights it should throw an
+     * IllegalCallerException
+     * </p>
+     */
 
     @Test
     public void DeleteRoomTestWithoutAdminRight()
