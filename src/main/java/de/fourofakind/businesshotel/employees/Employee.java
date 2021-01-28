@@ -172,7 +172,9 @@ public class Employee
         if (this.getGivenRole()==BookingsManager) //checks for Rights to manage Bookings
         {
             int roomNumberOfRoomToBeFree = Bookings.get(bookingNo).getRoomNo();
-            Rooms.get(roomNumberOfRoomToBeFree).setRoomAsFreeToList(); //TODO:delete occupations method
+            DateFrame dateFrame=Bookings.get(bookingNo).getDateFrame();
+            TimeFrame timeFrame=Bookings.get(bookingNo).getTimeFrame();
+            Rooms.get(roomNumberOfRoomToBeFree).setRoomAsFreeToList(new FullDate(dateFrame,timeFrame));
 
             Bookings.set(bookingNo, null);    //instead of remove() to keep the relation of the position of a booking in Bookings to its bookingNo
         }

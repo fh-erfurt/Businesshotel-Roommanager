@@ -47,9 +47,9 @@ abstract public class Room {
         this.roomNo = roomNo;
     }
 
-    public void setRoomAsFreeToList()
+    public void setRoomAsFreeToList(FullDate fullDate)
     {
-        roomOccupationList.set(this.roomNo,null);
+        this.roomOccupationList.remove(fullDate);
     }
 
     public ArrayList<FullDate> getRoomOccupiedAtList ()
