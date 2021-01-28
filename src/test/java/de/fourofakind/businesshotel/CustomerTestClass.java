@@ -1,6 +1,5 @@
 package de.fourofakind.businesshotel;
 
-import de.fourofakind.businesshotel.bookings.Booking;
 import de.fourofakind.businesshotel.common.DateFrame;
 import de.fourofakind.businesshotel.common.TimeFrame;
 import de.fourofakind.businesshotel.customers.BookingRequest;
@@ -49,21 +48,12 @@ public class CustomerTestClass
 
         switch (loadedCategory)
         {
-            case SINGLE:
-                System.out.println("SINGLE");
-                break;
-            case DOUBLE:
-                System.out.println("DOUBLE");
-                break;
-            case SUITE:
-                System.out.println("SUITE");
-                break;
-            case BIGGROUP:
-                System.out.println("BIGGROUP");
-                break;
-            case SMALLGROUP:
-                System.out.println("SMALLGROUP");
-                break;
+            case SINGLE -> System.out.println("SINGLE");
+            case DOUBLE -> System.out.println("DOUBLE");
+            case SUITE -> System.out.println("SUITE");
+            case BIGGROUP -> System.out.println("BIGGROUP");
+            case SMALLGROUP -> System.out.println("SMALLGROUP");
+            default -> throw new IllegalStateException("Unexpected value: " + loadedCategory);
         }
 
         System.out.println(loadedBookingRequest.getSpecialWishes());

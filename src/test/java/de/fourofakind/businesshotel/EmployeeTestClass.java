@@ -415,15 +415,10 @@ public class EmployeeTestClass
 
             switch (paymentMethod)
             {
-                case bill:
-                    System.out.println("paymentmethod: bill");
-                    break;
-                case paypal:
-                    System.out.println("paymentmethod: paypal");
-                    break;
-                case debit:
-                    System.out.println("paymentmethod: debit");
-                    break;
+                case bill -> System.out.println("paymentmethod: bill");
+                case paypal -> System.out.println("paymentmethod: paypal");
+                case debit -> System.out.println("paymentmethod: debit");
+                default -> throw new IllegalStateException("Unexpected value: " + paymentMethod);
             }
 
             System.out.println("paymentCredentials: " + customer.getContactData().getPaymentCredentials());
