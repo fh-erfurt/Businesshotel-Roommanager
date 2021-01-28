@@ -4,6 +4,7 @@ import de.fourofakind.businesshotel.bookings.Booking;
 import de.fourofakind.businesshotel.bookings.ConferenceRoomBooking;
 import de.fourofakind.businesshotel.bookings.HotelRoomBooking;
 import de.fourofakind.businesshotel.common.DateFrame;
+import de.fourofakind.businesshotel.common.FullDate;
 import de.fourofakind.businesshotel.common.Role;
 import de.fourofakind.businesshotel.common.TimeFrame;
 import de.fourofakind.businesshotel.customers.BookingRequest;
@@ -89,7 +90,7 @@ public class Employee
                         isBusinessCustomer);
             }
 
-            Rooms.get(roomNo).setUsed(true);
+            Rooms.get(roomNo).setRoomAsOccupiedToList(new FullDate(dateFrame,timeFrame));
             Bookings.add(createdBooking);
             return createdBooking;
         }
@@ -171,8 +172,8 @@ public class Employee
         if (this.getGivenRole()==BookingsManager) //checks for Rights to manage Bookings
         {
             int roomNumberOfRoomToBeFree = Bookings.get(bookingNo).getRoomNo();
-            Room roomToBeFree = Rooms.get(roomNumberOfRoomToBeFree);
-            roomToBeFree.setUsed(false);
+            Rooms.get(roomNumberOfRoomToBeFree).setRoomAsFreeToList(); //TODO:delete occupations method
+
             Bookings.set(bookingNo, null);    //instead of remove() to keep the relation of the position of a booking in Bookings to its bookingNo
         }
         else throw new IllegalCallerException("The caller does not inherit the Rights to do this");
