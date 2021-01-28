@@ -67,7 +67,7 @@ public class Employee
      * @param specialWishes      contains any special wishes made by a customer, could be an extra bed, room service or wake up service in the morning
      * @param isBusinessCustomer marks the booking to be requested by a business customer or for personal use;
      *                           important for generation of bills and taxes to be used
-     * @return                   returns the Booking created just now
+     * @return                   the Booking created just now
      * @throws IllegalCallerException if the employee does not inherit the role BookingManager
      */
     public Booking createBooking (int roomNo, int customerID, TimeFrame timeFrame, DateFrame dateFrame, Booking.BookingType bookingType,
@@ -303,6 +303,7 @@ public class Employee
      * @param hasScreen                 tells whether there is a screen for the presentation of data
      * @param hasComputer               tells whether there is a computer in the room
      * @param hasTV                     tells whether there is a TV in the room
+     * @return                          ConferenceRoom created
      * @throws IllegalCallerException   if the employee does not inherit the role RoomAdministrator
      */
     public ConferenceRoom createConferenceRoom (int roomNo, ConferenceRoom.Category category, int areaInSqrMetre, int maxAmountOfParticipants,
@@ -330,6 +331,7 @@ public class Employee
      * @param hasTV             tells if the room has a TV
      * @param hasKitchen        tells if there is a kitchen to cook in the room
      * @param hasCoffeemaker    tells if there is a Coffeemaker in the room
+     * @return                  HotelRoom created
      * @throws IllegalCallerException if the employee does not inherit the role RoomAdministrator
      */
     public HotelRoom createHotelRoom (int roomNo, HotelRoom.Category category, int areaInSqrMetre, int bedCount, boolean hasSpeedLAN, boolean hasTV,
@@ -377,7 +379,7 @@ public class Employee
      * @param timeFrame             timeframe of the booking to be searched for
      * @param bookingDate           date of the booking to be searched for
      * @param roomCategory          category of the room which is documented in the booking to be searched for
-     * @return  returns all resulting Booking that match the search criteria
+     * @return                      all resulting Booking that match the search criteria
      */
     public ArrayList<Booking> findBooking (int BookingNo, int RoomNo, int empNo, DateFrame dateFrame, TimeFrame timeFrame, String bookingDate, Room.Category roomCategory)
     {
@@ -572,6 +574,7 @@ public class Employee
      * @param mailAddress
      * @param paymentMethod
      * @param iban
+     * @return                        Customer created
      * @throws IllegalCallerException in case of someone using the function without the CustomerRelationshipManager Role and its inherited rights to manage customers
      */
     public Customer createCustomer (String firstName, String lastName, String streetName, String streetNumber, String postalCode, String cityName, String mailAddress,
