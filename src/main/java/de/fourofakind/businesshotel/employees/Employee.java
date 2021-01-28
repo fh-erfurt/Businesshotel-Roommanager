@@ -67,10 +67,11 @@ public class Employee
      * @param specialWishes      contains any special wishes made by a customer, could be an extra bed, room service or wake up service in the morning
      * @param isBusinessCustomer marks the booking to be requested by a business customer or for personal use;
      *                           important for generation of bills and taxes to be used
-     * @return returns the Booking created just now
+     * @return                   returns the Booking created just now
+     * @throws IllegalCallerException if the employee does not inherit the role BookingManager
      */
     public Booking createBooking (int roomNo, int customerID, TimeFrame timeFrame, DateFrame dateFrame, Booking.BookingType bookingType,
-                                  Room.Category roomCategory, String specialWishes, boolean isBusinessCustomer)
+                                  Room.Category roomCategory, String specialWishes, boolean isBusinessCustomer) throws IllegalCallerException
     {
         if (this.getGivenRole()==BookingsManager) //checks for Rights to manage Bookings
         {
@@ -105,9 +106,10 @@ public class Employee
      * @param bookingNo                 Number of the Booking as well as its position inside Bookings
      * @param toBeChangedAttributes         contains all values named by string, that need to be changed
      * @param changedValues             contains all changed Values, needs to be casted to the right datatype
-     * @throws IllegalArgumentException
+     * @throws IllegalArgumentException if the amount of arguments is too few for the amount of values to be changed
+     * @throws IllegalCallerException   if the employee does not inherit the role BookingManager
      */
-    public boolean changeBooking (int bookingNo, ArrayList<String> toBeChangedAttributes, ArrayList<Object> changedValues) throws IllegalArgumentException
+    public boolean changeBooking (int bookingNo, ArrayList<String> toBeChangedAttributes, ArrayList<Object> changedValues) throws IllegalArgumentException, IllegalCallerException
     {
         currentDateTime = LocalDateTime.now();
         if (this.getGivenRole()==BookingsManager && toBeChangedAttributes.size() != 0) //checks for Rights to manage Bookings
@@ -166,8 +168,9 @@ public class Employee
      * Role BookingManager is needed.</p>
      *
      * @param bookingNo Number of the Booking as well as its position inside Bookings
+     * @throws IllegalCallerException if the employee does not inherit the role BookingManager
      */
-    public void deleteBooking (int bookingNo)
+    public void deleteBooking (int bookingNo) throws IllegalCallerException
     {
         if (this.getGivenRole()==BookingsManager) //checks for Rights to manage Bookings
         {
@@ -189,8 +192,9 @@ public class Employee
      * @param roomNo                       Number of the room which is to be changed; provides the index of the room inside Rooms
      * @param toBeChangedAttributes        contains all values named by string, that need to be changed
      * @param changedValues                contains all changed Values, needs to be casted to the right datatype
+     * @throws IllegalCallerException      if the employee does not inherit the role RoomAdministrator
      */
-    public boolean changeRoomDetails (int roomNo, ArrayList<String> toBeChangedAttributes, ArrayList<Object> changedValues)
+    public boolean changeRoomDetails (int roomNo, ArrayList<String> toBeChangedAttributes, ArrayList<Object> changedValues) throws IllegalCallerException
     {
         boolean changeHappened = false;
 
@@ -295,10 +299,10 @@ public class Employee
      * @param hasScreen                 tells whether there is a screen for the presentation of data
      * @param hasComputer               tells whether there is a computer in the room
      * @param hasTV                     tells whether there is a TV in the room
+     * @throws IllegalCallerException   if the employee does not inherit the role RoomAdministrator
      */
     public ConferenceRoom createConferenceRoom (int roomNo, ConferenceRoom.Category category, int areaInSqrMetre, int maxAmountOfParticipants,
-                                                int amountOfWhiteboards,
-                                      int amountOfBeamer, boolean hasScreen, boolean hasComputer, boolean hasTV, float pricePerUnit)
+                                                int amountOfWhiteboards, int amountOfBeamer, boolean hasScreen, boolean hasComputer, boolean hasTV, float pricePerUnit) throws IllegalCallerException
     {
         if (this.getGivenRole()==RoomAdministrator) //checks for Rights to manage Rooms
         {
@@ -322,10 +326,10 @@ public class Employee
      * @param hasTV             tells if the room has a TV
      * @param hasKitchen        tells if there is a kitchen to cook in the room
      * @param hasCoffeemaker    tells if there is a Coffeemaker in the room
+     * @throws IllegalCallerException if the employee does not inherit the role RoomAdministrator
      */
     public HotelRoom createHotelRoom (int roomNo, HotelRoom.Category category, int areaInSqrMetre, int bedCount, boolean hasSpeedLAN, boolean hasTV,
-                                 boolean hasKitchen,
-                                 boolean hasCoffeemaker, float pricePerUnit) throws IllegalCallerException
+                                 boolean hasKitchen, boolean hasCoffeemaker, float pricePerUnit) throws IllegalCallerException
     {
         if (this.getGivenRole()==RoomAdministrator) //checks for Rights to manage Rooms
         {
@@ -343,6 +347,7 @@ public class Employee
      * Role RoomAdministrator is needed.</p>
      *
      * @param roomNo    number of the room to be deleted
+     * @throws IllegalCallerException if the employee does not inherit the role RoomAdministrator
      */
     public void deleteRoom (int roomNo) throws IllegalCallerException
     {
@@ -502,9 +507,9 @@ public class Employee
     /**
      * <p>The implementation of an autonomous management of customer requests, based on whether or not a suitable room is free at the time given.</p>
      * @throws IllegalCallerException in case of someone using the function without the BookingsManager Role and its inherited Rights to manage bookings
-     * @throws IllegalArgumentException in case of a booking being neither a HotelRoomBooking nor a onferenceRoomBooking, which should never occur
+     * @throws NoSuchElementException if there is no room of the wanted category at all
      */
-    public void manageBookingRequests () throws NoSuchElementException
+    public void manageBookingRequests () throws IllegalCallerException, NoSuchElementException
     {
         if(this.getGivenRole()==BookingsManager)
         {
