@@ -21,7 +21,7 @@ public class HotelRoomBooking extends Booking
                              String specialWishes, int empNo, boolean isBusinessCustomer)
     {
         super(bookingNo, customerID ,roomNo, timeFrame, dateFrame, roomCategory, specialWishes, empNo, isBusinessCustomer);
-        this.pricing=this.calculatePricing(pricing = 0.0f); //TODO: braucht noch Pflege
+        this.pricing=this.calculatePricing(pricing = 0.0f);
     }
 
 
@@ -47,7 +47,7 @@ public class HotelRoomBooking extends Booking
             long nightsSpent = ChronoUnit.DAYS.between(dateStart,dateEnd);
 
 
-            float price = nightsSpent * roomPricePerUnit;   //#TODO Preis verweis auf den Room
+            float price = nightsSpent * roomPricePerUnit;
 
         return price;
     }
