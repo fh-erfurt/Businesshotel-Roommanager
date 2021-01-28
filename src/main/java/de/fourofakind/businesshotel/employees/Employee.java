@@ -104,52 +104,52 @@ public class Employee
      *same params as createBooking, but some can be null-like values, if they should not be changed.
      * Role BookingManager is needed.</p>
      * @param bookingNo                 Number of the Booking as well as its position inside Bookings
-     * @param toBeChangedAttributes         contains all values named by string, that need to be changed
-     * @param changedValues             contains all changed Values, needs to be casted to the right datatype
+     * @param toBeChangedAttributes         contains all attributes named by string, that need to be changed inside the Booking object
+     * @param changedValues             contains all values for the attributes named in toBeChangedAttributes, which need to be casted to the right datatype before setting them in the Booking object
      * @throws IllegalArgumentException if the amount of arguments is too few for the amount of values to be changed
      * @throws IllegalCallerException   if the employee does not inherit the role BookingManager
      */
     public boolean changeBooking (int bookingNo, ArrayList<String> toBeChangedAttributes, ArrayList<Object> changedValues) throws IllegalArgumentException, IllegalCallerException
     {
-        currentDateTime = LocalDateTime.now();
+        currentDateTime = LocalDateTime.now(); //gets current date for the changeDate attribute of booking, if any change occures
         if (this.getGivenRole()==BookingsManager && toBeChangedAttributes.size() != 0) //checks for Rights to manage Bookings
         {
-            if(toBeChangedAttributes.size()== changedValues.size())
+            if(toBeChangedAttributes.size()== changedValues.size())  //checks if the amount in the list of attributes, that shall be changed, matches the amount of values given in the changedValues list
             {
                 Booking toBeChangedBooking = Bookings.get(bookingNo); //"loads" the to be changed Booking into the function to work with the object
                 boolean changeHappened = false;
 
                 for (int amountOfChangedValues = 0; amountOfChangedValues < toBeChangedAttributes.size(); amountOfChangedValues++)
                 {
-                    if (toBeChangedAttributes.get(amountOfChangedValues).equals("roomNo"))
+                    if (toBeChangedAttributes.get(amountOfChangedValues).equals("roomNo"))  //checks, which attribute is going to be changed to determine the correct datatype to be casted to
                     {
-                        toBeChangedBooking.setRoomNo((Integer) changedValues.get(amountOfChangedValues));
+                        toBeChangedBooking.setRoomNo((Integer) changedValues.get(amountOfChangedValues)); //casts the value for the attribute, given as an object inside changedValues and sets it inside the Booking object
                         changeHappened = true;
                     }
-                    if (toBeChangedAttributes.get(amountOfChangedValues).equals("timeFrame"))
+                    if (toBeChangedAttributes.get(amountOfChangedValues).equals("timeFrame")) //checks, which attribute is going to be changed to determine the correct datatype to be casted to
                     {
-                        toBeChangedBooking.setTimeFrame((TimeFrame) changedValues.get(amountOfChangedValues));
+                        toBeChangedBooking.setTimeFrame((TimeFrame) changedValues.get(amountOfChangedValues)); //casts the value for the attribute, given as an object inside changedValues and sets it inside the Booking object
                         changeHappened = true;
                     }
-                    if (toBeChangedAttributes.get(amountOfChangedValues).equals("dateFrame"))
+                    if (toBeChangedAttributes.get(amountOfChangedValues).equals("dateFrame")) //checks, which attribute is going to be changed to determine the correct datatype to be casted to
                     {
-                        toBeChangedBooking.setDateFrame((DateFrame) changedValues.get(amountOfChangedValues));
+                        toBeChangedBooking.setDateFrame((DateFrame) changedValues.get(amountOfChangedValues)); //casts the value for the attribute, given as an object inside changedValues and sets it inside the Booking object
                         changeHappened = true;
                     }
-                    if (toBeChangedAttributes.get(amountOfChangedValues).equals("specialWishes"))
+                    if (toBeChangedAttributes.get(amountOfChangedValues).equals("specialWishes")) //checks, which attribute is going to be changed to determine the correct datatype to be casted to
                     {
-                        toBeChangedBooking.setSpecialWishes((String) changedValues.get(amountOfChangedValues));
+                        toBeChangedBooking.setSpecialWishes((String) changedValues.get(amountOfChangedValues)); //casts the value for the attribute, given as an object inside changedValues and sets it inside the Booking object
                         changeHappened = true;
                     }
-                    if (toBeChangedAttributes.get(amountOfChangedValues).equals("isBusinessCustomer"))
+                    if (toBeChangedAttributes.get(amountOfChangedValues).equals("isBusinessCustomer")) //checks, which attribute is going to be changed to determine the correct datatype to be casted to
                     {
-                        toBeChangedBooking.setBusinessCustomer((Boolean) changedValues.get(amountOfChangedValues));
+                        toBeChangedBooking.setBusinessCustomer((Boolean) changedValues.get(amountOfChangedValues));  //casts the value for the attribute, given as an object inside changedValues and sets it inside the Booking object
                         changeHappened = true;
                     }
 
-                    if (changeHappened)
+                    if (changeHappened) //check if a change actually occured
                     {
-                        toBeChangedBooking.setChangeDate(currentDateTime.toString());
+                        toBeChangedBooking.setChangeDate(currentDateTime.toString()); //sets the changeDate of Booking to the current Date
                         return true;
                     }
 
