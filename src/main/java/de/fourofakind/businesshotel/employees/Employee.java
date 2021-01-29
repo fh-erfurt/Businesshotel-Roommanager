@@ -15,7 +15,6 @@ import de.fourofakind.businesshotel.rooms.HotelRoom;
 import de.fourofakind.businesshotel.rooms.Room;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
@@ -29,9 +28,7 @@ import static de.fourofakind.businesshotel.common.StartingClass.*;
 
 public class Employee
 {
-    DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-    LocalDateTime currentDateTime = LocalDateTime.now();    //simple implementation of the current datetime, won't be present when working with a
-    // database
+    LocalDateTime currentDateTime = LocalDateTime.now();    //simple implementation of the current datetime, won't be present when working with a database
 
     public Employee (String empName) //Employee without any Rights
     {
@@ -206,10 +203,10 @@ public class Employee
 
                 for (int amountOfChangedValues = 0; amountOfChangedValues < toBeChangedAttributes.size(); amountOfChangedValues++)
                 {
-//                    if (toBeChangedAttributes.get(amountOfChangedValues).equals("category"))
-//                    {
-//                        toBeChangedRoom.setCategory((String)changedValues.get(amountOfChangedValues));
-//                    }
+                    if (toBeChangedAttributes.get(amountOfChangedValues).equals("category"))
+                    {
+                        toBeChangedRoom.setCategory((Room.Category)changedValues.get(amountOfChangedValues));
+                    }
                     if (toBeChangedAttributes.get(amountOfChangedValues).equals("areaInSqrMetre"))
                     {
                         toBeChangedRoom.setAreaInSqrMetre((Integer)changedValues.get(amountOfChangedValues));
