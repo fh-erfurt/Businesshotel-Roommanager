@@ -70,19 +70,26 @@ Nicht zum Projektumfang gehören:
 ### Use Case Diagramme
 <details>
 <summary>UseCaseDiagramme Booking</summary>
-![alt text](UseCaseDiagramme_Booking.png "UseCaseDiagramme Booking")
+
+![alt text](https://github.com/fh-erfurt/Businesshotel-Roommanager/blob/main/Pr%C3%A4sentation/UseCaseDiagramme/UseCaseDiagramme_Booking.png "UseCaseDiagramme Booking")
+
 </details>
 <details>
 <summary>UseCaseDiagramme Customer</summary>
-![alt text](UseCaseDiagramme_Customer.png "UseCaseDiagramme Customer")
+
+![alt text](https://github.com/fh-erfurt/Businesshotel-Roommanager/blob/main/Pr%C3%A4sentation/UseCaseDiagramme/UseCaseDiagramme_Customer.png "UseCaseDiagramme Customer")
+
 </details>
 <details>
 <summary>UseCaseDiagramme Room</summary>
-![alt text](UseCaseDiagramme_Room.png "UseCaseDiagramme Room")
+
+![alt text](https://github.com/fh-erfurt/Businesshotel-Roommanager/blob/main/Pr%C3%A4sentation/UseCaseDiagramme/UseCaseDiagramme_Room.png "UseCaseDiagramme Room")
+
 </details>	
 
 </details>
 
+### Meeting Protokolle
 <details>
 <summary> Meeting Protokolle </summary>
 <br>
