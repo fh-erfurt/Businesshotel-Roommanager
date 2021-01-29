@@ -68,7 +68,18 @@ Nicht zum Projektumfang gehören:
 ![alt text](Klassendiagramm.png "Klassenübersicht Bild")
 
 ### Use Case Diagramme
-![alt text](Use%20Case%20Diagramme.png "Projektübersicht Bild")
+<details>
+<summary>UseCaseDiagramme Booking</summary>
+![alt text](UseCaseDiagramme_Booking.png "UseCaseDiagramme Booking")
+</details>
+<details>
+<summary>UseCaseDiagramme Customer</summary>
+![alt text](UseCaseDiagramme_Customer.png "UseCaseDiagramme Customer")
+</details>
+<details>
+<summary>UseCaseDiagramme Room</summary>
+![alt text](UseCaseDiagramme_Room.png "UseCaseDiagramme Room")
+</details>	
 
 </details>
 
