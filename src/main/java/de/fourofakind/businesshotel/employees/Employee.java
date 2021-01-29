@@ -557,20 +557,17 @@ public class Employee
         else throw new IllegalCallerException("The caller does not inherit the Rights to do this");
     }
 
-
-
-
     /**
-     * <p></p>
-     * @param firstName
-     * @param lastName
-     * @param streetName
-     * @param streetNumber
-     * @param postalCode
-     * @param cityName
-     * @param mailAddress
-     * @param paymentMethod
-     * @param iban
+     * <p>The implementation of the Employee's ability to create a customer by given parameters. The customer will be added to an ArrayList</p>
+     * @param firstName         first name of the customer
+     * @param lastName          last name of the customer
+     * @param streetName        name of street where the customer lives
+     * @param streetNumber      street number of the customer
+     * @param postalCode        postalcode of the customer
+     * @param cityName          name of the city where the customer lives
+     * @param mailAddress       selected emailaddress by the customer for contact
+     * @param paymentMethod     selected paymentmethod of the customer
+     * @param iban              optional paymentDataCredentials of the customer
      * @return                        Customer created
      * @throws IllegalCallerException in case of someone using the function without the CustomerRelationshipManager Role and its inherited rights to manage customers
      */
@@ -599,10 +596,10 @@ public class Employee
 
 
     /**
-     * <p></p>
-     * @param customerID
-     * @param key
-     * @param value
+     * <p>The implementation of the Employee's ability to change a customer by given customerID and key and value of the new customers property.</p>
+     * @param customerID    id to find the target customer in customers ArrayList
+     * @param key           key of the property to be changed
+     * @param value         new value of the property to be changed
      * @throws IllegalCallerException in case of someone using the function without the CustomerRelationshipManager Role and its inherited rights to manage customers
      */
     public boolean changeCustomer (int customerID, String key, String value) throws IllegalCallerException
@@ -646,8 +643,8 @@ public class Employee
 
 
     /**
-     * <p></p>
-     * @param customerID
+     * <p>The implementation of the Employee's ability to delete a customer from customers ArrayList by given customerID.</p>
+     * @param customerID  id to select the customer to be deleted
      * @throws IllegalCallerException in case of someone using the function without the CustomerRelationshipManager Role and its inherited rights to manage customers
      */
     public void deleteCustomer (int customerID) throws IllegalCallerException
