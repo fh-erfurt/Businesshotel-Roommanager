@@ -7,9 +7,9 @@ import de.fourofakind.businesshotel.rooms.Room;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 /**
- * <p>This is our main class wuhuu. Every action that is made from an employee or customer will interact with this class.
+ * <p>This is our main class - Every action that is made from an employee or customer will interact with this class.
  * All information about the Bookingdetails and the Booking itself interacts with this class to. For Java1 only the Employee will be able to alter the
- * information of a booking.</p>
+ * information of a booking</p>
  */
 
 
@@ -47,130 +47,90 @@ public abstract class Booking {
         this.isBusinessCustomer = isBusinessCustomer;
     }
 
-
-
+    //Getter/Setter
     public TimeFrame getTimeFrame()
     {
         return timeFrame;
     }
-
     public void setTimeFrame(TimeFrame timeFrame) {
         this.timeFrame = timeFrame;
     }
-
     public String getBookingDate() {
         return bookingDate;
     }
-
     public Room.Category getRoomCategory() {
         return roomCategory;
     }
-
     public String getSpecialWishes() {
         return specialWishes;
     }
-
     public float getPricing() {
         return pricing;
     }
-
     public int getEmpNo() {
         return empNo;
     }
-
     public boolean isBusinessCustomer() {
         return this.isBusinessCustomer;
     }
-
-
     public void setBookingDate(String bookingDate) {
         this.bookingDate = bookingDate;
     }
-
-
-
     public void setSpecialWishes(String specialWishes) {
         this.specialWishes = specialWishes;
     }
-
-
     public void setEmpNo(int empNo) {
         this.empNo = empNo;
     }
-
     public void setBusinessCustomer(boolean businessCustomer) {
         isBusinessCustomer = businessCustomer;
     }
-
-
-
     public DateFrame getDateFrame() {
         return dateFrame;
     }
-
     public void setDateFrame(DateFrame dateFrame) {
         this.dateFrame = dateFrame;
     }
-
-
-
     public int getBookingNo() {
         return bookingNo;
     }
-
     public void setBookingNo(int bookingNo) {
         this.bookingNo = bookingNo;
     }
-
     public int getRoomNo() {
         return roomNo;
     }
-
     public void setRoomNo(int roomNo) {
         this.roomNo = roomNo;
     }
-
     public String getChangeDate ()
     {
         return changeDate;
     }
-
     public void setChangeDate (String changeDate)
     {
         this.changeDate = changeDate;
     }
-
-
-
-    private int bookingNo;
-    private int roomNo;
-
-    private float pricing;
-    private int empNo;
-    private DateFrame dateFrame;
-    private TimeFrame timeFrame;
-    private String bookingDate;
-    private Room.Category roomCategory;
-    private String specialWishes;
-
     public int getCustomerID ()
     {
         return customerID;
     }
-
     public void setCustomerID (int customerID)
     {
         this.customerID = customerID;
     }
 
+    //Attributes
+    private int bookingNo;
+    private int roomNo;
+    private float pricing;
+    private int empNo;
+    private DateFrame dateFrame;
+    private TimeFrame timeFrame;
+    private String bookingDate;
+    private final Room.Category roomCategory;
+    private String specialWishes;
     private int customerID;
-
     private String changeDate;
     private boolean isBusinessCustomer;
-
-
-
-
-
-
 }

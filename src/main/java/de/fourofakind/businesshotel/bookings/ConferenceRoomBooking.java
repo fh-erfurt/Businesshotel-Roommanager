@@ -9,18 +9,13 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
-import java.time.temporal.ChronoUnit;
-import java.util.Locale;
+
+/**
+ * This class extends the Booking to the kind of room that has been booked, in this case to a conferenceRoom
+ */
 
 public class ConferenceRoomBooking extends Booking
 {
-    /**
-     * This class extends the Booking to the kind of room that has been booked, in this case to a conferenceRoom
-     */
-
     public ConferenceRoomBooking (int bookingNo, int customerID, int roomNo, TimeFrame timeFrame, DateFrame dateFrame, Room.Category roomCategory,
                                   String specialWishes, int empNo, boolean isBusinessCustomer)
     {
@@ -31,12 +26,15 @@ public class ConferenceRoomBooking extends Booking
 
 
 
-    /**
+    /**<p>
      * This method calculates the price for the conference room, to do so, it uses the start and endtime given as timeframe from the Booking.
      * Since TimeFrames contains the starting and ending time as string it is needed to be converted, to use it as a Date, which is needed for the
      * calendar to extract the hours and minutes from the given date. The price is set for each hour, the customer has to pay at least for an hour.
      * After an hour the price can be calculated sharp for every minute if necessary. Therefore the minutes are divided by 60 and added to each
-     * start and endtime.
+     * start and endtime.</p>
+     * @param roomPricePerUnit  Price per Unit refers to the cost of an hour renting the conferenceRoom. In this case an Unit equals an hour
+     *                          The price per Unit is saved in the room object itself;
+     *
      */
     public float calculatePricing(float roomPricePerUnit)
     {

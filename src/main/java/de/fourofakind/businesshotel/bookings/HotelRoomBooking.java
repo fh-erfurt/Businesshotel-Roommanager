@@ -10,13 +10,13 @@ import java.time.format.FormatStyle;
 import java.time.temporal.ChronoUnit;
 import java.util.Locale;
 
-public class HotelRoomBooking extends Booking
-{
 
-    /**
+/**
  * This class extends the Booking to the kind of room that has been booked, in this case to a Hotelroom.
  */
 
+public class HotelRoomBooking extends Booking
+{
     public HotelRoomBooking (int bookingNo, int customerID,int roomNo, TimeFrame timeFrame, DateFrame dateFrame, Room.Category roomCategory,
                              String specialWishes, int empNo, boolean isBusinessCustomer)
     {
@@ -24,14 +24,14 @@ public class HotelRoomBooking extends Booking
         this.pricing=this.calculatePricing(pricing = 0.0f);
     }
 
-
-
-
-
-    /**
-     * Later on, here will be a method that calculates the price for the conference room, this is done by taking the hours
-     * the room is being booked multiplied by the price per hour. Maybe some special stuff like a beamer or else will be added
-     * to the calulation.
+    /**<p>
+     * This method calculates the price for the hotel room, to do so, it uses the start and enddate given as dateframe from the Booking.
+     * Since Dateframes contain the starting and ending date as string it needs to be converted, to use it as a Date, which is needed for the
+     * calculation to count the days from one date to the other date. The customer has to pay at least for an day.
+     *
+     *@param roomPricePerUnit  Price per Unit refers to the cost of a day renting the HotelRoom. In this case an Unit equals a day
+     *                         The price per Unit is saved in the room object itself;
+     *</p>
      */
     public float calculatePricing(float roomPricePerUnit)
     {
@@ -47,17 +47,16 @@ public class HotelRoomBooking extends Booking
             long nightsSpent = ChronoUnit.DAYS.between(dateStart,dateEnd);
 
 
-            float price = nightsSpent * roomPricePerUnit;
-
-        return price;
+        return nightsSpent * roomPricePerUnit;
     }
 
+    //Getter/Setter
     public float getPricing ()
     {
         return pricing;
     }
 
-
+    //Attributes
     private float pricing;
 
 }
