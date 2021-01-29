@@ -157,7 +157,7 @@ public class RoomTestClass
 
         ArrayList<Object> changedValues = new ArrayList<>();
         changedValues.add(100);
-        changedValues.add(120);
+        changedValues.add(120.0f);
         changedValues.add(true);
 
         boolean changesMade = Mitarbeiter1.changeRoomDetails(1, toBeChangedList, changedValues);
