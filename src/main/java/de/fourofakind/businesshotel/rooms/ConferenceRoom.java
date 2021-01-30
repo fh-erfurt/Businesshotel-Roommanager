@@ -1,5 +1,10 @@
 package de.fourofakind.businesshotel.rooms;
-
+/**
+ * <p>
+ * The class Conferenceroom extends the Room Class and its methods
+ * It is used to specify the Room as a ConferenceRoom and sets its specific attributes like the price per hour.
+ * </p>
+ */
 public class ConferenceRoom extends Room
 {
 

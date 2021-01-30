@@ -1,6 +1,13 @@
 package de.fourofakind.businesshotel.rooms;
 
-
+/**
+ * <p>
+ * The class HotelRoom extends the Room Class and its methods
+ * It is used to specify the Room as a Hotelroom and sets its specific attributes like the price per night
+ * Since you cannot create an instance of the Room-class itself the employee can only create instances of the Hotelroom or the ConferenceRoom
+ * instead.
+ * </p>
+ */
 
 public class HotelRoom extends Room
 {

@@ -8,6 +8,7 @@ import java.util.ArrayList;
  * <p>
  * The class room holds all vital information of the rooms, its size, its category and roomnumber,
  * i can also tell whether a room is occupied or not. It stores the dates and times a room is occupied in a list.
+ * Its the superclass of Hotelroom and ConferenceRoom
  * </p>
  */
 abstract public class Room {
@@ -19,6 +20,7 @@ abstract public class Room {
     }
 
     //Getter/Setter
+
     public Category getCategory() {
         return category;
     }
@@ -59,6 +61,7 @@ abstract public class Room {
     }
 
     //Attributes
+
     private float pricePerUnit;
     private ArrayList<FullDate> roomOccupationList = new ArrayList<FullDate>();
     private int roomNo;
@@ -67,6 +70,4 @@ abstract public class Room {
     public enum Category {
         SINGLE, DOUBLE, SUITE, BIGGROUP, SMALLGROUP
     }
-
-
 }

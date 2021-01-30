@@ -13,22 +13,23 @@ public class Role
         this.isEnabledToManageCustomerData = isEnabledToManageCustomerData;
     }
 
+    //Getter
+
     public boolean isEnabledToManageRooms ()
     {
         return isEnabledToManageRooms;
     }
-
     public boolean isEnabledToManageBookings ()
     {
         return isEnabledToManageBookings;
     }
-
     public boolean isEnabledToManageCustomerData ()
     {
         return isEnabledToManageCustomerData;
     }
 
 
+    //Attributes
 
     private final boolean isEnabledToManageRooms;
     private final boolean isEnabledToManageBookings;

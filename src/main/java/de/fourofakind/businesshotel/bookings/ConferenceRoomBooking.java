@@ -54,8 +54,10 @@ public class ConferenceRoomBooking extends Booking
                 pe.printStackTrace();
             }
         Calendar calendarStart = Calendar.getInstance();
+        assert timeStart != null;
         calendarStart.setTime(timeStart);
         Calendar calendarEnd = Calendar.getInstance();
+        assert timeEnd != null;
         calendarEnd.setTime(timeEnd);
 
         int hourStart = calendarStart.get(Calendar.HOUR);
