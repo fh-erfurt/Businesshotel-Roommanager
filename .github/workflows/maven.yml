@@ -5,9 +5,9 @@ name: JavaCIwithMaven
 
 on:
   push:
-    branches: [ main ]
+    branches: [ java2 ]
   pull_request:
-    branches: [ main ]
+    branches: [ java2 ]
 
 jobs:
   build:
