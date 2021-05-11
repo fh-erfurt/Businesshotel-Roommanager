@@ -89,12 +89,16 @@ Nicht zum Projektumfang gehören:
 
 </details>
 
-### Meeting Protokolle
+
 <details>
 <summary> Meeting Protokolle </summary>
 <br>
 
-Meetings Protocol
+<details>
+	<summary> Java 1 </summary>
+	<br>	
+	
+
 
 ```
 06.11.2020 12:00 Platform: Webex
@@ -365,6 +369,11 @@ Teilnehmer: Niklas, Thomas, Marius
    
 ```
 </details>
+<details>
+	<summary> Java 2 </summary>	
+	<br>
+</details
+</details>
 
 <details>
 <summary> Verwendete Software </summary>
@@ -377,6 +386,7 @@ Teilnehmer: Niklas, Thomas, Marius
 * [Git](https://git-scm.com/) - Versionskontrolle
 * [Webex](https://www.webex.com/de/video-conferencing.html) - Kommunikationsmittel für regelmäßige Meetings
 * [Telegram](https://telegram.org/) - Kommunikationsmittel zum schnellen Austausch
+* [MySQLWorkbench](https://www.mysql.com/de/products/workbench/) - Entwurf der Datenbank und Generierung des SQL Skripts
 
 </details>
 
