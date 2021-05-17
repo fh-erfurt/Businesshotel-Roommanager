@@ -4,6 +4,7 @@ import de.fourofakind.businesshotel.common.DateFrame;
 import de.fourofakind.businesshotel.common.TimeFrame;
 import de.fourofakind.businesshotel.rooms.Room;
 
+import javax.persistence.Entity;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
@@ -15,6 +16,7 @@ import java.util.Locale;
  * This class extends the Booking to the kind of room that has been booked, in this case to a Hotelroom.
  */
 
+@Entity
 public class HotelRoomBooking extends Booking
 {
     public HotelRoomBooking (int bookingNo, int customerID,int roomNo, TimeFrame timeFrame, DateFrame dateFrame, Room.Category roomCategory,

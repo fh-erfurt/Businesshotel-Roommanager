@@ -1,10 +1,17 @@
 package de.fourofakind.businesshotel.customers;
 
 //
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 /**
  * object to store personal data of customer
  */
 
+@Entity
 public class ContactData {
 
 //    public enum attributes
@@ -107,6 +114,9 @@ public class ContactData {
         return paymentCredentials;
     }
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer contactDataId;
     private String firstName;
     private String lastName;
     private String streetName;

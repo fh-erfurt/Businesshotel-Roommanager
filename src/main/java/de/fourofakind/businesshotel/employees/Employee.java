@@ -14,6 +14,10 @@ import de.fourofakind.businesshotel.rooms.ConferenceRoom;
 import de.fourofakind.businesshotel.rooms.HotelRoom;
 import de.fourofakind.businesshotel.rooms.Room;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
@@ -25,7 +29,7 @@ import static de.fourofakind.businesshotel.common.StartingClass.*;
  * This is the main actor in our application for now. It maintains Bookings and Rooms and interacts with Customers. Employees can acquire several roles and there fore inherit rights to do different
  * tasks each. Later there will be different employee specializations for different jobs inside the company using the software.
  */
-
+@Entity
 public class Employee
 {
     LocalDateTime currentDateTime = LocalDateTime.now();    //simple implementation of the current datetime, won't be present when working with a database
@@ -689,7 +693,9 @@ public class Employee
 
 
     //Attributes
-    private int empNo;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer empNo;
     private String empName;
     private Role givenRole;
 }

@@ -4,6 +4,9 @@ import de.fourofakind.businesshotel.common.DateFrame;
 import de.fourofakind.businesshotel.common.TimeFrame;
 import de.fourofakind.businesshotel.rooms.Room;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 /**
@@ -11,8 +14,6 @@ import java.time.format.DateTimeFormatter;
  * All information about the Bookingdetails and the Booking itself interacts with this class to. For Java1 only the Employee will be able to alter the
  * information of a booking</p>
  */
-
-
 
 
 public abstract class Booking {
@@ -121,7 +122,10 @@ public abstract class Booking {
     }
 
     //Attributes
-    private int bookingNo;
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    private Integer bookingNo;
+
     private int roomNo;
     private float pricing;
     private int empNo;

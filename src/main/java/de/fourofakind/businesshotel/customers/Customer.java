@@ -4,12 +4,18 @@ import de.fourofakind.businesshotel.common.DateFrame;
 import de.fourofakind.businesshotel.common.TimeFrame;
 import de.fourofakind.businesshotel.rooms.Room;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 import static de.fourofakind.businesshotel.common.StartingClass.BookingRequests;
 
 /**
  * customer class manages every methode done by the customer and its personal data
  */
 
+@Entity
 public class Customer
 {
 
@@ -87,7 +93,9 @@ public class Customer
     }
 
 
-    private int customerID;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer customerID;
     private ContactData contactData;
     private paymentMethods paymentMethod;
     private boolean isBusinessCustomer;

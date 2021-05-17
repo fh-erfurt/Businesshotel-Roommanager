@@ -2,6 +2,9 @@ package de.fourofakind.businesshotel.rooms;
 
 import de.fourofakind.businesshotel.common.FullDate;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.ArrayList;
 
 /**
@@ -64,7 +67,11 @@ abstract public class Room {
 
     private float pricePerUnit;
     private ArrayList<FullDate> roomOccupationList = new ArrayList<FullDate>();
-    private int roomNo;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer roomNo;
+
     private Category category;
     private int areaInSqrMetre;
     public enum Category {

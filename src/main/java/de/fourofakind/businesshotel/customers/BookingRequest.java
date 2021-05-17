@@ -80,7 +80,7 @@ public class BookingRequest {
         this.isBusinessCustomer = isBusinessCustomer;
     }
 
-    private int customerID;
+    private Integer customerID;
     private TimeFrame timeFrame;
     private DateFrame dateFrame;
     private Room.Category roomCategory;
