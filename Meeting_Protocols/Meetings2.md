@@ -31,3 +31,49 @@ Teilnehmer: Niklas, Thomas, Marius
    
 
 ```
+```
+16.05.2021 10:00 Uhr Platform: Webex
+Teilnehmer: Niklas, Thomas, Marius
+
+1. Absprache zur Präsentation (Sondermeeting)
+    Ablauf der Präsentation besprochen
+    Anpassungen an der Powerpoint vornehmen
+    Paralleles Arbeiten via OneDrive
+
+   
+
+```
+
+```
+25.05.2021 10:00 Uhr Platform: Webex
+Teilnehmer: Niklas, Thomas, Marius
+
+1. Allgemeine Inhalte
+
+        Datenbankfortschritte und Logik besprochen
+        Bookings und Rooms müssen weiter gespalten werden
+        Role-Klasse aus Employee auslagern 
+        Anpassen der Customer und ContactData
+        
+2. Absprache über offene Aufgaben
+
+   Alle:
+        Einrichten der Database in IntelliJ Ultimate
+    
+   Thomas
+        Meeting Protokoll hochladen
+        Datenbank-Modell weiter bearbeiten
+        Readme.md in Github anpassen
+        
+   Niklas
+        Vorbereitung und Durchführung des Umbaus auf Spring
+        Datenbankanbindung fortsetzen
+        In Rücksprache mit DB-Ersteller optimieren
+   
+   Marius
+        Abändern der Dateframe von String zu Date, damit fällt dann auch Timeframe weg bzw. die Fulldate
+        
+   Nächstes Meeting im Webex dazu am 01.06.2021 10 Uhr.	
+   
+
+```
