@@ -5,19 +5,20 @@ import de.fourofakind.businesshotel.bookings.ConferenceRoomBooking;
 import de.fourofakind.businesshotel.bookings.HotelRoomBooking;
 import de.fourofakind.businesshotel.common.DateFrame;
 import de.fourofakind.businesshotel.common.FullDate;
-import de.fourofakind.businesshotel.common.Role;
 import de.fourofakind.businesshotel.common.TimeFrame;
 import de.fourofakind.businesshotel.customers.BookingRequest;
 import de.fourofakind.businesshotel.customers.ContactData;
 import de.fourofakind.businesshotel.customers.Customer;
+import de.fourofakind.businesshotel.common.Role;
 import de.fourofakind.businesshotel.rooms.ConferenceRoom;
 import de.fourofakind.businesshotel.rooms.HotelRoom;
 import de.fourofakind.businesshotel.rooms.Room;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
@@ -29,28 +30,46 @@ import static de.fourofakind.businesshotel.common.StartingClass.*;
  * This is the main actor in our application for now. It maintains Bookings and Rooms and interacts with Customers. Employees can acquire several roles and there fore inherit rights to do different
  * tasks each. Later there will be different employee specializations for different jobs inside the company using the software.
  */
-@Entity
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@Entity(name="Employee")
+@Table(name="employee")
 public class Employee
 {
+
+    //Attributes
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer empNo;
+
+    @Column(nullable = false)
+    private String empName;
+
+    private Role givenRole;
     LocalDateTime currentDateTime = LocalDateTime.now();    //simple implementation of the current datetime, won't be present when working with a database
+
 
     public Employee (String empName) //Employee without any Rights
     {
-        this.givenRole = null;
-        this.empNo = Employees.size();
+
         this.empName = empName;
     }
-
+/*
     public Employee (String empName, Role givenRole)
     {
         this.givenRole = givenRole;
-        this.empNo = Employees.size();
         this.empName = empName;
-    }
+    }*/
 
 
 
-    /**
+
+
+/*
+    *//**
      * <p>Implementation of the Employee's ability to create Bookings for Customers
      * uses getEmpNo to automatically add the employee's number and always the current date to ensure the right date is stored to bookingDate.
      * Role BookingManager is needed.
@@ -70,7 +89,7 @@ public class Employee
      *                           important for generation of bills and taxes to be used
      * @return                   the Booking created just now
      * @throws IllegalCallerException if the employee does not inherit the role BookingManager
-     */
+     *//*
     public Booking createBooking (int roomNo, int customerID, TimeFrame timeFrame, DateFrame dateFrame, Booking.BookingType bookingType,
                                   Room.Category roomCategory, String specialWishes, boolean isBusinessCustomer) throws IllegalCallerException
     {
@@ -100,7 +119,7 @@ public class Employee
     }
 
 
-    /**
+    *//**
      *<p>Implementation of the Employee's ability to change one or multiple attributes of a Booking
      *same params as createBooking, but some can be null-like values, if they should not be changed.
      * Role BookingManager is needed.</p>
@@ -109,7 +128,7 @@ public class Employee
      * @param changedValues             contains all values for the attributes named in toBeChangedAttributes, which need to be casted to the right datatype before setting them in the Booking object
      * @throws IllegalArgumentException if the amount of arguments is too few for the amount of values to be changed
      * @throws IllegalCallerException   if the employee does not inherit the role BookingManager
-     */
+     *//*
     public boolean changeBooking (int bookingNo, ArrayList<String> toBeChangedAttributes, ArrayList<Object> changedValues) throws IllegalArgumentException, IllegalCallerException
     {
         currentDateTime = LocalDateTime.now(); //gets current date for the changeDate attribute of booking, if any change occures
@@ -163,14 +182,14 @@ public class Employee
     }
 
 
-    /**
+    *//**
      * <p>Implementation of the Employee's ability to delete a Booking by its booking number
      * does not use the remove method of the ArrayList to keep the relation of the position of a booking in Bookings  to its bookingNo.
      * Role BookingManager is needed.</p>
      *
      * @param bookingNo Number of the Booking as well as its position inside Bookings
      * @throws IllegalCallerException if the employee does not inherit the role BookingManager
-     */
+     *//*
     public void deleteBooking (int bookingNo) throws IllegalCallerException
     {
         if (this.getGivenRole()==BookingsManager) //checks for Rights to manage Bookings
@@ -186,7 +205,7 @@ public class Employee
     }
 
 
-    /**
+    *//**
      * <p>Implementation of the Employee's ability to change attributes of a room to save details of real world changes to the room
      * does not change the number of a room or its use case (hotel room or conference room).
      * Role RoomAdministrator is needed.</p>
@@ -194,7 +213,7 @@ public class Employee
      * @param toBeChangedAttributes        contains all values named by string, that need to be changed
      * @param changedValues                contains all changed Values, needs to be casted to the right datatype
      * @throws IllegalCallerException      if the employee does not inherit the role RoomAdministrator
-     */
+     *//*
     public boolean changeRoomDetails (int roomNo, ArrayList<String> toBeChangedAttributes, ArrayList<Object> changedValues) throws IllegalCallerException
     {
         boolean changeHappened = false;
@@ -291,7 +310,7 @@ public class Employee
         return changeHappened;
     }
 
-    /**
+    *//**
      * <p>Implementation of the Employee's ability to create a conference room. Creates a new room according to the given details and adds it to the roomList.
      * Role RoomAdministrator is needed.</p>
      *
@@ -306,7 +325,7 @@ public class Employee
      * @param hasTV                     tells whether there is a TV in the room
      * @return                          ConferenceRoom created
      * @throws IllegalCallerException   if the employee does not inherit the role RoomAdministrator
-     */
+     *//*
     public ConferenceRoom createConferenceRoom (int roomNo, ConferenceRoom.Category category, int areaInSqrMetre, int maxAmountOfParticipants,
                                                 int amountOfWhiteboards, int amountOfBeamer, boolean hasScreen, boolean hasComputer, boolean hasTV, float pricePerUnit) throws IllegalCallerException
     {
@@ -320,7 +339,7 @@ public class Employee
         else throw new IllegalCallerException("The caller does not inherit the Rights to do this");
     }
 
-    /**
+    *//**
      * <p>Implementation of the Employee's ability to create a hotel room. Creates a new room according to the given details and adds it to the roomList.
      * Role RoomAdministrator is needed.</p>
      *
@@ -334,7 +353,7 @@ public class Employee
      * @param hasCoffeemaker    tells if there is a Coffeemaker in the room
      * @return                  HotelRoom created
      * @throws IllegalCallerException if the employee does not inherit the role RoomAdministrator
-     */
+     *//*
     public HotelRoom createHotelRoom (int roomNo, HotelRoom.Category category, int areaInSqrMetre, int bedCount, boolean hasSpeedLAN, boolean hasTV,
                                  boolean hasKitchen, boolean hasCoffeemaker, float pricePerUnit) throws IllegalCallerException
     {
@@ -348,14 +367,14 @@ public class Employee
     }
 
 
-    /**
+    *//**
      * <p>Implementation of the Employee's ability to delete a room entirely. Ensures that unsuable rooms are deleted from the Rooms and can not be used for
      * bookings. Reasons could be a fusion of two or multiple rooms or the purpose of a room has changed entirely.
      * Role RoomAdministrator is needed.</p>
      *
      * @param roomNo    number of the room to be deleted
      * @throws IllegalCallerException if the employee does not inherit the role RoomAdministrator
-     */
+     *//*
     public void deleteRoom (int roomNo) throws IllegalCallerException
     {
         if (this.getGivenRole()==RoomAdministrator) //checks for Rights to manage Rooms
@@ -368,7 +387,7 @@ public class Employee
     }
 
 
-    /**
+    *//**
      * <p>Implementation of the Employee's ability to search for a booking by several parameters given. Will later be much more efficient if based on database actions.
      * It is possible to search only by EmpNo to determine an Employee's work rate, to search only by bookingNo, which should always return only one booking and to search by a RoomNo and a dateframe and
      * a timeframe, when the room should be used. In the last case there are used even further defined parameters like bookingDate or roomCategory, but only if given. Not all Parameters have to be set
@@ -381,7 +400,7 @@ public class Employee
      * @param bookingDate           date of the booking to be searched for
      * @param roomCategory          category of the room which is documented in the booking to be searched for
      * @return                      all resulting Booking that match the search criteria
-     */
+     *//*
     public ArrayList<Booking> findBooking (int BookingNo, int RoomNo, int empNo, DateFrame dateFrame, TimeFrame timeFrame, String bookingDate, Room.Category roomCategory)
     {
 
@@ -465,11 +484,11 @@ public class Employee
     }
 
 
-    /**
+    *//**
      * <p>The implementation of a Listing feature, to analyze all Bookings. For now the function does not need any arguments, later it will be further developed to change the given view by several
      * aspects needed</p>
      * @return all Bookings inside Bookings
-     */
+     *//*
     public StringBuilder showAllBookings ()
     {
 
@@ -511,11 +530,11 @@ public class Employee
     }
 
 
-    /**
+    *//**
      * <p>The implementation of an autonomous management of customer requests, based on whether or not a suitable room is free at the time given.</p>
      * @throws IllegalCallerException in case of someone using the function without the BookingsManager Role and its inherited Rights to manage bookings
      * @throws NoSuchElementException if there is no room of the wanted category at all
-     */
+     *//*
     public void manageBookingRequests () throws IllegalCallerException, NoSuchElementException
     {
         if(this.getGivenRole()==BookingsManager)
@@ -561,7 +580,7 @@ public class Employee
         else throw new IllegalCallerException("The caller does not inherit the Rights to do this");
     }
 
-    /**
+    *//**
      * <p>The implementation of the Employee's ability to create a customer by given parameters. The customer will be added to an ArrayList</p>
      * @param firstName         first name of the customer
      * @param lastName          last name of the customer
@@ -574,9 +593,9 @@ public class Employee
      * @param iban              optional paymentDataCredentials of the customer
      * @return                        Customer created
      * @throws IllegalCallerException in case of someone using the function without the CustomerRelationshipManager Role and its inherited rights to manage customers
-     */
+     *//*
     public Customer createCustomer (String firstName, String lastName, String streetName, String streetNumber, String postalCode, String cityName, String mailAddress,
-                                Customer.paymentMethods paymentMethod, String iban) throws IllegalCallerException
+                                    Customer.paymentMethods paymentMethod, String iban) throws IllegalCallerException
     {
         if (this.getGivenRole()==CustomerRelationshipManager)
         {
@@ -599,13 +618,13 @@ public class Employee
 
 
 
-    /**
+    *//**
      * <p>The implementation of the Employee's ability to change a customer by given customerID and key and value of the new customers property.</p>
      * @param customerID    id to find the target customer in customers ArrayList
      * @param key           key of the property to be changed
      * @param value         new value of the property to be changed
      * @throws IllegalCallerException in case of someone using the function without the CustomerRelationshipManager Role and its inherited rights to manage customers
-     */
+     *//*
     public boolean changeCustomer (int customerID, String key, String value) throws IllegalCallerException
     {
         boolean changeHappened = false;
@@ -646,11 +665,11 @@ public class Employee
     }
 
 
-    /**
+    *//**
      * <p>The implementation of the Employee's ability to delete a customer from customers ArrayList by given customerID.</p>
      * @param customerID  id to select the customer to be deleted
      * @throws IllegalCallerException in case of someone using the function without the CustomerRelationshipManager Role and its inherited rights to manage customers
-     */
+     *//*
     public void deleteCustomer (int customerID) throws IllegalCallerException
     {
         if (this.getGivenRole()==CustomerRelationshipManager)
@@ -661,41 +680,16 @@ public class Employee
 
         }
         else throw new IllegalCallerException("The caller does not inherit the Rights to do this");
-    }
+    }*/
 
+    @Override
+    public String toString ()
+    {
+        return "Employee{" + "empNo=" + empNo + ", empName='" + empName + '\'' + ", givenRole=" + givenRole + '}';
+    }
 
     //Setter/Getter
-
-    public int getEmpNo ()
-    {
-        return empNo;
-    }
-    public void setEmpNo (int empNo)
-    {
-        this.empNo = empNo;
-    }
-    public String getEmpName ()
-    {
-        return empName;
-    }
-    public void setEmpName (String empName)
-    {
-        this.empName = empName;
-    }
-    public Role getGivenRole ()
-    {
-        return givenRole;
-    }
-    public void setGivenRole (Role givenRole)
-    {
-        this.givenRole = givenRole;
-    }
+    //Generated by Lombok
 
 
-    //Attributes
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer empNo;
-    private String empName;
-    private Role givenRole;
 }
