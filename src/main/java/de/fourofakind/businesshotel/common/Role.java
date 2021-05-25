@@ -1,37 +1,37 @@
 package de.fourofakind.businesshotel.common;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  * <p>This class implements an early version of a right management system. Currently there are 4 roles an actor of the system can inherit- three of which inherit one right each and the fourth
  * inheriting all rights, e.g. for administritative reasons. There will be more role models later which should be given by special personal.</p>
  */
+@Entity(name="Role")
+@Table(name="role")
+@AllArgsConstructor
+@NoArgsConstructor
+@Setter
+@Getter
 public class Role
 {
-    public Role (boolean isEnabledToManageRooms, boolean isEnabledToManageBookings, boolean isEnabledToManageCustomerData)
-    {
-        this.isEnabledToManageRooms = isEnabledToManageRooms;
-        this.isEnabledToManageBookings = isEnabledToManageBookings;
-        this.isEnabledToManageCustomerData = isEnabledToManageCustomerData;
-    }
-
-    //Getter
-
-    public boolean isEnabledToManageRooms ()
-    {
-        return isEnabledToManageRooms;
-    }
-    public boolean isEnabledToManageBookings ()
-    {
-        return isEnabledToManageBookings;
-    }
-    public boolean isEnabledToManageCustomerData ()
-    {
-        return isEnabledToManageCustomerData;
-    }
-
-
     //Attributes
+    @Id
+    private String RoleName;
+    private boolean isEnabledToManageRooms;
+    private boolean isEnabledToManageBookings;
+    private boolean isEnabledToManageCustomerData;
 
-    private final boolean isEnabledToManageRooms;
-    private final boolean isEnabledToManageBookings;
-    private final boolean isEnabledToManageCustomerData;
+
+
+
+
+
+
 }
