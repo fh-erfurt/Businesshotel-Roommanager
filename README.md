@@ -39,7 +39,7 @@ ___
 Datenbankname: bh_room_db  (ohne Password)
 ```
 	2. Füllen Sie die Datenbank mit Testdaten mithilfe der SQL-Befehle
--> [Datenbank erstellen](database/Testdatensatz.sql) 
+-> [Testdatensatz erstellen](database/Testdatensatz.sql) 
 <details>
 <summary> Allgemeine Projektübersicht </summary>
 <br>
