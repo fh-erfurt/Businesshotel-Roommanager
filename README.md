@@ -35,9 +35,9 @@ ___
 
 	1. Erstellen Sie die Datenbank mithilfe des SQL-Befehls 
 -> [Datenbank erstellen](database/DataBaseCreate.sql) 
-```
-Datenbankname: bh_room_db  (ohne Password)
-```
+
+***Datenbankname: bh_room_db  (ohne Passwort)***
+
 	2. Füllen Sie die Datenbank mit Testdaten mithilfe der SQL-Befehle
 -> [Testdatensatz erstellen](database/Testdatensatz.sql) 
 <details>
