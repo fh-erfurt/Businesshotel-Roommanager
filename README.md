@@ -96,7 +96,7 @@ Nicht zum Projektumfang gehören:
 <br>
 
 * [Java 1](Meeting_Protocols/Meetings.md) 
-* [Java 2](Meeting_Protocols/Meetings.md)
+* [Java 2](Meeting_Protocols/Meetings2.md)
 
 </details>
 
