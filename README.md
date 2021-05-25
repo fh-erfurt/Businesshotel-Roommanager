@@ -373,8 +373,8 @@ Teilnehmer: Niklas, Thomas, Marius
 	<summary> Java 2 </summary>	
 	<br>
 	
-
-	[Java2 Protokoll](Meeting_Protocols/Meetings.md)
+	
+	[Java2Protokoll](Meeting_Protocols/Meetings.md)
 
 	
 	
