@@ -95,8 +95,8 @@ Nicht zum Projektumfang gehören:
 <summary> Meetingprotokolle </summary>
 <br>
 
-[Java 1 Protokolle](Meeting_Protocols/Meetings.md)
-[Java 2 Protokolle](Meeting_Protocols/Meetings.md)
+* [Java 1](Meeting_Protocols/Meetings.md) 
+* [Java 2](Meeting_Protocols/Meetings.md)
 
 </details>
 
