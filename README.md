@@ -373,7 +373,7 @@ Teilnehmer: Niklas, Thomas, Marius
 	<summary> Java 2 </summary>	
 	<br>
 	
-	
+	* [IntelliJ](https://www.jetbrains.com/de-de/idea/) - IDE für JAVA
 	[Java2Protokoll](Meeting_Protocols/Meetings.md)
 
 	
