@@ -372,7 +372,10 @@ Teilnehmer: Niklas, Thomas, Marius
 <details>
 	<summary> Java 2 </summary>	
 	<br>
-</details
+	```
+	Inhalt folgt...
+	```
+	</details>
 </details>
 
 <details>
