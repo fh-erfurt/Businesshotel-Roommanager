@@ -1,10 +1,25 @@
 package de.fourofakind.businesshotel.rooms;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 /**
  * <p>
  * The class Conferenceroom extends the Room Class and its methods
  * It is used to specify the Room as a ConferenceRoom and sets its specific attributes like the price per hour.
  * </p>
  */
+@Entity(name="ConferenceRoom")
+@Table(name="conferenceroom")
+@AllArgsConstructor
+@NoArgsConstructor
+@Setter
+@Getter
 public class ConferenceRoom extends Room
 {
 

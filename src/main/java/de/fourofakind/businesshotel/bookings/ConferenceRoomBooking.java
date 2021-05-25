@@ -3,8 +3,13 @@ package de.fourofakind.businesshotel.bookings;
 import de.fourofakind.businesshotel.common.DateFrame;
 import de.fourofakind.businesshotel.common.TimeFrame;
 import de.fourofakind.businesshotel.rooms.Room;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.text.DateFormat;
 
 import java.text.ParseException;
@@ -16,7 +21,12 @@ import java.util.Date;
  * This class extends the Booking to the kind of room that has been booked, in this case to a conferenceRoom
  */
 
-@Entity
+@Entity(name="ConferenceRoomBooking")
+@Table(name="conferenceroombooking")
+@AllArgsConstructor
+@NoArgsConstructor
+@Setter
+@Getter
 public class ConferenceRoomBooking extends Booking
 {
     public ConferenceRoomBooking (int bookingNo, int customerID, int roomNo, TimeFrame timeFrame, DateFrame dateFrame, Room.Category roomCategory,

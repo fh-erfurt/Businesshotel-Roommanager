@@ -3,11 +3,23 @@ package de.fourofakind.businesshotel.customers;
 import de.fourofakind.businesshotel.common.DateFrame;
 import de.fourofakind.businesshotel.common.TimeFrame;
 import de.fourofakind.businesshotel.rooms.Room;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 /**
  * class to store the requierements of a booking that will be stored in an ArrayList for processing by employee
  */
-
+@Entity(name="BookingRequest")
+@Table(name="bookingrequest")
+@AllArgsConstructor
+@NoArgsConstructor
+@Setter
+@Getter
 public class BookingRequest {
 
     public BookingRequest (int customerID, TimeFrame timeFrame, DateFrame dateFrame, Room.Category roomCategory,

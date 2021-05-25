@@ -2,16 +2,23 @@ package de.fourofakind.businesshotel.customers;
 
 //
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import javax.persistence.*;
 
 /**
  * object to store personal data of customer
  */
 
-@Entity
+@Entity(name="ContactData")
+@Table(name="contactdata")
+@AllArgsConstructor
+@NoArgsConstructor
+@Setter
+@Getter
 public class ContactData {
 
 //    public enum attributes

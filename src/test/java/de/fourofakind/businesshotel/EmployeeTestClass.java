@@ -1,3 +1,4 @@
+/*
 package de.fourofakind.businesshotel;
 
 import de.fourofakind.businesshotel.bookings.Booking;
@@ -18,9 +19,11 @@ import java.util.ArrayList;
 import static de.fourofakind.businesshotel.common.StartingClass.*;
 import static org.junit.jupiter.api.Assertions.*;
 
+*/
 /**
  * <p>Test Class to test all of the Employee's abilities</p>
- */
+ *//*
+
 public class EmployeeTestClass
 {
     //Dummy entries for each static List to secure all lists index=objectNo relations
@@ -43,9 +46,11 @@ public class EmployeeTestClass
     ConferenceRoom TestRoom4 = new ConferenceRoom(4, ConferenceRoom.Category.BIGGROUP, 60, 24, 3, 2, true, true, true, 15);
 
 
-    /**
+    */
+/**
      * <p>Test of the Employee Constructor to ensure correct function of the constructor and storing of an employee in the 'Employees' list</p>
-     */
+     *//*
+
     @Test
     public void shouldOutputEmployeeNameWhenSuccessful ()
     {
@@ -62,9 +67,11 @@ public class EmployeeTestClass
         assertEquals("Max Mustermann", result, "If an Employee named Max Mustermann is created by its Constructor it should Output the Name");
     }
 
-    /**
+    */
+/**
      * <p>Second Test of the Employee Constructor to ensure correct function of the constructor and storing of an employee in the 'Employees' list</p>
-     */
+     *//*
+
     @Test
     public void shouldOutputEmployeeNumberWhenSuccessful ()
     {
@@ -82,10 +89,12 @@ public class EmployeeTestClass
     }
 
 
-    /**
+    */
+/**
      * <p>Test of an Employee's ability to create a booking according to given parameters and storing it into the 'Bookings' list
      * Prove of the function's reliability is given by putting out all of the booking's details </p>
-     */
+     *//*
+
     @Test
     public void shouldOutputAllBookingDetailsIfSuccesful ()
     {
@@ -118,10 +127,12 @@ public class EmployeeTestClass
         assertEquals(expectedResult, result, "If the Booking is created according to the details, all details will be told.");
     }
 
-    /**
+    */
+/**
      * <p>Test of an Employee's ability to change a booking according to given parameters
      * Prove of the function's reliability is given by putting out all of the booking's details before and after the change and comparing them</p>
-     */
+     *//*
+
     @Test
     public void shouldChangeBookingDataIfSuccesful ()
     {
@@ -183,10 +194,12 @@ public class EmployeeTestClass
         assertNotEquals(resultBeforeChanges, resultAfterChanges, "If the Booking is changed according to the parameters given, specialWishes should be changed to Premium" + " Internet.");
     }
 
-    /**
+    */
+/**
      * <p>Test of an Employee's ability to delete a booking according to given bookingNo and storing it into the 'Bookings' list
      * Prove of the function's reliability is given by putting out all of the booking's details </p>
-     */
+     *//*
+
     @Test
     public void shouldDeleteBookingIfSuccesful ()
     {
@@ -242,10 +255,12 @@ public class EmployeeTestClass
         assertNotEquals(bookingListBeforeDeletion.toString(), bookingListAfterDeletion.toString(), "If the Booking No 1 is deleted, only the null booking should be left.");
     }
 
-    /**
+    */
+/**
      * <p>Test of an Employee's ability to search for a booking according to given bookingNo or RoomNo+DateFrame+TimeFrame
      * Prove of the function's reliability is given by comparing the results of each search parameter combination and the testbooking just added in the test</p>
-     */
+     *//*
+
     @Test
     void findBooking () //only works as a single test, seems to interfere with other tests, which is kind of strange behaviour
     {
@@ -269,10 +284,12 @@ public class EmployeeTestClass
         assertTrue(foundBookingByBookNo.equals(testBooking1) && foundBookingByRoomNoPlusTimeAndDate.equals(testBooking1), "If working correctly, both search Methods should give the same result and therefore both should exactly be the same booking created in preparation to this test.");
     }
 
-    /**
+    */
+/**
      *<p>Test of an Employee's ability to show all bookings e.g. for analysis
      * Prove of the function's reliability is given by comparing the results of the function showAllBookings and the handmade expectedOutput StringBuilder object</p>
-     */
+     *//*
+
     @Test
     void showAllBookings () //only working as a single test, seems like a bug, but no reason for NullPointerException found
     {
@@ -309,9 +326,11 @@ public class EmployeeTestClass
     }
 
 
-    /**
+    */
+/**
      *<p>Test of the implemnetation an autonomous management of customer requests, based on whether or not a suitable room is free at the time given.</p>
-     */
+     *//*
+
     @Test
     void manageBookingRequests ()
     {
@@ -347,10 +366,12 @@ public class EmployeeTestClass
         //does not work because manageBookingRequests seems to not access the same arraylists BookingRequests and DeclinedBookingRequests as Customer or does not delete the request
     }
 
-    /**
+    */
+/**
      *<p>Test of the implementation of Roles as a right management tool
      * Prove of the function's reliability is given by a successful creation of a customer without an exception</p>
-     */
+     *//*
+
     @Test
     void TestRightManagementIfRoleGiven ()
     {
@@ -366,10 +387,12 @@ public class EmployeeTestClass
     }
 
 
-    /**
+    */
+/**
      *<p>Test of the implementation of Roles as a right management tool
      * Prove of the function's reliability is given by a not successful creation of a customer, but with the throw of an IllegalCallerException</p>
-     */
+     *//*
+
     @Test
     void TestRightManagementIfNoRoleGiven ()
     {
@@ -395,9 +418,11 @@ public class EmployeeTestClass
 
 
     //support function to output Customers ArrayList
-    /**
+    */
+/**
      *<p>Output customers in Customers ArrayList</p>
-     */
+     *//*
+
     void outputCustomer ()
     {
         for (Customer customer : Customers)
@@ -426,9 +451,11 @@ public class EmployeeTestClass
         }
     }
 
-    /**
+    */
+/**
      * <p>Test of an Employee's ability to create a customer and add it to Customers ArrayList </p>
-     */
+     *//*
+
     @Test
     void createCustomer ()
     {
@@ -447,9 +474,11 @@ public class EmployeeTestClass
 
         outputCustomer();
     }
-    /**
+    */
+/**
      * <p>Test of an Employee's ability to change a customer in Customers ArrayList </p>
-     */
+     *//*
+
     @Test
     void changeCustomer ()
     {
@@ -494,9 +523,11 @@ public class EmployeeTestClass
 
     }
 
-    /**
+    */
+/**
      * <p>Test of an Employee's ability to delete a customer from Customers ArrayList </p>
-     */
+     *//*
+
     @Test
     void deleteCustomer ()
     {
@@ -513,3 +544,4 @@ public class EmployeeTestClass
         outputCustomer();
     }
 }
+*/

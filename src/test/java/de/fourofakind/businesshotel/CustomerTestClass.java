@@ -1,3 +1,4 @@
+/*
 package de.fourofakind.businesshotel;
 
 import de.fourofakind.businesshotel.common.DateFrame;
@@ -10,15 +11,19 @@ import org.junit.jupiter.api.Test;
 
 import static de.fourofakind.businesshotel.common.StartingClass.*;
 
+*/
 /**
  * <p>Test Class to test all of the Customer's abilities</p>
- */
+ *//*
+
 public class CustomerTestClass
 {
 
-    /**
+    */
+/**
      * <p>Test of an Customer's ability to send a booking request, wich will be saved in bookingRequests ArrayList</p>
-     */
+     *//*
+
     @Test
     void sendBookingRequest() {
 
@@ -60,3 +65,4 @@ public class CustomerTestClass
     }
 
 }
+*/

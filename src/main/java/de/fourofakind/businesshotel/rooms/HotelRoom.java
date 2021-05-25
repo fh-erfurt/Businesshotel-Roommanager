@@ -1,5 +1,13 @@
 package de.fourofakind.businesshotel.rooms;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 /**
  * <p>
  * The class HotelRoom extends the Room Class and its methods
@@ -8,7 +16,12 @@ package de.fourofakind.businesshotel.rooms;
  * instead.
  * </p>
  */
-
+@Entity(name="HotelRoom")
+@Table(name="hotelroom")
+@AllArgsConstructor
+@NoArgsConstructor
+@Setter
+@Getter
 public class HotelRoom extends Room
 {
 

@@ -3,11 +3,12 @@ package de.fourofakind.businesshotel.customers;
 import de.fourofakind.businesshotel.common.DateFrame;
 import de.fourofakind.businesshotel.common.TimeFrame;
 import de.fourofakind.businesshotel.rooms.Room;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 import static de.fourofakind.businesshotel.common.StartingClass.BookingRequests;
 
@@ -15,7 +16,12 @@ import static de.fourofakind.businesshotel.common.StartingClass.BookingRequests;
  * customer class manages every methode done by the customer and its personal data
  */
 
-@Entity
+@Entity(name="Customer")
+@Table(name="customer")
+@AllArgsConstructor
+@NoArgsConstructor
+@Setter
+@Getter
 public class Customer
 {
 

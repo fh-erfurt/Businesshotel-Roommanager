@@ -1,3 +1,4 @@
+/*
 package de.fourofakind.businesshotel;
 
 import de.fourofakind.businesshotel.common.DateFrame;
@@ -15,9 +16,11 @@ import static de.fourofakind.businesshotel.common.StartingClass.RoomAdministrato
 import static de.fourofakind.businesshotel.common.StartingClass.Rooms;
 import static org.junit.jupiter.api.Assertions.*;
 
+*/
 /**
  * <p>All tests refering to the Room, from the check if it is created correctly to the check of the changes made</p>
- */
+ *//*
+
 
 
 public class RoomTestClass
@@ -34,12 +37,14 @@ public class RoomTestClass
     FullDate dateOfOccupationChristmas = new FullDate( christmasHoliday, fromEightToTen);
     FullDate dateOfOccupationNewYear = new FullDate( newYearsEveHoliday, fromEightToTen);
 
-    /**
+    */
+/**
      * <p>
      * The following two tests are designed to check if the created room, Hotel- or Conferenceroom is actually an instance of the abstract class
      * Room.
      * </p>
-     */
+     *//*
+
     @Test
     public void IsCreatedHotelRoomInstanceOfRoom()
     {
@@ -53,9 +58,11 @@ public class RoomTestClass
     }
 
 
-    /**
+    */
+/**
      * <p>These tests checks if the created room has been created correctly with all its data given</p>
-     */
+     *//*
+
     @Test
     public void shouldGiveHotelRoomDetailsWhenSuccessful()
     {
@@ -85,9 +92,11 @@ public class RoomTestClass
 
     }
 
-    /**
+    */
+/**
      * <p>This test checks if the room is set correctly as "occupied", according to the data it has been set with</p>
-     */
+     *//*
+
         @Test
     public void shouldGiveRoomOccupationDetails()
     {
@@ -111,10 +120,12 @@ public class RoomTestClass
 
 
 
-    /**
+    */
+/**
      * <p>Checks if the room is deleted the right way from the rooms list. One test is with the needed rights the other without, to test
      * if the "role-check" is working</p>
-     */
+     *//*
+
     @Test
     public void DeleteRoomsTestWithAdminRight()
     {
@@ -123,13 +134,15 @@ public class RoomTestClass
         Mitarbeiter1.deleteRoom(2);
         assertNull(Rooms.get(2), "Room No. 2 Should be Empty if deleted");
     }
-    /**
+    */
+/**
      * <p>
      * This test purpose is to check if an employee that is not allowed to delete a room is actually unable to do so.
      * The role of the employee has to be "RoomAdministrator", if it is any different admin or someone without rights it should throw an
      * IllegalCallerException
      * </p>
-     */
+     *//*
+
 
     @Test
     public void DeleteRoomTestWithoutAdminRight()
@@ -143,10 +156,12 @@ public class RoomTestClass
                 " to delete a Room");
     }
 
-    /**
+    */
+/**
      * <p>Checks if the room contains the correct data after it has been changed by a employee. Test is performed with admin rights and once
      * without those right, to see if a error is thrown</p>
-     */
+     *//*
+
     @Test
     public void changeRoomDetailsWithAdminRights()
     {
@@ -216,3 +231,4 @@ public class RoomTestClass
 
 
 
+*/

@@ -3,10 +3,12 @@ package de.fourofakind.businesshotel.bookings;
 import de.fourofakind.businesshotel.common.DateFrame;
 import de.fourofakind.businesshotel.common.TimeFrame;
 import de.fourofakind.businesshotel.rooms.Room;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 /**
@@ -15,7 +17,12 @@ import java.time.format.DateTimeFormatter;
  * information of a booking</p>
  */
 
-
+@Entity(name="Booking")
+@Table(name="booking")
+@AllArgsConstructor
+@NoArgsConstructor
+@Setter
+@Getter
 public abstract class Booking {
 
     public enum BookingType
