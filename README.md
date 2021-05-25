@@ -379,6 +379,7 @@ Teilnehmer: Niklas, Thomas, Marius
 	
 	
 </details>
+	</details>
 
 <details>
 <summary> Verwendete Software </summary>
