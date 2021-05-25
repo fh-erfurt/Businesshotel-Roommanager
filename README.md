@@ -374,7 +374,7 @@ Teilnehmer: Niklas, Thomas, Marius
 	<br>
 	
 ```
-	Inhalt folgt
+	[Java2 Protokoll](/Meeting_Protocols/Meetings.md)
 ```
 	
 	
