@@ -29,8 +29,17 @@ anzupassen. So kann flexibel auf die gültigen Corona-Schutzbestimmung reagiert 
 
 
 ```
+### Installation
 
+___
 
+	1. Erstellen Sie die Datenbank mithilfe des SQL-Befehls 
+-> [Datenbank erstellen](database/DataBaseCreate.sql) 
+```
+Datenbankname: bh_room_db  (ohne Password)
+```
+	2. Füllen Sie die Datenbank mit Testdaten mithilfe der SQL-Befehle
+-> [Datenbank erstellen](database/Testdatensatz.sql) 
 <details>
 <summary> Allgemeine Projektübersicht </summary>
 <br>
