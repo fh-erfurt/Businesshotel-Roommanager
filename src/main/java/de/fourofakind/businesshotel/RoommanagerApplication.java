@@ -22,7 +22,7 @@ public class RoommanagerApplication
     {
         return args->{
             Employee MaxMustermann=new Employee("Max Mustermann");
-            employeeRepository.save(new Employee());
+            employeeRepository.save(MaxMustermann);
         };
     }
 }

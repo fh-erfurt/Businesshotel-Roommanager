@@ -1,6 +1,10 @@
 package de.fourofakind.businesshotel.bookings;
 
 import de.fourofakind.businesshotel.rooms.Room;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -13,7 +17,10 @@ import java.util.Date;
 
 
 
-
+@AllArgsConstructor
+@NoArgsConstructor
+@Setter
+@Getter
 public abstract class Booking {
 
     public enum BookingType
@@ -40,7 +47,7 @@ public abstract class Booking {
         this.startDate = startDate;
         this.endDate = endDate;
         this.bookingDate = dateTimeFormat.format(currentDateTime);
-        this.roomCategory = roomCategory;
+        this.roomCategory = roomCategory.toString();
         this.specialWishes = specialWishes;
         this.empNo = empNo;
         this.isBusinessCustomer = isBusinessCustomer;
@@ -64,7 +71,7 @@ public abstract class Booking {
     public String getBookingDate() {
         return bookingDate;
     }
-    public Room.Category getRoomCategory() {
+    public String getRoomCategory() {
         return roomCategory;
     }
     public String getSpecialWishes() {
@@ -128,7 +135,7 @@ public abstract class Booking {
     private Date startDate;
     private Date endDate;
     private String bookingDate;
-    private final Room.Category roomCategory;
+    private String roomCategory;
     private String specialWishes;
     private int customerID;
     private String changeDate;

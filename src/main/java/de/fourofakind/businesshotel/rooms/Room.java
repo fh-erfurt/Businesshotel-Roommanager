@@ -1,6 +1,5 @@
 package de.fourofakind.businesshotel.rooms;
 
-import de.fourofakind.businesshotel.common.FullDate;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * <p>
@@ -50,15 +50,15 @@ abstract public class Room {
     public void setRoomNo(int roomNo) {
         this.roomNo = roomNo;
     }
-    public void setRoomAsFreeToList(FullDate fullDate)
+    public void setRoomAsFreeToList (Date fullDate)
     {
         this.roomOccupationList.remove(fullDate);
     }
-    public ArrayList<FullDate> getRoomOccupiedAtList ()
+    public ArrayList<Date> getRoomOccupiedAtList ()
     {
         return roomOccupationList;
     }
-    public void setRoomAsOccupiedToList (FullDate fullDate)
+    public void setRoomAsOccupiedToList (Date fullDate)
     {
         this.roomOccupationList.add(fullDate);
     }
@@ -74,7 +74,7 @@ abstract public class Room {
     //Attributes
 
     private float pricePerUnit;
-    private ArrayList<FullDate> roomOccupationList = new ArrayList<FullDate>();
+    private ArrayList<Date> roomOccupationList = new ArrayList<Date>();
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

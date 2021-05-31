@@ -42,6 +42,10 @@ public class Employee
         this.empName = empName;
     }
 
+    public Employee ()
+    {
+
+    }
 
 
     /**
@@ -51,9 +55,9 @@ public class Employee
      * </p>
      *
      * @param roomNo             Number of the Room which is used as well as its position inside Rooms
-     * @param timeFrame          the time span in which the corresponding room will be used;
+     * @param startOfPeriod          the time span in which the corresponding room will be used;
      *                           should contain fixed time spans for hotel rooms and variable time spans for conference rooms
-     * @param dateFrame          the date span for one or multiple days, of which a room is blocked;
+     * @param endofPeriod          the date span for one or multiple days, of which a room is blocked;
      *                           should allow variable date spans for both types of rooms as a conference room could be used for a congress for multiple days
      *                           and a hotel room can be used for one or multiple nights
      * @param bookingType        indicates if the booking is a HotelRoomBooking or a ConferenceRoomBooking
@@ -65,7 +69,7 @@ public class Employee
      * @return                   the Booking created just now
      * @throws IllegalCallerException if the employee does not inherit the role BookingManager
      */
-    public Booking createBooking (int roomNo, int customerID, Date startDate, Date endDate, Booking.BookingType bookingType,
+    public Booking createBooking (int roomNo, int customerID, Date startOfPeriod, Date endofPeriod, Booking.BookingType bookingType,
                                   Room.Category roomCategory, String specialWishes, boolean isBusinessCustomer) throws IllegalCallerException
     {
         if (this.getGivenRole()==BookingsManager) //checks for Rights to manage Bookings
@@ -76,17 +80,17 @@ public class Employee
 
             if (bookingType == Booking.BookingType.HotelRoomBooking)
             {
-                createdBooking = new HotelRoomBooking(bookingNo, customerID, roomNo, startDate, endDate, roomCategory, specialWishes,
+                createdBooking = new HotelRoomBooking(bookingNo, customerID, roomNo, startOfPeriod, endofPeriod, roomCategory, specialWishes,
                         this.getEmpNo(), isBusinessCustomer);
             }
             if (bookingType == Booking.BookingType.ConferenceRoomBooking)
             {
-                createdBooking = new ConferenceRoomBooking(bookingNo, customerID, roomNo, startDate, endDate, roomCategory, specialWishes,
+                createdBooking = new ConferenceRoomBooking(bookingNo, customerID, roomNo, startOfPeriod, endofPeriod, roomCategory, specialWishes,
                         this.getEmpNo(),
                         isBusinessCustomer);
             }
 
-            Rooms.get(roomNo).setRoomAsOccupiedToList(new FullDate(dateFrame,timeFrame));
+            //Rooms.get(roomNo).setRoomAsOccupiedToList(new FullDate(dateFrame,timeFrame));
             Bookings.add(createdBooking);
             return createdBooking;
         }
@@ -170,9 +174,9 @@ public class Employee
         if (this.getGivenRole()==BookingsManager) //checks for Rights to manage Bookings
         {
             int roomNumberOfRoomToBeFree = Bookings.get(bookingNo).getRoomNo();
-            Date dateFrame=Bookings.get(bookingNo).getStartDate();
-            Date timeFrame=Bookings.get(bookingNo).getEndDate();
-            Rooms.get(roomNumberOfRoomToBeFree).setRoomAsFreeToList(new FullDate(dateFrame,timeFrame));
+            Date startOfPeriod=Bookings.get(bookingNo).getStartDate();
+            Date endOfPeriod=Bookings.get(bookingNo).getEndDate();
+            //Rooms.get(roomNumberOfRoomToBeFree).setRoomAsFreeToList(new FullDate(dateFrame,timeFrame));
 
             Bookings.set(bookingNo, null);    //instead of remove() to keep the relation of the position of a booking in Bookings to its bookingNo
         }
@@ -370,13 +374,13 @@ public class Employee
      * @param BookingNo             number of the booking to be searched for as well as its position in Bookings
      * @param RoomNo                number of the room which is documented in the booking to be searched for
      * @param empNo                 number of the employee that created the booking to be searched for
-     * @param dateFrame             dateframe of the booking to be searched for
-     * @param timeFrame             timeframe of the booking to be searched for
+     * @param startOfPeriod             dateframe of the booking to be searched for
+     * @param endOfPeriod             timeframe of the booking to be searched for
      * @param bookingDate           date of the booking to be searched for
      * @param roomCategory          category of the room which is documented in the booking to be searched for
      * @return                      all resulting Booking that match the search criteria
      */
-    public ArrayList<Booking> findBooking (int BookingNo, int RoomNo, int empNo, Date startDate, Date endDate, String bookingDate, Room.Category roomCategory)
+    public ArrayList<Booking> findBooking (int BookingNo, int RoomNo, int empNo, Date startOfPeriod, Date endOfPeriod, String bookingDate, Room.Category roomCategory)
     {
 
         ArrayList<Booking> searchResults = new ArrayList<>();
@@ -389,7 +393,7 @@ public class Employee
             return searchResults;
         }
 
-        else if (RoomNo!=0 && startDate!=null && endDate!=null) //if the Room Number a well as the time frame and date frame of the room being used is given, there
+        else if (RoomNo!=0 && startOfPeriod !=null && endOfPeriod!=null) //if the Room Number a well as the time frame and date frame of the room being used is given, there
         // should be only one item found
         // more secure if additional search params like roomCategory or BookingDate are given
 
@@ -400,9 +404,9 @@ public class Employee
                 wantedBooking= Bookings.get(1);
                 while (wantedBooking.getRoomNo()!=RoomNo && indexOfBookingList< Bookings.size())
                 {
-                    if (wantedBooking.getStartDate().equals(startDate) )
+                    if (wantedBooking.getStartDate().equals(startOfPeriod) )
                     {
-                        if (wantedBooking.getEndDate().equals(endDate))
+                        if (wantedBooking.getEndDate().equals(endOfPeriod))
                         {
                             if(wantedBooking.getRoomCategory().equals(roomCategory)) //only triggered if roomCategory is given
                             {
@@ -507,7 +511,7 @@ public class Employee
      */
     public void manageBookingRequests () throws IllegalCallerException, NoSuchElementException
     {
-        if(this.getGivenRole()==BookingsManager)
+        /*if(this.getGivenRole()==BookingsManager)
         {
 
             for (BookingRequest bookingRequest : BookingRequests)
@@ -547,7 +551,7 @@ public class Employee
                 }
             }
         }
-        else throw new IllegalCallerException("The caller does not inherit the Rights to do this");
+        else throw new IllegalCallerException("The caller does not inherit the Rights to do this");*/
     }
 
     /**
