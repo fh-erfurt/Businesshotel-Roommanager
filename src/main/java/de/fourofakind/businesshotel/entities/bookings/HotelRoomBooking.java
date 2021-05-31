@@ -1,11 +1,12 @@
-package de.fourofakind.businesshotel.bookings;
+package de.fourofakind.businesshotel.entities.bookings;
 
-import de.fourofakind.businesshotel.rooms.Room;
+import de.fourofakind.businesshotel.entities.rooms.Room;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.time.LocalDate;
@@ -22,11 +23,11 @@ import java.util.Date;
  */
 
 @Entity(name="HotelRoomBooking")
-@Table(name="booking")
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter
 @Getter
+@DiscriminatorValue("HotelRoom")
 public class HotelRoomBooking extends Booking
 {
     public HotelRoomBooking (int bookingNo, int customerID,int roomNo, Date startDate, Date endDate, Room.Category roomCategory,

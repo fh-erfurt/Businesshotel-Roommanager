@@ -1,4 +1,4 @@
-package de.fourofakind.businesshotel.common;
+package de.fourofakind.businesshotel.entities.common;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

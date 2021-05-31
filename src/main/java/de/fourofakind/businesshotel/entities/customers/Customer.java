@@ -1,6 +1,7 @@
-package de.fourofakind.businesshotel.customers;
+package de.fourofakind.businesshotel.entities.customers;
 
-import de.fourofakind.businesshotel.rooms.Room;
+import de.fourofakind.businesshotel.entities.rooms.Room;
+import de.fourofakind.businesshotel.repositories.BookingRequestRepository;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,8 +10,6 @@ import lombok.Setter;
 import javax.persistence.*;
 
 import java.util.Date;
-
-import static de.fourofakind.businesshotel.common.StartingClass.BookingRequests;
 
 /**
  * customer class manages every methode done by the customer and its personal data
@@ -30,11 +29,11 @@ public class Customer
         debit, paypal, bill
     }
 
-    public Customer (int customerID, ContactData contactData, paymentMethods paymentMethod)
+    public Customer (int customerID, Integer contactDataID, paymentMethods paymentMethod)
     {
 
         this.customerID = customerID;
-        this.contactData = contactData;
+        this.contactDataID = contactDataID;
         this.paymentMethod = paymentMethod;
     }
 
@@ -63,26 +62,14 @@ public class Customer
      * @param specialWishes for extra wishes
      */
 
-    public void sendBookingRequest (Date startDate, Date endDate, Room.Category roomCategory,
-                                    String specialWishes)
-    {
-        //setup database request here
-        BookingRequest newRequest = new BookingRequest(this.customerID, startDate, endDate roomCategory, specialWishes, this.isBusinessCustomer);
-        BookingRequests.add(newRequest);
-    }
+//    public void sendBookingRequest (Date startDate, Date endDate, Room.Category roomCategory,
+//                                    String specialWishes)
+//    {
+//        //setup database request here
+//        BookingRequest newRequest = new BookingRequest(this.customerID, startDate, endDate, roomCategory, specialWishes, this.isBusinessCustomer);
+//        BookingRequestRepository.save(newRequest);
+//    }
 
-    public ContactData getContactData() {
-        return this.contactData;
-    }
-
-    public void setPaymentMethod (paymentMethods paymentMethod)
-    {
-        this.paymentMethod = paymentMethod;
-    }
-
-    public void setIsBusinessCustomer(boolean isBusinessCustomer) {
-        this.isBusinessCustomer = isBusinessCustomer;
-    }
 
     public void setPaymentMethod (String paymentMethod)
     {
@@ -102,7 +89,7 @@ public class Customer
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer customerID;
-    private ContactData contactData;
+    private Integer contactDataID;
     private paymentMethods paymentMethod;
     private boolean isBusinessCustomer;
 

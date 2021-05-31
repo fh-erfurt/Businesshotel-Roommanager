@@ -1,4 +1,4 @@
-package de.fourofakind.businesshotel.customers;
+package de.fourofakind.businesshotel.entities.customers;
 
 //
 
@@ -14,7 +14,7 @@ import javax.persistence.*;
  */
 
 @Entity(name="ContactData")
-@Table(name="contactdata")
+@Table(name="contact_data")
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter
@@ -123,7 +123,7 @@ public class ContactData {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer contactDataId;
+    private Integer contactDataID;
     private String firstName;
     private String lastName;
     private String streetName;

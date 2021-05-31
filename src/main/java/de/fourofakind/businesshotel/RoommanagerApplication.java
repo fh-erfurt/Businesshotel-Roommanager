@@ -1,7 +1,7 @@
 package de.fourofakind.businesshotel;
 
 
-import de.fourofakind.businesshotel.employees.Employee;
+import de.fourofakind.businesshotel.entities.employees.Employee;
 import de.fourofakind.businesshotel.repositories.EmployeeRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;

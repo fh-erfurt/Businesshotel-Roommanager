@@ -1,11 +1,12 @@
-package de.fourofakind.businesshotel.bookings;
+package de.fourofakind.businesshotel.entities.bookings;
 
-import de.fourofakind.businesshotel.rooms.Room;
+import de.fourofakind.businesshotel.entities.rooms.Room;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
@@ -21,6 +22,10 @@ import java.util.Date;
 @NoArgsConstructor
 @Setter
 @Getter
+@Entity(name="booking")
+@Table(name="booking")
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name="bookingType",discriminatorType=DiscriminatorType.STRING)
 public abstract class Booking {
 
     public enum BookingType
@@ -37,7 +42,7 @@ public abstract class Booking {
      * </p>
      */
 
-    public Booking(int bookingNo, int customerID ,int roomNo, Date startDate, Date endData, Room.Category roomCategory,
+    public Booking(int bookingNo, int customerID ,int roomNo, Date startDate, Date endDate, Room.Category roomCategory,
                    String specialWishes, int empNo, boolean isBusinessCustomer) {
         DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         LocalDateTime currentDateTime = LocalDateTime.now();
@@ -128,6 +133,8 @@ public abstract class Booking {
     }
 
     //Attributes
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int bookingNo;
     private int roomNo;
     private float pricing;

@@ -1,11 +1,12 @@
-package de.fourofakind.businesshotel.bookings;
+package de.fourofakind.businesshotel.entities.bookings;
 
-import de.fourofakind.businesshotel.rooms.Room;
+import de.fourofakind.businesshotel.entities.rooms.Room;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.text.DateFormat;
@@ -20,18 +21,18 @@ import java.util.Date;
  */
 
 @Entity(name="ConferenceRoomBooking")
-@Table(name="booking")
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter
 @Getter
+@DiscriminatorValue("ConferenceRoom")
 public class ConferenceRoomBooking extends Booking
 {
     public ConferenceRoomBooking (int bookingNo, int customerID, int roomNo, Date startDate, Date endDate, Room.Category roomCategory,
                                   String specialWishes, int empNo, boolean isBusinessCustomer)
     {
         super(bookingNo, customerID, roomNo, startDate, endDate, roomCategory, specialWishes, empNo, isBusinessCustomer);
-        this.pricing=calculatePricing(pricing=0.0f);
+        //this.pricing=calculatePricing(pricing=0.0f);
     }
 
 
@@ -48,48 +49,48 @@ public class ConferenceRoomBooking extends Booking
      *                          The price per Unit is saved in the room object itself;
      *
      */
-    public float calculatePricing(float roomPricePerUnit)
-    {
-        Date startTime = getStartDate();
-        Date endTime = getEndDate();
-
-        DateFormat format = new SimpleDateFormat("hh:mm");
-        Date timeStart = null;
-        Date timeEnd = null;
-        try
-        {
-            timeStart = format.parse(startTime);
-            timeEnd = format.parse(endTime);
-        }
-        catch (ParseException pe)
-        {
-            pe.printStackTrace();
-        }
-        Calendar calendarStart = Calendar.getInstance();
-        assert timeStart != null;
-        calendarStart.setTime(timeStart);
-        Calendar calendarEnd = Calendar.getInstance();
-        assert timeEnd != null;
-        calendarEnd.setTime(timeEnd);
-
-        int hourStart = calendarStart.get(Calendar.HOUR);
-        float minuteStart = calendarStart.get(Calendar.MINUTE);
-
-        int hourEnd =   calendarEnd.get(Calendar.HOUR);
-        float minuteEnd = calendarEnd.get(Calendar.MINUTE);
-
-        float usageHours = hourEnd+(minuteEnd/60)-(hourStart+(minuteStart/60));
-        float price = 0.0f;
-        if(usageHours<1)
-        {
-            price = 12; //#TODO Referenz zum RoomPrice;
-        }
-        else
-        {
-            price = usageHours * roomPricePerUnit;   //#TODO Preis Verweis auf den Room
-        }
-        return price;
-    }
+//    public float calculatePricing(float roomPricePerUnit)
+//    {
+//        Date startTime = getStartDate();
+//        Date endTime = getEndDate();
+//
+//        DateFormat format = new SimpleDateFormat("hh:mm");
+//        Date timeStart = null;
+//        Date timeEnd = null;
+//        try
+//        {
+//            timeStart = format.parse(startTime);
+//            timeEnd = format.parse(endTime);
+//        }
+//        catch (ParseException pe)
+//        {
+//            pe.printStackTrace();
+//        }
+//        Calendar calendarStart = Calendar.getInstance();
+//        assert timeStart != null;
+//        calendarStart.setTime(timeStart);
+//        Calendar calendarEnd = Calendar.getInstance();
+//        assert timeEnd != null;
+//        calendarEnd.setTime(timeEnd);
+//
+//        int hourStart = calendarStart.get(Calendar.HOUR);
+//        float minuteStart = calendarStart.get(Calendar.MINUTE);
+//
+//        int hourEnd =   calendarEnd.get(Calendar.HOUR);
+//        float minuteEnd = calendarEnd.get(Calendar.MINUTE);
+//
+//        float usageHours = hourEnd+(minuteEnd/60)-(hourStart+(minuteStart/60));
+//        float price = 0.0f;
+//        if(usageHours<1)
+//        {
+//            price = 12; //#TODO Referenz zum RoomPrice;
+//        }
+//        else
+//        {
+//            price = usageHours * roomPricePerUnit;   //#TODO Preis Verweis auf den Room
+//        }
+//        return price;
+//    }
 
     public float getPricing ()
     {
