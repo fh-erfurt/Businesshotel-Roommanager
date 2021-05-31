@@ -18,11 +18,18 @@ INSERT INTO `account_details` (`accountId`, `username`, `passwordHash`, `created
 (9, 'ColumboAuge', 'katalimata_megagut', '2021-05-31 10:32:04', NULL),
 (10, 'Marius Mac Mac', 'LangeIstsHer', '2021-05-31 10:32:48', NULL);
 
-INSERT INTO `employee` (`empNo`, `empName`, `givenRole`, `createdAt`, `lastUpdate`,`accountId`) VALUES
-(1, 'Peter Quistgard', 'isEnabledToManageBookings', '2021-05-24 08:10:15', NULL,6),
-(2, 'Malignes Rau', 'isEnabledToManageRooms', '2021-05-24 08:15:13', '2021-05-24 08:18:54',7),
-(3, 'Silikaten Muh', 'isEnabledToManageCustomerData', '2021-05-24 08:16:47', NULL,8),
-(4, 'Juri Juhu', 'isEnabledToManageBookings', '2021-05-24 08:19:47', NULL,9);
+INSERT INTO `role` (`roleName`, `isEnabledToManageRooms`, `isEnabledToManageBookings`, `isEnabledToManageCustomerData`, `createdAt`, `lastUpdate`) VALUES
+('BuchungsManager', 0, 1, 0, '2021-05-31 10:52:45', 'NULL ON UPDATE CURRENT_TIMESTAMP'),
+('Hotelleiter', 1, 1, 1, '2021-05-31 10:54:07', 'NULL ON UPDATE CURRENT_TIMESTAMP'),
+('Kundenverwalter', 0, 0, 1, '2021-05-31 10:53:32', 'NULL ON UPDATE CURRENT_TIMESTAMP'),
+('Raumverwalter', 1, 0, 0, '2021-05-31 10:53:32', 'NULL ON UPDATE CURRENT_TIMESTAMP');
+
+
+INSERT INTO `employee` (`empNo`, `empName`, `givenRole`, `accountId`, `createdAt`, `lastUpdate`) VALUES
+(1, 'Peter Quistgard', 'BuchungsManager', 3, '2021-05-31 10:57:24', NULL),
+(2, 'Malignes Rau', 'Hotelleiter', 7, '2021-05-24 08:15:13', '2021-05-24 08:18:54'),
+(3, 'Silikaten Muh', 'Kundenverwalter',8, '2021-05-24 08:16:47', NULL),
+(4, 'Juri Juhu', 'Raumverwalter',9, '2021-05-24 08:19:47', NULL);
 
 INSERT INTO `room` (`roomNo`, `roomName`, `areaInSqrMetre`, `category`, `pricePerUnit`, `lastUpdate`, `createdAt`) VALUES
 (1, 'President Suite', 75, 'SUITE', '600', NULL, '2021-05-24 05:54:48'),
