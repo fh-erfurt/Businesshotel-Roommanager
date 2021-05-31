@@ -62,6 +62,7 @@ INSERT INTO `booking` (`bookingNo`, `bookingDate`, `lastUpdate`, `roomNo`, `book
 (1, '2021-05-24 06:42:26', '2021-05-31 12:54:30', 2, 'hotelRoom', '2021-04-01', '2021-04-04', 'Cola so viel und so oft wie geht', 4, 2),
 (2, '2021-05-24 06:43:55', '2021-05-31 12:54:40', 4, 'hotelRoom', '2021-05-01', '2021-05-07', 'Besonders weiche Kissen', 2, 4);
 
+INSERT INTO `room_has_booking` (`Room_roomNo`, `Booking_bookingId`) VALUES ('4', '1');
 
 INSERT INTO `booking_request` (`reqId`, `bookingRequestDate`, `amountPeople`, `price`, `Room_roomNo`, `Customer_customerID`) VALUES 
 (2, '2021-05-24 08:38:25', '14', '120', '4', '2'),
