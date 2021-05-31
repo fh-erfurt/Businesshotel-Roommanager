@@ -1,7 +1,5 @@
 package de.fourofakind.businesshotel.customers;
 
-import de.fourofakind.businesshotel.common.DateFrame;
-import de.fourofakind.businesshotel.common.TimeFrame;
 import de.fourofakind.businesshotel.rooms.Room;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+
+import java.util.Date;
 
 import static de.fourofakind.businesshotel.common.StartingClass.BookingRequests;
 
@@ -57,17 +57,17 @@ public class Customer
      * <p> generates new bookingRequest and add ist to BookingRequests list
      * </p>
      *
-     * @param timeFrame for time of booking
-     * @param dateFrame for date of booking
+     * @param startDate for start of booking
+     * @param endDate for end of booking
      * @param roomCategory for type of booking
      * @param specialWishes for extra wishes
      */
 
-    public void sendBookingRequest (TimeFrame timeFrame, DateFrame dateFrame, Room.Category roomCategory,
+    public void sendBookingRequest (Date startDate, Date endDate, Room.Category roomCategory,
                                     String specialWishes)
     {
         //setup database request here
-        BookingRequest newRequest = new BookingRequest(this.customerID, timeFrame, dateFrame, roomCategory, specialWishes, this.isBusinessCustomer);
+        BookingRequest newRequest = new BookingRequest(this.customerID, startDate, endDate roomCategory, specialWishes, this.isBusinessCustomer);
         BookingRequests.add(newRequest);
     }
 

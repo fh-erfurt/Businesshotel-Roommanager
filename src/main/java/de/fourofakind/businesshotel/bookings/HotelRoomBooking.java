@@ -1,38 +1,26 @@
 package de.fourofakind.businesshotel.bookings;
 
-import de.fourofakind.businesshotel.common.DateFrame;
-import de.fourofakind.businesshotel.common.TimeFrame;
 import de.fourofakind.businesshotel.rooms.Room;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.time.temporal.ChronoUnit;
 import java.util.Locale;
+import java.util.Date;
 
 
 /**
  * This class extends the Booking to the kind of room that has been booked, in this case to a Hotelroom.
  */
 
-@Entity(name="HotelRoomBooking")
-@Table(name="hotelroombooking")
-@AllArgsConstructor
-@NoArgsConstructor
-@Setter
-@Getter
 public class HotelRoomBooking extends Booking
 {
-    public HotelRoomBooking (int bookingNo, int customerID, int roomNo, TimeFrame timeFrame, DateFrame dateFrame, Room.Category roomCategory,
+    public HotelRoomBooking (int bookingNo, int customerID,int roomNo, Date startDate, Date endDate, Room.Category roomCategory,
                              String specialWishes, int empNo, boolean isBusinessCustomer)
     {
-        super(bookingNo, customerID ,roomNo, timeFrame, dateFrame, roomCategory, specialWishes, empNo, isBusinessCustomer);
+        super(bookingNo, customerID ,roomNo, startDate, endDate, roomCategory, specialWishes, empNo, isBusinessCustomer);
         this.pricing=this.calculatePricing(pricing = 0.0f);
     }
 
@@ -45,18 +33,31 @@ public class HotelRoomBooking extends Booking
      *                         The price per Unit is saved in the room object itself;
      *</p>
      */
+
+    public LocalDate convertToLocalDateViaInstant(Date dateToConvert) {
+        return dateToConvert.toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDate();
+    }
+
     public float calculatePricing(float roomPricePerUnit)
     {
-            DateTimeFormatter germanFormatter = DateTimeFormatter.ofLocalizedDate(
-            FormatStyle.MEDIUM).withLocale(Locale.GERMAN);
+        DateTimeFormatter germanFormatter = DateTimeFormatter.ofLocalizedDate(
+                FormatStyle.MEDIUM).withLocale(Locale.GERMAN);
 
-            String startDate = getDateFrame().getStartDate();
-            String endDate = getDateFrame().getEndDate();
+//            String startDate = getDateFrame().getStartDate();
+//            String endDate = getDateFrame().getEndDate();
 
-            LocalDate dateStart = LocalDate.parse(startDate, germanFormatter);
-            LocalDate dateEnd = LocalDate.parse(endDate, germanFormatter);
+        Date startDate = getStartDate();
+        Date endDate = getEndDate();
 
-            long nightsSpent = ChronoUnit.DAYS.between(dateStart,dateEnd);
+//            LocalDate dateStart = LocalDate.parse(startDate, germanFormatter);
+//            LocalDate dateEnd = LocalDate.parse(endDate, germanFormatter);
+
+        LocalDate dateStart = convertToLocalDateViaInstant(startDate);
+        LocalDate dateEnd = convertToLocalDateViaInstant(endDate);
+
+        long nightsSpent = ChronoUnit.DAYS.between(dateStart,dateEnd);
 
 
         return nightsSpent * roomPricePerUnit;

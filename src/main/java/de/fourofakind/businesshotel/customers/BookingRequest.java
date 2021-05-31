@@ -1,32 +1,20 @@
 package de.fourofakind.businesshotel.customers;
 
-import de.fourofakind.businesshotel.common.DateFrame;
-import de.fourofakind.businesshotel.common.TimeFrame;
 import de.fourofakind.businesshotel.rooms.Room;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import java.util.Date;
 
 /**
  * class to store the requierements of a booking that will be stored in an ArrayList for processing by employee
  */
-@Entity(name="BookingRequest")
-@Table(name="bookingrequest")
-@AllArgsConstructor
-@NoArgsConstructor
-@Setter
-@Getter
+
 public class BookingRequest {
 
-    public BookingRequest (int customerID, TimeFrame timeFrame, DateFrame dateFrame, Room.Category roomCategory,
+    public BookingRequest (int customerID, Date startDate, Date endDate, Room.Category roomCategory,
                            String specialWishes, boolean isBusinessCustomer) {
         this.customerID = customerID;
-        this.timeFrame = timeFrame;
-        this.dateFrame = dateFrame;
+        this.startDate = startDate;
+        this.endDate = endDate;
         this.roomCategory = roomCategory;
         this.specialWishes = specialWishes;
         this.isBusinessCustomer = isBusinessCustomer;
@@ -42,24 +30,24 @@ public class BookingRequest {
         this.customerID = customerID;
     }
 
-    public TimeFrame getTimeFrame ()
+    public Date getStartDate ()
     {
-        return timeFrame;
+        return startDate;
     }
 
-    public void setTimeFrame (TimeFrame timeFrame)
+    public void setStartDate (Date startDate)
     {
-        this.timeFrame = timeFrame;
+        this.startDate = startDate;
     }
 
-    public DateFrame getDateFrame ()
+    public Date getEndDate ()
     {
-        return dateFrame;
+        return endDate;
     }
 
-    public void setDateFrame (DateFrame dateFrame)
+    public void setEndDate (Date endDate)
     {
-        this.dateFrame = dateFrame;
+        this.endDate = endDate;
     }
 
     public Room.Category getRoomCategory ()
@@ -92,9 +80,9 @@ public class BookingRequest {
         this.isBusinessCustomer = isBusinessCustomer;
     }
 
-    private Integer customerID;
-    private TimeFrame timeFrame;
-    private DateFrame dateFrame;
+    private int customerID;
+    private Date startDate;
+    private Date endDate;
     private Room.Category roomCategory;
     private String specialWishes;
     private boolean isBusinessCustomer;

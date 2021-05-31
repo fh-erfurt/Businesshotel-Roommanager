@@ -1,8 +1,6 @@
 /*
 package de.fourofakind.businesshotel;
 
-import de.fourofakind.businesshotel.common.DateFrame;
-import de.fourofakind.businesshotel.common.TimeFrame;
 import de.fourofakind.businesshotel.customers.BookingRequest;
 import de.fourofakind.businesshotel.customers.Customer;
 import de.fourofakind.businesshotel.employees.Employee;

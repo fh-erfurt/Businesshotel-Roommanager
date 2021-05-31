@@ -1,28 +1,19 @@
 package de.fourofakind.businesshotel.bookings;
 
-import de.fourofakind.businesshotel.common.DateFrame;
-import de.fourofakind.businesshotel.common.TimeFrame;
 import de.fourofakind.businesshotel.rooms.Room;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 /**
  * <p>This is our main class - Every action that is made from an employee or customer will interact with this class.
  * All information about the Bookingdetails and the Booking itself interacts with this class to. For Java1 only the Employee will be able to alter the
  * information of a booking</p>
  */
 
-@Entity(name="Booking")
-@Table(name="booking")
-@AllArgsConstructor
-@NoArgsConstructor
-@Setter
-@Getter
+
+
+
 public abstract class Booking {
 
     public enum BookingType
@@ -39,15 +30,15 @@ public abstract class Booking {
      * </p>
      */
 
-    public Booking(int bookingNo, int customerID ,int roomNo, TimeFrame timeFrame, DateFrame dateFrame, Room.Category roomCategory,
+    public Booking(int bookingNo, int customerID ,int roomNo, Date startDate, Date endData, Room.Category roomCategory,
                    String specialWishes, int empNo, boolean isBusinessCustomer) {
         DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         LocalDateTime currentDateTime = LocalDateTime.now();
         this.bookingNo = bookingNo;
         this.customerID = customerID;
         this.roomNo = roomNo;
-        this.timeFrame = timeFrame;
-        this.dateFrame = dateFrame;
+        this.startDate = startDate;
+        this.endDate = endDate;
         this.bookingDate = dateTimeFormat.format(currentDateTime);
         this.roomCategory = roomCategory;
         this.specialWishes = specialWishes;
@@ -56,13 +47,20 @@ public abstract class Booking {
     }
 
     //Getter/Setter
-    public TimeFrame getTimeFrame()
+    public Date getStartDate()
     {
-        return timeFrame;
+        return startDate;
     }
-    public void setTimeFrame(TimeFrame timeFrame) {
-        this.timeFrame = timeFrame;
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
     }
+    public Date getEndDate() {
+        return endDate;
+    }
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
     public String getBookingDate() {
         return bookingDate;
     }
@@ -92,12 +90,6 @@ public abstract class Booking {
     }
     public void setBusinessCustomer(boolean businessCustomer) {
         isBusinessCustomer = businessCustomer;
-    }
-    public DateFrame getDateFrame() {
-        return dateFrame;
-    }
-    public void setDateFrame(DateFrame dateFrame) {
-        this.dateFrame = dateFrame;
     }
     public int getBookingNo() {
         return bookingNo;
@@ -129,15 +121,12 @@ public abstract class Booking {
     }
 
     //Attributes
-    @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    private Integer bookingNo;
-
+    private int bookingNo;
     private int roomNo;
     private float pricing;
     private int empNo;
-    private DateFrame dateFrame;
-    private TimeFrame timeFrame;
+    private Date startDate;
+    private Date endDate;
     private String bookingDate;
     private final Room.Category roomCategory;
     private String specialWishes;

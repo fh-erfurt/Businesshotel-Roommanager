@@ -1,15 +1,6 @@
 package de.fourofakind.businesshotel.bookings;
 
-import de.fourofakind.businesshotel.common.DateFrame;
-import de.fourofakind.businesshotel.common.TimeFrame;
 import de.fourofakind.businesshotel.rooms.Room;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-import javax.persistence.Entity;
-import javax.persistence.Table;
 import java.text.DateFormat;
 
 import java.text.ParseException;
@@ -21,21 +12,14 @@ import java.util.Date;
  * This class extends the Booking to the kind of room that has been booked, in this case to a conferenceRoom
  */
 
-@Entity(name="ConferenceRoomBooking")
-@Table(name="conferenceroombooking")
-@AllArgsConstructor
-@NoArgsConstructor
-@Setter
-@Getter
 public class ConferenceRoomBooking extends Booking
 {
-    public ConferenceRoomBooking (int bookingNo, int customerID, int roomNo, TimeFrame timeFrame, DateFrame dateFrame, Room.Category roomCategory,
+    public ConferenceRoomBooking (int bookingNo, int customerID, int roomNo, Date startDate, Date endDate, Room.Category roomCategory,
                                   String specialWishes, int empNo, boolean isBusinessCustomer)
     {
-        super(bookingNo, customerID, roomNo, timeFrame, dateFrame, roomCategory, specialWishes, empNo, isBusinessCustomer);
+        super(bookingNo, customerID, roomNo, startDate, endDate, roomCategory, specialWishes, empNo, isBusinessCustomer);
         this.pricing=calculatePricing(pricing=0.0f);
     }
-
 
 
 
@@ -52,21 +36,21 @@ public class ConferenceRoomBooking extends Booking
      */
     public float calculatePricing(float roomPricePerUnit)
     {
-            String startTime = getTimeFrame().getStartTime();
-            String endTime = getTimeFrame().getEndTime();
+        Date startTime = getStartDate();
+        Date endTime = getEndDate();
 
-            DateFormat format = new SimpleDateFormat("hh:mm");
-            Date timeStart = null;
-            Date timeEnd = null;
-            try
-            {
-                timeStart = format.parse(startTime);
-                timeEnd = format.parse(endTime);
-            }
-            catch (ParseException pe)
-            {
-                pe.printStackTrace();
-            }
+        DateFormat format = new SimpleDateFormat("hh:mm");
+        Date timeStart = null;
+        Date timeEnd = null;
+        try
+        {
+            timeStart = format.parse(startTime);
+            timeEnd = format.parse(endTime);
+        }
+        catch (ParseException pe)
+        {
+            pe.printStackTrace();
+        }
         Calendar calendarStart = Calendar.getInstance();
         assert timeStart != null;
         calendarStart.setTime(timeStart);
@@ -90,7 +74,7 @@ public class ConferenceRoomBooking extends Booking
         {
             price = usageHours * roomPricePerUnit;   //#TODO Preis Verweis auf den Room
         }
-            return price;
+        return price;
     }
 
     public float getPricing ()
