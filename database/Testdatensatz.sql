@@ -38,6 +38,18 @@ INSERT INTO `room` (`roomNo`, `roomName`, `areaInSqrMetre`, `category`, `pricePe
 (4, 'Deluxe Miniraum', 30, 'SINGLE', '95', NULL, '2021-05-24 06:01:55'),
 (5, 'Deluxe Miniraum', 40, 'DOUBLE', '95', NULL, '2021-05-24 06:01:55'),
 (6, 'Konferenz klein', 40, 'SMALLGROUP', '25', NULL, '2021-05-24 06:01:55');
+(7, 'Konferenz mittel', 50, 'BIGGROUP', '35', NULL, '2021-05-24 06:01:55');
+
+INSERT INTO `hotelroom` (`roomNo`, `bedCount`, `hasSpeedLAN`, `hasTV`, `hasKitchen`, `hasCoffeemaker`) VALUES
+(1, 5, 1, 1, 0, 1),
+(2, 3, 1, 1, 1, 1),
+(3, 2, 0, 0, 0, 1),
+(4, 2, 1, 0, 0, 1),
+(5, 1, 1, 0, 0, 0);
+
+INSERT INTO `conferenceroom` (`roomNo`, `maxAmountOfParticipants`, `amountOfWhiteboards`, `amountOfBeamer`, `hasScreen`, `hasComputer`, `hasTV`) VALUES
+(6, 11, 0, 2, 1, 1, 0),
+(7, 20, 0, 3, 0, 0, 1);
 
 INSERT INTO `customer` (`customerID`, `paymentMethod`, `lastUpdate`, `createdAt`, `contactDataId`,`accountId`) VALUES 
 (NULL, 'paypal', NULL, '2021-05-24 08:33:41', 1,1),
