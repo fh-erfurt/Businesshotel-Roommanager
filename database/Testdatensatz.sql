@@ -1,6 +1,6 @@
 
 
-INSERT INTO `contactdata` (`contactDataId`, `firstName`, `lastName`, `streetName`, `streetNumber`, `postalCode`, `cityName`, `phone`, `mailAddress`, `lastUpdate`, `createdAt`) VALUES
+INSERT INTO `contact_data` (`contactDataId`, `firstName`, `lastName`, `streetName`, `streetNumber`, `postalCode`, `cityName`, `phone`, `mailAddress`, `lastUpdate`, `createdAt`) VALUES
 (1, 'Koji', 'Kondo', 'Bergstraße', '14', '07749', 'Jena', '0900767676', 'koj_kondo@web.de', NULL, '2021-05-24 08:21:37'),
 (2, 'Hiroshi', 'Yamauchi', 'Zauberweg', '9', '141815', 'Muisin', '+81142656565', 'suzukiDestroyer@jin.jp', NULL, '2021-05-24 08:23:39'),
 (3, 'Manfred', 'Reide', 'Chemietischstraße', '1', '142857', 'Simcity', '0124-148257', 'fensterWarenZuTeuer@dunkeldrin.de', NULL, '2021-05-24 08:25:26'),
@@ -37,7 +37,7 @@ INSERT INTO `room` (`roomNo`, `roomName`, `areaInSqrMetre`, `category`, `pricePe
 (3, 'Standard Sonnendeck gross', 60, 'DOUBLE', '120', '2021-05-24 05:58:08', '2021-05-24 05:56:56'),
 (4, 'Deluxe Miniraum', 30, 'SINGLE', '95', NULL, '2021-05-24 06:01:55'),
 (5, 'Deluxe Miniraum', 40, 'DOUBLE', '95', NULL, '2021-05-24 06:01:55'),
-(6, 'Konferenz klein', 40, 'SMALLGROUP', '25', NULL, '2021-05-24 06:01:55');
+(6, 'Konferenz klein', 40, 'SMALLGROUP', '25', NULL, '2021-05-24 06:01:55'),
 (7, 'Konferenz mittel', 50, 'BIGGROUP', '35', NULL, '2021-05-24 06:01:55');
 
 INSERT INTO `hotelroom` (`roomNo`, `bedCount`, `hasSpeedLAN`, `hasTV`, `hasKitchen`, `hasCoffeemaker`) VALUES
