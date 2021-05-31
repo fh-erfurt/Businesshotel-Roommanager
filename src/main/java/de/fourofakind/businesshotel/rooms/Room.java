@@ -1,7 +1,12 @@
 package de.fourofakind.businesshotel.rooms;
 
 import de.fourofakind.businesshotel.common.FullDate;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 
 /**
@@ -11,6 +16,12 @@ import java.util.ArrayList;
  * Its the superclass of Hotelroom and ConferenceRoom
  * </p>
  */
+@Entity(name="Room")
+@Table(name="room")
+@AllArgsConstructor
+@NoArgsConstructor
+@Setter
+@Getter
 abstract public class Room {
 
     public Room(int roomNo, int areaInSqrMetre, float pricePerUnit) {
@@ -64,7 +75,11 @@ abstract public class Room {
 
     private float pricePerUnit;
     private ArrayList<FullDate> roomOccupationList = new ArrayList<FullDate>();
-    private int roomNo;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer roomNo;
+
     private Category category;
     private int areaInSqrMetre;
     public enum Category {
