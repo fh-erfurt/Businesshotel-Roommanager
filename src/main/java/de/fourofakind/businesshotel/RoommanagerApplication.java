@@ -23,7 +23,8 @@ public class RoommanagerApplication
     CommandLineRunner commandLineRunner (EmployeeRepository employeeRepository, RoleRepository roleRepository)
     {
         return args->{
-
+           // Employee MaxMustermann=new Employee("Max Mustermann");
+          //  employeeRepository.save(MaxMustermann);
             Role Babo = new Role("Babo",true, true, true);
             roleRepository.save(Babo);
         };
