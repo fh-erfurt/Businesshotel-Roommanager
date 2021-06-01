@@ -19,7 +19,7 @@ INSERT INTO `account_details` (`accountId`, `username`, `passwordHash`, `created
 (10, 'Marius Mac Mac', 'LangeIstsHer', '2021-05-31 10:32:48', NULL);
 
 INSERT INTO `role` (`roleName`, `isEnabledToManageRooms`, `isEnabledToManageBookings`, `isEnabledToManageCustomerData`, `createdAt`, `lastUpdate`) VALUES
-('BuchungsManager', 0, 1, 0, '2021-05-31 10:52:45', 'NULL ON UPDATE CURRENT_TIMESTAMP'),
+('Buchungsmanager', 0, 1, 0, '2021-05-31 10:52:45', 'NULL ON UPDATE CURRENT_TIMESTAMP'),
 ('Hotelleiter', 1, 1, 1, '2021-05-31 10:54:07', 'NULL ON UPDATE CURRENT_TIMESTAMP'),
 ('Kundenverwalter', 0, 0, 1, '2021-05-31 10:53:32', 'NULL ON UPDATE CURRENT_TIMESTAMP'),
 ('Raumverwalter', 1, 0, 0, '2021-05-31 10:53:32', 'NULL ON UPDATE CURRENT_TIMESTAMP');
