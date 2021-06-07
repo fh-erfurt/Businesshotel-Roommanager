@@ -18,6 +18,7 @@ import java.util.Date;
  */
 @Entity(name="Room")
 @Table(name="room")
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter
@@ -50,18 +51,18 @@ abstract public class Room {
     public void setRoomNo(int roomNo) {
         this.roomNo = roomNo;
     }
-    public void setRoomAsFreeToList (Date fullDate)
-    {
-        this.roomOccupationList.remove(fullDate);
-    }
-    public ArrayList<Date> getRoomOccupiedAtList ()
-    {
-        return roomOccupationList;
-    }
-    public void setRoomAsOccupiedToList (Date fullDate)
-    {
-        this.roomOccupationList.add(fullDate);
-    }
+//    public void setRoomAsFreeToList (Date fullDate)
+//    {
+//        this.roomOccupationList.remove(fullDate);
+//    }
+//    public ArrayList<Date> getRoomOccupiedAtList ()
+//    {
+//        return roomOccupationList;
+//    }
+//    public void setRoomAsOccupiedToList (Date fullDate)
+//    {
+//        this.roomOccupationList.add(fullDate);
+//    }
     public float getPricePerUnit ()
     {
         return pricePerUnit;
@@ -74,7 +75,7 @@ abstract public class Room {
     //Attributes
 
     private float pricePerUnit;
-    private ArrayList<Date> roomOccupationList = new ArrayList<Date>();
+//    private ArrayList<Date> roomOccupationList = new ArrayList<Date>();
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
