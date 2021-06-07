@@ -17,7 +17,7 @@ import javax.persistence.Table;
  * </p>
  */
 @Entity(name="HotelRoom")
-@Table(name="hotelroom")
+@Table(name="hotel_room")
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter

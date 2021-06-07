@@ -15,7 +15,7 @@ import javax.persistence.Table;
  * </p>
  */
 @Entity(name="ConferenceRoom")
-@Table(name="conferenceroom")
+@Table(name="conference_room")
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter
