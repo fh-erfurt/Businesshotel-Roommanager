@@ -63,8 +63,8 @@ create table if not exists `bh_room_db`.`account_details` (
 -- -----------------------------------------------------
 create table if not exists `bh_room_db`.`employee` (
     `emp_no` int not null auto_increment,
-    `emp_name` varchar(45) not null default 'maximilian',
-    `given_role` varchar(45) not null default 'kundenverwalter',
+    `emp_name` varchar(45) not null,
+    `given_role` varchar(45) null,
     `account_id` int null,
     `created_at` timestamp not null default current_timestamp,
     `updated_at` timestamp null default null on update current_timestamp,
