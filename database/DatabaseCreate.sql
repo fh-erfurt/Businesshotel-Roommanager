@@ -10,7 +10,8 @@ set @old_sql_mode=@@sql_mode, sql_mode='only_full_group_by,strict_trans_tables,n
 -- -----------------------------------------------------
 -- schema bh_room_db
 -- -----------------------------------------------------
-drop table if exists `bh_room_db`;
+use `bh_room_db` ;
+drop database if exists `bh_room_db`;
 create schema if not exists `bh_room_db` default character set utf8 ;
 use `bh_room_db` ;
 
@@ -23,7 +24,7 @@ create table if not exists `bh_room_db`.`room` (
     `area_in_sqr_metre` float not null,
     `category` varchar(45) not null,
     `price_per_unit` decimal not null,
-    `last_update` timestamp null default null on update current_timestamp,
+    `updated_at` timestamp null default null on update current_timestamp,
     `created_at` timestamp not null default current_timestamp,
     primary key (`room_no`))
     engine = innodb;
@@ -38,7 +39,7 @@ create table if not exists `bh_room_db`.`role` (
     `is_enabled_to_manage_bookings` tinyint null,
     `is_enabled_to_manage_customer_data` tinyint null,
     `created_at` timestamp null default current_timestamp,
-    `last_update` varchar(45) null default 'null on update current_timestamp',
+    `updated_at` varchar(45) null default 'null on update current_timestamp',
     primary key (`role_name`),
     unique index `role_name_unique` (`role_name` asc))
     engine = innodb;
@@ -66,7 +67,7 @@ create table if not exists `bh_room_db`.`employee` (
     `given_role` varchar(45) not null default 'kundenverwalter',
     `account_id` int null,
     `created_at` timestamp not null default current_timestamp,
-    `last_update` timestamp null default null on update current_timestamp,
+    `updated_at` timestamp null default null on update current_timestamp,
     primary key (`emp_no`),
     unique index `emp_no_unique` (`emp_no` asc),
     index `fk_employee_role1_idx` (`given_role` asc),
@@ -98,7 +99,7 @@ create table if not exists `bh_room_db`.`contact_data` (
     `city_name` varchar(60) not null,
     `phone` varchar(45) null,
     `mail_address` varchar(80) null,
-    `last_update` timestamp null default null on update current_timestamp,
+    `updated_at` timestamp null default null on update current_timestamp,
     `created_at` timestamp not null default current_timestamp,
     primary key (`contact_data_id`),
     unique index `address_id_unique` (`contact_data_id` asc))
@@ -114,7 +115,7 @@ create table if not exists `bh_room_db`.`customer` (
     `contact_data_id` int not null,
     `account_id` int null,
     `created_at` timestamp not null default current_timestamp,
-    `last_update` timestamp null default null on update current_timestamp,
+    `updated_at` timestamp null default null on update current_timestamp,
     primary key (`customer_id`),
     unique index `cust_id_unique` (`customer_id` asc),
     index `fk_customer_contact_data1_idx` (`contact_data_id` asc),
@@ -146,7 +147,8 @@ create table if not exists `bh_room_db`.`booking` (
     `start_date` date not null,
     `end_date` date not null,
     `special_wishes` varchar(100) null,
-    `last_update` timestamp null default null on update current_timestamp,
+    `updated_at` timestamp null default null on update current_timestamp,
+    `created_at` timestamp not null default current_timestamp,
     primary key (`booking_no`),
     index `fk_booking_employee1_idx` (`emp_no` asc),
     index `fk_booking_customer1_idx` (`customer_id` asc),
@@ -172,19 +174,21 @@ create table if not exists `bh_room_db`.`booking_request` (
     `booking_request_date` timestamp not null default current_timestamp,
     `amount_people` int not null,
     `price` decimal null,
-    `room_room_no` int not null,
-    `customer_customer_id` int not null,
+    `room_no` int not null,
+    `customer_id` int not null,
+    `updated_at` timestamp null default null on update current_timestamp,
+    `created_at` timestamp not null default current_timestamp,
     primary key (`req_id`),
     unique index `req_id_unique` (`req_id` asc),
-    index `fk_booking_request_room1_idx` (`room_room_no` asc),
-    index `fk_booking_request_customer1_idx` (`customer_customer_id` asc),
+    index `fk_booking_request_room1_idx` (`room_no` asc),
+    index `fk_booking_request_customer1_idx` (`customer_id` asc),
     constraint `fk_booking_request_room1`
-    foreign key (`room_room_no`)
+    foreign key (`room_no`)
     references `bh_room_db`.`room` (`room_no`)
     on delete no action
     on update no action,
     constraint `fk_booking_request_customer1`
-    foreign key (`customer_customer_id`)
+    foreign key (`customer_id`)
     references `bh_room_db`.`customer` (`customer_id`)
     on delete no action
     on update no action)
@@ -214,7 +218,7 @@ create table if not exists `bh_room_db`.`room_has_booking` (
 
 
 -- -----------------------------------------------------
--- table `bh_room_db`.`hotelroom`
+-- table `bh_room_db`.`hotel_room`
 -- -----------------------------------------------------
 create table if not exists `bh_room_db`.`hotel_room` (
     `bed_count` int not null,
@@ -223,6 +227,8 @@ create table if not exists `bh_room_db`.`hotel_room` (
     `has_kitchen` tinyint null,
     `has_coffeemaker` tinyint null,
     `room_no` int not null,
+    `updated_at` timestamp null default null on update current_timestamp,
+    `created_at` timestamp not null default current_timestamp,
     index `fk_hotelroom_room1_idx` (`room_no` asc),
     constraint `fk_hotelroom_room1`
     foreign key (`room_no`)
@@ -233,7 +239,7 @@ create table if not exists `bh_room_db`.`hotel_room` (
 
 
 -- -----------------------------------------------------
--- table `bh_room_db`.`conferenceroom`
+-- table `bh_room_db`.`conference_room`
 -- -----------------------------------------------------
 create table if not exists `bh_room_db`.`conference_room` (
     `max_amount_of_participants` int not null,
@@ -243,6 +249,8 @@ create table if not exists `bh_room_db`.`conference_room` (
     `has_computer` tinyint null,
     `has_tv` tinyint null,
     `room_no` int not null,
+    `updated_at` timestamp null default null on update current_timestamp,
+    `created_at` timestamp not null default current_timestamp,
     index `fk_conference_room_room1_idx` (`room_no` asc),
     constraint `fk_conference_room_room1`
     foreign key (`room_no`)
