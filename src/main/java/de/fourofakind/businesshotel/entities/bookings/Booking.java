@@ -25,7 +25,7 @@ import java.util.Date;
 @Entity(name="booking")
 @Table(name="booking")
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name="bookingType",discriminatorType=DiscriminatorType.STRING)
+@DiscriminatorColumn(name="booking_type",discriminatorType=DiscriminatorType.STRING)
 public abstract class Booking {
 
     public enum BookingType
