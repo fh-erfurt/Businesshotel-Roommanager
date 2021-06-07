@@ -20,4 +20,10 @@ public class AccountDetails
     Integer accountID;
     String username;
     String passwordHash;
+
+    public AccountDetails (String username, String passwordHash)
+    {
+        this.username = username;
+        this.passwordHash = passwordHash;
+    }
 }

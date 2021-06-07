@@ -1,6 +1,7 @@
 package de.fourofakind.businesshotel;
 
 
+import de.fourofakind.businesshotel.entities.common.AccountDetails;
 import de.fourofakind.businesshotel.entities.common.Role;
 import de.fourofakind.businesshotel.entities.employees.Employee;
 import de.fourofakind.businesshotel.repositories.EmployeeRepository;
@@ -23,8 +24,9 @@ public class RoommanagerApplication
     CommandLineRunner commandLineRunner (EmployeeRepository employeeRepository, RoleRepository roleRepository)
     {
         return args->{
-           // Employee MaxMustermann=new Employee("Max Mustermann");
-          //  employeeRepository.save(MaxMustermann);
+            AccountDetails NumberOne=new AccountDetails("maxiking","1234asdf");
+            Employee MaxMustermann=new Employee("Max Mustermann", 0);
+            employeeRepository.save(MaxMustermann);
             Role Babo = new Role("Babo",true, true, true);
             roleRepository.save(Babo);
         };

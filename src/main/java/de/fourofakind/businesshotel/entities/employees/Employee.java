@@ -37,18 +37,18 @@ public class Employee
     //Attributes
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="empNo")private Integer empNo;
-    @Column(name="empName")private String empName;
-    @Column(name="givenRole")private String givenRoleName;
-    @Column(name="accountId")private int accountID;
+    private Integer empNo;
+    private String empName;
+    private String givenRoleName;
+    private int accountID;
 
-    public Employee (String empName) //Employee without any Rights
+    public Employee (String empName, int accountID) //Employee without any Rights
     {
         this.givenRoleName = null;
         this.empName = empName;
     }
 
-    public Employee (String empName, String givenRole)
+    public Employee (String empName, String givenRole, int accountID)
     {
         this.givenRoleName = givenRole;
         this.empName = empName;
