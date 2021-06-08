@@ -39,18 +39,18 @@ public class Employee
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer empNo;
     private String empName;
-    private String givenRoleName;
-    private int accountID;
+    private String givenRole;
+    @Column(name="account_id") private Integer accountID;
 
     public Employee (String empName, int accountID) //Employee without any Rights
     {
-        this.givenRoleName = null;
+        this.givenRole = null;
         this.empName = empName;
     }
 
     public Employee (String empName, String givenRole, int accountID)
     {
-        this.givenRoleName = givenRole;
+        this.givenRole = givenRole;
         this.empName = empName;
     }
 
@@ -76,7 +76,7 @@ public class Employee
      *                           important for generation of bills and taxes to be used
      * @return                   the Booking created just now
      * @throws IllegalCallerException if the employee does not inherit the role BookingManager
-     */
+     **/
 //    public Booking createBooking (int roomNo, int customerID, Date startOfPeriod, Date endofPeriod, Booking.BookingType bookingType,
 //                                  Room.Category roomCategory, String specialWishes, boolean isBusinessCustomer) throws IllegalCallerException
 //    {

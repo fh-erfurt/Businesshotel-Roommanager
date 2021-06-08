@@ -12,7 +12,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import javax.persistence.NamedQuery;
 
 
 @SpringBootApplication
@@ -29,7 +28,7 @@ public class RoommanagerApplication
         return args->{
             AccountDetails NumberOne=new AccountDetails("maxiking","1234asdf");
             accountDetailsRepository.save(NumberOne);
-            Employee MaxMustermann=new Employee("Max Mustermann", 0);
+            Employee MaxMustermann=new Employee("Max Mustermann", 1);
             employeeRepository.save(MaxMustermann);
             Role Babo = new Role("Babo",true, true, true);
             roleRepository.save(Babo);
