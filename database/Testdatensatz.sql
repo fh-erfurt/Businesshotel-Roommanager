@@ -1,6 +1,6 @@
 
 
-INSERT INTO `contact_data` (`contact_data_id`, `first_name`, `last_name`, `street_name`, `street_number`, `postal_code`, `city_name`, `phone`, `mail_address`, `last_update`, `created_at`) VALUES
+INSERT INTO `contact_data` (`contact_data_id`, `first_name`, `last_name`, `street_name`, `street_number`, `postal_code`, `city_name`, `phone`, `mail_address`, `updated_at`, `created_at`) VALUES
 (1, 'Koji', 'Kondo', 'Bergstraße', '14', '07749', 'Jena', '0900767676', 'koj_kondo@web.de', NULL, '2021-05-24 08:21:37'),
 (2, 'Hiroshi', 'Yamauchi', 'Zauberweg', '9', '141815', 'Muisin', '+81142656565', 'suzukiDestroyer@jin.jp', NULL, '2021-05-24 08:23:39'),
 (3, 'Manfred', 'Reide', 'Chemietischstraße', '1', '142857', 'Simcity', '0124-148257', 'fensterWarenZuTeuer@dunkeldrin.de', NULL, '2021-05-24 08:25:26'),
@@ -31,7 +31,7 @@ INSERT INTO `employee` (`emp_no`, `emp_name`, `given_role`, `account_id`, `creat
 (3, 'Silikaten Muh', 'Kundenverwalter',8, '2021-05-24 08:16:47', NULL),
 (4, 'Juri Juhu', 'Raumverwalter',9, '2021-05-24 08:19:47', NULL);
 
-INSERT INTO `room` (`room_no`, `room_name`, `area_in_sqr_metre`, `category`, `price_per_unit`, `updated_at`, `createdAt`) VALUES
+INSERT INTO `room` (`room_no`, `room_name`, `area_in_sqr_metre`, `category`, `price_per_unit`, `updated_at`, `created_at`) VALUES
 (1, 'President Suite', 75, 'SUITE', '600', NULL, '2021-05-24 05:54:48'),
 (2, 'Standard Sonnendeck', 50, 'DOUBLE', '100', NULL, '2021-05-24 05:56:25'),
 (3, 'Standard Sonnendeck gross', 60, 'DOUBLE', '120', '2021-05-24 05:58:08', '2021-05-24 05:56:56'),
@@ -40,18 +40,18 @@ INSERT INTO `room` (`room_no`, `room_name`, `area_in_sqr_metre`, `category`, `pr
 (6, 'Konferenz klein', 40, 'SMALLGROUP', '25', NULL, '2021-05-24 06:01:55'),
 (7, 'Konferenz mittel', 50, 'BIGGROUP', '35', NULL, '2021-05-24 06:01:55');
 
-INSERT INTO `hotelroom` (`room_no`, `bed_count`, `has_speedlan`, `has_tv`, `has_kitchen`, `has_coffeemaker`) VALUES
+INSERT INTO `hotel_room` (`room_no`, `bed_count`, `has_speed_lan`, `has_tv`, `has_kitchen`, `has_coffeemaker`) VALUES
 (1, 5, 1, 1, 0, 1),
 (2, 3, 1, 1, 1, 1),
 (3, 2, 0, 0, 0, 1),
 (4, 2, 1, 0, 0, 1),
 (5, 1, 1, 0, 0, 0);
 
-INSERT INTO `conferenceroom` (`room_no`, `max_amount_of_participants`, `amount_of_whiteboards`, `amount_of_beamer`, `has_screen`, `has_computer`, `amount_of_tv`) VALUES
+INSERT INTO `conference_room` (`room_no`, `max_amount_of_participants`, `amount_of_whiteboards`, `amount_of_beamer`, `has_screen`, `has_computer`, `amount_of_tv`) VALUES
 (6, 11, 0, 2, 1, 1, 0),
 (7, 20, 0, 3, 0, 0, 1);
 
-INSERT INTO `customer` (`customer_id`, `payment_method`, `last_update`, `created_at`, `contact_data_id`,`account_id`) VALUES 
+INSERT INTO `customer` (`customer_id`, `payment_method`, `updated_at`, `created_at`, `contact_data_id`,`account_id`) VALUES 
 (NULL, 'paypal', NULL, '2021-05-24 08:33:41', 1,1),
 (NULL, 'bill', '2021-05-24 08:34:52', '2021-05-24 08:34:18', 4,2),
 (NULL, 'debit', NULL, '2021-05-24 08:35:39', 2,3),
@@ -64,7 +64,7 @@ INSERT INTO `booking` (`booking_no`, `booking_date`, `updated_at`, `room_no`, `b
 
 INSERT INTO `room_has_booking` (`room_no`, `booking_id`) VALUES ('4', '1');
 
-INSERT INTO `booking_request` (`req_id`, `booking_request_date`, `amount_people`, `price`, `Room_room_no`, `Customer_customer_id`) VALUES 
+INSERT INTO `booking_request` (`req_id`, `booking_request_date`, `amount_people`, `price`, `room_no`, `customer_id`) VALUES 
 (2, '2021-05-24 08:38:25', '14', '120', '4', '2'),
 (3, '2021-05-24 08:39:27', '9', '245', '2', '3');
 
