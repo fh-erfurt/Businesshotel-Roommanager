@@ -5,8 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * <p>
@@ -22,7 +21,25 @@ import javax.persistence.Table;
 @Getter
 public class ConferenceRoom extends Room
 {
+    //Attribues
 
+    private int maxAmountOfParticipants;
+    private int amountOfWhiteboards;
+    private int amountOfBeamer;
+    private boolean hasScreen;
+    private boolean hasComputer;
+    private boolean hasTV;
+    private Room.Category category;
+
+    //Mapping
+
+    @Column(name="room_no")
+    private Integer roomNo;
+    @OneToOne(mappedBy = "conferenceRoom")
+    private Room room;
+
+
+    //Constructors
     public ConferenceRoom (int roomNo, Room.Category category, int areaInSqrMetre, int maxAmountOfParticipants, int amountOfWhiteboards,
                            int amountOfBeamer, boolean hasScreen, boolean hasComputer, boolean hasTV,float pricePerUnit)
     {
@@ -38,52 +55,6 @@ public class ConferenceRoom extends Room
 
     //Getter/Setter
 
-    public int getMaxAmountOfParticipants () {
-        return maxAmountOfParticipants;
-    }
-    public void setMaxAmountOfParticipants(int maxAmountOfParticipants) {
-        this.maxAmountOfParticipants = maxAmountOfParticipants;
-    }
-    public int getAmountOfWhiteboards ()
-    {
-        return amountOfWhiteboards;
-    }
-    public void setAmountOfWhiteboards (int amountOfWhiteboards)
-    {
-        this.amountOfWhiteboards = amountOfWhiteboards;
-    }
-    public int getAmountOfBeamer ()
-    {
-        return amountOfBeamer;
-    }
-    public void setAmountOfBeamer (int amountOfBeamer)
-    {
-        this.amountOfBeamer = amountOfBeamer;
-    }
-    public boolean hasScreen ()
-    {
-        return hasScreen;
-    }
-    public void setHasScreen (boolean hasScreen)
-    {
-        this.hasScreen = hasScreen;
-    }
-    public boolean hasComputer ()
-    {
-        return hasComputer;
-    }
-    public void setHasComputer (boolean hasComputer)
-    {
-        this.hasComputer = hasComputer;
-    }
-    public boolean hasTV ()
-    {
-        return hasTV;
-    }
-    public void setHasTV (boolean hasTV)
-    {
-        this.hasTV = hasTV;
-    }
     public Room.Category getCategory ()
     {
         return category;
@@ -93,15 +64,6 @@ public class ConferenceRoom extends Room
         this.category = category;
     }
 
-    //Attribues
-
-    private int maxAmountOfParticipants;
-    private int amountOfWhiteboards;
-    private int amountOfBeamer;
-    private boolean hasScreen;
-    private boolean hasComputer;
-    private boolean hasTV;
-    private Room.Category category;
 
 
 

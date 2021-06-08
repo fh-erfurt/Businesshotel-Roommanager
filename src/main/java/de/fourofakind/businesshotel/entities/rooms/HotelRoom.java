@@ -5,8 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * <p>
@@ -25,6 +24,21 @@ import javax.persistence.Table;
 public class HotelRoom extends Room
 {
 
+    //Attributes
+    private int bedCount;
+    private boolean hasSpeedLAN;
+    private boolean hasTV;
+    private boolean hasKitchen;
+    private boolean hasCoffeemaker;
+    private Room.Category category;
+
+    //Mapping
+    @Column(name="room_no")
+    private Integer roomNo;
+    @OneToOne(mappedBy = "hotelRoom")
+    private Room room;
+
+    //Constructors
     public HotelRoom (int roomNo, Room.Category category, int areaInSqrMetre, int bedCount, boolean hasSpeedLAN, boolean hasTV, boolean hasKitchen,
                       boolean hasCoffeemaker,float pricePerUnit)
     {
@@ -88,13 +102,6 @@ public class HotelRoom extends Room
         this.category = category;
     }
 
-    //Attributes
 
-    private int bedCount;
-    private boolean hasSpeedLAN;
-    private boolean hasTV;
-    private boolean hasKitchen;
-    private boolean hasCoffeemaker;
-    private Room.Category category;
 
 }

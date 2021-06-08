@@ -25,6 +25,28 @@ import java.util.Date;
 @Getter
 abstract public class Room {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer roomNo;
+
+    private Category category;
+    private int areaInSqrMetre;
+    public enum Category
+    {
+        SINGLE, DOUBLE, SUITE, BIGGROUP, SMALLGROUP
+    }
+
+    //Mapping
+
+    @OneToOne
+    @JoinColumn(name="room_no", referencedColumnName= "room_no")
+    private HotelRoom hotelRoom;
+    @OneToOne
+    @JoinColumn(name="room_no", referencedColumnName= "room_no")
+    private ConferenceRoom conferenceRoom;
+
+
+    //Constructor
     public Room(int roomNo, int areaInSqrMetre, float pricePerUnit) {
         this.areaInSqrMetre = areaInSqrMetre;
         this.roomNo = roomNo;
@@ -77,13 +99,5 @@ abstract public class Room {
     private float pricePerUnit;
 //    private ArrayList<Date> roomOccupationList = new ArrayList<Date>();
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer roomNo;
 
-    private Category category;
-    private int areaInSqrMetre;
-    public enum Category {
-        SINGLE, DOUBLE, SUITE, BIGGROUP, SMALLGROUP
-    }
 }

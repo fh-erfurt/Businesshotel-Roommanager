@@ -1,5 +1,6 @@
 package de.fourofakind.businesshotel.entities.customers;
 
+import de.fourofakind.businesshotel.entities.common.AccountDetails;
 import de.fourofakind.businesshotel.entities.rooms.Room;
 import de.fourofakind.businesshotel.repositories.BookingRequestRepository;
 import lombok.AllArgsConstructor;
@@ -24,10 +25,34 @@ import java.util.Date;
 public class Customer
 {
 
+    //Attributes
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer customerID;
+    private Integer contactDataID;
+    private paymentMethods paymentMethod;
+    private boolean isBusinessCustomer;
+    private Integer account_id;
+
+    //Fields
     public enum paymentMethods
     {
         debit, paypal, bill
     }
+
+
+    //Mapping
+    @OneToOne
+    @JoinColumn(name="account_id",referencedColumnName = "account_id")
+    private AccountDetails accountDetails;
+    @ManyToOne(optional = false)
+    @JoinColumn(name="contact_data_id",referencedColumnName = "contact_data_id")
+    private ContactData contactData;
+
+
+
+
+    //Constructors
 
     public Customer (int customerID, Integer contactDataID, paymentMethods paymentMethod)
     {
@@ -81,17 +106,12 @@ public class Customer
             case "bill":
                 this.paymentMethod = paymentMethods.bill;
 
+
         }
 
     }
 
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer customerID;
-    private Integer contactDataID;
-    private paymentMethods paymentMethod;
-    private boolean isBusinessCustomer;
 
 
 }

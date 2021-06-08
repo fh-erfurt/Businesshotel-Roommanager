@@ -21,6 +21,24 @@ import javax.persistence.*;
 @Getter
 public class ContactData {
 
+    //Attributes
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer contactDataID;
+    private String firstName;
+    private String lastName;
+    private String streetName;
+    private String streetNumber;
+    private String postalCode;
+    private String cityName;
+    private String phoneNumber;
+    private String mailAddress;
+    private String paymentCredentials;
+
+    //Mapping
+
+
+
 //    public enum attributes
 //    {
 //        firstName, lastName, streetName, streetNumber, postalCode, cityName, mailAddress
@@ -121,16 +139,5 @@ public class ContactData {
         return paymentCredentials;
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer contactDataID;
-    private String firstName;
-    private String lastName;
-    private String streetName;
-    private String streetNumber;
-    private String postalCode;
-    private String cityName;
-    private String phoneNumber;
-    private String mailAddress;
-    private String paymentCredentials;
+
 }

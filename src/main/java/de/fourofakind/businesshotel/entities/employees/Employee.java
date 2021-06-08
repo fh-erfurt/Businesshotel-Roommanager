@@ -3,6 +3,7 @@ package de.fourofakind.businesshotel.entities.employees;
 import de.fourofakind.businesshotel.entities.bookings.Booking;
 import de.fourofakind.businesshotel.entities.bookings.ConferenceRoomBooking;
 import de.fourofakind.businesshotel.entities.bookings.HotelRoomBooking;
+import de.fourofakind.businesshotel.entities.common.AccountDetails;
 import de.fourofakind.businesshotel.entities.common.Role;
 import de.fourofakind.businesshotel.entities.customers.ContactData;
 import de.fourofakind.businesshotel.entities.customers.Customer;
@@ -40,8 +41,16 @@ public class Employee
     private Integer empNo;
     private String empName;
     private String givenRole;
-    @Column(name="account_id") private Integer accountID;
+    @Column(name="account_id")
+    private Integer accountID;
 
+    //Mapping
+
+    @OneToOne(optional = false)
+    @JoinColumn(name="account_id",referencedColumnName = "account_id")
+    private AccountDetails accountDetails;
+
+    //Constructors
     public Employee (String empName, int accountID) //Employee without any Rights
     {
         this.givenRole = null;
