@@ -17,6 +17,7 @@ public class AccountDetails
 {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
+    @Column(name="account_id")
     Integer accountID;
     String username;
     String passwordHash;
