@@ -247,7 +247,7 @@ create table if not exists `bh_room_db`.`conference_room` (
     `amount_of_beamer` int null,
     `has_screen` tinyint null,
     `has_computer` tinyint null,
-    `has_tv` tinyint null,
+    `amount_of_tv` tinyint null,
     `room_no` int not null,
     `updated_at` timestamp null default null on update current_timestamp,
     `created_at` timestamp not null default current_timestamp,
