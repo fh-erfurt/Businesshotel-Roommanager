@@ -18,6 +18,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Date;
 
@@ -49,6 +50,11 @@ public class Employee
     @OneToOne(optional = false)
     @JoinColumn(name="account_id",referencedColumnName = "account_id")
     private AccountDetails accountDetails;
+    @ManyToOne
+    @JoinColumn(name="given_role",referencedColumnName = "role_name")
+    private Role role;
+    @OneToMany(mappedBy = "employee")
+    private List<Booking> bookings;
 
     //Constructors
     public Employee (String empName, int accountID) //Employee without any Rights

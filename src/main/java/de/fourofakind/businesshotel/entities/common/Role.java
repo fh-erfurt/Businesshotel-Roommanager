@@ -1,14 +1,13 @@
 package de.fourofakind.businesshotel.entities.common;
 
+import de.fourofakind.businesshotel.entities.employees.Employee;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 /**
  * <p>This class implements an early version of a right management system. Currently there are 4 roles an actor of the system can inherit- three of which inherit one right each and the fourth
@@ -28,6 +27,9 @@ public class Role
     private boolean isEnabledToManageRooms;
     private boolean isEnabledToManageBookings;
     private boolean isEnabledToManageCustomerData;
+
+    @OneToMany(mappedBy = "role")
+    private List<Employee> employee;
 
 
 

@@ -2,12 +2,14 @@ package de.fourofakind.businesshotel.entities.customers;
 
 //
 
+import de.fourofakind.businesshotel.entities.employees.Employee;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * object to store personal data of customer
@@ -36,8 +38,8 @@ public class ContactData {
     private String paymentCredentials;
 
     //Mapping
-
-
+    @OneToMany(mappedBy = "contactData")
+    private List<Customer> customers;
 
 //    public enum attributes
 //    {

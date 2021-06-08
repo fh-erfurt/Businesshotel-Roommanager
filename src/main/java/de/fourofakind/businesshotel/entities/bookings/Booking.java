@@ -1,5 +1,8 @@
 package de.fourofakind.businesshotel.entities.bookings;
 
+
+import de.fourofakind.businesshotel.entities.customers.Customer;
+import de.fourofakind.businesshotel.entities.employees.Employee;
 import de.fourofakind.businesshotel.entities.rooms.Room;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,6 +13,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+
 /**
  * <p>This is our main class - Every action that is made from an employee or customer will interact with this class.
  * All information about the Bookingdetails and the Booking itself interacts with this class to. For Java1 only the Employee will be able to alter the
@@ -28,6 +32,32 @@ import java.util.Date;
 @DiscriminatorColumn(name="booking_type",discriminatorType=DiscriminatorType.STRING)
 public abstract class Booking {
 
+    //Attributes
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int bookingNo;
+    private int roomNo;
+    private float pricing;
+    private int empNo;
+    private Date startDate;
+    private Date endDate;
+    private String bookingDate;
+    private String roomCategory;
+    private String specialWishes;
+    private int customerID;
+    private String changeDate;
+    private boolean isBusinessCustomer;
+
+    //Mapping
+    @ManyToOne
+    @JoinColumn(name="customer_id",referencedColumnName = "customer_id")
+    private Customer customer;
+    @ManyToOne
+    @JoinColumn(name="emp_no",referencedColumnName = "emp_no")
+    private Employee employee;
+
+
+    //Fields
     public enum BookingType
     {
         ConferenceRoomBooking,
@@ -132,19 +162,4 @@ public abstract class Booking {
         this.customerID = customerID;
     }
 
-    //Attributes
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int bookingNo;
-    private int roomNo;
-    private float pricing;
-    private int empNo;
-    private Date startDate;
-    private Date endDate;
-    private String bookingDate;
-    private String roomCategory;
-    private String specialWishes;
-    private int customerID;
-    private String changeDate;
-    private boolean isBusinessCustomer;
 }

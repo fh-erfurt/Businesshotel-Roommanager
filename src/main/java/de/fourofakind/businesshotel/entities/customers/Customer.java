@@ -1,5 +1,6 @@
 package de.fourofakind.businesshotel.entities.customers;
 
+import de.fourofakind.businesshotel.entities.bookings.Booking;
 import de.fourofakind.businesshotel.entities.common.AccountDetails;
 import de.fourofakind.businesshotel.entities.rooms.Room;
 import de.fourofakind.businesshotel.repositories.BookingRequestRepository;
@@ -11,6 +12,7 @@ import lombok.Setter;
 import javax.persistence.*;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * customer class manages every methode done by the customer and its personal data
@@ -48,6 +50,8 @@ public class Customer
     @ManyToOne(optional = false)
     @JoinColumn(name="contact_data_id",referencedColumnName = "contact_data_id")
     private ContactData contactData;
+    @OneToMany(mappedBy = "customer")
+    private List<Booking> bookings;
 
 
 

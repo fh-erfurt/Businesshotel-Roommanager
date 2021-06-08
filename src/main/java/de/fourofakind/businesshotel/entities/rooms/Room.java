@@ -1,5 +1,6 @@
 package de.fourofakind.businesshotel.entities.rooms;
 
+import de.fourofakind.businesshotel.entities.bookings.Booking;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,6 +9,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -25,18 +27,15 @@ import java.util.Date;
 @Getter
 abstract public class Room {
 
+    //Attributes
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer roomNo;
 
     private Category category;
     private int areaInSqrMetre;
-    public enum Category
-    {
-        SINGLE, DOUBLE, SUITE, BIGGROUP, SMALLGROUP
-    }
 
-    //Mapping
+        //Mapping
 
     @OneToOne
     @JoinColumn(name="room_no", referencedColumnName= "room_no")
@@ -44,7 +43,19 @@ abstract public class Room {
     @OneToOne
     @JoinColumn(name="room_no", referencedColumnName= "room_no")
     private ConferenceRoom conferenceRoom;
+    @ManyToMany
+    @JoinTable(
+            name="room_has_booking",
+            joinColumns = @JoinColumn(name="room_no",referencedColumnName="room_no"),
+            inverseJoinColumns = @JoinColumn(name="booking_id",referencedColumnName = "booking_no")
+    )
+    private List<Booking> bookings;
 
+    //Fields
+    public enum Category
+    {
+        SINGLE, DOUBLE, SUITE, BIGGROUP, SMALLGROUP
+    }
 
     //Constructor
     public Room(int roomNo, int areaInSqrMetre, float pricePerUnit) {
