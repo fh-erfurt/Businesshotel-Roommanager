@@ -30,8 +30,9 @@ abstract public class Room {
     //Attributes
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="room_no")
     private Integer roomNo;
-
+    private float pricePerUnit;
     private Category category;
     private int areaInSqrMetre;
 
@@ -66,49 +67,9 @@ abstract public class Room {
 
     //Getter/Setter
 
-    public Category getCategory() {
-        return category;
-    }
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-    public int getAreaInSqrMetre() {
-        return areaInSqrMetre;
-    }
-    public void setAreaInSqrMetre(int areaInSqrMetre) {
-        this.areaInSqrMetre = areaInSqrMetre;
-    }
-    public int getRoomNo() {
-        return roomNo;
-    }
-    public void setRoomNo(int roomNo) {
-        this.roomNo = roomNo;
-    }
-//    public void setRoomAsFreeToList (Date fullDate)
-//    {
-//        this.roomOccupationList.remove(fullDate);
-//    }
-//    public ArrayList<Date> getRoomOccupiedAtList ()
-//    {
-//        return roomOccupationList;
-//    }
-//    public void setRoomAsOccupiedToList (Date fullDate)
-//    {
-//        this.roomOccupationList.add(fullDate);
-//    }
-    public float getPricePerUnit ()
-    {
-        return pricePerUnit;
-    }
-    public void setPricePerUnit (float pricePerUnit)
-    {
-        this.pricePerUnit = pricePerUnit;
-    }
+    //managed by lombok
 
-    //Attributes
 
-    private float pricePerUnit;
-//    private ArrayList<Date> roomOccupationList = new ArrayList<Date>();
 
 
 }

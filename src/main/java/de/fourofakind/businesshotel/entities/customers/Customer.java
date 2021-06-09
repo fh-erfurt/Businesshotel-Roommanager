@@ -30,6 +30,7 @@ public class Customer
     //Attributes
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="customer_id")
     private Integer customerID;
     private Integer contactDataID;
     private paymentMethods paymentMethod;

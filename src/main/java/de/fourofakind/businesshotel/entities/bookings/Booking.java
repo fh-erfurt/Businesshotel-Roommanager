@@ -35,25 +35,27 @@ public abstract class Booking {
     //Attributes
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int bookingNo;
-    private int roomNo;
+    @Column(name="booking_no")
+    private Integer bookingNo;
+    private Integer roomNo;
     private float pricing;
-    private int empNo;
+    @Column(name="emp_no")
+    private Integer empNo;
     private Date startDate;
     private Date endDate;
     private String bookingDate;
     private String roomCategory;
     private String specialWishes;
-    private int customerID;
+    private Integer customerID;
     private String changeDate;
     private boolean isBusinessCustomer;
 
     //Mapping
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name="customer_id",referencedColumnName = "customer_id")
     private Customer customer;
-    @ManyToOne
-    @JoinColumn(name="emp_no",referencedColumnName = "emp_no")
+    @ManyToOne(optional = false)
+    @JoinColumn(name="emp_no",referencedColumnName="emp_no", insertable=false)
     private Employee employee;
 
 

@@ -39,8 +39,10 @@ public class Employee
     //Attributes
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="emp_no")
     private Integer empNo;
     private String empName;
+    @Column(name="given_role")
     private String givenRole;
     @Column(name="account_id")
     private Integer accountID;

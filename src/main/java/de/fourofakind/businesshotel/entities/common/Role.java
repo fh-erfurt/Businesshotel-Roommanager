@@ -21,17 +21,28 @@ import java.util.List;
 @Getter
 public class Role
 {
+
     //Attributes
     @Id
+    @Column(name="role_name")
     private String roleName;
     private boolean isEnabledToManageRooms;
     private boolean isEnabledToManageBookings;
     private boolean isEnabledToManageCustomerData;
 
+
+    //Mappings
     @OneToMany(mappedBy = "role")
     private List<Employee> employee;
 
-
+    //Constructors
+    public Role (String roleName, boolean isEnabledToManageRooms, boolean isEnabledToManageBookings, boolean isEnabledToManageCustomerData)
+    {
+        this.roleName = roleName;
+        this.isEnabledToManageRooms = isEnabledToManageRooms;
+        this.isEnabledToManageBookings = isEnabledToManageBookings;
+        this.isEnabledToManageCustomerData = isEnabledToManageCustomerData;
+    }
 
 
 
