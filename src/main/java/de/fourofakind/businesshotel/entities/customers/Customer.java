@@ -46,7 +46,7 @@ public class Customer
 
     //Mapping
     @OneToOne
-    @JoinColumn(name="account_id",referencedColumnName = "account_id")
+    @JoinColumn(name="account_id",insertable = false,updatable = false)
     private AccountDetails accountDetails;
     @ManyToOne(optional = false)
     @JoinColumn(name="contact_data_id",referencedColumnName = "contact_data_id")

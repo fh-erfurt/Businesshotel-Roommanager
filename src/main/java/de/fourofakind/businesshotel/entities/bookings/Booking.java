@@ -55,7 +55,7 @@ public abstract class Booking {
     @JoinColumn(name="customer_id",referencedColumnName = "customer_id")
     private Customer customer;
     @ManyToOne(optional = false)
-    @JoinColumn(name="emp_no",referencedColumnName="emp_no", insertable=false)
+    @JoinColumn(name="emp_no", insertable = false,updatable = false)
     private Employee employee;
 
 
@@ -74,6 +74,8 @@ public abstract class Booking {
      * </p>
      */
 
+    //Constructors
+
     public Booking(int bookingNo, int customerID ,int roomNo, Date startDate, Date endDate, Room.Category roomCategory,
                    String specialWishes, int empNo, boolean isBusinessCustomer) {
         DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
@@ -91,77 +93,6 @@ public abstract class Booking {
     }
 
     //Getter/Setter
-    public Date getStartDate()
-    {
-        return startDate;
-    }
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
-    public Date getEndDate() {
-        return endDate;
-    }
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
-    }
-
-    public String getBookingDate() {
-        return bookingDate;
-    }
-    public String getRoomCategory() {
-        return roomCategory;
-    }
-    public String getSpecialWishes() {
-        return specialWishes;
-    }
-    public float getPricing() {
-        return pricing;
-    }
-    public int getEmpNo() {
-        return empNo;
-    }
-    public boolean isBusinessCustomer() {
-        return this.isBusinessCustomer;
-    }
-    public void setBookingDate(String bookingDate) {
-        this.bookingDate = bookingDate;
-    }
-    public void setSpecialWishes(String specialWishes) {
-        this.specialWishes = specialWishes;
-    }
-    public void setEmpNo(int empNo) {
-        this.empNo = empNo;
-    }
-    public void setBusinessCustomer(boolean businessCustomer) {
-        isBusinessCustomer = businessCustomer;
-    }
-    public int getBookingNo() {
-        return bookingNo;
-    }
-    public void setBookingNo(int bookingNo) {
-        this.bookingNo = bookingNo;
-    }
-    public int getRoomNo() {
-        return roomNo;
-    }
-    public void setRoomNo(int roomNo) {
-        this.roomNo = roomNo;
-    }
-    public String getChangeDate ()
-    {
-        return changeDate;
-    }
-    public void setChangeDate (String changeDate)
-    {
-        this.changeDate = changeDate;
-    }
-    public int getCustomerID ()
-    {
-        return customerID;
-    }
-    public void setCustomerID (int customerID)
-    {
-        this.customerID = customerID;
-    }
+    //managed by Lombok
 
 }

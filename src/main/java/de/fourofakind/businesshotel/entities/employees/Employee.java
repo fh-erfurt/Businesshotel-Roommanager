@@ -50,10 +50,10 @@ public class Employee
     //Mapping
 
     @OneToOne(optional = false)
-    @JoinColumn(name="account_id",referencedColumnName = "account_id")
+    @JoinColumn(name="account_id",insertable = false,updatable = false)
     private AccountDetails accountDetails;
     @ManyToOne
-    @JoinColumn(name="given_role",referencedColumnName = "role_name")
+    @JoinColumn(name="given_role",referencedColumnName = "role_name", insertable = false, updatable = false)
     private Role role;
     @OneToMany(mappedBy = "employee")
     private List<Booking> bookings;
@@ -61,12 +61,14 @@ public class Employee
     //Constructors
     public Employee (String empName, int accountID) //Employee without any Rights
     {
+        this.accountID=accountID;
         this.givenRole = null;
         this.empName = empName;
     }
 
     public Employee (String empName, String givenRole, int accountID)
     {
+        this.accountID=accountID;
         this.givenRole = givenRole;
         this.empName = empName;
     }
