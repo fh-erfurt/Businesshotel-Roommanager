@@ -28,11 +28,13 @@ public class RoommanagerApplication
         return args->{
             AccountDetails NumberOne=new AccountDetails("maxiking","1234asdf");
             accountDetailsRepository.save(NumberOne);
-            //Integer accountID=accountDetailsRepository.findAll(Sort.by(Sort.Direction.DESC, "account_id")).get(0).getAccountID();
-            Employee MaxMustermann=new Employee("Max Mustermann", 1);
+            Integer accountID=accountDetailsRepository.findAll(Sort.by(Sort.Direction.DESC, "accountID")).get(0).getAccountID();
+            Employee MaxMustermann=new Employee("Max Mustermann", accountID);
             employeeRepository.save(MaxMustermann);
             Role Babo = new Role("Babo",true, true, true);
             roleRepository.save(Babo);
+            MaxMustermann.setGivenRole(Babo.getRoleName());
+            employeeRepository.save(MaxMustermann);
         };
     }
 }
