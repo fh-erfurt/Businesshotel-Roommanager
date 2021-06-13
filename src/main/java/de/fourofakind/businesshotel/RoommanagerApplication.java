@@ -28,8 +28,7 @@ public class RoommanagerApplication
         return args->{
             AccountDetails NumberOne=new AccountDetails("maxiking","1234asdf");
             accountDetailsRepository.save(NumberOne);
-            Integer accountID=accountDetailsRepository.findAll(Sort.by(Sort.Direction.DESC, "accountID")).get(0).getAccountID();
-            Employee MaxMustermann=new Employee("Max Mustermann", accountID);
+            Employee MaxMustermann=new Employee("Max Mustermann", NumberOne.getAccountID());
             employeeRepository.save(MaxMustermann);
             Role Babo = new Role("Babo",true, true, true);
             roleRepository.save(Babo);
