@@ -1,6 +1,6 @@
 
 package de.fourofakind.businesshotel;
-
+/*
 import de.fourofakind.businesshotel.entities.common.AccountDetails;
 import de.fourofakind.businesshotel.entities.common.Role;
 import de.fourofakind.businesshotel.entities.rooms.Room;
@@ -17,6 +17,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Sort;
+*/
+
 /*
 import de.fourofakind.businesshotel.employees.Employee;
 import de.fourofakind.businesshotel.server.rooms.ConferenceRoom;
@@ -32,14 +34,14 @@ import static org.junit.jupiter.api.Assertions.*;
 
 */
 
-import de.fourofakind.businesshotel.entities.common.Role;
+//import de.fourofakind.businesshotel.entities.common.Role;
 
 /**
  * <p>All tests refering to the Room, from the check if it is created correctly to the check of the changes made</p>
  */
 
 
-@SpringBootApplication
+/*@SpringBootApplication
 public class RoomTestClass {
 
     //Setup for Tests
@@ -217,7 +219,7 @@ public class RoomTestClass {
         assertThrows(IllegalCallerException.class, ()-> Mitarbeiter1.changeRoomDetails(1, toBeChangedList, changedValues),"Should throw an " +
                 "error to pass, ´cause the employee has no right to change a detail of the room");
     }
-*/}
+}
 
 
 
@@ -241,7 +243,7 @@ public class RoomTestClass {
 
 
 
-
+*/
 
 
 
