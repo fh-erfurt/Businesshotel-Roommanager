@@ -1,6 +1,23 @@
-/*
+
 package de.fourofakind.businesshotel;
 
+import de.fourofakind.businesshotel.entities.common.AccountDetails;
+import de.fourofakind.businesshotel.entities.common.Role;
+import de.fourofakind.businesshotel.entities.rooms.Room;
+import de.fourofakind.businesshotel.entities.rooms.HotelRoom;
+import de.fourofakind.businesshotel.entities.rooms.ConferenceRoom;
+import de.fourofakind.businesshotel.repositories.ConferenceRoomRepository;
+import de.fourofakind.businesshotel.repositories.HotelRoomRepository;
+import de.fourofakind.businesshotel.entities.employees.Employee;
+import de.fourofakind.businesshotel.repositories.AccountDetailsRepository;
+import de.fourofakind.businesshotel.repositories.EmployeeRepository;
+import de.fourofakind.businesshotel.repositories.RoleRepository;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.data.domain.Sort;
+/*
 import de.fourofakind.businesshotel.employees.Employee;
 import de.fourofakind.businesshotel.server.rooms.ConferenceRoom;
 import de.fourofakind.businesshotel.server.rooms.HotelRoom;
@@ -14,48 +31,54 @@ import static de.fourofakind.businesshotel.common.StartingClass.Rooms;
 import static org.junit.jupiter.api.Assertions.*;
 
 */
+
+import de.fourofakind.businesshotel.entities.common.Role;
+
 /**
  * <p>All tests refering to the Room, from the check if it is created correctly to the check of the changes made</p>
- *//*
+ */
 
 
-
-public class RoomTestClass
-{
+@SpringBootApplication
+public class RoomTestClass {
 
     //Setup for Tests
-    Employee Mitarbeiter1 = new Employee("Mitarbeiter1",RoomAdministrator);
-    Room NullRoom = Mitarbeiter1.createHotelRoom(0, HotelRoom.Category.SINGLE,60,2,true,true,false,true,0);
-    HotelRoom newHotelRoom = Mitarbeiter1.createHotelRoom(1, HotelRoom.Category.DOUBLE,60,2,true,true,false,true,60);
-    ConferenceRoom newConferenceRoom = Mitarbeiter1.createConferenceRoom(2, ConferenceRoom.Category.BIGGROUP,45,12,2,1,true,false,false,20);
-    DateFrame christmasHoliday = new DateFrame("23.12.2021", "27.12.2021");
-    DateFrame newYearsEveHoliday = new DateFrame("30.12.2021", "02.01.2022");
-    TimeFrame fromEightToTen = new TimeFrame("08:00", "22:00");
-    FullDate dateOfOccupationChristmas = new FullDate( christmasHoliday, fromEightToTen);
-    FullDate dateOfOccupationNewYear = new FullDate( newYearsEveHoliday, fromEightToTen);
 
-    */
+
+
+   /* @Bean
+    public void Initialization(){
+        return args-> {
+            HotelRoom Hinterzimmer = new HotelRoom(1, Room.Category.SINGLE, 60, 4, true, true, false, true, 90);
+            HotelRoomRepository.save(Hinterzimmer);
+        };
+
+    }*/
+
+
 /**
      * <p>
      * The following two tests are designed to check if the created room, Hotel- or Conferenceroom is actually an instance of the abstract class
      * Room.
      * </p>
-     *//*
+     */
 
+/*
     @Test
     public void IsCreatedHotelRoomInstanceOfRoom()
     {
-        assertNotNull(newHotelRoom, "Should give createdHotelroom as Instance of Room");
-    }
 
-    @Test
+        //assertNotNull(newHotelRoom, "Should give createdHotelroom as Instance of Room");
+    }
+*/
+   /* @Test
     public void IsCreatedConferenceRoomInstanceOfRoom()
     {
         assertNotNull(newConferenceRoom, "Should give createdConferenceroom as Instance of Room");
     }
 
 
-    */
+
 /**
      * <p>These tests checks if the created room has been created correctly with all its data given</p>
      *//*
@@ -194,7 +217,7 @@ public class RoomTestClass
         assertThrows(IllegalCallerException.class, ()-> Mitarbeiter1.changeRoomDetails(1, toBeChangedList, changedValues),"Should throw an " +
                 "error to pass, ´cause the employee has no right to change a detail of the room");
     }
-}
+*/}
 
 
 
@@ -228,4 +251,4 @@ public class RoomTestClass
 
 
 
-*/
+
