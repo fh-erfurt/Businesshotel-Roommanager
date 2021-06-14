@@ -1,70 +1,65 @@
-/*
 package de.fourofakind.businesshotel;
 
-import de.fourofakind.businesshotel.bookings.Booking;
-import de.fourofakind.businesshotel.bookings.ConferenceRoomBooking;
-import de.fourofakind.businesshotel.customers.BookingRequest;
-import de.fourofakind.businesshotel.customers.Customer;
-import de.fourofakind.businesshotel.employees.Employee;
-import de.fourofakind.businesshotel.server.rooms.ConferenceRoom;
-import de.fourofakind.businesshotel.server.rooms.HotelRoom;
-import de.fourofakind.businesshotel.server.rooms.Room;
+import de.fourofakind.businesshotel.server.entities.bookings.Booking;
+import de.fourofakind.businesshotel.server.entities.bookings.ConferenceRoomBooking;
+import de.fourofakind.businesshotel.server.entities.customers.BookingRequest;
+import de.fourofakind.businesshotel.server.entities.customers.Customer;
+import de.fourofakind.businesshotel.server.entities.employees.Employee;
+import de.fourofakind.businesshotel.server.entities.rooms.ConferenceRoom;
+import de.fourofakind.businesshotel.server.entities.rooms.HotelRoom;
+import de.fourofakind.businesshotel.server.entities.rooms.Room;
 import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
-
-import static de.fourofakind.businesshotel.common.StartingClass.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-*/
+
 /**
  * <p>Test Class to test all of the Employee's abilities</p>
- *//*
+ */
 
 public class EmployeeTestClass
 {
     //Dummy entries for each static List to secure all lists index=objectNo relations
-    TimeFrame NullTimeFrame = new TimeFrame("12:00", "12:05");
-    DateFrame NullDateFrame = new DateFrame("01.01.2000", "01.01.2000");
-    ConferenceRoom NullRoom = new ConferenceRoom(0, ConferenceRoom.Category.SMALLGROUP, 0, 0, 0, 0, false, false, false,0.0f); //present to
-    ConferenceRoomBooking NullBooking = new ConferenceRoomBooking(0, 0, 0,NullTimeFrame, NullDateFrame, Room.Category.SINGLE, "", 0, false);
-    Employee NullEmployee = new Employee("");
+//    TimeFrame NullTimeFrame = new TimeFrame("12:00", "12:05");
+//    DateFrame NullDateFrame = new DateFrame("01.01.2000", "01.01.2000");
+//    ConferenceRoom NullRoom = new ConferenceRoom(0, ConferenceRoom.Category.SMALLGROUP, 0, 0, 0, 0, false, false, false,0.0f); //present to
+//    ConferenceRoomBooking NullBooking = new ConferenceRoomBooking(0, 0, 0,NullTimeFrame, NullDateFrame, Room.Category.SINGLE, "", 0, false);
+//    Employee NullEmployee = new Employee();
+//
+//    //(int bookingNo, int customerID, int roomNo, TimeFrame timeFrame, DateFrame dateFrame, Room.Category roomCategory,
+//    //String specialWishes, int empNo, boolean isBusinessCustomer)
+//
+//
+//    //example instances of different classes used in the test cases
+//    TimeFrame zwoelfBisMittag = new TimeFrame("12:00", "12:05");
+//    DateFrame Heute = new DateFrame("20.02.2020", "20.02.2020");
+//    HotelRoom TestRoom1 = new HotelRoom(1, HotelRoom.Category.SINGLE, 50, 4, true, false, false, true,90.5f);
+//    HotelRoom TestRoom2 = new HotelRoom(2, HotelRoom.Category.SUITE, 40, 2, false, false, true, false, 80f);
+//    HotelRoom TestRoom3 = new HotelRoom(3, HotelRoom.Category.SINGLE, 20, 1, true, false, true, false, 65);
+//    ConferenceRoom TestRoom4 = new ConferenceRoom(4, ConferenceRoom.Category.BIGGROUP, 60, 24, 3, 2, true, true, true, 15);
 
-    //(int bookingNo, int customerID, int roomNo, TimeFrame timeFrame, DateFrame dateFrame, Room.Category roomCategory,
-    //String specialWishes, int empNo, boolean isBusinessCustomer)
 
 
-    //example instances of different classes used in the test cases
-    TimeFrame zwoelfBisMittag = new TimeFrame("12:00", "12:05");
-    DateFrame Heute = new DateFrame("20.02.2020", "20.02.2020");
-    HotelRoom TestRoom1 = new HotelRoom(1, HotelRoom.Category.SINGLE, 50, 4, true, false, false, true,90.5f);
-    HotelRoom TestRoom2 = new HotelRoom(2, HotelRoom.Category.SUITE, 40, 2, false, false, true, false, 80f);
-    HotelRoom TestRoom3 = new HotelRoom(3, HotelRoom.Category.SINGLE, 20, 1, true, false, true, false, 65);
-    ConferenceRoom TestRoom4 = new ConferenceRoom(4, ConferenceRoom.Category.BIGGROUP, 60, 24, 3, 2, true, true, true, 15);
-
-
-    */
 /**
      * <p>Test of the Employee Constructor to ensure correct function of the constructor and storing of an employee in the 'Employees' list</p>
-     *//*
+     */
 
-    @Test
-    public void shouldOutputEmployeeNameWhenSuccessful ()
-    {
-        //Given
-        Employees.add(NullEmployee); //EmployeeNo beginning at 1
+//    @Test
+//    public void shouldOutputEmployeeNameWhenSuccessful ()
+//    {
+//        //Given
+//        Employees.add(NullEmployee); //EmployeeNo beginning at 1
+//
+//        Employee MaxMustermann = new Employee("Max Mustermann");
+//        Employees.add(MaxMustermann);
+//
+//        //When
+//        String result = Employees.get(Employees.indexOf(MaxMustermann)).getEmpName();
+//
+//        //Then
+//        assertEquals("Max Mustermann", result, "If an Employee named Max Mustermann is created by its Constructor it should Output the Name");
+//    }
 
-        Employee MaxMustermann = new Employee("Max Mustermann");
-        Employees.add(MaxMustermann);
 
-        //When
-        String result = Employees.get(Employees.indexOf(MaxMustermann)).getEmpName();
-
-        //Then
-        assertEquals("Max Mustermann", result, "If an Employee named Max Mustermann is created by its Constructor it should Output the Name");
-    }
-
-    */
 /**
      * <p>Second Test of the Employee Constructor to ensure correct function of the constructor and storing of an employee in the 'Employees' list</p>
      *//*
@@ -540,5 +535,5 @@ public class EmployeeTestClass
 
         outputCustomer();
     }
-}
 */
+}
