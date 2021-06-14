@@ -1,10 +1,10 @@
 //package de.fourofakind.businesshotel;
 //
-//import de.fourofakind.businesshotel.entities.bookings.ConferenceRoomBooking;
-//import de.fourofakind.businesshotel.entities.bookings.HotelRoomBooking;
-//import de.fourofakind.businesshotel.entities.rooms.ConferenceRoom;
-//import de.fourofakind.businesshotel.entities.rooms.HotelRoom;
-//import de.fourofakind.businesshotel.entities.rooms.Room;
+//import de.fourofakind.businesshotel.server.entities.bookings.ConferenceRoomBooking;
+//import de.fourofakind.businesshotel.server.entities.bookings.HotelRoomBooking;
+//import de.fourofakind.businesshotel.server.entities.rooms.ConferenceRoom;
+//import de.fourofakind.businesshotel.server.entities.rooms.HotelRoom;
+//import de.fourofakind.businesshotel.server.entities.rooms.Room;
 //import org.junit.jupiter.api.Test;
 //
 //import java.time.LocalDateTime;

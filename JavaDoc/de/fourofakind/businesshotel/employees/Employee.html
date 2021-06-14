@@ -77,7 +77,7 @@ loadScripts(document, 'script');</script>
 <h1 title="Class Employee" class="title">Class Employee</h1>
 </div>
 <div class="inheritance" title="Inheritance Tree">java.lang.Object
-<div class="inheritance">de.fourofakind.businesshotel.entities.employees.Employee</div>
+<div class="inheritance">de.fourofakind.businesshotel.server.entities.employees.Employee</div>
 </div>
 <section class="description">
 <hr>
@@ -208,7 +208,7 @@ int&nbsp;customerID,
 <a href="../common/TimeFrame.html" title="class in de.fourofakind.businesshotel.common">TimeFrame</a>&nbsp;timeFrame,
 <a href="../common/DateFrame.html" title="class in de.fourofakind.businesshotel.common">DateFrame</a>&nbsp;dateFrame,
 <a href="../bookings/Booking.BookingType.html" title="enum in de.fourofakind.businesshotel.bookings">Booking.BookingType</a>&nbsp;bookingType,
-<a href="../rooms/Room.Category.html" title="enum in de.fourofakind.businesshotel.rooms">Room.Category</a>&nbsp;roomCategory,
+<a href="../rooms/Room.Category.html" title="enum in de.fourofakind.businesshotel.server.rooms">Room.Category</a>&nbsp;roomCategory,
 java.lang.String&nbsp;specialWishes,
 boolean&nbsp;isBusinessCustomer)</code></th>
 <td class="col-last">
@@ -217,9 +217,9 @@ boolean&nbsp;isBusinessCustomer)</code></th>
 </td>
 </tr>
 <tr class="alt-color" id="i4">
-<td class="col-first"><code><a href="../rooms/ConferenceRoom.html" title="class in de.fourofakind.businesshotel.rooms">ConferenceRoom</a></code></td>
+<td class="col-first"><code><a href="../rooms/ConferenceRoom.html" title="class in de.fourofakind.businesshotel.server.rooms">ConferenceRoom</a></code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#createConferenceRoom(int,de.fourofakind.businesshotel.rooms.Room.Category,int,int,int,int,boolean,boolean,boolean,float)">createConferenceRoom</a></span>&#8203;(int&nbsp;roomNo,
-<a href="../rooms/Room.Category.html" title="enum in de.fourofakind.businesshotel.rooms">Room.Category</a>&nbsp;category,
+<a href="../rooms/Room.Category.html" title="enum in de.fourofakind.businesshotel.server.rooms">Room.Category</a>&nbsp;category,
 int&nbsp;areaInSqrMetre,
 int&nbsp;maxAmountOfParticipants,
 int&nbsp;amountOfWhiteboards,
@@ -248,9 +248,9 @@ java.lang.String&nbsp;iban)</code></th>
 </td>
 </tr>
 <tr class="alt-color" id="i6">
-<td class="col-first"><code><a href="../rooms/HotelRoom.html" title="class in de.fourofakind.businesshotel.rooms">HotelRoom</a></code></td>
+<td class="col-first"><code><a href="../rooms/HotelRoom.html" title="class in de.fourofakind.businesshotel.server.rooms">HotelRoom</a></code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#createHotelRoom(int,de.fourofakind.businesshotel.rooms.Room.Category,int,int,boolean,boolean,boolean,boolean,float)">createHotelRoom</a></span>&#8203;(int&nbsp;roomNo,
-<a href="../rooms/Room.Category.html" title="enum in de.fourofakind.businesshotel.rooms">Room.Category</a>&nbsp;category,
+<a href="../rooms/Room.Category.html" title="enum in de.fourofakind.businesshotel.server.rooms">Room.Category</a>&nbsp;category,
 int&nbsp;areaInSqrMetre,
 int&nbsp;bedCount,
 boolean&nbsp;hasSpeedLAN,
@@ -292,7 +292,7 @@ int&nbsp;empNo,
 <a href="../common/DateFrame.html" title="class in de.fourofakind.businesshotel.common">DateFrame</a>&nbsp;dateFrame,
 <a href="../common/TimeFrame.html" title="class in de.fourofakind.businesshotel.common">TimeFrame</a>&nbsp;timeFrame,
 java.lang.String&nbsp;bookingDate,
-<a href="../rooms/Room.Category.html" title="enum in de.fourofakind.businesshotel.rooms">Room.Category</a>&nbsp;roomCategory)</code></th>
+<a href="../rooms/Room.Category.html" title="enum in de.fourofakind.businesshotel.server.rooms">Room.Category</a>&nbsp;roomCategory)</code></th>
 <td class="col-last">
 <div class="block">Implementation of the Employee's ability to search for a booking by several parameters given.</div>
 </td>
@@ -420,7 +420,7 @@ int&nbsp;customerID,
 <a href="../common/TimeFrame.html" title="class in de.fourofakind.businesshotel.common">TimeFrame</a>&nbsp;timeFrame,
 <a href="../common/DateFrame.html" title="class in de.fourofakind.businesshotel.common">DateFrame</a>&nbsp;dateFrame,
 <a href="../bookings/Booking.BookingType.html" title="enum in de.fourofakind.businesshotel.bookings">Booking.BookingType</a>&nbsp;bookingType,
-<a href="../rooms/Room.Category.html" title="enum in de.fourofakind.businesshotel.rooms">Room.Category</a>&nbsp;roomCategory,
+<a href="../rooms/Room.Category.html" title="enum in de.fourofakind.businesshotel.server.rooms">Room.Category</a>&nbsp;roomCategory,
 java.lang.String&nbsp;specialWishes,
 boolean&nbsp;isBusinessCustomer)</span>
                       throws <span class="exceptions">java.lang.IllegalCallerException</span></div>
@@ -510,8 +510,8 @@ java.util.ArrayList&lt;java.lang.Object&gt;&nbsp;changedValues)</span>
 <li>
 <section class="detail" id="createConferenceRoom(int,de.fourofakind.businesshotel.rooms.Room.Category,int,int,int,int,boolean,boolean,boolean,float)">
 <h3>createConferenceRoom</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../rooms/ConferenceRoom.html" title="class in de.fourofakind.businesshotel.rooms">ConferenceRoom</a></span>&nbsp;<span class="member-name">createConferenceRoom</span>&#8203;(<span class="parameters">int&nbsp;roomNo,
-<a href="../rooms/Room.Category.html" title="enum in de.fourofakind.businesshotel.rooms">Room.Category</a>&nbsp;category,
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../rooms/ConferenceRoom.html" title="class in de.fourofakind.businesshotel.server.rooms">ConferenceRoom</a></span>&nbsp;<span class="member-name">createConferenceRoom</span>&#8203;(<span class="parameters">int&nbsp;roomNo,
+<a href="../rooms/Room.Category.html" title="enum in de.fourofakind.businesshotel.server.rooms">Room.Category</a>&nbsp;category,
 int&nbsp;areaInSqrMetre,
 int&nbsp;maxAmountOfParticipants,
 int&nbsp;amountOfWhiteboards,
@@ -544,8 +544,8 @@ float&nbsp;pricePerUnit)</span>
 <li>
 <section class="detail" id="createHotelRoom(int,de.fourofakind.businesshotel.rooms.Room.Category,int,int,boolean,boolean,boolean,boolean,float)">
 <h3>createHotelRoom</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../rooms/HotelRoom.html" title="class in de.fourofakind.businesshotel.rooms">HotelRoom</a></span>&nbsp;<span class="member-name">createHotelRoom</span>&#8203;(<span class="parameters">int&nbsp;roomNo,
-<a href="../rooms/Room.Category.html" title="enum in de.fourofakind.businesshotel.rooms">Room.Category</a>&nbsp;category,
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../rooms/HotelRoom.html" title="class in de.fourofakind.businesshotel.server.rooms">HotelRoom</a></span>&nbsp;<span class="member-name">createHotelRoom</span>&#8203;(<span class="parameters">int&nbsp;roomNo,
+<a href="../rooms/Room.Category.html" title="enum in de.fourofakind.businesshotel.server.rooms">Room.Category</a>&nbsp;category,
 int&nbsp;areaInSqrMetre,
 int&nbsp;bedCount,
 boolean&nbsp;hasSpeedLAN,
@@ -598,7 +598,7 @@ int&nbsp;empNo,
 <a href="../common/DateFrame.html" title="class in de.fourofakind.businesshotel.common">DateFrame</a>&nbsp;dateFrame,
 <a href="../common/TimeFrame.html" title="class in de.fourofakind.businesshotel.common">TimeFrame</a>&nbsp;timeFrame,
 java.lang.String&nbsp;bookingDate,
-<a href="../rooms/Room.Category.html" title="enum in de.fourofakind.businesshotel.rooms">Room.Category</a>&nbsp;roomCategory)</span></div>
+<a href="../rooms/Room.Category.html" title="enum in de.fourofakind.businesshotel.server.rooms">Room.Category</a>&nbsp;roomCategory)</span></div>
 <div class="block"><p>Implementation of the Employee's ability to search for a booking by several parameters given. Will later be much more efficient if based on database actions.
  It is possible to search only by EmpNo to determine an Employee's work rate, to search only by bookingNo, which should always return only one booking and to search by a RoomNo and a dateframe and
  a timeframe, when the room should be used. In the last case there are used even further defined parameters like bookingDate or roomCategory, but only if given. Not all Parameters have to be set

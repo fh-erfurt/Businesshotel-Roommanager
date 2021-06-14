@@ -2,9 +2,9 @@
 package de.fourofakind.businesshotel;
 
 import de.fourofakind.businesshotel.employees.Employee;
-import de.fourofakind.businesshotel.rooms.ConferenceRoom;
-import de.fourofakind.businesshotel.rooms.HotelRoom;
-import de.fourofakind.businesshotel.rooms.Room;
+import de.fourofakind.businesshotel.server.rooms.ConferenceRoom;
+import de.fourofakind.businesshotel.server.rooms.HotelRoom;
+import de.fourofakind.businesshotel.server.rooms.Room;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
