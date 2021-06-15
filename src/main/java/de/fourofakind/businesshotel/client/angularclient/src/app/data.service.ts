@@ -38,7 +38,7 @@ export class DataService {
     this.next   = links["next"]; 
   }
 
-  private REST_API_SERVER = "http://localhost:3000/products";
+  private REST_API_SERVER = "http://localhost:8081/hotelroom";
 
   constructor(private httpClient: HttpClient) { }
 
