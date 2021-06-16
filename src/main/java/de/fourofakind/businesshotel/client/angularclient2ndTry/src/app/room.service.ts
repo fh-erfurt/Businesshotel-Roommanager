@@ -9,7 +9,7 @@ import { Room } from './room';
 })
 export class RoomService {
 
-  private baseUrl = "http:://localhost:8081/room"
+  private baseUrl = "http://localhost:8081/room"
 
   constructor(private http: HttpClient) { }
 
