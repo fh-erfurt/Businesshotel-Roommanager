@@ -1,3 +1,3 @@
 export class Hotelroom {
-    id: number;
+    id!: number;
 }
