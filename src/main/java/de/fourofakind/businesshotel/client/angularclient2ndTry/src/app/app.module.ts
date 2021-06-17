@@ -11,6 +11,12 @@ import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { MainComponent } from './main/main.component';
 import { NavigationComponent } from './navigation/navigation.component';
+import { BookingManagementComponent } from './booking-management/booking-management.component';
+import { EmployeeManagementComponent } from './employee-management/employee-management.component';
+import { CustomerManagementComponent } from './customer-management/customer-management.component';
+import { RoomManagementComponent } from './room-management/room-management.component';
+
+
 
 @NgModule({
   declarations: [
@@ -19,7 +25,11 @@ import { NavigationComponent } from './navigation/navigation.component';
     LoginComponent,
     DashboardComponent,
     MainComponent,
-    NavigationComponent
+    NavigationComponent,
+    BookingManagementComponent,
+    EmployeeManagementComponent,
+    CustomerManagementComponent,
+    RoomManagementComponent
   ],
   imports: [
     BrowserModule,

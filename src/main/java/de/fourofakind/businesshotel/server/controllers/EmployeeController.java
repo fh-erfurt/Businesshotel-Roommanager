@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @Transactional
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/employee")
 public class EmployeeController
 {
@@ -21,9 +22,9 @@ public class EmployeeController
         this.employeeRepository=employeeRepository;
     }
 
-    @GetMapping(path="/{id}")
-    ResponseEntity<Employee> findById (@PathVariable(value="id") Integer empNo)
-    {
-        return ResponseEntity.ok(this.employeeRepository.findById(empNo).orElseThrow(()->new EmployeeNotFoundException("No Employee with empNo "+empNo+" found")));
-    }
+//    @GetMapping(path="/{id}")
+//    ResponseEntity<Employee> findById (@PathVariable(value="id") Integer empNo)
+//    {
+//        return ResponseEntity.ok(this.employeeRepository.findById(empNo).orElseThrow(()->new EmployeeNotFoundException("No Employee with empNo "+empNo+" found")));
+//    }
 }
