@@ -5,6 +5,10 @@ import { RoomComponent } from '../room/room.component';
 import { DashboardComponent } from '../dashboard/dashboard.component';
 import { MainComponent } from '../main/main.component';
 import { RouterModule, Routes } from '@angular/router';
+import {BookingManagementComponent} from "../../../../angularclient/src/app/booking-management/booking-management.component";
+import {CustomerManagementComponent} from "../../../../angularclient/src/app/customer-management/customer-management.component";
+import {RoomManagementComponent} from "../../../../angularclient/src/app/room-management/room-management.component";
+import {EmployeeManagementComponent} from "../../../../angularclient/src/app/employee-management/employee-management.component";
 
 const routes: Routes = [
   {
@@ -19,6 +23,10 @@ const routes: Routes = [
     path: 'rooms',
     component: RoomComponent
   },
+  { path: 'management/booking', component: BookingManagementComponent},
+  { path: 'management/customer', component: CustomerManagementComponent},
+  { path: 'management/room', component: RoomManagementComponent},
+  { path: 'management/employee', component: EmployeeManagementComponent},
 
 ];
 
