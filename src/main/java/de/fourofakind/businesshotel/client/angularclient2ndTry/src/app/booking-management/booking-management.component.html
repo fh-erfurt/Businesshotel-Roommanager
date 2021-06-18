@@ -1,1 +1,95 @@
-<p>booking-management works!</p>
+<div>
+  <h1>Buchungsverwaltung</h1>
+    <mat-tab-group>
+      <mat-tab label="Hinzufügen">
+        <div class="addTab">
+          <br>
+          <mat-radio-group>
+            <mat-radio-button required value="hotelRoom">Hotelzimmer</mat-radio-button>
+            <mat-radio-button value="conferenceRoom">Konferenzraum</mat-radio-button>
+          </mat-radio-group>
+          <br>
+          <mat-form-field appearance="fill">
+            <mat-label>Kundennummer</mat-label>
+            <input matInput required>
+          </mat-form-field>
+          <br>
+          <mat-form-field appearance="fill">
+            <mat-label>Raumnummer</mat-label><!--am besten direkt nur mit gültigen Räumen füllen -->
+            <mat-select required>
+              <mat-option value="one">1</mat-option>
+              <mat-option value="two">2</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <br>
+          <mat-form-field appearance="fill">
+            <mat-label>Kundenwünsche</mat-label>
+            <textarea matInput></textarea>
+          </mat-form-field>
+          <button mat-raised-button color="primary">Absenden</button>
+        </div>
+      </mat-tab>
+      <mat-tab label="Bearbeiten">
+        <div class="addTab">
+          <br>
+          <mat-form-field appearance="fill">
+            <mat-label>Buchungsnummer</mat-label>
+            <input matInput required>
+          </mat-form-field>
+          <button mat-raised-button color="primary" >Suchen</button> <!-- sollte Voraussetzung werden für die Aktivierung des restlicehn Formulars-->
+          <br>
+          <mat-radio-group>
+            <mat-radio-button value="hotelRoom">Hotelzimmer</mat-radio-button>
+            <mat-radio-button value="conferenceRoom">Konferenzraum</mat-radio-button>
+          </mat-radio-group>
+          <br>
+          <mat-form-field appearance="fill">
+            <mat-label>Kundennummer</mat-label>
+            <input matInput required>
+          </mat-form-field>
+          <br>
+          <mat-form-field appearance="fill">
+            <mat-label>Raumnummer</mat-label> <!--am besten direkt nur mit gültigen Räumen füllen -->
+            <mat-select required>
+              <mat-option value="one">1</mat-option>
+              <mat-option value="two">2</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <br>
+          <mat-form-field appearance="fill">
+            <mat-label>Kundenwünsche</mat-label>
+            <textarea matInput></textarea>
+          </mat-form-field>
+          <button mat-raised-button color="primary">Absenden</button>
+        </div>
+      </mat-tab>
+      <mat-tab label="Löschen">
+        <br>
+        <mat-form-field appearance="fill">
+          <mat-label>Buchungsnummer</mat-label>
+          <input matInput required>
+        </mat-form-field>
+        <button mat-raised-button color="primary" >Suchen</button> <!-- sollte Voraussetzung werden für die Aktivierung des restlichen Formulars-->
+        <br>
+        <mat-card> <!--Übersicht der Buchung vor dem Löschen-->
+          <mat-card-title>Buchungsnummer</mat-card-title>
+          <mat-card-content>Buchungsinformationen</mat-card-content>
+        </mat-card>
+        <mat-slide-toggle>Freigeben</mat-slide-toggle> <!--Bestätigung zum Freigeben des Löschen, könnte auch als Pop-Up implementiert werden-->
+        <button mat-raised-button color="primary" disabled>Löschen</button>
+      </mat-tab>
+      <mat-tab label="Anzeigen">
+        <br>
+        <mat-form-field appearance="fill">
+          <mat-label>Buchungsnummer</mat-label>
+          <input matInput required>
+        </mat-form-field>
+        <button mat-raised-button color="primary" >Suchen</button>
+        <mat-card>
+          <mat-card-title>Buchungsnummer</mat-card-title>
+          <mat-card-content>Buchungsinformationen</mat-card-content>
+        </mat-card>
+      </mat-tab>
+    </mat-tab-group>
+
+</div>
