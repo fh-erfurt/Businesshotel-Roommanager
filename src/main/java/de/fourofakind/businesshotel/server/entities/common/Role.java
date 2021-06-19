@@ -1,5 +1,6 @@
 package de.fourofakind.businesshotel.server.entities.common;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import de.fourofakind.businesshotel.server.entities.employees.Employee;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -33,6 +34,7 @@ public class Role
 
     //Mappings
     @OneToMany(mappedBy = "role")
+    @JsonIgnore
     private List<Employee> employee;
 
     //Constructors
