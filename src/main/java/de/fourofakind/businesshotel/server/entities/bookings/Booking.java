@@ -53,7 +53,7 @@ public abstract class Booking {
 
     //Mapping
     @ManyToOne(optional = false)
-    @JoinColumn(name="customer_id",referencedColumnName = "customer_id")
+    @JoinColumn(name="customer_id", insertable = false,updatable = false)
     private Customer customer;
     @ManyToOne(optional = false)
     @JoinColumn(name="emp_no", insertable = false,updatable = false)
