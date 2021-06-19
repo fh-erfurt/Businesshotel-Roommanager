@@ -58,13 +58,12 @@ INSERT INTO `customer` (`customer_id`, `payment_method`, `updated_at`, `created_
 (NULL, 'bill', NULL, '2021-05-24 08:35:56', 3,4),
 (NULL, 'paypal', NULL, '2021-05-24 08:36:25', 5,5);
 
-INSERT INTO `booking` (`booking_no`, `booking_date`, `updated_at`, `room_no`, `booking_type`, `start_date`, `end_date`, `special_wishes`, `emp_no`, `customer_id`) VALUES
-(1, '2021-05-24 06:42:26', '2021-05-31 12:54:30', 2, 'hotelRoom', '2021-04-01', '2021-04-04', 'Cola so viel und so oft wie geht', 4, 2),
-(2, '2021-05-24 06:43:55', '2021-05-31 12:54:40', 4, 'hotelRoom', '2021-05-01', '2021-05-07', 'Besonders weiche Kissen', 2, 4);
+INSERT INTO `booking` (`booking_no`, `booking_date`, `updated_at`, `room_no`, `booking_type`, `start_date`, `end_date`, `special_wishes`, `emp_no`, `customer_id`, `is_booking_request`, `pricing`, `is_business_customer`) VALUES
+(1, '2021-05-24 06:42:26', '2021-05-31 12:54:30', 2, 'hotelRoom', '2021-04-01', '2021-04-04', 'Cola so viel und so oft wie geht', 4, 2,0,1111.99,1),
+(2, '2021-05-24 06:43:55', '2021-05-31 12:54:40', 4, 'hotelRoom', '2021-05-01', '2021-05-07', 'Besonders weiche Kissen', 2, 4,0,2525.52,0);
 
-INSERT INTO `room_has_booking` (`room_no`, `booking_id`) VALUES ('4', '1');
+INSERT INTO `room_has_booking` (`room_no`, `booking_id`) VALUES
+('2', '1'),
+('4', '1');
 
-INSERT INTO `booking_request` (`req_id`, `booking_request_date`, `amount_people`, `price`, `room_no`, `customer_id`) VALUES 
-(2, '2021-05-24 08:38:25', '14', '120', '4', '2'),
-(3, '2021-05-24 08:39:27', '9', '245', '2', '3');
 
