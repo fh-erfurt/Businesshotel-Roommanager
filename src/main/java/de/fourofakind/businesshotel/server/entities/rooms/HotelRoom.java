@@ -21,12 +21,15 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Setter
 @Getter
+@PrimaryKeyJoinColumn(name = "room_no")
 public class HotelRoom extends Room
 {
 
     //Attributes
     private int bedCount;
+    @Column(name="has_speed_lan")
     private boolean hasSpeedLAN;
+    @Column(name="has_tv")
     private boolean hasTV;
     private boolean hasKitchen;
     private boolean hasCoffeemaker;

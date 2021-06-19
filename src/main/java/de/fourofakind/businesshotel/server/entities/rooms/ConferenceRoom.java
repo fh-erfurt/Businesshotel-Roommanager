@@ -1,5 +1,6 @@
 package de.fourofakind.businesshotel.server.entities.rooms;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,6 +20,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Setter
 @Getter
+@PrimaryKeyJoinColumn(name = "room_no")
 public class ConferenceRoom extends Room
 {
     //Attribues

@@ -18,7 +18,7 @@ import java.util.List;
  */
 @Entity(name="Room")
 @Table(name="room")
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy = InheritanceType.JOINED)
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter
