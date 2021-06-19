@@ -25,14 +25,14 @@ public class RoommanagerApplication
     CommandLineRunner commandLineRunner (EmployeeRepository employeeRepository, RoleRepository roleRepository, AccountDetailsRepository accountDetailsRepository)
     {
         return args->{
-            AccountDetails NumberOne=new AccountDetails("maxiking","1234asdf");
-            accountDetailsRepository.save(NumberOne);
-            Employee MaxMustermann=new Employee("Max Mustermann", NumberOne.getAccountID());
-            employeeRepository.save(MaxMustermann);
-            Role Babo = new Role("Babo",true, true, true);
-            roleRepository.save(Babo);
-            MaxMustermann.setGivenRole(Babo.getRoleName());
-            employeeRepository.save(MaxMustermann);
+//            AccountDetails NumberOne=new AccountDetails("maxiking","1234asdf");
+//            accountDetailsRepository.save(NumberOne);
+//            Employee MaxMustermann=new Employee("Max Mustermann", NumberOne.getAccountID());
+//            employeeRepository.save(MaxMustermann);
+//            Role Babo = new Role("Babo",true, true, true);
+//            roleRepository.save(Babo);
+//            MaxMustermann.setGivenRole(Babo.getRoleName());
+//            employeeRepository.save(MaxMustermann);
         };
     }
 }
