@@ -1,5 +1,6 @@
 package de.fourofakind.businesshotel.server.entities.common;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import de.fourofakind.businesshotel.server.entities.customers.Customer;
 import de.fourofakind.businesshotel.server.entities.employees.Employee;
 import lombok.AllArgsConstructor;
@@ -26,8 +27,10 @@ public class AccountDetails
 
     //Mapping
     @OneToOne(mappedBy = "accountDetails")
+    @JsonIgnore
     private Employee employee;
     @OneToOne(mappedBy = "accountDetails")
+    @JsonIgnore
     private Customer customer;
 
 
