@@ -46,8 +46,9 @@ public abstract class Booking {
     private String bookingDate;
     private String roomCategory;
     private String specialWishes;
+    @Column(name="customer_id")
     private Integer customerID;
-    private String changeDate;
+    @Column(name="is_business_customer")
     private boolean isBusinessCustomer;
 
     //Mapping

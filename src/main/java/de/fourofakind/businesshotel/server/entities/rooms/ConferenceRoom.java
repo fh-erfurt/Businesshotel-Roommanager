@@ -28,7 +28,7 @@ public class ConferenceRoom extends Room
     private int amountOfBeamer;
     private boolean hasScreen;
     private boolean hasComputer;
-    private boolean hasTV;
+    private int amountOfTV;
     private Room.Category category;
 
     //Mapping
@@ -41,7 +41,7 @@ public class ConferenceRoom extends Room
 
     //Constructors
     public ConferenceRoom (int roomNo, Room.Category category, int areaInSqrMetre, int maxAmountOfParticipants, int amountOfWhiteboards,
-                           int amountOfBeamer, boolean hasScreen, boolean hasComputer, boolean hasTV,float pricePerUnit)
+                           int amountOfBeamer, boolean hasScreen, boolean hasComputer, int amountOfTV,float pricePerUnit)
     {
         super(roomNo, areaInSqrMetre,pricePerUnit);
         this.category = category;
@@ -50,7 +50,7 @@ public class ConferenceRoom extends Room
         this.amountOfBeamer = amountOfBeamer;
         this.hasScreen = hasScreen;
         this.hasComputer = hasComputer;
-        this.hasTV= hasTV;
+        this.amountOfTV= amountOfTV;
     }
 
     //Getter/Setter
