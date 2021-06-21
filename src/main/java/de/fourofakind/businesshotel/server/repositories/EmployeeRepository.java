@@ -1,4 +1,4 @@
-package de.fourofakind.businesshotel.server.repositories.stock;
+package de.fourofakind.businesshotel.server.repositories;
 
 import de.fourofakind.businesshotel.server.entities.employees.Employee;
 import org.springframework.data.jpa.repository.JpaRepository;

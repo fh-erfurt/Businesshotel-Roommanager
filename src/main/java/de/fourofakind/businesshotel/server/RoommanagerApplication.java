@@ -1,9 +1,9 @@
 package de.fourofakind.businesshotel.server;
 
 
-import de.fourofakind.businesshotel.server.repositories.stock.AccountDetailsRepository;
-import de.fourofakind.businesshotel.server.repositories.stock.EmployeeRepository;
-import de.fourofakind.businesshotel.server.repositories.stock.RoleRepository;
+import de.fourofakind.businesshotel.server.repositories.AccountDetailsRepository;
+import de.fourofakind.businesshotel.server.repositories.EmployeeRepository;
+import de.fourofakind.businesshotel.server.repositories.RoleRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,4 +1,4 @@
-package de.fourofakind.businesshotel.server.repositories.stock;
+package de.fourofakind.businesshotel.server.repositories;
 
 import de.fourofakind.businesshotel.server.entities.customers.BookingRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
