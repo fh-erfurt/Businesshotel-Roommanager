@@ -24,9 +24,9 @@ import java.util.Date;
 public class ConferenceRoomBooking extends Booking
 {
     public ConferenceRoomBooking (int bookingNo, int customerID, int roomNo, Date startDate, Date endDate, Room.Category roomCategory,
-                                  String specialWishes, int empNo, boolean isBusinessCustomer)
+                                  String specialWishes, int empNo)
     {
-        super(bookingNo, customerID, roomNo, startDate, endDate, roomCategory, specialWishes, empNo, isBusinessCustomer);
+        super(bookingNo, customerID, roomNo, startDate, endDate, roomCategory, specialWishes, empNo);
         //this.pricing=calculatePricing(pricing=0.0f);
     }
 
