@@ -31,6 +31,7 @@ abstract public class Room {
     @Column(name="room_no")
     private Integer roomNo;
     private float pricePerUnit;
+    @Enumerated(EnumType.STRING)
     private Category category;
     private int areaInSqrMetre;
 

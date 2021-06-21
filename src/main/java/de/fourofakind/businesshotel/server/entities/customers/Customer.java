@@ -30,12 +30,14 @@ public class Customer
     @Column(name="customer_id")
     private Integer customerID;
     private Integer contactDataID;
-    private paymentMethods paymentMethod;
+    @Enumerated(EnumType.STRING)
+    private PaymentMethod paymentMethod;
+    @Column(name="is_business_customer")
     private boolean isBusinessCustomer;
     private Integer account_id;
 
     //Fields
-    public enum paymentMethods
+    public enum PaymentMethod
     {
         debit, paypal, bill
     }
@@ -55,28 +57,15 @@ public class Customer
 
 
     //Constructors
-
-    public Customer (int customerID, Integer contactDataID, paymentMethods paymentMethod)
+    public Customer (Integer contactDataID, PaymentMethod paymentMethod, boolean isBusinessCustomer, Integer account_id, AccountDetails accountDetails, ContactData contactData, List<Booking> bookings)
     {
-
-        this.customerID = customerID;
         this.contactDataID = contactDataID;
         this.paymentMethod = paymentMethod;
-    }
-
-    public int getCustomerID ()
-    {
-        return this.customerID;
-    }
-
-    public paymentMethods getPaymentMethod ()
-    {
-        return this.paymentMethod;
-    }
-
-    public void setCustomerID (Integer customerID)
-    {
-        this.customerID = customerID;
+        this.isBusinessCustomer = isBusinessCustomer;
+        this.account_id = account_id;
+        this.accountDetails = accountDetails;
+        this.contactData = contactData;
+        this.bookings = bookings;
     }
 
     /**
@@ -98,20 +87,8 @@ public class Customer
 //    }
 
 
-    public void setPaymentMethod (String paymentMethod)
-    {
-        switch(paymentMethod) {
-            case "debit":
-                this.paymentMethod = paymentMethods.debit;
-            case "paypal":
-                this.paymentMethod = paymentMethods.paypal;
-            case "bill":
-                this.paymentMethod = paymentMethods.bill;
 
 
-        }
-
-    }
 
 
 
