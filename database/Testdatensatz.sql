@@ -51,16 +51,16 @@ INSERT INTO `conference_room` (`room_no`, `max_amount_of_participants`, `amount_
 (6, 11, 0, 2, 1, 1, 0),
 (7, 20, 0, 3, 0, 0, 1);
 
-INSERT INTO `customer` (`customer_id`, `payment_method`, `updated_at`, `created_at`, `contact_data_id`,`account_id`) VALUES 
-(NULL, 'paypal', NULL, '2021-05-24 08:33:41', 1,1),
-(NULL, 'bill', '2021-05-24 08:34:52', '2021-05-24 08:34:18', 4,2),
-(NULL, 'debit', NULL, '2021-05-24 08:35:39', 2,3),
-(NULL, 'bill', NULL, '2021-05-24 08:35:56', 3,4),
-(NULL, 'paypal', NULL, '2021-05-24 08:36:25', 5,5);
+INSERT INTO `customer` (`customer_id`, `payment_method`, `updated_at`, `created_at`, `contact_data_id`,`account_id`, `is_business_customer`) VALUES
+(NULL, 'paypal', NULL, '2021-05-24 08:33:41', 1,1,1),
+(NULL, 'bill', '2021-05-24 08:34:52', '2021-05-24 08:34:18', 4,2,0),
+(NULL, 'debit', NULL, '2021-05-24 08:35:39', 2,3,1),
+(NULL, 'bill', NULL, '2021-05-24 08:35:56', 3,4,0),
+(NULL, 'paypal', NULL, '2021-05-24 08:36:25', 5,5,1);
 
-INSERT INTO `booking` (`booking_no`, `booking_date`, `updated_at`, `room_no`, `booking_type`, `start_date`, `end_date`, `special_wishes`, `emp_no`, `customer_id`, `is_booking_request`, `pricing`, `is_business_customer`) VALUES
-(1, '2021-05-24 06:42:26', '2021-05-31 12:54:30', 2, 'hotelRoom', '2021-04-01', '2021-04-04', 'Cola so viel und so oft wie geht', 4, 2,0,1111.99,1),
-(2, '2021-05-24 06:43:55', '2021-05-31 12:54:40', 4, 'hotelRoom', '2021-05-01', '2021-05-07', 'Besonders weiche Kissen', 2, 4,0,2525.52,0);
+INSERT INTO `booking` (`booking_no`, `booking_date`, `updated_at`, `room_no`, `booking_type`, `start_date`, `end_date`, `special_wishes`, `emp_no`, `customer_id`, `is_booking_request`, `pricing`) VALUES
+(1, '2021-05-24 06:42:26', '2021-05-31 12:54:30', 2, 'hotelRoom', '2021-04-01', '2021-04-04', 'Cola so viel und so oft wie geht', 4, 2,0,1111.99),
+(2, '2021-05-24 06:43:55', '2021-05-31 12:54:40', 4, 'hotelRoom', '2021-05-01', '2021-05-07', 'Besonders weiche Kissen', 2, 4,0,2525.52);
 
 INSERT INTO `room_has_booking` (`room_no`, `booking_id`) VALUES
 ('2', '1'),
