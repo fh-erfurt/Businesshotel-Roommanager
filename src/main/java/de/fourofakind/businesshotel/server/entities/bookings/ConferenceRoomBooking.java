@@ -29,8 +29,6 @@ public class ConferenceRoomBooking extends Booking
     private float pricing;
 
     //Constructor
-    public ConferenceRoomBooking (int bookingNo, int customerID, int roomNo, Date startDate, Date endDate, Room.Category roomCategory,
-                                  String specialWishes, int empNo, boolean isBusinessCustomer)
     public ConferenceRoomBooking (Integer bookingNo, Integer roomNo, float pricing, Integer empNo, Date startDate, Date endDate, String specialWishes, Integer customerID, Customer customer,
                                   Employee employee)
     {
