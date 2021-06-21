@@ -23,7 +23,7 @@ import java.util.List;
 @NoArgsConstructor
 @Setter
 @Getter
-abstract public class Room {
+public class Room {
 
     //Attributes
     @Id
