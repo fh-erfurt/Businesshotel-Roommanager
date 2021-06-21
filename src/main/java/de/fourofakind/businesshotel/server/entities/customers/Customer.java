@@ -29,6 +29,7 @@ public class Customer
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="customer_id")
     private Integer customerID;
+    @Column(name="contact_data_id")
     private Integer contactDataID;
     @Enumerated(EnumType.STRING)
     private PaymentMethod paymentMethod;
@@ -48,7 +49,7 @@ public class Customer
     @JoinColumn(name="account_id",insertable = false,updatable = false)
     private AccountDetails accountDetails;
     @ManyToOne(optional = false)
-    @JoinColumn(name="contact_data_id",referencedColumnName = "contact_data_id")
+    @JoinColumn(name="contact_data_id", insertable = false,updatable = false)
     private ContactData contactData;
     @OneToMany(mappedBy = "customer")
     private List<Booking> bookings;
