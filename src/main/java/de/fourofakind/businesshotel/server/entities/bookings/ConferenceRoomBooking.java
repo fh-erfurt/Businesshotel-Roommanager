@@ -1,5 +1,7 @@
 package de.fourofakind.businesshotel.server.entities.bookings;
 
+import de.fourofakind.businesshotel.server.entities.customers.Customer;
+import de.fourofakind.businesshotel.server.entities.employees.Employee;
 import de.fourofakind.businesshotel.server.entities.rooms.Room;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,16 +25,12 @@ import java.util.Date;
 @DiscriminatorValue("ConferenceRoom")
 public class ConferenceRoomBooking extends Booking
 {
-    public ConferenceRoomBooking (int bookingNo, int customerID, int roomNo, Date startDate, Date endDate, Room.Category roomCategory,
-                                  String specialWishes, int empNo)
+    public ConferenceRoomBooking (Integer bookingNo, Integer roomNo, float pricing, Integer empNo, Date startDate, Date endDate, String specialWishes, Integer customerID, Customer customer,
+                                  Employee employee)
     {
-        super(bookingNo, customerID, roomNo, startDate, endDate, roomCategory, specialWishes, empNo);
-        //this.pricing=calculatePricing(pricing=0.0f);
+        super(bookingNo, roomNo, pricing, empNo, startDate, endDate, specialWishes, customerID, customer, employee);
+        this.pricing = this.calculatePricing(0.0f);
     }
-
-
-
-
 
     /**<p>
      * This method calculates the price for the conference room, to do so, it uses the start and endtime given as timeframe from the Booking.
@@ -44,11 +42,12 @@ public class ConferenceRoomBooking extends Booking
      *                          The price per Unit is saved in the room object itself;
      *
      */
-//    public float calculatePricing(float roomPricePerUnit)
-//    {
-//        Date startTime = getStartDate();
-//        Date endTime = getEndDate();
-//
+    public float calculatePricing(float roomPricePerUnit)
+    {
+        float price=0.0f;
+        Date startTime = getStartDate();
+        Date endTime = getEndDate();
+
 //        DateFormat format = new SimpleDateFormat("hh:mm");
 //        Date timeStart = null;
 //        Date timeEnd = null;
@@ -84,8 +83,8 @@ public class ConferenceRoomBooking extends Booking
 //        {
 //            price = usageHours * roomPricePerUnit;   //#TODO Preis Verweis auf den Room
 //        }
-//        return price;
-//    }
+        return price;
+    }
 
     public float getPricing ()
     {

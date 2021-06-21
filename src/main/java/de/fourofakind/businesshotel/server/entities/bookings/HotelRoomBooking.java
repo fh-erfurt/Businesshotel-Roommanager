@@ -1,5 +1,7 @@
 package de.fourofakind.businesshotel.server.entities.bookings;
 
+import de.fourofakind.businesshotel.server.entities.customers.Customer;
+import de.fourofakind.businesshotel.server.entities.employees.Employee;
 import de.fourofakind.businesshotel.server.entities.rooms.Room;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -29,13 +31,13 @@ import java.util.Date;
 @DiscriminatorValue("HotelRoom")
 public class HotelRoomBooking extends Booking
 {
-    public HotelRoomBooking (int bookingNo, int customerID,int roomNo, Date startDate, Date endDate, Room.Category roomCategory,
-                             String specialWishes, int empNo)
-    {
-        super(bookingNo, customerID ,roomNo, startDate, endDate, roomCategory, specialWishes, empNo);
-        this.pricing=this.calculatePricing(pricing = 0.0f);
-    }
 
+    public HotelRoomBooking (Integer bookingNo, Integer roomNo, float pricing, Integer empNo, Date startDate, Date endDate, String specialWishes, Integer customerID, Customer customer,
+                             Employee employee)
+    {
+        super(bookingNo, roomNo, pricing, empNo, startDate, endDate, specialWishes, customerID, customer, employee);
+        this.pricing=this.calculatePricing (0.0f);
+    }
     /**<p>
      * This method calculates the price for the hotel room, to do so, it uses the start and enddate given as dateframe from the Booking.
      * Since Dateframes contain the starting and ending date as string it needs to be converted, to use it as a Date, which is needed for the
