@@ -54,8 +54,7 @@ public class HotelRoom extends Room
         this.hasCoffeemaker = hasCoffeemaker;
     }
 
-    //Getter/Setter
-
+    //Getter/Setter    -> diesen Teil könnte man ja auch an Lombok auslagern
     public int getBedCount ()
     {
         return bedCount;

@@ -29,11 +29,22 @@ import java.util.Date;
 @DiscriminatorValue("HotelRoom")
 public class HotelRoomBooking extends Booking
 {
+    //Attributes
+    private float pricing;
+
+
+    //Constructor
     public HotelRoomBooking (int bookingNo, int customerID,int roomNo, Date startDate, Date endDate, Room.Category roomCategory,
                              String specialWishes, int empNo, boolean isBusinessCustomer)
     {
         super(bookingNo, customerID ,roomNo, startDate, endDate, roomCategory, specialWishes, empNo, isBusinessCustomer);
         this.pricing=this.calculatePricing(pricing = 0.0f);
+    }
+
+    //Getter/Setter
+    public float getPricing ()
+    {
+        return pricing;
     }
 
     /**<p>
@@ -46,12 +57,9 @@ public class HotelRoomBooking extends Booking
      *</p>
      */
 
-    public LocalDate convertToLocalDateViaInstant(Date dateToConvert) {
-        return dateToConvert.toInstant()
-                .atZone(ZoneId.systemDefault())
-                .toLocalDate();
-    }
 
+
+    //Methods
     public float calculatePricing(float roomPricePerUnit)
     {
         DateTimeFormatter germanFormatter = DateTimeFormatter.ofLocalizedDate(
@@ -75,13 +83,11 @@ public class HotelRoomBooking extends Booking
         return nightsSpent * roomPricePerUnit;
     }
 
-    //Getter/Setter
-    public float getPricing ()
-    {
-        return pricing;
+    public LocalDate convertToLocalDateViaInstant(Date dateToConvert) {
+        return dateToConvert.toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDate();
     }
 
-    //Attributes
-    private float pricing;
 
 }

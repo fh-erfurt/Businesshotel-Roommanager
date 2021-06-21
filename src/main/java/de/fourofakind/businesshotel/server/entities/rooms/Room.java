@@ -34,8 +34,7 @@ abstract public class Room {
     private Category category;
     private int areaInSqrMetre;
 
-        //Mapping
-
+    //Mapping
     @OneToOne
     @JoinColumn(name="room_no", referencedColumnName= "room_no")
     private HotelRoom hotelRoom;
@@ -64,7 +63,6 @@ abstract public class Room {
     }
 
     //Getter/Setter
-
     //managed by lombok
 
 

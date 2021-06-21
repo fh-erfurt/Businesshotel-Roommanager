@@ -23,6 +23,7 @@ import java.util.Date;
 @Getter
 public class BookingRequest {
 
+    //Attributes
     @Id
     @GeneratedValue
     private Integer bookingRequestID;
@@ -33,5 +34,6 @@ public class BookingRequest {
     private String specialWishes;
     private boolean isBusinessCustomer;
 
+    //Constructor
     public BookingRequest (Integer customerID, Date startDate, Date endDate, Room.Category roomCategory, String specialWishes, boolean isBusinessCustomer) {}
 }

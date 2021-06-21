@@ -23,6 +23,10 @@ import java.util.Date;
 @DiscriminatorValue("ConferenceRoom")
 public class ConferenceRoomBooking extends Booking
 {
+    //Attributes
+    private float pricing;
+
+    //Constructor
     public ConferenceRoomBooking (int bookingNo, int customerID, int roomNo, Date startDate, Date endDate, Room.Category roomCategory,
                                   String specialWishes, int empNo, boolean isBusinessCustomer)
     {
@@ -44,7 +48,19 @@ public class ConferenceRoomBooking extends Booking
      *                          The price per Unit is saved in the room object itself;
      *
      */
-//    public float calculatePricing(float roomPricePerUnit)
+
+
+    //Setter/Getter
+
+    public float getPricing ()
+    {
+        return pricing;
+    }
+
+
+    //Methods
+
+    //    public float calculatePricing(float roomPricePerUnit)
 //    {
 //        Date startTime = getStartDate();
 //        Date endTime = getEndDate();
@@ -86,13 +102,5 @@ public class ConferenceRoomBooking extends Booking
 //        }
 //        return price;
 //    }
-
-    public float getPricing ()
-    {
-        return pricing;
-    }
-
-    private float pricing;
-
 
 }

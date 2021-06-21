@@ -18,6 +18,7 @@ import javax.persistence.*;
 @Getter
 public class AccountDetails
 {
+    //Attributes
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name="account_id")

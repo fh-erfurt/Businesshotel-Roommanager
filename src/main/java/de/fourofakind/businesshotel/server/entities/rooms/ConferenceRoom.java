@@ -24,7 +24,6 @@ import javax.persistence.*;
 public class ConferenceRoom extends Room
 {
     //Attribues
-
     private int maxAmountOfParticipants;
     private int amountOfWhiteboards;
     private int amountOfBeamer;
@@ -34,7 +33,6 @@ public class ConferenceRoom extends Room
     private Room.Category category;
 
     //Mapping
-
     @Column(name="room_no")
     private Integer roomNo;
     @OneToOne(mappedBy = "conferenceRoom")
@@ -55,8 +53,7 @@ public class ConferenceRoom extends Room
         this.amountOfTV= amountOfTV;
     }
 
-    //Getter/Setter
-
+    //Getter/Setter -> Auslagern an Lombok
     public Room.Category getCategory ()
     {
         return category;
