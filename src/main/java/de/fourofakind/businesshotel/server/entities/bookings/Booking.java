@@ -48,8 +48,6 @@ public abstract class Booking {
     private String specialWishes;
     @Column(name="customer_id")
     private Integer customerID;
-    @Column(name="is_business_customer")
-    private boolean isBusinessCustomer;
 
     //Mapping
     @ManyToOne(optional = false)
@@ -78,7 +76,7 @@ public abstract class Booking {
     //Constructors
 
     public Booking(int bookingNo, int customerID ,int roomNo, Date startDate, Date endDate, Room.Category roomCategory,
-                   String specialWishes, int empNo, boolean isBusinessCustomer) {
+                   String specialWishes, int empNo) {
         DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         LocalDateTime currentDateTime = LocalDateTime.now();
         this.bookingNo = bookingNo;
@@ -90,7 +88,6 @@ public abstract class Booking {
         this.roomCategory = roomCategory.toString();
         this.specialWishes = specialWishes;
         this.empNo = empNo;
-        this.isBusinessCustomer = isBusinessCustomer;
     }
 
     //Getter/Setter
