@@ -29,6 +29,7 @@ public class ConferenceRoom extends Room
     private int amountOfBeamer;
     private boolean hasScreen;
     private boolean hasComputer;
+    @Column(name="amount_of_tv")
     private int amountOfTV;
     private Room.Category category;
 

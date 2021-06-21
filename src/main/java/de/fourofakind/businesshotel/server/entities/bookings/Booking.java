@@ -3,15 +3,12 @@ package de.fourofakind.businesshotel.server.entities.bookings;
 
 import de.fourofakind.businesshotel.server.entities.customers.Customer;
 import de.fourofakind.businesshotel.server.entities.employees.Employee;
-import de.fourofakind.businesshotel.server.entities.rooms.Room;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 /**
@@ -43,13 +40,9 @@ public abstract class Booking {
     private Integer empNo;
     private Date startDate;
     private Date endDate;
-    private String bookingDate;
-    private String roomCategory;
     private String specialWishes;
     @Column(name="customer_id")
     private Integer customerID;
-    @Column(name="is_business_customer")
-    private boolean isBusinessCustomer;
 
     //Mapping
     @ManyToOne(optional = false)
@@ -77,21 +70,19 @@ public abstract class Booking {
 
     //Constructors
 
-    public Booking(int bookingNo, int customerID ,int roomNo, Date startDate, Date endDate, Room.Category roomCategory,
-                   String specialWishes, int empNo, boolean isBusinessCustomer) {
-        DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-        LocalDateTime currentDateTime = LocalDateTime.now();
-        this.bookingNo = bookingNo;
-        this.customerID = customerID;
+    public Booking (Integer roomNo, float pricing, Integer empNo, Date startDate, Date endDate, String specialWishes, Integer customerID, Customer customer, Employee employee)
+    {
         this.roomNo = roomNo;
+        this.pricing = pricing;
+        this.empNo = empNo;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.bookingDate = dateTimeFormat.format(currentDateTime);
-        this.roomCategory = roomCategory.toString();
         this.specialWishes = specialWishes;
-        this.empNo = empNo;
-        this.isBusinessCustomer = isBusinessCustomer;
+        this.customerID = customerID;
+        this.customer = customer;
+        this.employee = employee;
     }
+
 
     //Getter/Setter
     //managed by Lombok

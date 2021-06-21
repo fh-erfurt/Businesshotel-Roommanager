@@ -1,6 +1,7 @@
 package de.fourofakind.businesshotel.server.entities.bookings;
 
-import de.fourofakind.businesshotel.server.entities.rooms.Room;
+import de.fourofakind.businesshotel.server.entities.customers.Customer;
+import de.fourofakind.businesshotel.server.entities.employees.Employee;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,18 +35,16 @@ public class HotelRoomBooking extends Booking
 
 
     //Constructor
-    public HotelRoomBooking (int bookingNo, int customerID,int roomNo, Date startDate, Date endDate, Room.Category roomCategory,
-                             String specialWishes, int empNo, boolean isBusinessCustomer)
+
+    public HotelRoomBooking (Integer bookingNo, Integer roomNo, float pricing, Integer empNo, Date startDate, Date endDate, String specialWishes, Integer customerID, Customer customer,
+                             Employee employee)
     {
-        super(bookingNo, customerID ,roomNo, startDate, endDate, roomCategory, specialWishes, empNo, isBusinessCustomer);
-        this.pricing=this.calculatePricing(pricing = 0.0f);
+        super(bookingNo, roomNo, pricing, empNo, startDate, endDate, specialWishes, customerID, customer, employee);
+        this.pricing=this.calculatePricing (0.0f);
     }
 
     //Getter/Setter
-    public float getPricing ()
-    {
-        return pricing;
-    }
+    //managed by Lombok
 
     /**<p>
      * This method calculates the price for the hotel room, to do so, it uses the start and enddate given as dateframe from the Booking.

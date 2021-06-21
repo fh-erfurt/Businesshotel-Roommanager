@@ -33,7 +33,7 @@ public class ContactData {
     private String streetNumber;
     private String postalCode;
     private String cityName;
-    private String phoneNumber;
+    private String phone;
     private String mailAddress;
     private String paymentCredentials;
 

@@ -1,9 +1,6 @@
 package de.fourofakind.businesshotel.server;
 
 
-import de.fourofakind.businesshotel.server.entities.common.AccountDetails;
-import de.fourofakind.businesshotel.server.entities.common.Role;
-import de.fourofakind.businesshotel.server.entities.employees.Employee;
 import de.fourofakind.businesshotel.server.repositories.AccountDetailsRepository;
 import de.fourofakind.businesshotel.server.repositories.EmployeeRepository;
 import de.fourofakind.businesshotel.server.repositories.RoleRepository;
