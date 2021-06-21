@@ -1,0 +1,30 @@
+<div class = "container">
+    <div class = "card">
+        <h3 class="text-center">Mitarbeiterliste</h3>
+        <div class = "card-body">
+            <table class = "table table-striped">
+                <thead>
+                    <th>EmpNo</th>
+                    <th>EmpName</th>
+                    <th>Rolle</th>
+                    <th>AccountId</th>
+                    <th>created</th>
+                    <th>updated</th>
+                </thead>
+                <tbody>
+                    <tr *ngFor = "let employee of employees">
+                        <td>{{ employee.emp_no}}</td>
+                        <td>{{ employee.emp_name}}</td>
+                        <td>{{ employee.given_role }}</td>
+                        <td>{{ employee.account_id }}</td>
+                        <td>{{ employee.created_at}}</td>
+                        <td>{{ employee.updated_at}}</td>
+                    </tr>
+                </tbody>
+
+
+            </table>
+
+        </div>
+    </div> 
+</div>
