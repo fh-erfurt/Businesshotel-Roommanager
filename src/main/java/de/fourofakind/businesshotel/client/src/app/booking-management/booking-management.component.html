@@ -11,7 +11,7 @@
           <br>
           <mat-form-field appearance="fill">
             <mat-label>Kundennummer</mat-label>
-            <input matInput required>
+            <input matInput name="customerID" [ngModel]="bookingData.customerID" required>
           </mat-form-field>
           <br>
           <mat-form-field appearance="fill">
@@ -20,6 +20,28 @@
               <mat-option value="one">1</mat-option>
               <mat-option value="two">2</mat-option>
             </mat-select>
+          </mat-form-field>
+          <br>
+          <mat-form-field appearance="fill">
+            <mat-label>Startdatum wählen</mat-label>
+            <input matInput required [matDatepicker]="startDatePicker">
+            <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+            <mat-datepicker #startDatePicker></mat-datepicker>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Startzeit wählen</mat-label>
+            <input matInput required>
+          </mat-form-field>
+          <br>
+          <mat-form-field appearance="fill">
+            <mat-label>Enddatum wählen</mat-label>
+            <input matInput required [matDatepicker]="endDatePicker">
+            <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+            <mat-datepicker #endDatePicker></mat-datepicker>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Endzeit wählen</mat-label>
+            <input matInput required>
           </mat-form-field>
           <br>
           <mat-form-field appearance="fill">
@@ -54,6 +76,28 @@
               <mat-option value="one">1</mat-option>
               <mat-option value="two">2</mat-option>
             </mat-select>
+          </mat-form-field>
+          <br>
+          <mat-form-field appearance="fill">
+            <mat-label>Startdatum wählen</mat-label>
+            <input matInput required [matDatepicker]="startDatePicker_update">
+            <mat-datepicker-toggle matSuffix [for]="startDatePicker_update"></mat-datepicker-toggle>
+            <mat-datepicker #startDatePicker_update></mat-datepicker>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Startzeit wählen</mat-label>
+            <input matInput required>
+          </mat-form-field>
+          <br>
+          <mat-form-field appearance="fill">
+            <mat-label>Enddatum wählen</mat-label>
+            <input matInput required [matDatepicker]="endDatePicker_update">
+            <mat-datepicker-toggle matSuffix [for]="endDatePicker_update"></mat-datepicker-toggle>
+            <mat-datepicker #endDatePicker_update></mat-datepicker>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Endzeit wählen</mat-label>
+            <input matInput required>
           </mat-form-field>
           <br>
           <mat-form-field appearance="fill">
