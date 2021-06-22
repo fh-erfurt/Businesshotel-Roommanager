@@ -35,6 +35,11 @@
             <version>2.5.0</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-rest-hal-explorer</artifactId>
+            <version>3.5.1</version>
+        </dependency>
         <!--Database dependencies-->
         <dependency>
             <groupId>org.mariadb.jdbc</groupId>
