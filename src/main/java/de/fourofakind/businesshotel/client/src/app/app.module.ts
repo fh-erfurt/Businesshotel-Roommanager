@@ -15,6 +15,7 @@ import { BookingManagementComponent } from './booking-management/booking-managem
 import { EmployeeManagementComponent } from './employee-management/employee-management.component';
 import { CustomerManagementComponent } from './customer-management/customer-management.component';
 import { RoomManagementComponent } from './room-management/room-management.component';
+import { EmployeeComponent } from './employee/employee.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatToolbarModule} from "@angular/material/toolbar";
@@ -30,10 +31,12 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
 import {NgxMatDatetimePickerModule, NgxMatTimepickerModule} from "@angular-material-components/datetime-picker";
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
     RoomComponent,
+    EmployeeComponent,
     LoginComponent,
     DashboardComponent,
     MainComponent,
@@ -41,7 +44,8 @@ import {NgxMatDatetimePickerModule, NgxMatTimepickerModule} from "@angular-mater
     BookingManagementComponent,
     EmployeeManagementComponent,
     CustomerManagementComponent,
-    RoomManagementComponent
+    RoomManagementComponent,
+    EmployeeComponent
   ],
   imports: [
     BrowserModule,

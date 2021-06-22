@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {LoginComponent} from '../login/login.component';
 import {RoomComponent} from '../room/room.component';
+import {EmployeeComponent} from '../employee/employee.component';
 import {MainComponent} from '../main/main.component';
 import {RouterModule, Routes} from '@angular/router';
 import {BookingManagementComponent} from "../booking-management/booking-management.component";
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'management/customer', component: CustomerManagementComponent},
   { path: 'management/room', component: RoomManagementComponent},
   { path: 'management/employee', component: EmployeeManagementComponent},
+  { path: 'employees', component: EmployeeComponent},
 
 ];
 
