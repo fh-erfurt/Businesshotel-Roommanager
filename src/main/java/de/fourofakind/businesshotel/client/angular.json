@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "angularclient2ndTry": {
+    "bh-room_client": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -20,7 +20,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/angularclient2ndTry",
+            "outputPath": "dist/bh-room_client",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -73,10 +73,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "angularclient2ndTry:build:production"
+              "browserTarget": "bh-room_client:build:production"
             },
             "development": {
-              "browserTarget": "angularclient2ndTry:build:development"
+              "browserTarget": "bh-room_client:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -84,7 +84,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "angularclient2ndTry:build"
+            "browserTarget": "bh-room_client:build"
           }
         },
         "test": {
@@ -109,5 +109,5 @@
       }
     }
   },
-  "defaultProject": "angularclient2ndTry"
+  "defaultProject": "bh-room_client"
 }
