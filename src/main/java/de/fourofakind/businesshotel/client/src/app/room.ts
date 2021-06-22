@@ -4,7 +4,7 @@ export class Room {
     area_in_sqr_metre!: number;
     category!: string;
     price_per_unit!: number;
-    //updated_at: string;
-    //created_at: string;
+    updated_at!: string;
+    created_at!: string;
 
 }

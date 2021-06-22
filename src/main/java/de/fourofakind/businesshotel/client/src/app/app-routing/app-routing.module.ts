@@ -8,6 +8,7 @@ import {BookingManagementComponent} from "../booking-management/booking-manageme
 import {CustomerManagementComponent} from "../customer-management/customer-management.component";
 import {RoomManagementComponent} from "../room-management/room-management.component";
 import {EmployeeManagementComponent} from "../employee-management/employee-management.component";
+import { EmployeeComponent } from '../employee/employee.component';
 
 const routes: Routes = [
   { path: '', component: MainComponent, pathMatch: 'full'},
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'management/customer', component: CustomerManagementComponent},
   { path: 'management/room', component: RoomManagementComponent},
   { path: 'management/employee', component: EmployeeManagementComponent},
+  { path: 'employee', component: EmployeeComponent}
 
 ];
 

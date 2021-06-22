@@ -24,10 +24,15 @@ import javax.persistence.*;
 public class ConferenceRoom extends Room
 {
     //Attribues
+    @Column(name="max_amount_of_participants")
     private int maxAmountOfParticipants;
+    @Column(name="amount_of_whiteboards")
     private int amountOfWhiteboards;
+    @Column(name="amount_of_beamer")
     private int amountOfBeamer;
+    @Column(name="has_screen")
     private boolean hasScreen;
+    @Column(name="has_computer")
     private boolean hasComputer;
     @Column(name="amount_of_tv")
     private int amountOfTV;

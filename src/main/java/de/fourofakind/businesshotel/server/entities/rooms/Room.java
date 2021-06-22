@@ -16,6 +16,7 @@ import java.util.List;
  * Its the superclass of Hotelroom and ConferenceRoom
  * </p>
  */
+
 @Entity(name="Room")
 @Table(name="room")
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -30,9 +31,11 @@ public class Room {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="room_no")
     private Integer roomNo;
+    @Column(name="price_per_unit")
     private float pricePerUnit;
     @Enumerated(EnumType.STRING)
     private Category category;
+    @Column(name="area_in_sqr_metre")
     private int areaInSqrMetre;
 
     //Mapping

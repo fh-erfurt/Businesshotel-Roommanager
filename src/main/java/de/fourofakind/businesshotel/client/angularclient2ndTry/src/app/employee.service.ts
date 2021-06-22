@@ -9,11 +9,11 @@ import { Employee } from './employee';
 })
 export class EmployeeService {
 
-  private baseUrl = "http://localhost:8081/employee/1002"
+  private baseUrl = "http://localhost:8081/employee"
 
   constructor(private http: HttpClient) { }
 
-  getRooms(): Observable<Employee[]>{
+  getEmployees(): Observable<Employee[]>{
     return this.http.get<Employee[]>(`${this.baseUrl}`)
   }
 

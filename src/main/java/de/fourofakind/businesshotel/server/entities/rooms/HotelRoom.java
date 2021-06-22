@@ -26,12 +26,16 @@ public class HotelRoom extends Room
 {
 
     //Attributes
+    @Column(name="bed_count")
+    //@Column(name="")
     private int bedCount;
     @Column(name="has_speed_lan")
     private boolean hasSpeedLAN;
     @Column(name="has_tv")
     private boolean hasTV;
+    @Column(name="has_kitchen")
     private boolean hasKitchen;
+    @Column(name="has_coffeemaker")
     private boolean hasCoffeemaker;
     private Room.Category category;
 

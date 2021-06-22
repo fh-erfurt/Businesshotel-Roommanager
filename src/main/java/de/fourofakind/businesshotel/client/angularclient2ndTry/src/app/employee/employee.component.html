@@ -24,7 +24,9 @@
 
 
             </table>
-
+            <div *ngFor = "let employee of employees | keyvalue">
+                Key: <b>{{employee.key}}</b> and Value: <b>{{employee.value}}</b>
+            </div>
         </div>
     </div> 
 </div>

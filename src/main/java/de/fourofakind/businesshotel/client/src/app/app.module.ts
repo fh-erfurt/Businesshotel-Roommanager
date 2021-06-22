@@ -21,13 +21,14 @@ import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatRadioModule} from "@angular/material/radio";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatSelectModule} from "@angular/material/select";
+import {MatOptionModule} from "@angular/material/core";
 import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {FormsModule} from "@angular/forms";
 import {MatCardModule} from "@angular/material/card";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
-import {MatDatepickerModule} from "@angular/material/datepicker";
-import {NgxMatDatetimePickerModule, NgxMatTimepickerModule} from "@angular-material-components/datetime-picker";
+import { EmployeeComponent } from './employee/employee.component';
+
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import {NgxMatDatetimePickerModule, NgxMatTimepickerModule} from "@angular-mater
     BookingManagementComponent,
     EmployeeManagementComponent,
     CustomerManagementComponent,
-    RoomManagementComponent
+    RoomManagementComponent,
+    EmployeeComponent
   ],
   imports: [
     BrowserModule,
@@ -55,15 +57,12 @@ import {NgxMatDatetimePickerModule, NgxMatTimepickerModule} from "@angular-mater
     MatRadioModule,
     MatFormFieldModule,
     MatSelectModule,
+    MatOptionModule,
     MatInputModule,
     MatButtonModule,
     FormsModule,
     MatCardModule,
-    MatSlideToggleModule,
-    MatDatepickerModule,
-    ReactiveFormsModule,
-    NgxMatTimepickerModule,
-    NgxMatDatetimePickerModule
+    MatSlideToggleModule
   ],
   providers: [],
   bootstrap: [AppComponent]
