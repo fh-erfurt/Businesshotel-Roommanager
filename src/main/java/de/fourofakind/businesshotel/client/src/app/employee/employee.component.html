@@ -1,0 +1,48 @@
+<div class = "container">
+    <div class = "card">
+        <h3 class="text-center">Mitarbeiter Testbereich</h3>
+        <div class = "card-body">
+            <table class = "table table-striped">
+                <thead>
+                   
+                    <th>EmpNo</th>
+                    <th>Rolle</th>
+                    <th>accountID</th>
+            
+                </thead>
+                <tbody>
+                    <tr *ngFor = "let employee of employees">
+                        <td>{{ employee.empName}}</td>
+                        <td>{{ employee.empName}}</td>
+                        <td>{{ employee.empName}}</td>
+                      
+                    </tr>
+                </tbody>
+
+
+            </table>
+            
+<div>
+    <div *ngFor="let employee of employees | keyvalue">
+        {{employee.key}}:{{employee.value}}
+        <hr>
+        
+        <div *ngFor="let mitarbeiter of employee | keyvalue">
+            {{mitarbeiter.key}}:{{mitarbeiter.value}}
+
+        </div>
+            <div>
+                {{ employee | json }} <br>
+                Array key: {{employee.key}} and Array Value:{{employee.value}}
+            </div>
+            
+        
+      </div>
+     
+     
+
+</div>
+        </div>
+    </div> 
+</div>
+
