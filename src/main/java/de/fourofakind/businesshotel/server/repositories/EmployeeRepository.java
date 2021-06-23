@@ -12,4 +12,5 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 public interface EmployeeRepository extends JpaRepository<Employee,Integer>
 {
     Employee findEmployeeByEmpNo (@Param("empno") Integer empNo);
+    Employee[] findEmployeesByEmpNameNot(@Param("empname") String empName);
 }
