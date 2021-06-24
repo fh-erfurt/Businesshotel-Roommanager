@@ -77,3 +77,35 @@ Teilnehmer: Niklas, Thomas, Marius
    
 
 ```
+
+```
+22.05.2021 10:00 Uhr Platform: Webex
+Teilnehmer: Niklas, Thomas, Marius
+
+1. Allgemeine Inhalte
+
+        Problemfall Angularanbindung besprochen, ansonsten weitere Logik einbauen, Rückfrage an
+        Dozent über den Einbau/Weglassen der Methoden aus dem Java1, da diese durch Webanwendung
+        obsolet
+        
+2. Absprache über offene Aufgaben
+
+   Alle:
+        Fehlerursache suchen, Anbindung mit JSON/Array herstellen
+    
+   Thomas
+        Meeting Protokoll hochladen
+   Niklas
+        Rückfrage an Dozent zum Methodeneinsatz
+                
+
+```
+
+```
+        Nachtrag 23.06.2021 21:15 Uhr
+        
+        Marius hat das Problem gefunden und gelöst. Die Anzeige in der Webapp ist nun sauber und schön.
+        Problem war eine falsche Anbindung eines JSON-Objektes. Gelöst wurde dies in der employee.ts
+        mit der Einbindung eines Interfaces, dass die JSON-Response abbildet.
+
+```
