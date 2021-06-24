@@ -46,8 +46,6 @@ public class Role
         this.isEnabledToManageCustomerData = isEnabledToManageCustomerData;
     }
 
-
-
-
-
+    //Setter/Getter
+    //managed by Lombok
 }

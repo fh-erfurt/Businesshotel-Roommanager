@@ -36,4 +36,7 @@ public class BookingRequest {
 
     //Constructor
     public BookingRequest (Integer customerID, Date startDate, Date endDate, Room.Category roomCategory, String specialWishes, boolean isBusinessCustomer) {}
+
+    //Setter/Getter
+    //managed by Lombok
 }

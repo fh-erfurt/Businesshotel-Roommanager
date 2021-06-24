@@ -26,7 +26,7 @@ public class AccountDetails
     String username;
     String passwordHash;
 
-    //Mapping
+    //Mappings
     @OneToOne(mappedBy = "accountDetails")
     @JsonIgnore
     private Employee employee;
@@ -41,4 +41,7 @@ public class AccountDetails
         this.username = username;
         this.passwordHash = passwordHash;
     }
+
+    //Setter/Getter
+    //managed by Lombok
 }

@@ -37,14 +37,9 @@ public class ContactData {
     private String mailAddress;
     private String paymentCredentials;
 
-    //Mapping
+    //Mappings
     @OneToMany(mappedBy = "contactData")
     private List<Customer> customers;
-
-//    public enum attributes
-//    {
-//        firstName, lastName, streetName, streetNumber, postalCode, cityName, mailAddress
-//    }
 
     //Constructors
     public ContactData(String firstName, String lastName, String streetName, String streetNumber, String postalCode, String cityName, String mailAddress)

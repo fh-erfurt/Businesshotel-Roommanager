@@ -27,7 +27,6 @@ public class HotelRoom extends Room
 
     //Attributes
     @Column(name="bed_count")
-    //@Column(name="")
     private int bedCount;
     @Column(name="has_speed_lan")
     private boolean hasSpeedLAN;
@@ -39,7 +38,7 @@ public class HotelRoom extends Room
     private boolean hasCoffeemaker;
     private Room.Category category;
 
-    //Mapping
+    //Mappings
     @Column(name="room_no")
     private Integer roomNo;
     @OneToOne(mappedBy = "hotelRoom")
@@ -58,55 +57,8 @@ public class HotelRoom extends Room
         this.hasCoffeemaker = hasCoffeemaker;
     }
 
-    //Getter/Setter    -> diesen Teil könnte man ja auch an Lombok auslagern
-    public int getBedCount ()
-    {
-        return bedCount;
-    }
-    public void setBedCount (int bedCount)
-    {
-        this.bedCount = bedCount;
-    }
-    public boolean hasSpeedLAN ()
-    {
-        return hasSpeedLAN;
-    }
-    public void setHasSpeedLAN (boolean hasSpeedLAN)
-    {
-        this.hasSpeedLAN = hasSpeedLAN;
-    }
-    public boolean hasTV ()
-    {
-        return hasTV;
-    }
-    public void setHasTV (boolean hasTV)
-    {
-        this.hasTV = hasTV;
-    }
-    public boolean hasKitchen ()
-    {
-        return hasKitchen;
-    }
-    public void setHasKitchen (boolean hasKitchen)
-    {
-        this.hasKitchen = hasKitchen;
-    }
-    public boolean hasCoffeemaker ()
-    {
-        return hasCoffeemaker;
-    }
-    public void setHasCoffeemaker (boolean hasCoffeemaker)
-    {
-        this.hasCoffeemaker = hasCoffeemaker;
-    }
-    public Room.Category getCategory ()
-    {
-        return category;
-    }
-    public void setCategory (Room.Category category)
-    {
-        this.category = category;
-    }
+    //Getter/Setter
+    //managed by Lombok
 
 
 

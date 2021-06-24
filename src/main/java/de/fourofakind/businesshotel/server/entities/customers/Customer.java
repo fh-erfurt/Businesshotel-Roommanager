@@ -44,7 +44,7 @@ public class Customer
     }
 
 
-    //Mapping
+    //Mappings
     @OneToOne
     @JoinColumn(name="account_id",insertable = false,updatable = false)
     private AccountDetails accountDetails;
@@ -69,29 +69,8 @@ public class Customer
         this.bookings = bookings;
     }
 
-    /**
-     * <p> generates new bookingRequest and add ist to BookingRequests list
-     * </p>
-     *
-     * @param startDate for start of booking
-     * @param endDate for end of booking
-     * @param roomCategory for type of booking
-     * @param specialWishes for extra wishes
-     */
-
-//    public void sendBookingRequest (Date startDate, Date endDate, Room.Category roomCategory,
-//                                    String specialWishes)
-//    {
-//        //setup database request here
-//        BookingRequest newRequest = new BookingRequest(this.customerID, startDate, endDate, roomCategory, specialWishes, this.isBusinessCustomer);
-//        BookingRequestRepository.save(newRequest);
-//    }
-
-
-
-
-
-
+    //Setter/Getter
+    //managed by Lombok
 
 
 }

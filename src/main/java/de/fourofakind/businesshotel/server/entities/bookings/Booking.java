@@ -44,7 +44,7 @@ public abstract class Booking {
     @Column(name="customer_id")
     private Integer customerID;
 
-    //Mapping
+    //Mappings
     @ManyToOne(optional = false)
     @JoinColumn(name="customer_id", insertable = false,updatable = false)
     private Customer customer;

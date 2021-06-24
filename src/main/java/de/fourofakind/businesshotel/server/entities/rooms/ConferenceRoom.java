@@ -59,17 +59,8 @@ public class ConferenceRoom extends Room
         this.amountOfTV= amountOfTV;
     }
 
-    //Getter/Setter -> Auslagern an Lombok
-    public Room.Category getCategory ()
-    {
-        return category;
-    }
-    public void setCategory (Room.Category category)
-    {
-        this.category = category;
-    }
-
-
+    //Getter/Setter
+    //managed by Lombok
 
 
 }

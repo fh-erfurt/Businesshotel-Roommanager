@@ -38,7 +38,7 @@ public class Room {
     @Column(name="area_in_sqr_metre")
     private int areaInSqrMetre;
 
-    //Mapping
+    //Mappings
     @OneToOne
     @JoinColumn(name="room_no", referencedColumnName= "room_no")
     private HotelRoom hotelRoom;
