@@ -41,6 +41,8 @@
       <excludeFolder url="file://$MODULE_DIR$/src/main/java/de/fourofakind/businesshotel/client/angularclient2ndTry/dist" />
       <excludeFolder url="file://$MODULE_DIR$/src/main/java/de/fourofakind/businesshotel/client/angularclient2ndTry/tmp" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
+      <excludeFolder url="file://$MODULE_DIR$/src/main/java/de/fourofakind/businesshotel/client/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/src/main/java/de/fourofakind/businesshotel/client/tmp" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
