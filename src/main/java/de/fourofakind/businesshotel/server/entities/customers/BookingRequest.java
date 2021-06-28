@@ -29,6 +29,10 @@ public class BookingRequest {
     private Integer customerID;
     private Date startDate;
     private Date endDate;
+    @Enumerated(EnumType.STRING)
+    @Column(name="booking_type")
+    private BookingType bookingtype;
+    @Enumerated(EnumType.STRING)
     private Room.Category roomCategory;
     private String specialWishes;
 
@@ -36,6 +40,14 @@ public class BookingRequest {
     @ManyToOne(optional = false)
     @JoinColumn(name="customer_id", insertable = false,updatable = false)
     private Customer customer;
+
+
+    //Fields
+    public enum BookingType
+    {
+        ConferenceRoomBooking,
+        HotelRoomBooking,
+    }
 
     //Constructor
 
