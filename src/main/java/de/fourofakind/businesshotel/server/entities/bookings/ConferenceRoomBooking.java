@@ -22,7 +22,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Setter
 @Getter
-@DiscriminatorValue("ConferenceRoom")
+@DiscriminatorValue("ConferenceRoomBooking")
 public class ConferenceRoomBooking extends Booking
 {
     //Attributes
