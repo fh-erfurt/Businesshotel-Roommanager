@@ -1,14 +1,14 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {LoginComponent} from '../login/login.component';
-import {RoomComponent} from '../room/room.component';
-import {EmployeeComponent} from '../employee/employee.component';
-import {MainComponent} from '../main/main.component';
+import {LoginComponent} from '../components/login/login.component';
+import {RoomComponent} from '../components/room/room.component';
+import {EmployeeComponent} from '../components/employee/employee.component';
+import {MainComponent} from '../components/main/main.component';
 import {RouterModule, Routes} from '@angular/router';
-import {BookingManagementComponent} from "../booking-management/booking-management.component";
-import {CustomerManagementComponent} from "../customer-management/customer-management.component";
-import {RoomManagementComponent} from "../room-management/room-management.component";
-import {EmployeeManagementComponent} from "../employee-management/employee-management.component";
+import {BookingManagementComponent} from "../components/booking-management/booking-management.component";
+import {CustomerManagementComponent} from "../components/customer-management/customer-management.component";
+import {RoomManagementComponent} from "../components/room-management/room-management.component";
+import {EmployeeManagementComponent} from "../components/employee-management/employee-management.component";
 
 const routes: Routes = [
   { path: '', component: MainComponent, pathMatch: 'full'},

@@ -6,16 +6,16 @@ import {MatTabsModule} from "@angular/material/tabs";
 import { AppRoutingModule } from './app-routing/app-routing.module';
 import { AppComponent } from './app.component';
 
-import { RoomComponent } from './room/room.component';
-import { LoginComponent } from './login/login.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { MainComponent } from './main/main.component';
-import { NavigationComponent } from './navigation/navigation.component';
-import { BookingManagementComponent } from './booking-management/booking-management.component';
-import { EmployeeManagementComponent } from './employee-management/employee-management.component';
-import { CustomerManagementComponent } from './customer-management/customer-management.component';
-import { RoomManagementComponent } from './room-management/room-management.component';
-import { EmployeeComponent } from './employee/employee.component';
+import { RoomComponent } from './components/room/room.component';
+import { LoginComponent } from './components/login/login.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { MainComponent } from './components/main/main.component';
+import { NavigationComponent } from './components/navigation/navigation.component';
+import { BookingManagementComponent } from './components/booking-management/booking-management.component';
+import { EmployeeManagementComponent } from './components/employee-management/employee-management.component';
+import { CustomerManagementComponent } from './components/customer-management/customer-management.component';
+import { RoomManagementComponent } from './components/room-management/room-management.component';
+import { EmployeeComponent } from './components/employee/employee.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatToolbarModule} from "@angular/material/toolbar";
