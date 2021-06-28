@@ -16,7 +16,7 @@
         <setting name="provider-name" value="Hibernate" />
         <datasource-mapping>
           <factory-entry name="Businesshotel-Roommanager" value="3dcfdd35-90d8-49cc-a2bc-1f3e171c9dee" />
-          <factory-entry name="entityManagerFactory" value="6c434180-17bc-4448-9817-16f9bf42625a" />
+          <factory-entry name="entityManagerFactory" value="c02ffb65-f266-4573-8874-ddbfd7c842f4" />
         </datasource-mapping>
         <naming-strategy-map />
       </configuration>

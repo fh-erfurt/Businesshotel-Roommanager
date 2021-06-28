@@ -6,10 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 /**
@@ -26,16 +23,31 @@ public class BookingRequest {
     //Attributes
     @Id
     @GeneratedValue
+    @Column(name="booking_request_id")
     private Integer bookingRequestID;
+    @Column(name="customer_id")
     private Integer customerID;
     private Date startDate;
     private Date endDate;
     private Room.Category roomCategory;
     private String specialWishes;
-    private boolean isBusinessCustomer;
+
+    //Mappings
+    @ManyToOne(optional = false)
+    @JoinColumn(name="customer_id", insertable = false,updatable = false)
+    private Customer customer;
 
     //Constructor
-    public BookingRequest (Integer customerID, Date startDate, Date endDate, Room.Category roomCategory, String specialWishes, boolean isBusinessCustomer) {}
+
+    public BookingRequest (Integer customerID, Date startDate, Date endDate, Room.Category roomCategory, String specialWishes)
+    {
+        this.customerID = customerID;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.roomCategory = roomCategory;
+        this.specialWishes = specialWishes;
+    }
+
 
     //Setter/Getter
     //managed by Lombok
