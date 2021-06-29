@@ -31,25 +31,29 @@ INSERT INTO `employee` (`emp_no`, `emp_name`, `given_role`, `account_id`, `creat
 (3, 'Silikaten Muh', 'Kundenverwalter',8, '2021-05-24 08:16:47', NULL),
 (4, 'Juri Juhu', 'Raumverwalter',9, '2021-05-24 08:19:47', NULL);
 
-INSERT INTO `room` (`room_no`, `room_name`, `area_in_sqr_metre`, `category`, `price_per_unit`, `updated_at`, `created_at`) VALUES
-(1, 'President Suite', 75, 'SUITE', '600', NULL, '2021-05-24 05:54:48'),
-(2, 'Standard Sonnendeck', 50, 'DOUBLE', '100', NULL, '2021-05-24 05:56:25'),
-(3, 'Standard Sonnendeck gross', 60, 'DOUBLE', '120', '2021-05-24 05:58:08', '2021-05-24 05:56:56'),
-(4, 'Deluxe Miniraum', 30, 'SINGLE', '95', NULL, '2021-05-24 06:01:55'),
-(5, 'Deluxe Miniraum', 40, 'DOUBLE', '95', NULL, '2021-05-24 06:01:55'),
-(6, 'Konferenz klein', 40, 'SMALLGROUP', '25', NULL, '2021-05-24 06:01:55'),
-(7, 'Konferenz mittel', 50, 'BIGGROUP', '35', NULL, '2021-05-24 06:01:55');
 
-INSERT INTO `hotel_room` (`room_no`, `bed_count`, `has_speed_lan`, `has_tv`, `has_kitchen`, `has_coffeemaker`) VALUES
+
+INSERT INTO `hotel_room` (`hotel_room_id`, `bed_count`, `has_speed_lan`, `has_tv`, `has_kitchen`, `has_coffeemaker`) VALUES
 (1, 5, 1, 1, 0, 1),
 (2, 3, 1, 1, 1, 1),
 (3, 2, 0, 0, 0, 1),
 (4, 2, 1, 0, 0, 1),
 (5, 1, 1, 0, 0, 0);
 
-INSERT INTO `conference_room` (`room_no`, `max_amount_of_participants`, `amount_of_whiteboards`, `amount_of_beamer`, `has_screen`, `has_computer`, `amount_of_tv`) VALUES
-(6, 11, 0, 2, 1, 1, 0),
-(7, 20, 0, 3, 0, 0, 1);
+INSERT INTO `conference_room` (`conference_room_id`, `max_amount_of_participants`, `amount_of_whiteboards`, `amount_of_beamer`, `has_screen`, `has_computer`, `amount_of_tv`) VALUES
+(1, 11, 0, 2, 1, 1, 0),
+(2, 20, 0, 3, 0, 0, 1);
+
+
+INSERT INTO `room` (`room_no`, `room_name`, `area_in_sqr_metre`, `category`, `price_per_unit`, `updated_at`, `created_at`,`hotel_room_id`,`conference_room_id`) VALUES
+(1, 'President Suite',              75, 'SUITE',        '600', NULL, '2021-05-24 05:54:48',1,NULL),
+(2, 'Standard Sonnendeck',          50, 'DOUBLE',       '100', NULL, '2021-05-24 05:56:25',2,NULL),
+(3, 'Standard Sonnendeck gross',    60, 'DOUBLE',       '120', NULL, '2021-05-24 05:56:56',3,NULL),
+(4, 'Deluxe Miniraum',              30, 'SINGLE',       '95', NULL, '2021-05-24 06:01:55',4,NULL),
+(5, 'Deluxe Miniraum',              40, 'DOUBLE',       '95', NULL, '2021-05-24 06:01:55',5,NULL),
+(6, 'Konferenz klein',              40, 'SMALLGROUP',   '25', NULL, '2021-05-24 06:01:55',NULL,1),
+(7, 'Konferenz mittel',             50, 'BIGGROUP',     '35', NULL, '2021-05-24 06:01:55',NULL,2);
+
 
 INSERT INTO `customer` (`customer_id`, `payment_method`, `updated_at`, `created_at`, `contact_data_id`,`account_id`, `is_business_customer`) VALUES
 (NULL, 'paypal', NULL, '2021-05-24 08:33:41', 1,1,1),

@@ -20,10 +20,14 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Setter
 @Getter
-@PrimaryKeyJoinColumn(name = "room_no")
+@PrimaryKeyJoinColumn(name = "conference_room_id")
 public class ConferenceRoom extends Room
 {
     //Attribues
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="conference_room_id")
+    private Integer confereneRoomID;
     @Column(name="max_amount_of_participants")
     private int maxAmountOfParticipants;
     @Column(name="amount_of_whiteboards")
@@ -38,10 +42,9 @@ public class ConferenceRoom extends Room
     private int amountOfTV;
     private Room.Category category;
 
+
     //Mapping
-    @Column(name="room_no")
-    private Integer roomNo;
-    @OneToOne(mappedBy = "conferenceRoom")
+    @OneToOne(mappedBy = "conferenceRoom",optional = false)
     private Room room;
 
 

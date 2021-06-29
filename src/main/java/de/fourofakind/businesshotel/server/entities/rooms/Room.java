@@ -37,13 +37,17 @@ public class Room {
     private Category category;
     @Column(name="area_in_sqr_metre")
     private int areaInSqrMetre;
+    @Column(name="hotel_room_id")
+    private Integer hotelRoomID;
+    @Column(name="conference_room_id")
+    private Integer confereneRoomID;
 
     //Mappings
     @OneToOne
-    @JoinColumn(name="room_no", referencedColumnName= "room_no")
+    @JoinColumn(name="hotel_room_id",insertable = false,updatable = false)
     private HotelRoom hotelRoom;
     @OneToOne
-    @JoinColumn(name="room_no", referencedColumnName= "room_no")
+    @JoinColumn(name="conference_room_id",insertable = false,updatable = false)
     private ConferenceRoom conferenceRoom;
     @ManyToMany
     @JoinTable(
