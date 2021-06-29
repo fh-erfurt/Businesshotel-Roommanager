@@ -24,6 +24,7 @@ import java.util.List;
 @NoArgsConstructor
 @Setter
 @Getter
+@DiscriminatorColumn(name = "room_type", discriminatorType = DiscriminatorType.STRING)
 public class Room {
 
     //Attributes
@@ -37,10 +38,9 @@ public class Room {
     private Category category;
     @Column(name="area_in_sqr_metre")
     private int areaInSqrMetre;
-    @Column(name="hotel_room_id")
-    private Integer hotelRoomID;
-    @Column(name="conference_room_id")
-    private Integer confereneRoomID;
+    @Enumerated(EnumType.STRING)
+    @Column(name="room_type")
+    private RoomType roomType;
 
     //Mappings
     @OneToOne
@@ -61,6 +61,11 @@ public class Room {
     public enum Category
     {
         SINGLE, DOUBLE, SUITE, BIGGROUP, SMALLGROUP
+    }
+
+    public enum RoomType
+    {
+        HOTELROOM,CONFERENCEROOM
     }
 
     //Constructor
