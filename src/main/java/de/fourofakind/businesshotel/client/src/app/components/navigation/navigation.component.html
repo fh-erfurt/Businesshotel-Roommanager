@@ -1,10 +1,121 @@
-<mat-toolbar class="topnav" color="primary">
-    <a  routerLink=""><img class="bhRoomLogo" src="assets/bhlogo_transparentBackground.png" alt="Home"></a>
-    <a routerLink="rooms">Räume</a>
-    <a routerLink="login">Login</a>
-    <a routerLink="management/booking">Buchungsverwaltung</a>
-    <a routerLink="management/customer">Kundenverwaltung</a>
-    <a routerLink="management/room">Raumverwaltung</a>
-    <a routerLink="management/employee">Mitarbeiterverwaltung</a>
-    <a routerLink="employees">Employee</a>
-</mat-toolbar>
+<!--<mat-toolbar class="topnav" color="primary">-->
+<!--    <a  routerLink=""><img class="bhRoomLogo" src="assets/bhlogo_transparentBackground.png" alt="Home"></a>-->
+<!--    <a routerLink="rooms">Räume</a>-->
+<!--    <a routerLink="login">Login</a>-->
+<!--    <a routerLink="management/booking">Buchungsverwaltung</a>-->
+<!--    <a routerLink="management/customer">Kundenverwaltung</a>-->
+<!--    <a routerLink="management/room">Raumverwaltung</a>-->
+<!--    <a routerLink="management/employee">Mitarbeiterverwaltung</a>-->
+<!--    <a routerLink="employees">Employee</a>-->
+<!--</mat-toolbar>-->
+
+
+<!--<ul ngbNav #nav="ngbNav" class="nav-pills topnav">-->
+<!--  <li ngbNavItem>-->
+<!--    <a  routerLink=""><img class="bhRoomLogo" src="assets/bhlogo_transparentBackground.png" alt="Home"></a>-->
+<!--  </li>-->
+<!--  <li ngbNavItem>-->
+<!--    <a ngbNavLink routerLink="rooms">Räume</a>-->
+<!--  </li>-->
+<!--  <li ngbNavItem>-->
+<!--    <a ngbNavLink routerLink="login">Login</a>-->
+<!--  </li>-->
+<!--  <li ngbNavItem>-->
+<!--    <a ngbNavLink routerLink="management/booking">Buchungsverwaltung</a>-->
+<!--  </li>-->
+<!--  <li ngbNavItem>-->
+<!--    <a ngbNavLink routerLink="management/customer">Kundenverwaltung</a>-->
+<!--  </li>-->
+<!--  <li ngbNavItem>-->
+<!--    <a ngbNavLink routerLink="management/room">Raumverwaltung</a>-->
+<!--  </li>-->
+<!--  <li ngbNavItem>-->
+<!--    <a ngbNavLink routerLink="management/employee">Mitarbeiterverwaltung</a>-->
+<!--  </li>-->
+<!--  <li ngbNavItem>-->
+<!--    <a ngbNavLink routerLink="employees">Employee</a>-->
+<!--  </li>-->
+<!--</ul>-->
+<!--<div [ngbNavOutlet]="nav"></div>-->
+
+
+
+
+<!--<nav class="navbar navbar-expand-lg navbar-dark bg-dark">-->
+<!--  <div class="container-fluid">-->
+<!--    <div class="collapse navbar-collapse" id="navbarSupportedContent">-->
+<!--      <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">-->
+<!--        <li class="nav-item" role="presentation">-->
+<!--          <button routerLink="rooms" class="nav-link active" id="pills-rooms-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Räume</button>-->
+<!--        </li>-->
+<!--        <li class="nav-item" role="presentation">-->
+<!--          <button routerLink="login" class="nav-link" id="pills-login-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Login</button>-->
+<!--        </li>-->
+<!--        <li class="nav-item" role="presentation">-->
+<!--          <button routerLink="management/booking" class="nav-link" id="pills-booking-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Buchungsverwaltung</button>-->
+<!--        </li>-->
+<!--        <li class="nav-item" role="presentation">-->
+<!--          <button routerLink="management/customer" class="nav-link" id="pills-customer-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Kundenverwaltung</button>-->
+<!--        </li>-->
+<!--        <li class="nav-item" role="presentation">-->
+<!--          <button routerLink="management/room" class="nav-link" id="pills-room-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Raumverwaltung</button>-->
+<!--        </li>-->
+<!--        <li class="nav-item" role="presentation">-->
+<!--          <button routerLink="management/employee" class="nav-link" id="pills-employee-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Mitarbeiterverwaltung</button>-->
+<!--        </li>-->
+<!--        <li class="nav-item" role="presentation">-->
+<!--          <button routerLink="employees" class="nav-link" id="pills-employees-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Employee</button>-->
+<!--        </li>-->
+<!--      </ul>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</nav>-->
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="">BH Room</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav nav nav-pills ms-auto mb-2 mb-lg-0 red" id="pills-tab">
+<!--      <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">-->
+
+<!--        <li class="nav-item" role="presentation">-->
+<!--          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">-->
+<!--            <span class="navbar-toggler-icon"></span>-->
+<!--          </button>-->
+<!--        </li>-->
+        <li class="nav-item" role="presentation">
+          <button data-bs-toggle="collapse" routerLink="rooms" class="nav-link nav-item" id="pills-rooms-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Räume</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button routerLink="login" class="nav-link nav-item" id="pills-login-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Login</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button routerLink="management/booking" class="nav-link nav-item" id="pills-booking-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Buchungsverwaltung</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button routerLink="management/customer" class="nav-link nav-item" id="pills-customer-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Kundenverwaltung</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button routerLink="management/room" class="nav-link nav-item" id="pills-room-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Raumverwaltung</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button routerLink="management/employee" class="nav-link nav-item" id="pills-employee-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Mitarbeiterverwaltung</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button routerLink="employees" class="nav-link nav-item" id="pills-employees-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Employee</button>
+        </li>
+
+      </ul>
+<!--      <form class="d-flex">-->
+<!--        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">-->
+<!--        <button class="btn btn-outline-success" type="submit">Search</button>-->
+<!--      </form>-->
+    </div>
+  </div>
+</nav>
+
+

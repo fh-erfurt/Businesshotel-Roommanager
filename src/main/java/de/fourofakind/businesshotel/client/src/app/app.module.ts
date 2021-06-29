@@ -29,7 +29,7 @@ import {MatCardModule} from "@angular/material/card";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {NgxMatDatetimePickerModule, NgxMatTimepickerModule} from "@angular-material-components/datetime-picker";
-import {NgbPaginationModule, NgbAlertModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbPaginationModule, NgbAlertModule, NgbNavModule} from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -69,7 +69,8 @@ import {NgbPaginationModule, NgbAlertModule} from '@ng-bootstrap/ng-bootstrap';
     NgxMatTimepickerModule,
     NgxMatDatetimePickerModule,
     NgbPaginationModule,
-    NgbAlertModule
+    NgbAlertModule,
+    NgbNavModule
   ],
   providers: [],
   bootstrap: [AppComponent]
