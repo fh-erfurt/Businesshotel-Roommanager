@@ -27,7 +27,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Setter
 @Getter
-@DiscriminatorValue("HotelRoom")
+@DiscriminatorValue("HotelRoomBooking")
 public class HotelRoomBooking extends Booking
 {
     //Attributes

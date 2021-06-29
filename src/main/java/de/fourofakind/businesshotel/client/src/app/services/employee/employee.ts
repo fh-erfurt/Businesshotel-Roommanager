@@ -1,11 +1,8 @@
-
-
 export interface RawData {
   _embedded: Embedded;
   // _links!: Links;
   page: Page;
 }
-
 
 export class Page {
   size!: number;
@@ -39,7 +36,7 @@ export class Employee {
 
 export class EmpLinks {
   self!: Self;
-  employee!: EmployeeC;
+  employee!: EmployeeSelf;
   accountDetails!: AccountDetails;
   bookings!: Bookings;
   role!: Role;
@@ -49,7 +46,7 @@ export class Self {
   href!: string;
 }
 
-export class EmployeeC {
+export class EmployeeSelf {
   href!: string;
 }
 export class AccountDetails {

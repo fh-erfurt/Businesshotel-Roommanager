@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { EmployeeService } from '../employee.service';
-import {Employee, RawData} from '../employee';
+import { EmployeeService } from '../../services/employee/employee.service';
+import {Employee, RawData} from '../../services/employee/employee';
 
 @Component({
   selector: 'app-employee',
