@@ -1,12 +1,14 @@
 package de.fourofakind.businesshotel.server.entities.rooms;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import de.fourofakind.businesshotel.server.entities.bookings.Booking;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * <p>
@@ -21,13 +23,10 @@ import javax.persistence.*;
 @Setter
 @Getter
 @PrimaryKeyJoinColumn(name = "conference_room_id")
+@DiscriminatorValue("CONFERENCEROOM")
 public class ConferenceRoom extends Room
 {
     //Attribues
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="conference_room_id")
-    private Integer confereneRoomID;
     @Column(name="max_amount_of_participants")
     private int maxAmountOfParticipants;
     @Column(name="amount_of_whiteboards")
@@ -40,6 +39,7 @@ public class ConferenceRoom extends Room
     private boolean hasComputer;
     @Column(name="amount_of_tv")
     private int amountOfTV;
+    @Enumerated(EnumType.STRING)
     private Room.Category category;
 
 
@@ -49,18 +49,19 @@ public class ConferenceRoom extends Room
 
 
     //Constructors
-    public ConferenceRoom (int roomNo, Room.Category category, int areaInSqrMetre, int maxAmountOfParticipants, int amountOfWhiteboards,
-                           int amountOfBeamer, boolean hasScreen, boolean hasComputer, int amountOfTV,float pricePerUnit)
+
+    public ConferenceRoom (float pricePerUnit, Category category, int areaInSqrMetre, RoomType roomType, int maxAmountOfParticipants, int amountOfWhiteboards, int amountOfBeamer, boolean hasScreen,
+                           boolean hasComputer, int amountOfTV)
     {
-        super(roomNo, areaInSqrMetre,pricePerUnit);
-        this.category = category;
+        super(pricePerUnit, category, areaInSqrMetre, roomType);
         this.maxAmountOfParticipants = maxAmountOfParticipants;
         this.amountOfWhiteboards = amountOfWhiteboards;
         this.amountOfBeamer = amountOfBeamer;
         this.hasScreen = hasScreen;
         this.hasComputer = hasComputer;
-        this.amountOfTV= amountOfTV;
+        this.amountOfTV = amountOfTV;
     }
+
 
     //Getter/Setter
     //managed by Lombok

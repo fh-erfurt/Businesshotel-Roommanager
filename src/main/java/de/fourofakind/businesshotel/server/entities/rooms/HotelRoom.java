@@ -24,14 +24,11 @@ import java.io.Serializable;
 @Setter
 @Getter
 @PrimaryKeyJoinColumn(name = "hotel_room_id")
+@DiscriminatorValue("HOTELROOM")
 public class HotelRoom extends Room
 {
 
     //Attributes
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="hotel_room_id")
-    private Integer hotelRoomID;
     @Column(name="bed_count")
     private int bedCount;
     @Column(name="has_speed_lan")
@@ -42,6 +39,7 @@ public class HotelRoom extends Room
     private boolean hasKitchen;
     @Column(name="has_coffeemaker")
     private boolean hasCoffeemaker;
+    @Enumerated(EnumType.STRING)
     private Room.Category category;
 
     //Mappings
@@ -50,17 +48,17 @@ public class HotelRoom extends Room
     private Room room;
 
     //Constructors
-    public HotelRoom (int roomNo, Room.Category category, int areaInSqrMetre, int bedCount, boolean hasSpeedLAN, boolean hasTV, boolean hasKitchen,
-                      boolean hasCoffeemaker,float pricePerUnit)
+
+    public HotelRoom (float pricePerUnit, Category category, int areaInSqrMetre, RoomType roomType, int bedCount, boolean hasSpeedLAN, boolean hasTV, boolean hasKitchen, boolean hasCoffeemaker)
     {
-        super(roomNo, areaInSqrMetre,pricePerUnit);
-        this.category = category;
+        super(pricePerUnit, category, areaInSqrMetre, roomType);
         this.bedCount = bedCount;
         this.hasSpeedLAN = hasSpeedLAN;
         this.hasTV = hasTV;
         this.hasKitchen = hasKitchen;
         this.hasCoffeemaker = hasCoffeemaker;
     }
+
 
     //Getter/Setter
     //managed by Lombok
