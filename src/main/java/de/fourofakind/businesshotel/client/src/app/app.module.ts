@@ -30,6 +30,7 @@ import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {NgxMatDatetimePickerModule, NgxMatTimepickerModule} from "@angular-material-components/datetime-picker";
 import {NgbPaginationModule, NgbAlertModule, NgbNavModule} from '@ng-bootstrap/ng-bootstrap';
+import { FooterComponent } from './components/footer/footer.component';
 
 
 @NgModule({
@@ -45,7 +46,8 @@ import {NgbPaginationModule, NgbAlertModule, NgbNavModule} from '@ng-bootstrap/n
     EmployeeManagementComponent,
     CustomerManagementComponent,
     RoomManagementComponent,
-    EmployeeComponent
+    EmployeeComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
