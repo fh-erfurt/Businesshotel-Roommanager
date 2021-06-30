@@ -9,15 +9,22 @@ a {
   background-color: rgba(255, 0, 0, 0.5);
 }
 
-.topnav {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  background-color: gray;
-  padding: 5px;
-  height: 50px;
-
+.nav-pills .nav-item {
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-bottom: 3px;
+  padding-top: 3px;
 }
+
+//.topnav {
+//  display: flex;
+//  flex-direction: row;
+//  justify-content: space-around;
+//  background-color: gray;
+//  padding: 5px;
+//  height: 50px;
+//
+//}
 
 .bhRoomLogo{
   width:200px;
