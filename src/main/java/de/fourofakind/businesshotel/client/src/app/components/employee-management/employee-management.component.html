@@ -1,1 +1,113 @@
-<p>employee-management works!</p>
+<div>
+    <h1>Mitarbeiterverwaltung</h1>
+      <mat-tab-group>
+        <mat-tab label="Hinzufügen">
+          <div class="addTab">
+            <mat-form-field appearance="fill">
+              <mat-label>Mitarbeiternummer</mat-label>
+              <input matInput name="employeeID"required> 
+            </mat-form-field>
+            <br>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Mitarbeitername</mat-label>
+                <input matInput name="employeeName" required> 
+              </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Accountnummer</mat-label>
+                <input matInput name="accountID" required> 
+              </mat-form-field>
+
+              <mat-form-field appearance="fill">
+                <mat-label>Rolle</mat-label> <!--am besten direkt nur mit gültigen Räumen füllen -->
+                <mat-select required>
+                  <mat-option value="Raummanager">Raummanager</mat-option>
+                  <mat-option value="Buchunsmanager">Buchunsmanager</mat-option>
+                  <mat-option value="Kundenmanager">Kundenmanger</mat-option>
+                  <mat-option value="Hotelmanager">Hotelmanager</mat-option>
+                </mat-select>
+              </mat-form-field>
+
+            
+           
+          
+            <mat-form-field appearance="fill">
+              <mat-label>Anmerkungen zum Mitarbeiter</mat-label>
+              <textarea matInput></textarea>
+            </mat-form-field>
+            <button mat-raised-button color="primary">Absenden</button>
+          </div>
+        </mat-tab>
+        <mat-tab label="Bearbeiten">
+          <div class="addTab">
+            <br>
+            <mat-form-field appearance="fill">
+              <mat-label>Mitarbeiternummer</mat-label>
+              <input matInput required>
+            </mat-form-field>
+            <button mat-raised-button color="primary" >Suchen</button> <!-- sollte Voraussetzung werden für die Aktivierung des restlicehn Formulars-->
+           
+            <br>
+            <mat-form-field appearance="fill">
+                <mat-label>Mitarbeitername</mat-label>
+                <input matInput name="employeeName" required> 
+              </mat-form-field>
+            <br>
+            <br>
+            <mat-form-field appearance="fill">
+                <mat-label>Rolle</mat-label> <!--am besten direkt nur mit gültigen Räumen füllen -->
+                <mat-select required>
+                  <mat-option value="Raummanager">Raummanager</mat-option>
+                  <mat-option value="Buchunsmanager">Buchunsmanager</mat-option>
+                  <mat-option value="Kundenmanager">Kundenmanger</mat-option>
+                  <mat-option value="Hotelmanager">Hotelmanager</mat-option>
+                </mat-select>
+              </mat-form-field>
+            <br>
+            <mat-form-field appearance="fill">
+                <mat-label>Accountnummer</mat-label>
+                <input matInput name="accountID"> 
+              </mat-form-field>
+         
+            <mat-form-field appearance="fill">
+              <mat-label>Anmerkungen zum Mitarbeiter</mat-label>
+              <textarea matInput></textarea>
+            </mat-form-field>
+            <button mat-raised-button color="primary">Absenden</button>
+          </div>
+        </mat-tab>
+
+        <mat-tab label="Löschen">
+          <br>
+          <mat-form-field appearance="fill">
+            <mat-label>Mitarbeiternummer</mat-label>
+            <input matInput required>
+          </mat-form-field>
+          <button mat-raised-button color="primary" >Suchen</button> <!-- sollte Voraussetzung werden für die Aktivierung des restlichen Formulars-->
+          <br>
+          <mat-card> <!--Übersicht der Buchung vor dem Löschen-->
+            <mat-card-title>Mitarbeiternummer</mat-card-title>
+            <mat-card-content>Buchungsinformationen</mat-card-content>
+          </mat-card>
+          <mat-slide-toggle>Freigeben</mat-slide-toggle> <!--Bestätigung zum Freigeben des Löschen, könnte auch als Pop-Up implementiert werden-->
+          <button mat-raised-button color="primary" disabled>Löschen</button>
+        </mat-tab>
+        <mat-tab label="Anzeigen">
+          <br>
+          <mat-form-field appearance="fill">
+            <mat-label>Mitarbeiternummer</mat-label>
+            <input matInput required>
+          </mat-form-field>
+          <button mat-raised-button color="primary" >Suchen</button>
+          <mat-card>
+            <mat-card-title>Mitarbeiternummer</mat-card-title>
+            <mat-card-content>Mitarbeiterinformationen</mat-card-content>
+            <mat-card-content>Rolleninformationen</mat-card-content>
+            <mat-card-content>Accountnummer</mat-card-content>
+          </mat-card>
+        </mat-tab>
+      </mat-tab-group>
+  
+  </div>
+  
