@@ -126,11 +126,12 @@ export class EmployeeComponent implements OnInit {
 
   constructor(private employeeService: EmployeeService) { }
 
-  ngOnInit(): void {this.employeeService.getEmployees().subscribe((data: RawData)=>{
-    console.log("Pustekuchen");
-    console.log(data);
-    console.log("Pustekuchen");
-    this.employeesData = data as RawData;
+  ngOnInit(): void {
+    this.employeeService.getEmployees().subscribe((data: RawData)=>{
+      console.log("Pustekuchen");
+      console.log(data);
+      console.log("Pustekuchen");
+      this.employeesData = data as RawData;
 
     // this.employeesAsString = data.keys;
 
@@ -142,7 +143,7 @@ export class EmployeeComponent implements OnInit {
     // console.log(this.employeesData);
     // console.log("Pustekuchen");
 
-  })
+    })
   }
 
 }

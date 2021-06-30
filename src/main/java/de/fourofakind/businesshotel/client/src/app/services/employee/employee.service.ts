@@ -13,7 +13,6 @@ export class EmployeeService {
 
   public getEmployees(): Observable<RawData>{
     return this.http.get<RawData>(`${this.baseUrl}`)
-
   }
 }
 
