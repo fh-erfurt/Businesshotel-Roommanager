@@ -23,7 +23,6 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Setter
 @Getter
-@DiscriminatorValue("HOTELROOM")
 @PrimaryKeyJoinColumn(name = "hotel_room_id")
 public class HotelRoom extends Room
 {

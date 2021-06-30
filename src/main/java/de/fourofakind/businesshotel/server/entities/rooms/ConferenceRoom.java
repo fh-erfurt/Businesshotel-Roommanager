@@ -20,7 +20,6 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Setter
 @Getter
-@DiscriminatorValue("CONFERENCEROOM")
 @PrimaryKeyJoinColumn(name = "conference_room_id")
 public class ConferenceRoom extends Room
 {
