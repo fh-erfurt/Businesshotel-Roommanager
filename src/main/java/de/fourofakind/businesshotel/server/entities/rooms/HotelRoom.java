@@ -1,11 +1,13 @@
 package de.fourofakind.businesshotel.server.entities.rooms;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * <p>
@@ -21,11 +23,16 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Setter
 @Getter
-@PrimaryKeyJoinColumn(name = "room_no")
+@DiscriminatorValue("HOTELROOM")
+@PrimaryKeyJoinColumn(name = "hotel_room_id")
 public class HotelRoom extends Room
 {
 
     //Attributes
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="hotel_room_id")
+    private Integer hotelRoomID;
     @Column(name="bed_count")
     private int bedCount;
     @Column(name="has_speed_lan")
@@ -39,9 +46,8 @@ public class HotelRoom extends Room
     private Room.Category category;
 
     //Mappings
-    @Column(name="room_no")
-    private Integer roomNo;
-    @OneToOne(mappedBy = "hotelRoom")
+    @JsonIgnore
+    @OneToOne(mappedBy = "hotelRoom",optional = false)
     private Room room;
 
     //Constructors

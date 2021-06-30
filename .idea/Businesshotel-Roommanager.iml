@@ -16,7 +16,7 @@
         <setting name="provider-name" value="Hibernate" />
         <datasource-mapping>
           <factory-entry name="Businesshotel-Roommanager" value="3dcfdd35-90d8-49cc-a2bc-1f3e171c9dee" />
-          <factory-entry name="entityManagerFactory" value="c02ffb65-f266-4573-8874-ddbfd7c842f4" />
+          <factory-entry name="entityManagerFactory" value="a0d4ec1b-78df-4073-a8f8-832783eceee7" />
         </datasource-mapping>
         <naming-strategy-map />
       </configuration>
@@ -40,9 +40,9 @@
       <excludeFolder url="file://$MODULE_DIR$/src/main/java/de/fourofakind/businesshotel/client/angularclient/tmp" />
       <excludeFolder url="file://$MODULE_DIR$/src/main/java/de/fourofakind/businesshotel/client/angularclient2ndTry/dist" />
       <excludeFolder url="file://$MODULE_DIR$/src/main/java/de/fourofakind/businesshotel/client/angularclient2ndTry/tmp" />
-      <excludeFolder url="file://$MODULE_DIR$/target" />
       <excludeFolder url="file://$MODULE_DIR$/src/main/java/de/fourofakind/businesshotel/client/dist" />
       <excludeFolder url="file://$MODULE_DIR$/src/main/java/de/fourofakind/businesshotel/client/tmp" />
+      <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
