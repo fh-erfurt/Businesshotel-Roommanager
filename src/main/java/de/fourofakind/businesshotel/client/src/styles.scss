@@ -1,15 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
-html, body {
-  min-height: 100vh  !important;
-  height: auto !important;
-  margin: 0 !important;
-}
 
-@import "../node_modules/bootstrap/scss/functions";
-@import "../node_modules/bootstrap/scss/variables";
-@import "../node_modules/bootstrap/scss/mixins";
 
-$primary: rgb(33, 37, 41);
+//@import "../node_modules/bootstrap/scss/functions";
+//@import "../node_modules/bootstrap/scss/variables";
+//@import "../node_modules/bootstrap/scss/mixins";
+@import "scss/var";
+@import '../node_modules/bootstrap/scss/bootstrap';
+//@import "scss/custom.scss";
+
+//$primary: rgb(33, 37, 41);
 //$secondary: #343a40;
 //$success: #343a40;
 //$info: #343a40;
@@ -18,18 +17,20 @@ $primary: rgb(33, 37, 41);
 //$light: #343a40;
 //$dark: #343a40;
 
-.bg-primary {
-  background-color: $primary !important;
-  color: $primary !important;
-}
+//.bg-primary {
+//  background-color: $primary !important;
+//  color: $primary !important;
+//}
 
-.btn-primary {
-  background-color: rgba(155, 0, 0, 1) !important;
-  border-color: rgba(155, 0, 0, 1) !important;
-}
+//.btn-primary {
+//  background-color: rgba(155, 0, 0, 1) !important;
+//  border-color: rgba(155, 0, 0, 1) !important;
+//}
 
-.nav-pills .nav-item .nav-link:is(.active) {
-  background-color: rgba(155, 0, 0, 1);
-  //background-color: rgba(255, 195, 0, 0.8);
-  //background-color: #0dcaf0;
-}
+//.nav-pills .nav-item .nav-link:is(.active) {
+//  background-color: rgba(155, 0, 0, 1);
+//  //background-color: rgba(255, 195, 0, 0.8);
+//  //background-color: #0dcaf0;
+//}
+
+

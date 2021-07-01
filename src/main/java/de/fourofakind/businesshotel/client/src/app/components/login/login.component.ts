@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
@@ -11,6 +11,11 @@ export class LoginComponent implements OnInit {
   form!: FormGroup;
   loading = false;
   submitted = false;
+  username!: string;
+  password!: string;
+
+  @ViewChild('someInput') usernameInput!: ElementRef;
+  @ViewChild('someInput') passwordInpu!: ElementRef;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -30,11 +35,21 @@ export class LoginComponent implements OnInit {
   // convenience getter for easy access to form fields
   get f() { return this.form.controls; }
 
-  login() {
-    localStorage.setItem('user', "loggedIn");
-    this.router.navigate(['']);
-    window.location.reload();
+  submit() {
+    this.submitted = true;
+
+    if (this.form.invalid) {
+      return;
+    }
+
+    this.loginService.login(this.f.username.value, this.f.password.value)
+
   }
 
+  login() {
+    localStorage.setItem('user', "loggedIn");
+    // window.open("","_top")
+    window.location.href = "";
+  }
 
 }

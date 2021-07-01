@@ -9,10 +9,12 @@ import {BookingManagementComponent} from "../components/booking-management/booki
 import {CustomerManagementComponent} from "../components/customer-management/customer-management.component";
 import {RoomManagementComponent} from "../components/room-management/room-management.component";
 import {EmployeeManagementComponent} from "../components/employee-management/employee-management.component";
+import {RegistrationComponent} from "../components/registration/registration.component";
 
 const routes: Routes = [
   { path: '', component: MainComponent, pathMatch: 'full'},
   { path: 'login',component: LoginComponent},
+  { path: 'register', component: RegistrationComponent},
   { path: 'rooms', component: RoomComponent},
   { path: 'management/booking', component: BookingManagementComponent},
   { path: 'management/customer', component: CustomerManagementComponent},
