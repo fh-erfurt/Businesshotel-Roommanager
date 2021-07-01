@@ -16,6 +16,18 @@ export interface Embedded {
   hotelRoomBookings: HotelRoomBooking[];
 }
 
+export interface Booking {
+  roomNo: number;
+  pricing: number;
+  empNo: number;
+  startDate: Date;
+  endDate: Date;
+  specialWishes: string;
+  customerID: number;
+  _links: BookingLinks;
+}
+
+
 export interface ConferenceRoomBooking {
   roomNo: number;
   pricing: number;
@@ -47,7 +59,14 @@ export interface ConferenceRoomBookingLinks {
 
 export interface HotelRoomBookingLinks {
   self: Self;
-  conferenceRoomBooking: HotelRoomBookingSelf;
+  hotelRoomBooking: HotelRoomBookingSelf;
+  customer: Customer;
+  employee: Employee;
+}
+
+export interface BookingLinks {
+  self: Self;
+  hotelRoomBooking: HotelRoomBookingSelf;
   customer: Customer;
   employee: Employee;
 }
