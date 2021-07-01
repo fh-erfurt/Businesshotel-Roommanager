@@ -44,10 +44,10 @@ public class Room {
 
     //Mappings
     @OneToOne
-    @JoinColumn(name="hotel_room_id",insertable = false,updatable = false)
+    @JoinColumn(name="room_no", referencedColumnName="hotel_room_id",insertable = false,updatable = false)
     private HotelRoom hotelRoom;
     @OneToOne
-    @JoinColumn(name="conference_room_id",insertable = false,updatable = false)
+    @JoinColumn(name="room_no", referencedColumnName="conference_room_id",insertable = false,updatable = false)
     private ConferenceRoom conferenceRoom;
     @ManyToMany
     @JoinTable(
