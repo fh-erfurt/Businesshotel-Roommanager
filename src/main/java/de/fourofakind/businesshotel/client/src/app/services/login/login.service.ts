@@ -13,17 +13,32 @@ export class LoginService {
   private baseUrl = "http://localhost:8081/accountdetails"
   constructor(private http: HttpClient) { }
 
-  public getAccountDetails(): Observable<RootObject>{
-    return this.http.get<RootObject>(`${this.baseUrl}`)
+  public getAccount(): Observable<RootObject>{
+    return this.http.get<RootObject>(`${this.baseUrl}`, {
+      params: {
+        username: "Marius Mac Mac"
+      },
+      observe: 'response'
+    })
+
   }
 
   login(username: string, password: string) {
-    return this.http.post<RootObject>(`${environment.apiUrl}/accountdetails`, { username, password })
-      .pipe(map(user => {
-        // store user details and jwt token in local storage to keep user logged in between page refreshes
-        localStorage.setItem('user', JSON.stringify(user));
-        // this.userSubject.next(user);
-        return user;
-      }));
+
+
+
+    // this.getAccountDetails().subscribe((data: RootObject)=> {
+    //   for (accountdetails of data._embedded.accountdetails) {
+    //
+    //   }
+    // })
+
+    // return this.http.post<RootObject>(`${environment.apiUrl}/accountdetails`, { username, password })
+    //   .pipe(map(user => {
+    //     // store user details and jwt token in local storage to keep user logged in between page refreshes
+    //     localStorage.setItem('user', JSON.stringify(user));
+    //     // this.userSubject.next(user);
+    //     return user;
+    //   }));
   }
 }
