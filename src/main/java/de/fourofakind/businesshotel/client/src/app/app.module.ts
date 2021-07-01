@@ -31,7 +31,6 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
 import {NgxMatDatetimePickerModule, NgxMatTimepickerModule} from "@angular-material-components/datetime-picker";
 import {NgbPaginationModule, NgbAlertModule, NgbNavModule} from '@ng-bootstrap/ng-bootstrap';
 import { FooterComponent } from './components/footer/footer.component';
-import { TestLoginComponent } from './loginExample/test-login/test-login.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 
 
@@ -50,7 +49,6 @@ import { RegistrationComponent } from './components/registration/registration.co
     RoomManagementComponent,
     EmployeeComponent,
     FooterComponent,
-    TestLoginComponent,
     RegistrationComponent
   ],
   imports: [
