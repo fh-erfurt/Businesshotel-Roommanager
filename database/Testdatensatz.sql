@@ -41,18 +41,18 @@ INSERT INTO `hotel_room` (`hotel_room_id`, `bed_count`, `has_speed_lan`, `has_tv
 (5, 1, 1, 0, 0, 0);
 
 INSERT INTO `conference_room` (`conference_room_id`, `max_amount_of_participants`, `amount_of_whiteboards`, `amount_of_beamer`, `has_screen`, `has_computer`, `amount_of_tv`) VALUES
-(1, 11, 0, 2, 1, 1, 0),
-(2, 20, 0, 3, 0, 0, 1);
+(6, 11, 0, 2, 1, 1, 0),
+(7, 20, 0, 3, 0, 0, 1);
 
 
-INSERT INTO `room` (`room_no`, `room_name`, `area_in_sqr_metre`, `category`, `price_per_unit`, `updated_at`, `created_at`,`hotel_room_id`,`conference_room_id`) VALUES
-(1, 'President Suite',              75, 'SUITE',        '600', NULL, '2021-05-24 05:54:48',1,NULL),
-(2, 'Standard Sonnendeck',          50, 'DOUBLE',       '100', NULL, '2021-05-24 05:56:25',2,NULL),
-(3, 'Standard Sonnendeck gross',    60, 'DOUBLE',       '120', NULL, '2021-05-24 05:56:56',3,NULL),
-(4, 'Deluxe Miniraum',              30, 'SINGLE',       '95', NULL, '2021-05-24 06:01:55',4,NULL),
-(5, 'Deluxe Miniraum',              40, 'DOUBLE',       '95', NULL, '2021-05-24 06:01:55',5,NULL),
-(6, 'Konferenz klein',              40, 'SMALLGROUP',   '25', NULL, '2021-05-24 06:01:55',NULL,1),
-(7, 'Konferenz mittel',             50, 'BIGGROUP',     '35', NULL, '2021-05-24 06:01:55',NULL,2);
+INSERT INTO `room` (`room_no`, `area_in_sqr_metre`, `category`, `price_per_unit`, `updated_at`, `created_at`,`hotel_room_id`,`conference_room_id`,`room_type`) VALUES
+(1, 75, 'SUITE',        '600', NULL, '2021-05-24 05:54:48',1,NULL,'HOTELROOM'),
+(2, 50, 'DOUBLE',       '100', NULL, '2021-05-24 05:56:25',2,NULL,'HOTELROOM'),
+(3, 60, 'DOUBLE',       '120', NULL, '2021-05-24 05:56:56',3,NULL,'HOTELROOM'),
+(4, 30, 'SINGLE',       '95', NULL, '2021-05-24 06:01:55',4,NULL,'HOTELROOM'),
+(5, 40, 'DOUBLE',       '95', NULL, '2021-05-24 06:01:55',5,NULL,'HOTELROOM'),
+(6, 40, 'SMALLGROUP',   '25', NULL, '2021-05-24 06:01:55',NULL,6,'CONFERENCEROOM'),
+(7, 50, 'BIGGROUP',     '35', NULL, '2021-05-24 06:01:55',NULL,7,'CONFERENCEROOM');
 
 
 INSERT INTO `customer` (`customer_id`, `payment_method`, `updated_at`, `created_at`, `contact_data_id`,`account_id`, `is_business_customer`) VALUES

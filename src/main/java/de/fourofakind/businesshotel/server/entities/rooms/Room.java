@@ -24,6 +24,7 @@ import java.util.List;
 @NoArgsConstructor
 @Setter
 @Getter
+@DiscriminatorColumn(name = "room_type")
 public class Room {
 
     //Attributes
@@ -37,10 +38,9 @@ public class Room {
     private Category category;
     @Column(name="area_in_sqr_metre")
     private int areaInSqrMetre;
-    @Column(name="hotel_room_id")
-    private Integer hotelRoomID;
-    @Column(name="conference_room_id")
-    private Integer confereneRoomID;
+    @Enumerated(EnumType.STRING)
+    @Column(name="room_type")
+    private RoomType roomType;
 
     //Mappings
     @OneToOne
@@ -63,12 +63,21 @@ public class Room {
         SINGLE, DOUBLE, SUITE, BIGGROUP, SMALLGROUP
     }
 
-    //Constructor
-    public Room(int roomNo, int areaInSqrMetre, float pricePerUnit) {
-        this.areaInSqrMetre = areaInSqrMetre;
-        this.roomNo = roomNo;
-        this.pricePerUnit = pricePerUnit;
+    public enum RoomType
+    {
+        HOTELROOM, CONFERENCEROOM
     }
+
+    //Constructor
+
+    public Room (float pricePerUnit, Category category, int areaInSqrMetre, RoomType roomType)
+    {
+        this.pricePerUnit = pricePerUnit;
+        this.category = category;
+        this.areaInSqrMetre = areaInSqrMetre;
+        this.roomType = roomType;
+    }
+
 
     //Getter/Setter
     //managed by lombok
