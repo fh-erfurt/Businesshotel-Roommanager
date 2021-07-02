@@ -1,30 +1,38 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
-import {RootObject} from "../login/login";
+import {HttpClient, HttpResponse} from '@angular/common/http';
+// import {Accountdetail, RootObject} from "../login/login";
 import {environment} from "../../../environments/environment";
 import {map} from "rxjs/operators";
+import {Data} from "@angular/router";
+import {Accountdetails} from "../accountdetails/accountdetails";
+import {Accountdetail} from "./login";
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
 
-  private baseUrl = "http://localhost:8081/accountdetails"
+  accountDetail!: Accountdetail;
+
+  private baseUrl = "http://localhost:8081/accountdetails/search"
   constructor(private http: HttpClient) { }
 
-  public getAccount(): Observable<RootObject>{
-    return this.http.get<RootObject>(`${this.baseUrl}`, {
+  public getAccount(): Observable<Accountdetail>{
+    return this.http.get<Accountdetail>(`${this.baseUrl}`, {
       params: {
         username: "Marius Mac Mac"
-      },
-      observe: 'response'
+      }
     })
 
   }
 
   login(username: string, password: string) {
+    this.getAccount().subscribe((data: Accountdetail)=>{
+      this.accountDetail = data as Accountdetail
 
+      alert(data.username)
+    })
 
 
     // this.getAccountDetails().subscribe((data: RootObject)=> {
