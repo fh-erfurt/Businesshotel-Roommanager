@@ -11,7 +11,7 @@
           <br>
           <mat-form-field appearance="fill">
             <mat-label>Kundennummer</mat-label>
-            <input matInput name="customerID" [ngModel]="bookingData.customerID" required>
+            <input matInput name="customerID"  required>
           </mat-form-field>
           <br>
           <mat-form-field appearance="fill">
@@ -126,12 +126,50 @@
         <br>
         <mat-form-field appearance="fill">
           <mat-label>Buchungsnummer</mat-label>
-          <input matInput required>
+          <input matInput name="bookingNumber"required>
         </mat-form-field>
         <button mat-raised-button color="primary" >Suchen</button>
         <mat-card>
+          <mat-label>Buchungsnummer</mat-label>
           <mat-card-title>Buchungsnummer</mat-card-title>
+          <mat-label>Buchungsinformationen</mat-label>
           <mat-card-content>Buchungsinformationen</mat-card-content>
+        </mat-card>
+        <mat-card>
+        <table class="table table-bordered table-striped">
+          <thead class="thead-dark">
+          <tr>
+            <th scope="col">customerID</th>
+            <th scope="col">empNo</th>
+            <th scope="col">roomNo</th>
+            <th scope="col">startDate</th>
+            <th scope="col">endDate</th>
+            <th scope="col">specialWishes</th>
+            <th scope="col">pricing</th>
+          </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let booking of hotelRoomBookings">
+              <td>{{ booking.customerID }}</td>
+              <td>{{ booking.empNo }}</td>
+              <td>{{ booking.roomNo }}</td>
+              <td>{{ booking.startDate }}</td>
+              <td>{{ booking.endDate }}</td>
+              <td>{{ booking.specialWishes }}</td>
+              <td>{{ booking.pricing }}€</td>
+            </tr>
+            <tr *ngFor="let booking of conferenceRoomBookings">
+              <td>{{ booking.customerID }}</td>
+              <td>{{ booking.empNo }}</td>
+              <td>{{ booking.roomNo }}</td>
+              <td>{{ booking.startDate }}</td>
+              <td>{{ booking.endDate }}</td>
+              <td>{{ booking.specialWishes }}</td>
+              <td>{{ booking.pricing }}€</td>
+
+            </tr>
+          </tbody>
+        </table>
         </mat-card>
       </mat-tab>
     </mat-tab-group>

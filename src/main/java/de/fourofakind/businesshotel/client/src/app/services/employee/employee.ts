@@ -1,61 +1,61 @@
 export interface RawData {
   _embedded: Embedded;
-  // _links!: Links;
+  // _links: Links;
   page: Page;
 }
 
-export class Page {
-  size!: number;
-  totalElements!: number;
-  totalPages!: number;
-  number!: number
+export interface Page {
+  size: number;
+  totalElements: number;
+  totalPages: number;
+  number: number
 }
-// export class Links {
+// export interface Links {
 //   "size": 20,
 //   "totalElements": 4,
 //   "totalPages": 1,
 //   "number": 0
 // }
 
-// export class Embedded {
-//   // key!: string;
-//   value!: Value
+// export interface Embedded {
+//   // key: string;
+//   value: Value
 // }
 
 
-export class Embedded {
-  employee!: Employee[];
+export interface Embedded {
+  employee: Employee[];
 }
 
-export class Employee {
-  empName!: string;
-  givenRole!: string;
-  accountID!: number;
-  _links!: EmpLinks;
+export interface Employee {
+  empName: string;
+  givenRole: string;
+  accountID: number;
+  _links: EmpLinks;
 }
 
-export class EmpLinks {
-  self!: Self;
-  employee!: EmployeeSelf;
-  accountDetails!: AccountDetails;
-  bookings!: Bookings;
-  role!: Role;
+export interface EmpLinks {
+  self: Self;
+  employee: EmployeeSelf;
+  accountDetails: AccountDetails;
+  bookings: Bookings;
+  role: Role;
 }
 
-export class Self {
-  href!: string;
+export interface Self {
+  href: string;
 }
 
-export class EmployeeSelf {
-  href!: string;
+export interface EmployeeSelf {
+  href: string;
 }
-export class AccountDetails {
-  href!: string;
+export interface AccountDetails {
+  href: string;
 }
-export class Bookings {
-  href!: string;
+export interface Bookings {
+  href: string;
 }
-export class Role {
-  href!: string;
+export interface Role {
+  href: string;
 }
 
