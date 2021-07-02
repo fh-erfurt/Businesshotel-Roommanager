@@ -13,10 +13,10 @@ export class RoomComponent implements OnInit {
   constructor(private roomService: RoomService) { }
 
   ngOnInit(): void {
-    this.roomService.getRooms().subscribe((data: Room[])=>{
-      console.log(data);
-      this.rooms = data;
-    })
+    // this.roomService.getRooms().subscribe((data: Room[])=>{
+    //   console.log(data);
+    //   this.rooms = data;
+    // })
   }
 
 }

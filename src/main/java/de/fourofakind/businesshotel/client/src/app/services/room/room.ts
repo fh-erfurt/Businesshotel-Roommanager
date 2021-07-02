@@ -17,14 +17,14 @@ export interface Embedded {
 }
 
 export interface Room {
-  room_no: number;
-  room_name: string;
-  area_in_sqr_metre: number;
+  roomNo: number;
+  roomName: string;
+  areaInSqrMetre: number;
   category: string;
-  price_per_unit: number;
-  updated_at: string;
-  created_at: string;
-
+  pricePerUnit: number;
+  updatedAt: string;
+  createdAt: string;
+  roomType:string;
 }
 
 export interface Conferenceroom {

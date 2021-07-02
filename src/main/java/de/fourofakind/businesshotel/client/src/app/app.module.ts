@@ -1,7 +1,11 @@
-import { NgModule } from '@angular/core';
+import {LOCALE_ID, NgModule} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import {MatTabsModule} from "@angular/material/tabs";
+import localeDe from '@angular/common/locales/de';
+import localeDeExtra from '@angular/common/locales/extra/de';
+import { registerLocaleData } from '@angular/common';
+registerLocaleData(localeDe, localeDeExtra);
 
 import { AppRoutingModule } from './app-routing/app-routing.module';
 import { AppComponent } from './app.component';
@@ -32,6 +36,7 @@ import {NgxMatDatetimePickerModule, NgxMatTimepickerModule} from "@angular-mater
 import {NgbPaginationModule, NgbAlertModule, NgbNavModule} from '@ng-bootstrap/ng-bootstrap';
 import { FooterComponent } from './components/footer/footer.component';
 import { RegistrationComponent } from './components/registration/registration.component';
+import {MatGridListModule} from "@angular/material/grid-list";
 
 
 @NgModule({
@@ -74,9 +79,12 @@ import { RegistrationComponent } from './components/registration/registration.co
     NgxMatDatetimePickerModule,
     NgbPaginationModule,
     NgbAlertModule,
-    NgbNavModule
+    NgbNavModule,
+    MatGridListModule
   ],
-  providers: [],
+  providers: [
+    { provide: LOCALE_ID, useValue: "de" }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

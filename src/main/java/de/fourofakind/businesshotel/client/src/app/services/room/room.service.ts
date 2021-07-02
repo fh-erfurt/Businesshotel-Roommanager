@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Room } from './room';
+import {Booking} from "../booking/booking";
+import {map} from "rxjs/operators";
 
 
 @Injectable({
@@ -13,8 +15,28 @@ export class RoomService {
 
   constructor(private http: HttpClient) { }
 
-  getRooms(): Observable<Room[]>{
-    return this.http.get<Room[]>(`${this.baseUrl}`)
+  public getHotelRooms(): Observable<Room[]>{
+    return this.http.get<Room[]>(`${this.baseUrl}`).pipe(
+      map((result:any) =>{
+        //console.log(result);
+        return result._embedded.hotelroom;
+      })
+    )
   }
+
+  public getConferenceRooms(): Observable<Room[]>{
+    return this.http.get<Room[]>(`${this.baseUrl}`).pipe(
+      map((result:any) =>{
+        //console.log(result);
+        return result._embedded.conferenceroom;
+      })
+    )
+  }
+
+  // public getRooms(): Observable<Room[]>{
+  //   let result:Room[] = [];
+  //   result.push(this.getHotelRooms())
+  //
+  // }
 
 }

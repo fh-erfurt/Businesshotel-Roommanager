@@ -1,28 +1,47 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {HotelRoomBooking, RawData} from "./booking";
-import {ConferenceRoomBooking} from "./booking";
 import {Booking} from "./booking";
+import {map} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
 })
 export class BookingService {
 
-  private baseUrl:string;
+  private readonly baseUrl:string;
   constructor(private http: HttpClient) {
     this.baseUrl="http://localhost:8081/booking/";
   }
 
-  public getAllBookings(): Observable<RawData>
+  public getBooking(id:number): Observable<Booking>
   {
-    return this.http.get<RawData>(`${this.baseUrl}`)
+    return this.http.get<Booking>(`${this.baseUrl}${id}`).pipe(
+      map((result:any) =>{
+        //console.log(result);
+        return result;
+      })
+    )
   }
 
-  public getBooking(id:number): Observable<RawData>
+  public getConferenceRoomBookings(): Observable<Booking[]>
   {
-    return this.http.get<RawData>(`${this.baseUrl}${id}`)
+    return this.http.get<Booking[]>(`${this.baseUrl}`).pipe(
+      map((result:any) =>{
+        //console.log(result);
+        return result._embedded.conferenceRoomBookings;
+      })
+    )
+  }
+
+  public getHotelRoomBookings(): Observable<Booking[]>
+  {
+    return this.http.get<Booking[]>(`${this.baseUrl}`).pipe(
+      map((result:any) =>{
+        //console.log(result);
+        return result._embedded.hotelRoomBookings;
+      })
+    )
   }
 
   public save(booking: Booking) {
