@@ -10,7 +10,7 @@ import {CustomerManagementComponent} from "../components/customer-management/cus
 import {RoomManagementComponent} from "../components/room-management/room-management.component";
 import {EmployeeManagementComponent} from "../components/employee-management/employee-management.component";
 import {RegistrationComponent} from "../components/registration/registration.component";
-import {NgbPaginationModule, NgbAlertModule} from '@ng-bootstrap/ng-bootstrap';
+
 
 const routes: Routes = [
   { path: '', component: MainComponent, pathMatch: 'full'},
@@ -28,8 +28,6 @@ const routes: Routes = [
 @NgModule({
   declarations: [],
   imports: [
-    NgbPaginationModule,
-    NgbAlertModule,
     CommonModule,
     RouterModule.forRoot(routes)
   ],

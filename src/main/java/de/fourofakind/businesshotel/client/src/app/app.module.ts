@@ -79,10 +79,11 @@ import { BookingComponent } from './components/bookingRequest/booking.component'
     ReactiveFormsModule,
     NgxMatTimepickerModule,
     NgxMatDatetimePickerModule,
-    NgbPaginationModule,
     NgbAlertModule,
     NgbNavModule,
-    MatGridListModule
+    MatGridListModule,
+    NgbPaginationModule,
+    NgbAlertModule,
   ],
   providers: [
     { provide: LOCALE_ID, useValue: "de" }
