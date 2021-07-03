@@ -48,6 +48,11 @@ export class BookingService {
     return this.http.post<Booking>(this.baseUrl, booking);
   }
 
+  public delete(id: number) {
+    return this.http.delete<Booking>(`${this.baseUrl}${id}`);
+  }
+
+
   /*public createBooking(booking: Object): Observable<Object> {
     return this.http.post(`${this.baseUrl}`, booking);
   }

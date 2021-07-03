@@ -19,6 +19,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.rest.core.mapping.RepositoryDetectionStrategy;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;
 
 
@@ -37,6 +38,12 @@ public class RoommanagerApplication
             config.exposeIdsFor(Booking.class, ConferenceRoomBooking.class, HotelRoomBooking.class, AccountDetails.class, BookingRequest.class,ContactData.class,
                                 Customer.class, Employee.class, Room.class, HotelRoom.class, ConferenceRoom.class);
         });
+    }
+
+    @Bean
+    public RepositoryDetectionStrategy repositoryDetectionStrategy ()
+    {
+        return RepositoryDetectionStrategy.RepositoryDetectionStrategies.ANNOTATED;
     }
 
     @Bean

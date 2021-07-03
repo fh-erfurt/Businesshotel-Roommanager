@@ -37,6 +37,8 @@ import {Room} from "../../services/room/room";
 })
 export class BookingManagementComponent implements OnInit {
 
+  isChecked:boolean = false;
+  isHotelRoomBooking!:boolean;
   customerID!:number;
   bookingNo!:number;
   startDate!:string;
@@ -52,6 +54,7 @@ export class BookingManagementComponent implements OnInit {
   bookings:Booking[]=[];
   hotelRoomBookings!:Booking[];
   conferenceRoomBookings!:Booking[];
+
 
   constructor(private bookingService: BookingService, private roomService: RoomService) {
   }
@@ -122,6 +125,12 @@ export class BookingManagementComponent implements OnInit {
     console.log(this.specialWishes);
   }
 
+  setRoomNo(roomNo:number)
+  {
+    this.roomNo=roomNo;
+    console.log(this.roomNo);
+  }
+
 
   addBooking(){
 
@@ -134,8 +143,8 @@ export class BookingManagementComponent implements OnInit {
         roomNo:this.roomNo,
         startDate:this.startDate+this.startTime,
         endDate:this.endDate+this.endTime,
-        empNo:1,
-        pricing:1.00,
+        empNo:1, //TODO:Muss noch ersetzt werden
+        pricing:1.00, //TODO:Muss noch ersetzt werden
         specialWishes:this.specialWishes,
       };
 
@@ -162,6 +171,13 @@ export class BookingManagementComponent implements OnInit {
     }
   }
 
+  evaluateBookingType()
+  {
+    this.getValidRooms();
+    if(this.bookingType=="hotelRoom") this.isHotelRoomBooking=true;
+    else this.isHotelRoomBooking=false;
+  }
+
   submitSearch(){
 
     console.log(this.bookingNo);
@@ -173,5 +189,34 @@ export class BookingManagementComponent implements OnInit {
       this.foundBooking=data;
     })
 
+  }
+
+  loadBookingInfoToFormular()
+  {
+    this.bookingService.getBooking(this.bookingNo).subscribe(data=>
+    {
+      data.startDate=formatDate(data.startDate,"dd.MM.yyyy HH:mm:ss","de","GMT+2");
+      data.endDate=formatDate(data.endDate,"dd.MM.yyyy HH:mm:ss","de","GMT+2");
+      this.customerID=data.customerID;
+      this.roomNo=data.roomNo;
+      this.startDate=formatDate(data.startDate,"yyyy-MM-dd","de","GMT+2");
+      this.startTime=formatDate(data.startDate,"HH:mm:ss","de","GMT+2");
+      this.endDate=formatDate(data.endDate,"yyyy-MM-dd","de","GMT+2");
+      this.endTime=formatDate(data.endDate,"HH:mm:ss","de","GMT+2");
+      this.specialWishes=data.specialWishes
+      if(data._links?.hotelRoomBooking!=null) this.bookingType=data._links.hotelRoomBooking.toString();
+      else if(data._links?.conferenceRoomBooking!=null) this.bookingType=data._links.conferenceRoomBooking.toString();
+
+    });
+  }
+
+  deleteBooking()
+  {
+    this.bookingService.delete(this.bookingNo);
+  }
+
+  changeBooking()
+  {
+    //TODO:Logik implementieren
   }
 }

@@ -70,6 +70,7 @@ export interface HotelRoomBookingLinks {
 export interface BookingLinks {
   self: Self;
   hotelRoomBooking: HotelRoomBookingSelf;
+  conferenceRoomBooking: ConferenceRoomBookingSelf
   customer: Customer;
   employee: Employee;
 }

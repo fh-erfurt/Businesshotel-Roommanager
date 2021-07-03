@@ -16,9 +16,9 @@
           <br>
           <mat-form-field appearance="fill">
             <mat-label>Raumnummer</mat-label>
-            <mat-select  required >
-              <mat-option *ngFor="let room of rooms" value="{{room.roomNo}}">{{room.roomNo}}</mat-option>
-              <mat-option *ngIf="!rooms" value="" disabled>Keine Räume verfügbar</mat-option>
+            <mat-select  required>
+              <mat-option *ngFor="let room of rooms" (click)="setRoomNo(room.roomNo)" value="{{room.roomNo}}">{{room.roomNo}}</mat-option>
+              <mat-option  *ngIf="!rooms" value="" disabled>Keine Räume verfügbar</mat-option>
             </mat-select>
           </mat-form-field>
           <br>
@@ -50,73 +50,163 @@
           <button mat-raised-button color="primary" type="submit" (click)="addBooking()">Absenden</button>
         </div>
       </mat-tab>
+
+
+
+
+
+
+
       <mat-tab label="Bearbeiten">
         <div class="addTab">
           <br>
           <mat-form-field appearance="fill">
             <mat-label>Buchungsnummer</mat-label>
-            <input matInput required>
+            <input matInput (keyup)="setBookingNo($event)" required>
           </mat-form-field>
-          <button mat-raised-button color="primary" >Suchen</button> <!-- sollte Voraussetzung werden für die Aktivierung des restlicehn Formulars-->
+          <button mat-raised-button color="primary" (click)="loadBookingInfoToFormular()">Suchen</button> <!-- sollte Voraussetzung werden für die Aktivierung des restlicehn Formulars-->
           <br>
-          <mat-radio-group>
-            <mat-radio-button value="hotelRoom">Hotelzimmer</mat-radio-button>
-            <mat-radio-button value="conferenceRoom">Konferenzraum</mat-radio-button>
+          <mat-radio-group [(ngModel)]="bookingType" (change)="evaluateBookingType()" class="bookingtypeSelector">
+            <mat-radio-button required value="hotelRoom">Hotelzimmer</mat-radio-button><br>
+            <mat-radio-button required value="conferenceRoom" >Konferenzraum</mat-radio-button>
           </mat-radio-group>
           <br>
           <mat-form-field appearance="fill">
             <mat-label>Kundennummer</mat-label>
-            <input matInput required>
+            <input matInput type="number" name="customerID" (keyup)="setCustomerID($event)" value="{{customerID}}" required>
           </mat-form-field>
           <br>
           <mat-form-field appearance="fill">
-            <mat-label>Raumnummer</mat-label> <!--am besten direkt nur mit gültigen Räumen füllen -->
-            <mat-select required>
-              <mat-option value="one">1</mat-option>
-              <mat-option value="two">2</mat-option>
+            <mat-label >Raumnummer</mat-label>
+            <mat-select  required [value]="roomNo">
+              <mat-option *ngIf="!rooms" value="{{roomNo}}">{{roomNo}}</mat-option>
+              <mat-option *ngFor="let room of rooms" (click)="setRoomNo(room.roomNo)" value="{{room.roomNo}}">{{room.roomNo}}</mat-option>
+              <mat-option *ngIf="!rooms" value="" disabled>Keine Räume verfügbar</mat-option>
             </mat-select>
           </mat-form-field>
           <br>
-          <mat-form-field appearance="fill">
-            <mat-label>Startdatum angeben</mat-label>
-            <input matInput required>
-          </mat-form-field>
-          <mat-form-field appearance="fill">
-            <mat-label>Startzeit wählen</mat-label>
-            <input matInput required>
-          </mat-form-field>
-          <br>
-          <mat-form-field appearance="fill">
-            <mat-label>Enddatum wählen</mat-label>
-            <input matInput required >
-          </mat-form-field>
-          <mat-form-field appearance="fill">
-            <mat-label>Endzeit wählen</mat-label>
-            <input matInput required>
-          </mat-form-field>
+          <div>
+            <mat-form-field class="halfInput" appearance="fill">
+              <mat-label>Startdatum</mat-label>
+              <input matInput type="date" (keyup)="setStartDate($event)" value="{{startDate}}" required>
+            </mat-form-field>
+            <mat-form-field class="halfInput" appearance="fill">
+              <mat-label>Startzeit</mat-label>
+              <input matInput type="time" (keyup)="setStartTime($event)" value="{{startTime}}" required>
+            </mat-form-field>
+          </div>
+          <div>
+            <mat-form-field class="halfInput" appearance="fill">
+              <mat-label>Enddatum</mat-label>
+              <input matInput type="date" (keyup)="setEndDate($event)" value="{{endDate}}" required>
+            </mat-form-field>
+            <mat-form-field class="halfInput" appearance="fill">
+              <mat-label>Endzeit</mat-label>
+              <input matInput type="time" (keyup)="setEndTime($event)" value="{{endTime}}" required>
+            </mat-form-field>
+          </div>
           <br>
           <mat-form-field appearance="fill">
             <mat-label>Kundenwünsche</mat-label>
-            <textarea matInput></textarea>
+            <textarea matInput type="text" (keyup)="setSpecialWishes($event)" value="{{specialWishes}}"></textarea>
           </mat-form-field>
-          <button mat-raised-button color="primary">Absenden</button>
+          <button mat-raised-button color="primary" type="submit" (click)="changeBooking()">Absenden</button>
         </div>
       </mat-tab>
+
+
+
+
+
+
+
       <mat-tab label="Löschen">
+        <br>
+
         <br>
         <mat-form-field appearance="fill">
           <mat-label>Buchungsnummer</mat-label>
-          <input matInput required>
+          <input matInput type="number" (keyup)="setBookingNo($event)"  required>
         </mat-form-field>
-        <button mat-raised-button color="primary" >Suchen</button> <!-- sollte Voraussetzung werden für die Aktivierung des restlichen Formulars-->
+        <button mat-raised-button color="primary" type="submit" (click)="submitSearch()">Suchen</button>
         <br>
-        <mat-card> <!--Übersicht der Buchung vor dem Löschen-->
-          <mat-card-title>Buchungsnummer</mat-card-title>
-          <mat-card-content>Buchungsinformationen</mat-card-content>
+        <mat-card *ngIf="!foundBooking">
+
+          <mat-label>Buchungsnummer</mat-label>
+          <mat-card-title>..</mat-card-title>
+          <mat-label>Buchungsinformationen</mat-label>
+          <mat-card-content class="halfInput">
+            <table class="table table-bordered table-striped">
+              <tr>
+                <td>customerID</td>
+                <td>..</td>
+              </tr>
+              <tr>
+                <td>empNo</td>
+                <td>..</td>
+              </tr>
+              <tr>
+                <td>startDate</td>
+                <td>..</td>
+              </tr>
+              <tr>
+                <td>endDate</td>
+                <td>..</td>
+              </tr>
+              <tr>
+                <td>specialWishes</td>
+                <td>..</td>
+              </tr>
+              <tr>
+                <td>pricing</td>
+                <td>..</td>
+              </tr>
+            </table>
+          </mat-card-content>
         </mat-card>
-        <mat-slide-toggle>Freigeben</mat-slide-toggle> <!--Bestätigung zum Freigeben des Löschen, könnte auch als Pop-Up implementiert werden-->
-        <button mat-raised-button color="primary" disabled>Löschen</button>
+        <mat-card *ngIf="foundBooking">
+
+          <mat-label>Buchungsnummer</mat-label>
+          <mat-card-title>{{foundBooking.bookingNo}}</mat-card-title>
+          <mat-label>Buchungsinformationen</mat-label>
+          <mat-card-content class="halfInput">
+            <table class="table table-bordered table-striped">
+              <tr>
+                <td>customerID</td>
+                <td>{{ foundBooking.customerID }}</td>
+              </tr>
+              <tr>
+                <td>empNo</td>
+                <td>{{ foundBooking.empNo }}</td>
+              </tr>
+              <tr>
+                <td>startDate</td>
+                <td>{{ foundBooking.startDate }}</td>
+              </tr>
+              <tr>
+                <td>endDate</td>
+                <td>{{ foundBooking.endDate }}</td>
+              </tr>
+              <tr>
+                <td>specialWishes</td>
+                <td>{{ foundBooking.specialWishes }}</td>
+              </tr>
+              <tr>
+                <td>pricing</td>
+                <td>{{ foundBooking.pricing }}</td>
+              </tr>
+            </table>
+          </mat-card-content>
+        </mat-card>
+        <br>
+          <mat-slide-toggle [(ngModel)]="isChecked" [disabled]="!foundBooking" >Freigeben</mat-slide-toggle> <!--Bestätigung zum Freigeben des Löschen, könnte auch als Pop-Up implementiert werden-->
+          <button mat-raised-button color="primary" type="submit" [disabled]="!isChecked" (click)="deleteBooking()">Löschen</button>
       </mat-tab>
+
+
+
+
+
       <mat-tab label="Anzeigen">
         <br>
         <mat-form-field appearance="fill">
