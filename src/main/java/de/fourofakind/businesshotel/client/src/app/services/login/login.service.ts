@@ -1,11 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import {HttpClient, HttpResponse} from '@angular/common/http';
-// import {Accountdetail, RootObject} from "../login/login";
-import {environment} from "../../../environments/environment";
-import {map} from "rxjs/operators";
-import {Data} from "@angular/router";
-import {Accountdetails} from "../accountdetails/accountdetails";
+import {HttpClient} from '@angular/common/http';
 import {Accountdetail} from "./login";
 
 @Injectable({
@@ -15,23 +10,36 @@ export class LoginService {
 
   accountDetail!: Accountdetail;
 
-  private baseUrl = "http://localhost:8081/accountdetails/search"
+  private baseUrl = "http://localhost:8081/accountdetails/search/findAccountDetailsByUsername"
   constructor(private http: HttpClient) { }
 
-  public getAccount(): Observable<Accountdetail>{
+  public getAccount(username: string): Observable<Accountdetail>{
     return this.http.get<Accountdetail>(`${this.baseUrl}`, {
       params: {
-        username: "Marius Mac Mac"
+        username: username
       }
     })
 
   }
 
   login(username: string, password: string) {
-    this.getAccount().subscribe((data: Accountdetail)=>{
-      this.accountDetail = data as Accountdetail
+    this.getAccount(username).subscribe((data: Accountdetail)=>{
 
-      alert(data.username)
+      if (data !== null) {
+        this.accountDetail = data as Accountdetail
+
+        if (this.accountDetail.passwordHash === password) {
+          console.log("Success")
+          localStorage.setItem('user', username);
+          localStorage.setItem('userID', String(this.accountDetail.accountID));
+          window.location.href = "";
+        } else {
+          console.log("Error Handling")
+        }
+      } else {
+        console.log("Error Handling")
+      }
+      console.log(data)
     })
 
 

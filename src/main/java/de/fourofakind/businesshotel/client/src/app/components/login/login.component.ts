@@ -38,6 +38,10 @@ export class LoginComponent implements OnInit {
   submit() {
     this.submitted = true;
 
+    if (this.form.invalid) {
+      return;
+    }
+
     this.loginService.login(this.f.username.value, this.f.password.value)
 
   }
