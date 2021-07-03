@@ -37,6 +37,7 @@ import {NgbPaginationModule, NgbAlertModule, NgbNavModule} from '@ng-bootstrap/n
 import { FooterComponent } from './components/footer/footer.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import {MatGridListModule} from "@angular/material/grid-list";
+import { BookingComponent } from './components/bookingRequest/booking.component';
 
 
 @NgModule({
@@ -54,7 +55,8 @@ import {MatGridListModule} from "@angular/material/grid-list";
     RoomManagementComponent,
     EmployeeComponent,
     FooterComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    BookingComponent
   ],
   imports: [
     BrowserModule,
@@ -77,10 +79,11 @@ import {MatGridListModule} from "@angular/material/grid-list";
     ReactiveFormsModule,
     NgxMatTimepickerModule,
     NgxMatDatetimePickerModule,
-    NgbPaginationModule,
     NgbAlertModule,
     NgbNavModule,
-    MatGridListModule
+    MatGridListModule,
+    NgbPaginationModule,
+    NgbAlertModule,
   ],
   providers: [
     { provide: LOCALE_ID, useValue: "de" }

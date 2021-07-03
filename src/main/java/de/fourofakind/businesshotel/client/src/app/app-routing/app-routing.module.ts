@@ -11,6 +11,7 @@ import {RoomManagementComponent} from "../components/room-management/room-manage
 import {EmployeeManagementComponent} from "../components/employee-management/employee-management.component";
 import {RegistrationComponent} from "../components/registration/registration.component";
 
+
 const routes: Routes = [
   { path: '', component: MainComponent, pathMatch: 'full'},
   { path: 'login',component: LoginComponent},

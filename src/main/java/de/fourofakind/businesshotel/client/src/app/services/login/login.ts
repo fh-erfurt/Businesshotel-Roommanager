@@ -22,6 +22,7 @@ export interface Links {
 }
 
 export interface Accountdetail {
+  accountID: number;
   username: string;
   passwordHash: string;
   _links: Links;

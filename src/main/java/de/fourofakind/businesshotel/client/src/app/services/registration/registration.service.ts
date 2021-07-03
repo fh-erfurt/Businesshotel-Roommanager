@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import {HttpClient} from '@angular/common/http';
-import {Accountdetail} from "./login";
+import {Accountdetail} from "../login/login";
 
 @Injectable({
   providedIn: 'root'
 })
-export class LoginService {
+export class RegistrationService {
 
   accountDetail!: Accountdetail;
 
@@ -22,8 +22,9 @@ export class LoginService {
 
   }
 
-  login(username: string, password: string) {
+  register(username: string, password: string) {
     this.getAccount(username).subscribe((data: Accountdetail)=>{
+
 
       if (data !== null) {
         this.accountDetail = data as Accountdetail
