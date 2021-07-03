@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {RootObject} from "../../services/room/room";
-import {RoomService} from "../../services/room/room.service";
 import {environment} from "../../../environments/environment";
+import {BookingrequestService} from "../../services/bookingrequest/bookingrequest.service";
+import {RootObject} from "../../services/bookingrequest/bookingrequest";
 
 @Component({
   selector: 'app-booking',
@@ -12,12 +12,12 @@ export class BookingComponent implements OnInit {
 
   rooms!: RootObject;
   currency!: string;
-  constructor(private roomService: RoomService) { }
+  constructor(private bookingrequestService: BookingrequestService) { }
 
   ngOnInit(): void {
     this.currency = environment.currency
 
-    this.roomService.getRooms().subscribe((data: RootObject)=>{
+    this.bookingrequestService.getRooms().subscribe((data: RootObject)=>{
       console.log(this.currency);
       this.rooms = data as RootObject;
     })
