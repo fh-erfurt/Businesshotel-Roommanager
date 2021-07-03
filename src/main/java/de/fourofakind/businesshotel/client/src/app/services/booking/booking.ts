@@ -17,18 +17,20 @@ export interface Embedded {
 }
 
 export interface Booking {
+  bookingNo:number;
   roomNo: number;
   pricing: number;
   empNo: number;
-  startDate: Date;
-  endDate: Date;
+  startDate: string;
+  endDate: string;
   specialWishes: string;
   customerID: number;
-  _links: BookingLinks;
+  _links?: BookingLinks;
 }
 
 
 export interface ConferenceRoomBooking {
+  bookingNo:number;
   roomNo: number;
   pricing: number;
   empNo: number;
@@ -36,10 +38,11 @@ export interface ConferenceRoomBooking {
   endDate: Date;
   specialWishes: string;
   customerID: number;
-  _links: ConferenceRoomBookingLinks;
+  _links?: ConferenceRoomBookingLinks;
 }
 
 export interface HotelRoomBooking {
+  bookingNo:number;
   roomNo: number;
   pricing: number;
   empNo: number;
@@ -47,7 +50,7 @@ export interface HotelRoomBooking {
   endDate: Date;
   specialWishes: string;
   customerID: number;
-  _links: HotelRoomBookingLinks;
+  _links?: HotelRoomBookingLinks;
 }
 
 export interface ConferenceRoomBookingLinks {
