@@ -10,7 +10,7 @@
       <ul class="navbar-nav nav nav-pills ms-auto mb-2 mb-lg-0" id="pills-tab">
 
 
-        <li class="nav-item" role="presentation">
+        <li class="nav-item" role="presentation" *ngIf="displayNavItems == false">
           <button routerLink="rooms" class="nav-link nav-item d-none d-sm-none d-md-none d-lg-block" id="pills-rooms-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home"  aria-selected="true">Räume</button>
         </li>
         <li class="nav-item" role="presentation" *ngIf="displayNavItems == true">

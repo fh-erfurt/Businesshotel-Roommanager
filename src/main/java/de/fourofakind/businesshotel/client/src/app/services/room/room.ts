@@ -86,9 +86,9 @@ export interface ConferenceRoomSelf {
   href: string;
 }
 
-export interface Room {
-  href: string;
-}
+//export interface Room {
+//  href: string;
+//}
 
 export interface Self {
   href: string;
