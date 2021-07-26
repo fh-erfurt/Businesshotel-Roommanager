@@ -25,21 +25,21 @@
           <div>
             <mat-form-field class="halfInput" appearance="fill">
               <mat-label>Startdatum</mat-label>
-              <input matInput type="date" (keyup)="setStartDate($event)" required>
+              <input matInput type="date" (change)="setStartDate($event)" required>
             </mat-form-field>
             <mat-form-field class="halfInput" appearance="fill">
               <mat-label>Startzeit</mat-label>
-              <input matInput type="time" (keyup)="setStartTime($event)"required>
+              <input matInput type="time" (change)="setStartTime($event)" required>
             </mat-form-field>
           </div>
           <div>
             <mat-form-field class="halfInput" appearance="fill">
               <mat-label>Enddatum</mat-label>
-              <input matInput type="date" (keyup)="setEndDate($event)" required>
+              <input matInput type="date" (change)="setEndDate($event)" required>
             </mat-form-field>
             <mat-form-field class="halfInput" appearance="fill">
               <mat-label>Endzeit</mat-label>
-              <input matInput type="time" (keyup)="setEndTime($event)"required>
+              <input matInput type="time" (change)="setEndTime($event)" required>
             </mat-form-field>
           </div>
           <br>

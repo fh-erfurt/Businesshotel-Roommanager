@@ -45,11 +45,43 @@ export class BookingService {
   }
 
   public save(booking: Booking) {
-    return this.http.post<Booking>(this.baseUrl, booking);
+    console.log(booking);
+
+    this.http.post<Booking>(this.baseUrl, booking)
+      .subscribe(
+        (val)=>
+        {
+          console.log("Post call => successful value returned in body: ", val);
+        },
+
+        response=>
+        {
+            console.log("Post call => error in: ", response);
+        },
+      ()=>
+      {
+        console.log("Post call => Booking creation successful");
+      }
+      )
   }
 
   public delete(id: number) {
-    return this.http.delete<Booking>(`${this.baseUrl}${id}`);
+    this.http.delete<Booking>(`${this.baseUrl}${id}`)
+      .subscribe(
+        (val)=>
+        {
+          console.log("Post call => successful value returned in body: ", val);
+        },
+
+        response=>
+        {
+          console.log("Post call => error in: ", response);
+        },
+        ()=>
+        {
+          console.log("Post call => Booking deletion successful");
+        }
+      )
   }
 
 

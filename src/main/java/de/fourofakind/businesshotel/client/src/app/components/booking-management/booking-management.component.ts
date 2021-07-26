@@ -96,7 +96,7 @@ export class BookingManagementComponent implements OnInit {
   }
 
   setStartTime(event:any){
-    this.startDate=event.target.value;
+    this.startTime=event.target.value;
     console.log(this.startTime);
   }
 
@@ -136,13 +136,16 @@ export class BookingManagementComponent implements OnInit {
 
     this.bookingNo=this.bookings.length+1;
 
+    console.log(this.startDate+" "+this.startTime);
+    console.log(this.endDate+" "+this.endTime);
+
      let newBooking:Booking =
       {
         bookingNo:this.bookingNo,
         customerID:this.customerID,
         roomNo:this.roomNo,
-        startDate:this.startDate+this.startTime,
-        endDate:this.endDate+this.endTime,
+        startDate:this.startDate+" "+this.startTime,
+        endDate:this.endDate+" "+this.endTime,
         empNo:1, //TODO:Muss noch ersetzt werden
         pricing:1.00, //TODO:Muss noch ersetzt werden
         specialWishes:this.specialWishes,
