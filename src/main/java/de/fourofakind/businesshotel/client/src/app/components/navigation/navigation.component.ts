@@ -20,7 +20,7 @@ export class NavigationComponent implements OnInit {
 
   logout() {
     localStorage.removeItem('user')
-    window.location.reload();
+    window.location.href = "";
   }
 
 }
