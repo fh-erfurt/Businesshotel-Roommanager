@@ -18,18 +18,20 @@ INSERT INTO `account_details` (`account_id`, `username`, `password_hash`, `creat
 (9, 'ColumboAuge', 'katalimata_megagut', '2021-05-31 10:32:04', NULL),
 (10, 'Marius Mac Mac', 'LangeIstsHer', '2021-05-31 10:32:48', NULL);
 
-INSERT INTO `role` (`role_name`, `is_enabled_to_manage_rooms`, `is_enabled_to_manage_bookings`, `is_enabled_to_manage_customer_data`, `created_at`, `updated_at`) VALUES
-('Buchungsmanager', 0, 1, 0, '2021-05-31 10:52:45', 'NULL ON UPDATE CURRENT_TIMESTAMP'),
-('Hotelleiter', 1, 1, 1, '2021-05-31 10:54:07', 'NULL ON UPDATE CURRENT_TIMESTAMP'),
-('Kundenverwalter', 0, 0, 1, '2021-05-31 10:53:32', 'NULL ON UPDATE CURRENT_TIMESTAMP'),
-('Raumverwalter', 1, 0, 0, '2021-05-31 10:53:32', 'NULL ON UPDATE CURRENT_TIMESTAMP');
+INSERT INTO `role` (`role_name`, `is_enabled_to_manage_rooms`, `is_enabled_to_manage_bookings`, `is_enabled_to_manage_customer_data`, `is_enabled_to_manage_employee_data`, `created_at`, `updated_at`) VALUES
+('Buchungsmanager', 0, 1, 0, 0, '2021-05-31 10:52:45', 'NULL ON UPDATE CURRENT_TIMESTAMP'),
+('Hotelleiter', 1, 1, 1, 1, '2021-05-31 10:54:07', 'NULL ON UPDATE CURRENT_TIMESTAMP'),
+('Kundenmanager', 0, 0, 1, 0, '2021-05-31 10:53:32', 'NULL ON UPDATE CURRENT_TIMESTAMP'),
+('Personalmanager', 0, 0, 0, 1, '2021-05-31 10:53:32', 'NULL ON UPDATE CURRENT_TIMESTAMP'),
+('Raummanager', 1, 0, 0, 0, '2021-05-31 10:53:32', 'NULL ON UPDATE CURRENT_TIMESTAMP');
 
 
 INSERT INTO `employee` (`emp_no`, `emp_name`, `given_role`, `account_id`, `created_at`, `updated_at`) VALUES
-(1, 'Peter Quistgard', 'BuchungsManager', 3, '2021-05-31 10:57:24', NULL),
+(1, 'Peter Quistgard', 'Buchungsmanager', 3, '2021-05-31 10:57:24', NULL),
 (2, 'Malignes Rau', 'Hotelleiter', 7, '2021-05-24 08:15:13', '2021-05-24 08:18:54'),
-(3, 'Silikaten Muh', 'Kundenverwalter',8, '2021-05-24 08:16:47', NULL),
-(4, 'Juri Juhu', 'Raumverwalter',9, '2021-05-24 08:19:47', NULL);
+(3, 'Silikaten Muh', 'Kundenmanager',8, '2021-05-24 08:16:47', NULL),
+(4, 'Juri Juhu', 'Raummanager',9, '2021-05-24 08:19:47', NULL),
+(5, 'Peter Ersonal', 'Personalmanager',10, '2021-05-24 08:20:47', NULL);
 
 
 

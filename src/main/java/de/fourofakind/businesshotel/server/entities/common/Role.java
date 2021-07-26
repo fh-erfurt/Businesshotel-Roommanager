@@ -30,6 +30,7 @@ public class Role
     private boolean isEnabledToManageRooms;
     private boolean isEnabledToManageBookings;
     private boolean isEnabledToManageCustomerData;
+    private boolean isEnabledToManageEmployeeData;
 
 
     //Mappings
@@ -38,12 +39,13 @@ public class Role
     private List<Employee> employee;
 
     //Constructors
-    public Role (String roleName, boolean isEnabledToManageRooms, boolean isEnabledToManageBookings, boolean isEnabledToManageCustomerData)
+    public Role (String roleName, boolean isEnabledToManageRooms, boolean isEnabledToManageBookings, boolean isEnabledToManageCustomerData, boolean isEnabledToManageEmployeeData)
     {
         this.roleName = roleName;
         this.isEnabledToManageRooms = isEnabledToManageRooms;
         this.isEnabledToManageBookings = isEnabledToManageBookings;
         this.isEnabledToManageCustomerData = isEnabledToManageCustomerData;
+        this.isEnabledToManageEmployeeData = isEnabledToManageEmployeeData;
     }
 
     //Setter/Getter
