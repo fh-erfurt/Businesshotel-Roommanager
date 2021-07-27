@@ -20,10 +20,11 @@ public class AccountDetails
 {
     //Attributes
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="account_id")
     Integer accountID;
     String username;
+    @Column(name="password_hash")
     String passwordHash;
 
     //Mappings

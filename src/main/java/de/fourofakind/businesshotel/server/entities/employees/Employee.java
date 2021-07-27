@@ -27,7 +27,7 @@ public class Employee
 {
     //Attributes
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="emp_no")
     private Integer empNo;
     private String empName;
