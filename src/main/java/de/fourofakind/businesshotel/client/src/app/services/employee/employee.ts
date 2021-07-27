@@ -28,10 +28,11 @@ export interface Embedded {
 }
 
 export interface Employee {
+  empNo?: number;
   empName: string;
   givenRole: string;
   accountID: number;
-  _links: EmpLinks;
+  _links?: EmpLinks;
 }
 
 export interface EmpLinks {
