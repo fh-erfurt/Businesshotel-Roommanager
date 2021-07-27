@@ -54,12 +54,29 @@ export class BookingManagementComponent implements OnInit {
   bookings:Booking[]=[];
   hotelRoomBookings!:Booking[];
   conferenceRoomBookings!:Booking[];
-
+  minDateStart!:string;
+  minDateEnd!:string;
 
   constructor(private bookingService: BookingService, private roomService: RoomService) {
   }
 
   ngOnInit() {
+
+      let today
+
+      if(new Date().getMonth().toString().length==1)
+      {
+        today=new Date().getFullYear()+"-0"+new Date().getMonth()+"-"+new Date().getDate();
+      }
+      else
+      {
+        today=new Date().getFullYear()+"-"+new Date().getMonth()+"-"+new Date().getDate();
+      }
+
+      console.log(today);
+      this.minDateStart= today;
+      this.minDateEnd= today;
+      console.log(this.minDateStart,this.minDateEnd );
 
       this.bookingService.getConferenceRoomBookings().subscribe(data=>
       {
@@ -102,6 +119,7 @@ export class BookingManagementComponent implements OnInit {
 
   setEndDate(event:any){
     this.endDate=event.target.value;
+    this.minDateEnd= this.startDate;
     console.log(this.endDate);
   }
 

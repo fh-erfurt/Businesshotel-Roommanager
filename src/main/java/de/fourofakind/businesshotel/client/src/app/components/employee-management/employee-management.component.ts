@@ -18,13 +18,18 @@ export class EmployeeManagementComponent implements OnInit {
   lastName!:string;
   password!:string;
   repeatedPassword!:string;
-  empNo!:number;
+  empNo:number=0;
   empName!:string;
   username!:string;
   passwordsAreEqual!:boolean;
   givenRole!:string;
   foundEmployee!:Employee;
   accountID!:number;
+  searchSuccessful:boolean=false;
+  searchForFillInSuccessful:boolean=false;
+  lastFoundEmployee!:Employee;
+  searchButtonPressed:boolean=false;
+  fillInButtonPressed:boolean=false;
 
   constructor(private accountdetailsService: AccountdetailsService, private employeeService: EmployeeService) {
   }
@@ -83,46 +88,63 @@ export class EmployeeManagementComponent implements OnInit {
 
       }
     console.log(newAccount);
-    //let accountID=this.accountdetailsService.save(newAccount);
-    this.accountdetailsService.save(newAccount);
+    let accountID:any=this.accountdetailsService.save(newAccount);
 
-    let newEmployee:Employee =
-      {
-        empName:this.firstName+" "+this.lastName,
-        givenRole:this.givenRole,
-        accountID:7 //accountID,
-      };
 
-    //this.employeeService.save(newEmployee);
+    console.log(accountID);
 
-    //this.bookingService.save(newBooking);
+    if(accountID)
+    {
+      let newEmployee:Employee =
+        {
+          empName:this.firstName+" "+this.lastName,
+          givenRole:this.givenRole,
+          accountID:accountID,
+        };
+      this.employeeService.save(newEmployee);
+    }
+
   }
 
 
   submitSearch(){
-
+    this.searchButtonPressed=true;
     console.log(this.empNo);
-
+    this.searchSuccessful=false;
     this.employeeService.getEmployee(this.empNo).subscribe(data=>
     {
+
+      this.lastFoundEmployee=this.foundEmployee;
       this.foundEmployee=data;
+
+      if(this.lastFoundEmployee!==this.foundEmployee)
+      {
+        this.searchSuccessful=true;
+      }
+
+
     })
 
   }
 
   loadEmployeeInfoToFormular()
   {
+    this.searchForFillInSuccessful=false;
+    this.fillInButtonPressed=true;
     this.employeeService.getEmployee(this.empNo).subscribe(data=>
     {
-      this.empName=data.empName;
+      this.firstName=data.empName.substring(0, data.empName.lastIndexOf(" "));
+      this.lastName=data.empName.substring(data.empName.lastIndexOf(" "));
       this.givenRole=data.givenRole;
       this.accountID=data.accountID;
+      this.searchForFillInSuccessful=true;
     });
   }
 
   deleteEmployee()
   {
     this.employeeService.delete(this.empNo);
+
   }
 
   changeEmployee()

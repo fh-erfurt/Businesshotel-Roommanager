@@ -39,6 +39,7 @@ export class EmployeeService {
         response=>
         {
           console.log("Post call => error in: ", response);
+          return response;
         },
         ()=>
         {
@@ -58,11 +59,13 @@ export class EmployeeService {
         response=>
         {
           console.log("Post call => error in: ", response);
+          return response;
         },
         ()=>
         {
           console.log("Post call => Employee deletion successful");
         }
+
       )
   }
 }

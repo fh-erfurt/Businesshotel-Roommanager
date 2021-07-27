@@ -18,6 +18,7 @@ export interface Embedded {
 }
 
 export interface Accountdetails {
+  accountID?: number;
   username:string;
   passwordHash:string;
   _links?:AccountDetailsLinks;

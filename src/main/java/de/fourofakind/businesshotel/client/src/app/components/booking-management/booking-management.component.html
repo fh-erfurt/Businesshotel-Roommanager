@@ -11,7 +11,7 @@
           <br>
           <mat-form-field appearance="fill">
             <mat-label>Kundennummer</mat-label>
-            <input matInput type="number" name="customerID" (keyup)="setCustomerID($event)" required>
+            <input matInput type="number" min="1" name="customerID" (keyup)="setCustomerID($event)" required>
           </mat-form-field>
           <br>
           <mat-form-field appearance="fill">
@@ -25,7 +25,7 @@
           <div>
             <mat-form-field class="halfInput" appearance="fill">
               <mat-label>Startdatum</mat-label>
-              <input matInput type="date" (change)="setStartDate($event)" required>
+              <input matInput type="date" min="{{minDateStart}}" (change)="setStartDate($event)" required>
             </mat-form-field>
             <mat-form-field class="halfInput" appearance="fill">
               <mat-label>Startzeit</mat-label>
@@ -35,7 +35,7 @@
           <div>
             <mat-form-field class="halfInput" appearance="fill">
               <mat-label>Enddatum</mat-label>
-              <input matInput type="date" (change)="setEndDate($event)" required>
+              <input matInput type="date" min="{{minDateEnd}}" (change)="setEndDate($event)" required>
             </mat-form-field>
             <mat-form-field class="halfInput" appearance="fill">
               <mat-label>Endzeit</mat-label>
@@ -62,7 +62,7 @@
           <br>
           <mat-form-field appearance="fill">
             <mat-label>Buchungsnummer</mat-label>
-            <input matInput (keyup)="setBookingNo($event)" required>
+            <input matInput type="number" min="1" (keyup)="setBookingNo($event)" required>
           </mat-form-field>
           <button mat-raised-button color="primary" (click)="loadBookingInfoToFormular()">Suchen</button> <!-- sollte Voraussetzung werden für die Aktivierung des restlicehn Formulars-->
           <br>
@@ -73,7 +73,7 @@
           <br>
           <mat-form-field appearance="fill">
             <mat-label>Kundennummer</mat-label>
-            <input matInput type="number" name="customerID" (keyup)="setCustomerID($event)" value="{{customerID}}" required>
+            <input matInput type="number" min="1" name="customerID" (keyup)="setCustomerID($event)" value="{{customerID}}" required>
           </mat-form-field>
           <br>
           <mat-form-field appearance="fill">

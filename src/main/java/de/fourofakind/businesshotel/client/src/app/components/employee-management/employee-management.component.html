@@ -51,11 +51,47 @@
         <br>
         <mat-form-field appearance="fill">
           <mat-label>Mitarbeiternummer</mat-label>
-          <input matInput (keyup)="setEmpNo($event)" required>
+          <input type="number" min="1" matInput (keyup)="setEmpNo($event)" required>
         </mat-form-field>
+        <br>
         <button mat-raised-button color="primary" (click)="loadEmployeeInfoToFormular()">Suchen</button> <!-- sollte Voraussetzung werden für die Aktivierung des restlicehn Formulars-->
         <br>
-
+        <mat-card *ngIf="!searchForFillInSuccessful && empNo && fillInButtonPressed">
+          <p>Kein Mitarbeiter mit dieser Nummer vorhanden.</p>
+        </mat-card>
+        <mat-form-field appearance="fill">
+          <mat-label>Rolle</mat-label>
+          <mat-select  required>
+            <mat-option value="Raummanager" (click)="setGivenRole('Raummanager')">Raummanager</mat-option>
+            <mat-option value="Buchungsmanager" (click)="setGivenRole('Buchungsmanager')">Buchungsmanager</mat-option>
+            <mat-option value="Kundenmanager" (click)="setGivenRole('Kundenmanager')">Kundenmanager</mat-option>
+            <mat-option value="Personalmanager" (click)="setGivenRole('Personalmanager')">Personalmanager</mat-option>
+            <mat-option value="Hotelleiter" (click)="setGivenRole('Hotelleiter')">Hotelleiter</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <br>
+        <div>
+          <mat-form-field class="halfInput" appearance="fill">
+            <mat-label>Vorname</mat-label>
+            <input matInput type="text" value="{{firstName}}" (change)="setFirstName($event)" required>
+          </mat-form-field>
+          <mat-form-field class="halfInput" appearance="fill">
+            <mat-label>Nachname</mat-label>
+            <input matInput type="text" value="{{lastName}}" (change)="setLastName($event)" required>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field class="halfInput" appearance="fill">
+            <mat-label>Passwort</mat-label>
+            <input matInput type="password" (change)="setPassword($event)" required>
+          </mat-form-field>
+          <mat-form-field class="halfInput" appearance="fill">
+            <mat-label>Passwort wiederholen</mat-label>
+            <input matInput type="password" (change)="setRepeatedPassword($event)" (keyup)="validateRepeatedPassword()" required>
+          </mat-form-field>
+        </div>
+        <br>
+        <button mat-raised-button color="primary" type="submit" (click)="changeEmployee()">Absenden</button>
       </div>
     </mat-tab>
 
@@ -67,50 +103,13 @@
 
     <mat-tab label="Löschen">
       <br>
-
-      <br>
       <mat-form-field appearance="fill">
         <mat-label>Mitarbeiternummer</mat-label>
-        <input matInput type="number" (keyup)="setEmpNo($event)"  required>
+        <input matInput type="number" min="1" (keyup)="setEmpNo($event)"  required>
       </mat-form-field>
       <button mat-raised-button color="primary" type="submit" (click)="submitSearch()">Suchen</button>
       <br>
-      <mat-card *ngIf="!foundEmployee">
-
-        <mat-label>Mitarbeiternummer</mat-label>
-        <mat-card-title>..</mat-card-title>
-        <mat-label>Mitarbeiterinformationen</mat-label>
-        <mat-card-content class="halfInput">
-          <table class="table table-bordered table-striped">
-            <tr>
-              <td>customerID</td>
-              <td>..</td>
-            </tr>
-            <tr>
-              <td>empNo</td>
-              <td>..</td>
-            </tr>
-            <tr>
-              <td>startDate</td>
-              <td>..</td>
-            </tr>
-            <tr>
-              <td>endDate</td>
-              <td>..</td>
-            </tr>
-            <tr>
-              <td>specialWishes</td>
-              <td>..</td>
-            </tr>
-            <tr>
-              <td>pricing</td>
-              <td>..</td>
-            </tr>
-          </table>
-        </mat-card-content>
-      </mat-card>
-      <mat-card *ngIf="foundEmployee">
-
+      <mat-card *ngIf="searchSuccessful">
         <mat-label>Mitarbeiternummer</mat-label>
         <mat-card-title>{{foundEmployee.empNo}}</mat-card-title>
         <mat-label>Mitarbeiterinformationen</mat-label>
@@ -131,8 +130,11 @@
           </table>
         </mat-card-content>
       </mat-card>
+      <mat-card *ngIf="!searchSuccessful && empNo && searchButtonPressed">
+        <p>Kein Mitarbeiter mit dieser Nummer vorhanden.</p>
+      </mat-card>
       <br>
-      <mat-slide-toggle [(ngModel)]="isChecked" [disabled]="!foundEmployee" >Freigeben</mat-slide-toggle> <!--Bestätigung zum Freigeben des Löschen, könnte auch als Pop-Up implementiert werden-->
+      <mat-slide-toggle [(ngModel)]="isChecked" [disabled]="!foundEmployee || !searchSuccessful" >Freigeben</mat-slide-toggle> <!--Bestätigung zum Freigeben des Löschen, könnte auch als Pop-Up implementiert werden-->
       <button mat-raised-button color="primary" type="submit" [disabled]="!isChecked" (click)="deleteEmployee()">Löschen</button>
     </mat-tab>
 
@@ -144,11 +146,10 @@
       <br>
       <mat-form-field appearance="fill">
         <mat-label>Mitarbeiternummer</mat-label>
-        <input matInput type="number" (keyup)="setEmpNo($event)"  required>
+        <input matInput type="number" min="1" (keyup)="setEmpNo($event)"  required>
       </mat-form-field>
       <button mat-raised-button color="primary" type="submit" (click)="submitSearch()">Suchen</button>
-      <mat-card *ngIf="foundEmployee">
-
+      <mat-card *ngIf="searchSuccessful">
         <mat-label>Mitarbeiternummer</mat-label>
         <mat-card-title>{{foundEmployee.empNo}}</mat-card-title>
         <mat-label>Mitarbeiterinformationen</mat-label>
@@ -168,6 +169,9 @@
             </tr>
           </table>
         </mat-card-content>
+      </mat-card>
+      <mat-card *ngIf="!searchSuccessful && empNo && searchButtonPressed">
+        <p>Kein Mitarbeiter mit dieser Nummer vorhanden.</p>
       </mat-card>
     </mat-tab>
   </mat-tab-group>
