@@ -10,5 +10,5 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 @RepositoryRestResource(collectionResourceRel = "accountdetails", path="accountdetails")
 public interface AccountDetailsRepository  extends JpaRepository<AccountDetails,Integer>
 {
-    AccountDetails findAccountDetailsByUsername (@Param("username") String username);
+    AccountDetails findByUsername (@Param("username") String username);
 }
