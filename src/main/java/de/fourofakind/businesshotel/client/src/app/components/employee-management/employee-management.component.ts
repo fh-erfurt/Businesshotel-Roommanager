@@ -24,7 +24,7 @@ export class EmployeeManagementComponent implements OnInit {
   passwordsAreEqual!:boolean;
   givenRole!:string;
   foundEmployee!:Employee;
-  accountID!:number;
+  accountID!:number | undefined;
   searchSuccessful:boolean=false;
   searchForFillInSuccessful:boolean=false;
   lastFoundEmployee!:Employee;
@@ -32,6 +32,7 @@ export class EmployeeManagementComponent implements OnInit {
   fillInButtonPressed:boolean=false;
 
   constructor(private accountdetailsService: AccountdetailsService, private employeeService: EmployeeService) {
+
   }
 
   ngOnInit()
@@ -74,37 +75,86 @@ export class EmployeeManagementComponent implements OnInit {
   }
 
 
-  addEmployee(){
-
-    this.username=this.firstName.trim().replace(" ", ".")+"."+this.lastName.trim().replace(" ", ".");
-    this.username=this.username.toLowerCase();
-    console.log(this.username);
-
-
-    let newAccount:Accountdetails=
-      {
-        username: this.username,
-        passwordHash: this.password, //TODO:passwort hashen
-
-      }
-    console.log(newAccount);
-    let accountID:any=this.accountdetailsService.save(newAccount);
-
-
-    console.log(accountID);
-
-    if(accountID)
-    {
-      let newEmployee:Employee =
-        {
-          empName:this.firstName+" "+this.lastName,
-          givenRole:this.givenRole,
-          accountID:accountID,
-        };
-      this.employeeService.save(newEmployee);
-    }
-
+  async createAccount(newAccount:Accountdetails)
+  {
+    await this.accountdetailsService.save(newAccount);
+    return 1;
   }
+
+  async generateUsername()
+  {
+    let rawUsername = this.firstName.trim().replace(" ", ".") + "." + this.lastName.trim().replace(" ", ".");
+    var username = rawUsername.toLowerCase();
+    console.log("zeile 87:",this.username);
+
+    await this.accountdetailsService.getAccountdetailsByUsername(username).subscribe(
+      (accountDetails) =>
+      {
+        if (accountDetails)
+        {
+            console.log(username[username.length - 1]);
+            if(isNaN(parseInt(username[username.length - 1])))
+            {
+              username = username + "1";
+            }
+            else
+            {
+              let numberSuffix=parseInt(username[username.length - 1])+1;
+              username = username + numberSuffix;
+            }
+
+            console.log("zeile 96:", username);
+        }
+        else
+          console.log("keine accountDetails angekommen");
+      },
+      (error =>
+      {
+        console.log("username kann so bleiben");
+      }),
+    );
+
+    return username;
+  }
+
+  async addEmployee()
+  {
+
+    await this.generateUsername().then((username:string)=>
+    {
+      this.username=username;
+
+      let newAccount: Accountdetails =
+        {
+          username: username,
+          passwordHash: this.password, //TODO:passwort hashen
+
+        }
+      console.log(newAccount);
+      this.createAccount(newAccount).then(() =>
+      {
+          if (this.accountdetailsService.lastInsertedID)
+          {
+            this.accountID = this.accountdetailsService.lastInsertedID;
+            let newEmployee: Employee =
+              {
+                empName: this.firstName + " " + this.lastName,
+                givenRole: this.givenRole,
+                accountID: this.accountID,
+              };
+            this.employeeService.save(newEmployee);
+            console.log("Employee delivered");
+
+          }
+        console.log(this.accountID);
+
+      })
+
+    })
+  }
+
+
+
 
 
   submitSearch(){

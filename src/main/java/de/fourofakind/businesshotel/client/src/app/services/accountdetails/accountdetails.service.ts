@@ -9,9 +9,12 @@ import {map} from "rxjs/operators";
 })
 export class AccountdetailsService {
 
+  lastInsertedID:number | undefined;
   private readonly baseUrl:string;
+
   constructor(private http: HttpClient) {
     this.baseUrl="http://localhost:8081/accountdetails/";
+    this.lastInsertedID=0;
   }
 
   public getAccountdetails(id:number): Observable<Accountdetails>
@@ -24,30 +27,58 @@ export class AccountdetailsService {
     )
   }
 
+  public getAccountdetailsByUsername(username:string): Observable<Accountdetails>
+  {
+    return this.http.get<Accountdetails>(`${this.baseUrl}search/findByUsername?username=${username}`).pipe(
+      map((result:any) =>{
+        //console.log(result);
+        return result;
+      })
+    )
+  }
+
   public save(accountdetails: Accountdetails) {
     console.log(accountdetails);
 
-    let returnValue!: Accountdetails;
+    let promise= new Promise<void>((resolve, reject) =>
+    {
+      this.http.post<Accountdetails>(this.baseUrl, accountdetails)
+        .toPromise()
+        .then(
+          response=>
+          {
+            console.log(response);
+            this.lastInsertedID=response.accountID;
+            resolve();
+          },
+          error=>
+          {
+            reject(error);
+          }
+        )
+    })
 
-    this.http.post<Accountdetails>(this.baseUrl, accountdetails)
-      .subscribe(
-        (val)=>
-        {
-          console.log("Post call => successful value returned in body: ", val);
-          console.log("accountID: ", val.accountID);
-          return val.accountID;
-        },
+    return promise;
 
-        response=>
-        {
-          console.log("Post call => error in: ", response);
-        },
-        ()=>
-        {
-          console.log("Post call => Booking creation successful");
-        }
-      )
 
-    return returnValue;
+
+      // .subscribe(
+      //   (newAccount)=>
+      //   {
+      //     console.log("Post call => successful value returned in body: ", newAccount);
+      //     console.log("accountID: ", newAccount.accountID);
+      //     return newAccount.accountID;
+      //   },
+      //
+      //   errorResponse=>
+      //   {
+      //     console.log("Post call => error in: ", errorResponse);
+      //   },
+      //   ()=>
+      //   {
+      //     console.log("Post call => Account creation successful");
+      //   }
+      // )
+
   }
 }
