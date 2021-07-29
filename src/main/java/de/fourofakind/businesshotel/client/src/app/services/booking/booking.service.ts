@@ -10,8 +10,13 @@ import {map} from "rxjs/operators";
 export class BookingService {
 
   private readonly baseUrl:string;
+  private readonly hotelRoomBaseUrl:string;
+  private readonly conferenceRoomBaseUrl:string;
   constructor(private http: HttpClient) {
     this.baseUrl="http://localhost:8081/booking/";
+    this.hotelRoomBaseUrl="http://localhost:8081/hotelRoomBooking/";
+    this.conferenceRoomBaseUrl="http://localhost:8081/conferenceRoomBooking/";
+
   }
 
   public getBooking(id:number): Observable<Booking>
@@ -44,10 +49,23 @@ export class BookingService {
     )
   }
 
-  public save(booking: Booking) {
+  public saveBooking(booking:Booking, bookingType:string)
+  {
+    if(bookingType ==="hotelRoom")
+    {
+      this.save(booking,this.hotelRoomBaseUrl);
+    }
+    else
+    {
+      this.save(booking,this.conferenceRoomBaseUrl);
+
+    }
+  }
+
+  public save(booking: Booking, url: string) {
     console.log(booking);
 
-    this.http.post<Booking>(this.baseUrl, booking)
+    this.http.post<Booking>(url, booking)
       .subscribe(
         (val)=>
         {

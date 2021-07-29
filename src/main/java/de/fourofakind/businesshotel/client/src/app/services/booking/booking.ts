@@ -17,7 +17,7 @@ export interface Embedded {
 }
 
 export interface Booking {
-  bookingNo:number;
+  bookingNo?:number;
   roomNo: number;
   pricing: number;
   empNo: number;

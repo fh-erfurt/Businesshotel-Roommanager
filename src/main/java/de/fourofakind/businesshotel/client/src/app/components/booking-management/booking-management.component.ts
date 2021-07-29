@@ -159,17 +159,16 @@ export class BookingManagementComponent implements OnInit {
 
      let newBooking:Booking =
       {
-        bookingNo:this.bookingNo,
         customerID:this.customerID,
         roomNo:this.roomNo,
-        startDate:this.startDate+" "+this.startTime,
-        endDate:this.endDate+" "+this.endTime,
+        startDate:this.startDate+"T"+this.startTime,
+        endDate:this.endDate+"T"+this.endTime,
         empNo:1, //TODO:Muss noch ersetzt werden
         pricing:1.00, //TODO:Muss noch ersetzt werden
         specialWishes:this.specialWishes,
       };
 
-    this.bookingService.save(newBooking);
+    this.bookingService.saveBooking(newBooking,this.bookingType);
   }
 
   getValidRooms()
