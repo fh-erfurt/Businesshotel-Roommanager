@@ -11,13 +11,13 @@
           <br>
           <mat-form-field appearance="fill">
             <mat-label>Kundennummer</mat-label>
-            <input matInput type="number" min="1" name="customerID" (keyup)="setCustomerID($event)" required>
+            <input matInput type="number" min="1" name="customerID" [(ngModel)]="customerID" required>
           </mat-form-field>
           <br>
           <mat-form-field appearance="fill">
             <mat-label>Raumnummer</mat-label>
-            <mat-select  required>
-              <mat-option *ngFor="let room of rooms" (click)="setRoomNo(room.roomNo)" value="{{room.roomNo}}">{{room.roomNo}}</mat-option>
+            <mat-select  [(ngModel)]="roomNo" required>
+              <mat-option *ngFor="let room of rooms"  value="{{room.roomNo}}">{{room.roomNo}}</mat-option>
               <mat-option  *ngIf="!rooms" value="" disabled>Keine Räume verfügbar oder keine Kategorie gewählt</mat-option>
             </mat-select>
           </mat-form-field>
@@ -25,27 +25,27 @@
           <div>
             <mat-form-field class="halfInput" appearance="fill">
               <mat-label>Startdatum</mat-label>
-              <input matInput type="date" min="{{minDateStart}}" (change)="setStartDate($event)" required>
+              <input matInput type="date" min="{{minDateStart}}" [(ngModel)]="startDate" required>
             </mat-form-field>
             <mat-form-field class="halfInput" appearance="fill">
               <mat-label>Startzeit</mat-label>
-              <input matInput type="time" (change)="setStartTime($event)" required>
+              <input matInput type="time" [(ngModel)]="startTime" required>
             </mat-form-field>
           </div>
           <div>
             <mat-form-field class="halfInput" appearance="fill">
               <mat-label>Enddatum</mat-label>
-              <input matInput type="date" min="{{minDateEnd}}" (change)="setEndDate($event)" required>
+              <input matInput type="date" min="{{minDateEnd}}" [(ngModel)]="endDate" required>
             </mat-form-field>
             <mat-form-field class="halfInput" appearance="fill">
               <mat-label>Endzeit</mat-label>
-              <input matInput type="time" (change)="setEndTime($event)" required>
+              <input matInput type="time" [(ngModel)]="endTime" required>
             </mat-form-field>
           </div>
           <br>
           <mat-form-field appearance="fill">
             <mat-label>Kundenwünsche</mat-label>
-            <textarea matInput type="text" (keyup)="setSpecialWishes($event)"></textarea>
+            <textarea matInput type="text" [(ngModel)]="specialWishes"></textarea>
           </mat-form-field>
           <button mat-raised-button color="primary" type="submit" (click)="addOrUpdateBooking(true)">Absenden</button>
         </div>
@@ -62,7 +62,7 @@
           <br>
           <mat-form-field appearance="fill">
             <mat-label>Buchungsnummer</mat-label>
-            <input matInput type="number" min="1" (keyup)="setBookingNo($event)" required>
+            <input matInput type="number" min="1" [(ngModel)]="bookingNo" required>
           </mat-form-field>
           <button mat-raised-button color="primary" (click)="loadBookingInfoToFormular()">Suchen</button> <!-- sollte Voraussetzung werden für die Aktivierung des restlicehn Formulars-->
           <br>
@@ -73,13 +73,13 @@
           <br>
           <mat-form-field appearance="fill">
             <mat-label>Kundennummer</mat-label>
-            <input matInput type="number" min="1" name="customerID" (keyup)="setCustomerID($event)" value="{{customerID}}" required>
+            <input matInput type="number" min="1" name="customerID" [(ngModel)]="customerID" value="{{customerID}}" required>
           </mat-form-field>
           <br>
           <mat-form-field appearance="fill">
             <mat-label>Raumnummer</mat-label>
-            <mat-select  required value="{{roomNo}}">
-              <mat-option *ngFor="let room of rooms" (click)="setRoomNo(room.roomNo)" value="{{room.roomNo}}">{{room.roomNo}}</mat-option>
+            <mat-select  required [(ngModel)]="roomNo" value="{{roomNo}}">
+              <mat-option *ngFor="let room of rooms" value="{{room.roomNo}}">{{room.roomNo}}</mat-option>
               <mat-option *ngIf="!rooms" value="" disabled>Keine Räume verfügbar oder keine Kategorie gewählt</mat-option>
             </mat-select>
           </mat-form-field>
@@ -87,27 +87,27 @@
           <div>
             <mat-form-field class="halfInput" appearance="fill">
               <mat-label>Startdatum</mat-label>
-              <input matInput type="date" (keyup)="setStartDate($event)" value="{{startDate}}" required>
+              <input matInput type="date" [(ngModel)]="startDate" value="{{startDate}}" required>
             </mat-form-field>
             <mat-form-field class="halfInput" appearance="fill">
               <mat-label>Startzeit</mat-label>
-              <input matInput type="time" (keyup)="setStartTime($event)" value="{{startTime}}" required>
+              <input matInput type="time" [(ngModel)]="startTime" value="{{startTime}}" required>
             </mat-form-field>
           </div>
           <div>
             <mat-form-field class="halfInput" appearance="fill">
               <mat-label>Enddatum</mat-label>
-              <input matInput type="date" (keyup)="setEndDate($event)" value="{{endDate}}" required>
+              <input matInput type="date" [(ngModel)]="endDate" value="{{endDate}}" required>
             </mat-form-field>
             <mat-form-field class="halfInput" appearance="fill">
               <mat-label>Endzeit</mat-label>
-              <input matInput type="time" (keyup)="setEndTime($event)" value="{{endTime}}" required>
+              <input matInput type="time" [(ngModel)]="endTime" value="{{endTime}}" required>
             </mat-form-field>
           </div>
           <br>
           <mat-form-field appearance="fill">
             <mat-label>Kundenwünsche</mat-label>
-            <textarea matInput type="text" (keyup)="setSpecialWishes($event)" value="{{specialWishes}}"></textarea>
+            <textarea matInput type="text" [(ngModel)]="specialWishes" value="{{specialWishes}}"></textarea>
           </mat-form-field>
           <button mat-raised-button color="primary" type="submit" (click)="addOrUpdateBooking(false)">Absenden</button>
         </div>
@@ -125,7 +125,7 @@
         <br>
         <mat-form-field appearance="fill">
           <mat-label>Buchungsnummer</mat-label>
-          <input matInput type="number" (keyup)="setBookingNo($event)"  required>
+          <input matInput type="number" [(ngModel)]="bookingNo" required>
         </mat-form-field>
         <button mat-raised-button color="primary" type="submit" (click)="submitSearch()">Suchen</button>
         <br>
@@ -210,7 +210,7 @@
         <br>
         <mat-form-field appearance="fill">
           <mat-label>Buchungsnummer</mat-label>
-          <input matInput type="number" (keyup)="setBookingNo($event)"  required>
+          <input matInput type="number" [(ngModel)]="bookingNo" required>
         </mat-form-field>
         <button mat-raised-button color="primary" type="submit" (click)="submitSearch()">Suchen</button>
         <mat-card *ngIf="foundBooking">

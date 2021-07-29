@@ -107,51 +107,6 @@ export class BookingManagementComponent implements OnInit {
       }
     })
 
-
-
-
-  }
-
-  setStartDate(event:any){
-    this.startDate=event.target.value;
-    console.log(this.startDate);
-  }
-
-  setStartTime(event:any){
-    this.startTime=event.target.value;
-    console.log(this.startTime);
-  }
-
-  setEndDate(event:any){
-    this.endDate=event.target.value;
-    this.minDateEnd= this.startDate;
-    console.log(this.endDate);
-  }
-
-  setEndTime(event:any){
-    this.endTime=event.target.value;
-    console.log(this.endTime);
-  }
-
-  setBookingNo(event:any){
-    this.bookingNo=event.target.value;
-    console.log(this.bookingNo);
-  }
-
-  setCustomerID(event:any){
-    this.customerID=event.target.value;
-    console.log(this.customerID);
-  }
-
-  setSpecialWishes(event:any){
-    this.specialWishes=event.target.value;
-    console.log(this.specialWishes);
-  }
-
-  setRoomNo(roomNo:number)
-  {
-    this.roomNo=roomNo;
-    console.log(this.roomNo);
   }
 
   calculatePricing()
