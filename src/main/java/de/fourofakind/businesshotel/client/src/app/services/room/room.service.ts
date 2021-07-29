@@ -11,7 +11,7 @@ import {map} from "rxjs/operators";
 })
 export class RoomService {
 
-  private baseUrl = "http://localhost:8081/room"
+  private baseUrl = "http://localhost:8081/room/"
 
   constructor(private http: HttpClient) { }
 
@@ -29,6 +29,15 @@ export class RoomService {
       map((result:any) =>{
         //console.log(result);
         return result._embedded.conferenceroom;
+      })
+    )
+  }
+
+  public getRoom(id:number): Observable<Room>{
+    return this.http.get<Room>(`${this.baseUrl}${id}`).pipe(
+      map((result:any) =>{
+        console.log(result);
+        return result;
       })
     )
   }

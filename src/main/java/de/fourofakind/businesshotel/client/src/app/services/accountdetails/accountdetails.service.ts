@@ -37,7 +37,8 @@ export class AccountdetailsService {
     )
   }
 
-  public save(accountdetails: Accountdetails) {
+  public save(accountdetails: Accountdetails)
+  {
     console.log(accountdetails);
 
     let promise= new Promise<void>((resolve, reject) =>
@@ -59,26 +60,5 @@ export class AccountdetailsService {
     })
 
     return promise;
-
-
-
-      // .subscribe(
-      //   (newAccount)=>
-      //   {
-      //     console.log("Post call => successful value returned in body: ", newAccount);
-      //     console.log("accountID: ", newAccount.accountID);
-      //     return newAccount.accountID;
-      //   },
-      //
-      //   errorResponse=>
-      //   {
-      //     console.log("Post call => error in: ", errorResponse);
-      //   },
-      //   ()=>
-      //   {
-      //     console.log("Post call => Account creation successful");
-      //   }
-      // )
-
   }
 }

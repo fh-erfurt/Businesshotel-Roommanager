@@ -49,21 +49,20 @@ export class BookingService {
     )
   }
 
-  public saveBooking(booking:Booking, bookingType:string)
+  public save(booking:Booking, bookingType:string)
   {
+    console.log(booking);
+    let url;
+
     if(bookingType ==="hotelRoom")
     {
-      this.save(booking,this.hotelRoomBaseUrl);
+      url=this.hotelRoomBaseUrl;
     }
     else
     {
-      this.save(booking,this.conferenceRoomBaseUrl);
+      url=this.conferenceRoomBaseUrl;
 
     }
-  }
-
-  public save(booking: Booking, url: string) {
-    console.log(booking);
 
     this.http.post<Booking>(url, booking)
       .subscribe(
@@ -74,14 +73,16 @@ export class BookingService {
 
         response=>
         {
-            console.log("Post call => error in: ", response);
+          console.log("Post call => error in: ", response);
         },
-      ()=>
-      {
-        console.log("Post call => Booking creation successful");
-      }
+        ()=>
+        {
+          console.log("Post call => Booking creation successful");
+        }
       )
+
   }
+
 
   public delete(id: number) {
     this.http.delete<Booking>(`${this.baseUrl}${id}`)
@@ -102,18 +103,28 @@ export class BookingService {
       )
   }
 
+  public updateBooking(id: number, booking: Booking) {
+    console.log(booking);
 
-  /*public createBooking(booking: Object): Observable<Object> {
-    return this.http.post(`${this.baseUrl}`, booking);
+    this.http.put(`${this.baseUrl}${id}`, booking)
+      .subscribe(
+        (val)=>
+        {
+          console.log("Put call => successful value returned in body: ", val);
+        },
+
+        response=>
+        {
+          console.log("Put call => error in: ", response);
+        },
+        ()=>
+        {
+          console.log("Put call => Booking update successful");
+        }
+      )
   }
-
-  updateBooking(id: number, value: any): Observable<Object> {
-    return this.http.put(`${this.baseUrl}${id}`, value);
-  }
-
-  deleteBooking(id: number): Observable<any> {
-    return this.http.delete(`${this.baseUrl}${id}`, { responseType: 'text' });
-  }*/
-
 
 }
+
+
+
