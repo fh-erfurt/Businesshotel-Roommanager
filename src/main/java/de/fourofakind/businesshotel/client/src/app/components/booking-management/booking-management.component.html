@@ -2,7 +2,7 @@
   <h1>Buchungsverwaltung</h1>
     <mat-tab-group>
       <mat-tab label="Hinzufügen">
-        <div class="addTab">
+        <div class="tab">
           <br>
           <mat-radio-group [(ngModel)]="bookingType" (change)="getValidRooms()" class="bookingtypeSelector">
             <mat-radio-button required value="hotelRoom">Hotelzimmer</mat-radio-button><br>
@@ -58,7 +58,7 @@
 
 
       <mat-tab label="Bearbeiten">
-        <div class="addTab">
+        <div class="tab">
           <br>
           <mat-form-field appearance="fill">
             <mat-label>Buchungsnummer</mat-label>
@@ -120,86 +120,86 @@
 
 
       <mat-tab label="Löschen">
-        <br>
+        <div class="tab">
+          <br>
+          <mat-form-field appearance="fill">
+            <mat-label>Buchungsnummer</mat-label>
+            <input matInput type="number" [(ngModel)]="bookingNo" required>
+          </mat-form-field>
+          <button mat-raised-button color="primary" type="submit" (click)="submitSearch()">Suchen</button>
+          <br>
+          <mat-card *ngIf="!foundBooking">
 
-        <br>
-        <mat-form-field appearance="fill">
-          <mat-label>Buchungsnummer</mat-label>
-          <input matInput type="number" [(ngModel)]="bookingNo" required>
-        </mat-form-field>
-        <button mat-raised-button color="primary" type="submit" (click)="submitSearch()">Suchen</button>
-        <br>
-        <mat-card *ngIf="!foundBooking">
+            <mat-label>Buchungsnummer</mat-label>
+            <mat-card-title>..</mat-card-title>
+            <mat-label>Buchungsinformationen</mat-label>
+            <mat-card-content class="halfInput">
+              <table class="table table-bordered table-striped">
+                <tr>
+                  <td>customerID</td>
+                  <td>..</td>
+                </tr>
+                <tr>
+                  <td>empNo</td>
+                  <td>..</td>
+                </tr>
+                <tr>
+                  <td>startDate</td>
+                  <td>..</td>
+                </tr>
+                <tr>
+                  <td>endDate</td>
+                  <td>..</td>
+                </tr>
+                <tr>
+                  <td>specialWishes</td>
+                  <td>..</td>
+                </tr>
+                <tr>
+                  <td>pricing</td>
+                  <td>..</td>
+                </tr>
+              </table>
+            </mat-card-content>
+          </mat-card>
+          <mat-card *ngIf="foundBooking">
 
-          <mat-label>Buchungsnummer</mat-label>
-          <mat-card-title>..</mat-card-title>
-          <mat-label>Buchungsinformationen</mat-label>
-          <mat-card-content class="halfInput">
-            <table class="table table-bordered table-striped">
-              <tr>
-                <td>customerID</td>
-                <td>..</td>
-              </tr>
-              <tr>
-                <td>empNo</td>
-                <td>..</td>
-              </tr>
-              <tr>
-                <td>startDate</td>
-                <td>..</td>
-              </tr>
-              <tr>
-                <td>endDate</td>
-                <td>..</td>
-              </tr>
-              <tr>
-                <td>specialWishes</td>
-                <td>..</td>
-              </tr>
-              <tr>
-                <td>pricing</td>
-                <td>..</td>
-              </tr>
-            </table>
-          </mat-card-content>
-        </mat-card>
-        <mat-card *ngIf="foundBooking">
-
-          <mat-label>Buchungsnummer</mat-label>
-          <mat-card-title>{{foundBooking.bookingNo}}</mat-card-title>
-          <mat-label>Buchungsinformationen</mat-label>
-          <mat-card-content class="halfInput">
-            <table class="table table-bordered table-striped">
-              <tr>
-                <td>customerID</td>
-                <td>{{ foundBooking.customerID }}</td>
-              </tr>
-              <tr>
-                <td>empNo</td>
-                <td>{{ foundBooking.empNo }}</td>
-              </tr>
-              <tr>
-                <td>startDate</td>
-                <td>{{ foundBooking.startDate }}</td>
-              </tr>
-              <tr>
-                <td>endDate</td>
-                <td>{{ foundBooking.endDate }}</td>
-              </tr>
-              <tr>
-                <td>specialWishes</td>
-                <td>{{ foundBooking.specialWishes }}</td>
-              </tr>
-              <tr>
-                <td>pricing</td>
-                <td>{{ foundBooking.pricing }}</td>
-              </tr>
-            </table>
-          </mat-card-content>
-        </mat-card>
-        <br>
-          <mat-slide-toggle [(ngModel)]="isChecked" [disabled]="!foundBooking" >Freigeben</mat-slide-toggle> <!--Bestätigung zum Freigeben des Löschen, könnte auch als Pop-Up implementiert werden-->
-          <button mat-raised-button color="primary" type="submit" [disabled]="!isChecked" (click)="deleteBooking()">Löschen</button>
+            <mat-label>Buchungsnummer</mat-label>
+            <mat-card-title>{{foundBooking.bookingNo}}</mat-card-title>
+            <mat-label>Buchungsinformationen</mat-label>
+            <mat-card-content class="halfInput">
+              <table class="table table-bordered table-striped">
+                <tr>
+                  <td>customerID</td>
+                  <td>{{ foundBooking.customerID }}</td>
+                </tr>
+                <tr>
+                  <td>empNo</td>
+                  <td>{{ foundBooking.empNo }}</td>
+                </tr>
+                <tr>
+                  <td>startDate</td>
+                  <td>{{ foundBooking.startDate }}</td>
+                </tr>
+                <tr>
+                  <td>endDate</td>
+                  <td>{{ foundBooking.endDate }}</td>
+                </tr>
+                <tr>
+                  <td>specialWishes</td>
+                  <td>{{ foundBooking.specialWishes }}</td>
+                </tr>
+                <tr>
+                  <td>pricing</td>
+                  <td>{{ foundBooking.pricing }}</td>
+                </tr>
+              </table>
+            </mat-card-content>
+          </mat-card>
+          <br>
+            <mat-slide-toggle [(ngModel)]="isChecked" [disabled]="!foundBooking" >Freigeben</mat-slide-toggle> <!--Bestätigung zum Freigeben des Löschen, könnte auch als Pop-Up implementiert werden-->
+            <button mat-raised-button color="primary" type="submit" [disabled]="!isChecked" (click)="deleteBooking()">Löschen</button>
+        </div>
       </mat-tab>
 
 
@@ -207,48 +207,46 @@
 
 
       <mat-tab label="Anzeigen">
-        <br>
-        <mat-form-field appearance="fill">
-          <mat-label>Buchungsnummer</mat-label>
-          <input matInput type="number" [(ngModel)]="bookingNo" required>
-        </mat-form-field>
-        <button mat-raised-button color="primary" type="submit" (click)="submitSearch()">Suchen</button>
-        <mat-card *ngIf="foundBooking">
-          <mat-label>Buchungsnummer</mat-label>
-          <mat-card-title>{{foundBooking.bookingNo}}</mat-card-title>
-          <mat-label>Buchungsinformationen</mat-label>
-          <mat-card-content>
-            <table class="table table-bordered table-striped">
-              <tr>
-                <td>customerID</td>
-                <td>{{ foundBooking.customerID }}</td>
-              </tr>
-              <tr>
-                <td>empNo</td>
-                <td>{{ foundBooking.empNo }}</td>
-              </tr>
-              <tr>
-                <td>startDate</td>
-                <td>{{ foundBooking.startDate }}</td>
-              </tr>
-              <tr>
-                <td>endDate</td>
-                <td>{{ foundBooking.endDate }}</td>
-              </tr>
-              <tr>
-                <td>specialWishes</td>
-                <td>{{ foundBooking.specialWishes }}</td>
-              </tr>
-              <tr>
-                <td>pricing</td>
-                <td>{{ foundBooking.pricing }}</td>
-              </tr>
-            </table>
-          </mat-card-content>
-        </mat-card>
-        <mat-card>
-
-        </mat-card>
+        <div class="tab">
+          <mat-form-field appearance="fill">
+            <mat-label>Buchungsnummer</mat-label>
+            <input matInput type="number" [(ngModel)]="bookingNo" required>
+          </mat-form-field>
+          <button mat-raised-button color="primary" type="submit" (click)="submitSearch()">Suchen</button>
+          <mat-card *ngIf="foundBooking">
+            <mat-label>Buchungsnummer</mat-label>
+            <mat-card-title>{{foundBooking.bookingNo}}</mat-card-title>
+            <mat-label>Buchungsinformationen</mat-label>
+            <mat-card-content>
+              <table class="table table-bordered table-striped">
+                <tr>
+                  <td>customerID</td>
+                  <td>{{ foundBooking.customerID }}</td>
+                </tr>
+                <tr>
+                  <td>empNo</td>
+                  <td>{{ foundBooking.empNo }}</td>
+                </tr>
+                <tr>
+                  <td>startDate</td>
+                  <td>{{ foundBooking.startDate }}</td>
+                </tr>
+                <tr>
+                  <td>endDate</td>
+                  <td>{{ foundBooking.endDate }}</td>
+                </tr>
+                <tr>
+                  <td>specialWishes</td>
+                  <td>{{ foundBooking.specialWishes }}</td>
+                </tr>
+                <tr>
+                  <td>pricing</td>
+                  <td>{{ foundBooking.pricing }}</td>
+                </tr>
+              </table>
+            </mat-card-content>
+          </mat-card>
+        </div>
       </mat-tab>
     </mat-tab-group>
 
