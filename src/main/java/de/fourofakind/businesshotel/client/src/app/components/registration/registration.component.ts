@@ -26,13 +26,14 @@ export class RegistrationComponent implements OnInit {
   ngOnInit(): void {
     this.form = this.formBuilder.group({
 
-      firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      company: ['', Validators.required],
+      firstName: ['', Validators.required],
+      companyName: ['', Validators.required],
       emailAddress: ['', Validators.required],
-      telefonNummber: ['', Validators.required],
+      phoneNumber: ['', Validators.required],
       username: ['', Validators.required],
-      password: ['', Validators.required]
+      password: ['', Validators.required],
+      passwordVerify: ['', Validators.required]
 
     });
   }
@@ -46,7 +47,15 @@ export class RegistrationComponent implements OnInit {
       return;
     }
 
-    this.registrationService.register(this.f.username.value, this.f.password.value)
+    this.registrationService.register(this.f.lastName.value,
+                                      this.f.firstName.value,
+                                      this.f.companyName.value,
+                                      this.f.emailAddress.value,
+                                      this.f.phoneNumber.value,
+                                      this.f.username.value,
+                                      this.f.password.value,
+                                      this.f.passwordVerify.value)
+
 
   }
 

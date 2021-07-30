@@ -5096,13 +5096,6 @@ ngx-bootstrap@^6.2.0:
   resolved "https://registry.yarnpkg.com/ngx-bootstrap/-/ngx-bootstrap-6.2.0.tgz#678b274dabfda31411eb1234c981d1967750d890"
   integrity sha512-5WKHo6/ltkenw4UyXZwED8rODCgp2RGbWurzYzZsF/gH1JO5SN7TJ+AL6kXYk6XM42sDA2WhN9Db+ZPNjiyHnA==
 
-ngx-cookie-service@^12.0.0:
-  version "12.0.0"
-  resolved "https://registry.yarnpkg.com/ngx-cookie-service/-/ngx-cookie-service-12.0.0.tgz#1578dabe80ef9fa3db5234bd4c1c7122adbc9ff4"
-  integrity sha512-/Pklpn8Ul0P016Dc5isEU8AnTT3CI6Zz1JhrW1uH/3oJbfW7MGTtJAgAv1Rk92rfe+kNTDh+O+yj0xmr1Mt/tA==
-  dependencies:
-    tslib "^2.0.0"
-
 nice-try@^1.0.4:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/nice-try/-/nice-try-1.0.5.tgz#a3378a7696ce7d223e88fc9b764bd7ef1089e366"

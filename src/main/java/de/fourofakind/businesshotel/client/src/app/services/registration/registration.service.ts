@@ -22,7 +22,15 @@ export class RegistrationService {
 
   }
 
-  register(username: string, password: string) {
+  register(lastName: string,
+           firstName: string,
+           companyName: string,
+           emailaddress: string,
+           phoneNumber: string,
+           username: string,
+           password: string,
+           passwordVerify: string) {
+
     this.getAccount(username).subscribe((data: Accountdetail)=>{
 
 

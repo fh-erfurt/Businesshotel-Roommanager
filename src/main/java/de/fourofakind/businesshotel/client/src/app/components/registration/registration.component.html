@@ -21,9 +21,9 @@
         </div>
         <div class="form-group">
           <label>Firma</label>
-          <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.company.errors }" />
-          <div *ngIf="submitted && f.company.errors" class="invalid-feedback">
-            <div *ngIf="f.company.errors.required">Bitte Firma angeben</div>
+          <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.companyName.errors }" />
+          <div *ngIf="submitted && f.companyName.errors" class="invalid-feedback">
+            <div *ngIf="f.companyName.errors.required">Bitte Firma angeben</div>
           </div>
         </div>
         <div class="form-group">
@@ -35,9 +35,9 @@
         </div>
         <div class="form-group">
           <label>Telefonnummer</label>
-          <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.telefonNummber.errors }" />
-          <div *ngIf="submitted && f.telefonNummber.errors" class="invalid-feedback">
-            <div *ngIf="f.telefonNummber.errors.required">Bitte Nachname angeben</div>
+          <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.phoneNumber.errors }" />
+          <div *ngIf="submitted && f.phoneNumber.errors" class="invalid-feedback">
+            <div *ngIf="f.phoneNumber.errors.required">Bitte Nachname angeben</div>
           </div>
         </div>
 
@@ -56,9 +56,17 @@
           </div>
         </div>
         <div class="form-group">
+          <label>Passwort wiederholen</label>
+          <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.passwordVerify.errors }" />
+          <div *ngIf="submitted && f.passwordVerify.errors" class="invalid-feedback">
+            <div *ngIf="f.passwordVerify.errors.required">Bitte Passwort angeben</div>
+          </div>
+        </div>
+        <br>
+        <div class="form-group">
           <button [disabled]="loading" class="btn btn-secondary">
             <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-            Login
+            Registrieren
           </button>
           <a routerLink="/login" class="btn btn-link">Cancel</a>
         </div>
