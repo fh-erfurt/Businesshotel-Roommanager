@@ -27,7 +27,7 @@ export interface Conferenceroom {
   hasScreen: boolean;
   hasComputer: boolean;
   amountOfTV: number;
-  _links: ConferenceroomLinks;
+  _links?: ConferenceroomLinks;
 }
 
 export interface ConferenceroomLinks {

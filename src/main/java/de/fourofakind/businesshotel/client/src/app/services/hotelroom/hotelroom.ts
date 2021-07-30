@@ -27,7 +27,7 @@ export interface Hotelroom {
   hasTV: boolean;
   hasKitchen: boolean;
   hasCoffeemaker: boolean;
-  _links: HotelroomLinks;
+  _links?: HotelroomLinks;
 }
 
 export interface HotelroomLinks {
