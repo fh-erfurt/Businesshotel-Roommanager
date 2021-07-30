@@ -1,27 +1,25 @@
 import {LOCALE_ID, NgModule} from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import {BrowserModule} from '@angular/platform-browser';
+import {HttpClientModule} from '@angular/common/http';
 import {MatTabsModule} from "@angular/material/tabs";
 import localeDe from '@angular/common/locales/de';
 import localeDeExtra from '@angular/common/locales/extra/de';
-import { registerLocaleData } from '@angular/common';
-registerLocaleData(localeDe, localeDeExtra);
+import {registerLocaleData} from '@angular/common';
+import {AppRoutingModule} from './app-routing/app-routing.module';
+import {AppComponent} from './app.component';
 
-import { AppRoutingModule } from './app-routing/app-routing.module';
-import { AppComponent } from './app.component';
+import {RoomComponent} from './components/room/room.component';
+import {LoginComponent} from './components/login/login.component';
+import {DashboardComponent} from './components/dashboard/dashboard.component';
+import {MainComponent} from './components/main/main.component';
+import {NavigationComponent} from './components/navigation/navigation.component';
+import {BookingManagementComponent} from './components/booking-management/booking-management.component';
+import {EmployeeManagementComponent} from './components/employee-management/employee-management.component';
+import {CustomerManagementComponent} from './components/customer-management/customer-management.component';
+import {RoomManagementComponent} from './components/room-management/room-management.component';
+import {EmployeeComponent} from './components/employee/employee.component';
 
-import { RoomComponent } from './components/room/room.component';
-import { LoginComponent } from './components/login/login.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { MainComponent } from './components/main/main.component';
-import { NavigationComponent } from './components/navigation/navigation.component';
-import { BookingManagementComponent } from './components/booking-management/booking-management.component';
-import { EmployeeManagementComponent } from './components/employee-management/employee-management.component';
-import { CustomerManagementComponent } from './components/customer-management/customer-management.component';
-import { RoomManagementComponent } from './components/room-management/room-management.component';
-import { EmployeeComponent } from './components/employee/employee.component';
-
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatRadioModule} from "@angular/material/radio";
 import {MatFormFieldModule} from "@angular/material/form-field";
@@ -33,11 +31,16 @@ import {MatCardModule} from "@angular/material/card";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {NgxMatDatetimePickerModule, NgxMatTimepickerModule} from "@angular-material-components/datetime-picker";
-import {NgbPaginationModule, NgbAlertModule, NgbNavModule} from '@ng-bootstrap/ng-bootstrap';
-import { FooterComponent } from './components/footer/footer.component';
-import { RegistrationComponent } from './components/registration/registration.component';
+import {NgbAlertModule, NgbNavModule, NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
+import {FooterComponent} from './components/footer/footer.component';
+import {RegistrationComponent} from './components/registration/registration.component';
 import {MatGridListModule} from "@angular/material/grid-list";
-import { BookingComponent } from './components/bookingRequest/booking.component';
+import {BookingComponent} from './components/bookingRequest/booking.component';
+import {MatCheckboxModule} from "@angular/material/checkbox";
+import {MatTableModule} from "@angular/material/table";
+
+
+registerLocaleData(localeDe, localeDeExtra);
 
 
 @NgModule({
@@ -84,6 +87,8 @@ import { BookingComponent } from './components/bookingRequest/booking.component'
     MatGridListModule,
     NgbPaginationModule,
     NgbAlertModule,
+    MatCheckboxModule,
+    MatTableModule,
   ],
   providers: [
     { provide: LOCALE_ID, useValue: "de" }
