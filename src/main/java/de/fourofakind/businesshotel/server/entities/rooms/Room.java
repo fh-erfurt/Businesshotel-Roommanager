@@ -29,7 +29,7 @@ public class Room {
 
     //Attributes
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="room_no")
     private Integer roomNo;
     @Column(name="price_per_unit")
