@@ -31,7 +31,7 @@ public abstract class Booking {
 
     //Attributes
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="booking_no")
     private Integer bookingNo;
     private Integer roomNo;

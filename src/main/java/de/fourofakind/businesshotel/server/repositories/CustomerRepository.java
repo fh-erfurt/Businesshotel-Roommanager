@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.util.List;
 
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+@CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "*")
 @RepositoryRestResource(collectionResourceRel = "customer", path="customer")
 public interface CustomerRepository extends JpaRepository<Customer,Integer>
 {

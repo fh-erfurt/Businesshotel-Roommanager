@@ -44,7 +44,7 @@ public class HotelRoom extends Room
 
     //Mappings
     @JsonIgnore
-    @OneToOne(mappedBy = "hotelRoom",optional = false)
+    @OneToOne(mappedBy = "hotelRoom",optional = true)
     private Room room;
 
     //Constructors

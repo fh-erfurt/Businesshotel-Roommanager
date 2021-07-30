@@ -16,6 +16,8 @@ export interface Embedded {
 }
 
 export interface Hotelroom {
+
+  roomNo?:number;
   pricePerUnit: number;
   category: string;
   areaInSqrMetre: number;
@@ -25,7 +27,7 @@ export interface Hotelroom {
   hasTV: boolean;
   hasKitchen: boolean;
   hasCoffeemaker: boolean;
-  _links: HotelroomLinks;
+  _links?: HotelroomLinks;
 }
 
 export interface HotelroomLinks {

@@ -16,6 +16,7 @@ export interface Embedded {
 }
 
 export interface Conferenceroom {
+  roomNo?:number;
   pricePerUnit: number;
   category: string;
   areaInSqrMetre: number;
@@ -26,7 +27,7 @@ export interface Conferenceroom {
   hasScreen: boolean;
   hasComputer: boolean;
   amountOfTV: number;
-  _links: ConferenceroomLinks;
+  _links?: ConferenceroomLinks;
 }
 
 export interface ConferenceroomLinks {

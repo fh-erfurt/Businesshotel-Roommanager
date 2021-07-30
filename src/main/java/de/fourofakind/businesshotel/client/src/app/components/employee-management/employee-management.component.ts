@@ -3,6 +3,7 @@ import {Employee} from "../../services/employee/employee";
 import {Accountdetails} from "../../services/accountdetails/accountdetails";
 import {AccountdetailsService} from "../../services/accountdetails/accountdetails.service";
 import {EmployeeService} from "../../services/employee/employee.service";
+import {throwError} from "rxjs";
 
 @Component({
   selector: 'app-employee-management',
@@ -24,12 +25,13 @@ export class EmployeeManagementComponent implements OnInit {
   passwordsAreEqual!:boolean;
   givenRole!:string;
   foundEmployee!:Employee;
-  accountID!:number | undefined;
+  accountID!:number;
   searchSuccessful:boolean=false;
   searchForFillInSuccessful:boolean=false;
   lastFoundEmployee!:Employee;
   searchButtonPressed:boolean=false;
   fillInButtonPressed:boolean=false;
+  usernameAlreadyExists:boolean=false;
 
   constructor(private accountdetailsService: AccountdetailsService, private employeeService: EmployeeService) {
 
@@ -83,30 +85,51 @@ export class EmployeeManagementComponent implements OnInit {
 
   async generateUsername()
   {
-    let rawUsername = this.firstName.trim().replace(" ", ".") + "." + this.lastName.trim().replace(" ", ".");
-    var username = rawUsername.toLowerCase();
-    console.log("zeile 87:",this.username);
+    var username = this.firstName.trim().replace(" ", ".") + "." + this.lastName.trim().replace(" ", ".");
+    username = username.toLowerCase();
+    console.log("zeile 87:",username);
+    this.username=username;
 
-    await this.accountdetailsService.getAccountdetailsByUsername(username).subscribe(
-      (accountDetails) =>
+    this.accountdetailsService.getAccountdetailsByUsername(username).subscribe(
+      (_accountDetails) =>
       {
-        if (accountDetails)
-        {
-            console.log(username[username.length - 1]);
-            if(isNaN(parseInt(username[username.length - 1])))
-            {
-              username = username + "1";
-            }
-            else
-            {
-              let numberSuffix=parseInt(username[username.length - 1])+1;
-              username = username + numberSuffix;
-            }
+        console.log(_accountDetails.username);
 
-            console.log("zeile 96:", username);
+        this.usernameAlreadyExists = true;
+        console.log(this);
+        console.log("keine accountDetails angekommen");
+        console.log("username kann so bleiben");
+
+        if (this.usernameAlreadyExists)
+        {
+          console.log("username already exists");
+          let characterToTest=parseInt(username[username.length - 1])
+          if (isNaN(characterToTest))
+          {
+            username = username + "1";
+            console.log("Ich hänge ne 1 dran");
+            this.username=username;
+            console.log("neue 111",this.username);
+          }
+
+          else
+          {
+            console.log(username);
+            console.log("Ich erhöhe um 1");
+
+
+            let numberSuffix = parseInt(username[username.length - 1]) + 1;
+            username = username + numberSuffix;
+          }
+
         }
         else
-          console.log("keine accountDetails angekommen");
+        {
+          console.log("Arbeitsverweigerung");
+          console.log(username);
+          this.username=username;
+        }
+
       },
       (error =>
       {
@@ -114,19 +137,24 @@ export class EmployeeManagementComponent implements OnInit {
       }),
     );
 
-    return username;
+
+
+      console.log("zeile 96:", username);
+    console.log("111",this);
+
+
   }
 
   async addEmployee()
   {
 
-    await this.generateUsername().then((username:string)=>
+    this.generateUsername().then(()=>
     {
-      this.username=username;
-
+      console.log("150",this);
+      console.log("151",this.username);
       let newAccount: Accountdetails =
         {
-          username: username,
+          username: this.username,
           passwordHash: this.password, //TODO:passwort hashen
 
         }

@@ -2,7 +2,7 @@
   <h1>Personalverwaltung</h1>
   <mat-tab-group>
     <mat-tab label="Hinzufügen">
-      <div class="addTab">
+      <div class="tab">
         <br>
         <mat-form-field appearance="fill">
           <mat-label>Rolle</mat-label>
@@ -47,7 +47,7 @@
 
 
     <mat-tab label="Bearbeiten">
-      <div class="addTab">
+      <div class="tab">
         <br>
         <mat-form-field appearance="fill">
           <mat-label>Mitarbeiternummer</mat-label>
@@ -102,40 +102,42 @@
 
 
     <mat-tab label="Löschen">
-      <br>
-      <mat-form-field appearance="fill">
-        <mat-label>Mitarbeiternummer</mat-label>
-        <input matInput type="number" min="1" (keyup)="setEmpNo($event)"  required>
-      </mat-form-field>
-      <button mat-raised-button color="primary" type="submit" (click)="submitSearch()">Suchen</button>
-      <br>
-      <mat-card *ngIf="searchSuccessful">
-        <mat-label>Mitarbeiternummer</mat-label>
-        <mat-card-title>{{foundEmployee.empNo}}</mat-card-title>
-        <mat-label>Mitarbeiterinformationen</mat-label>
-        <mat-card-content>
-          <table class="table table-bordered table-striped">
-            <tr>
-              <td>Name</td>
-              <td>{{ foundEmployee.empName }}</td>
-            </tr>
-            <tr>
-              <td>Rolle</td>
-              <td>{{ foundEmployee.givenRole }}</td>
-            </tr>
-            <tr>
-              <td>AccountID</td>
-              <td>{{ foundEmployee.accountID }}</td>
-            </tr>
-          </table>
-        </mat-card-content>
-      </mat-card>
-      <mat-card *ngIf="!searchSuccessful && empNo && searchButtonPressed">
-        <p>Kein Mitarbeiter mit dieser Nummer vorhanden.</p>
-      </mat-card>
-      <br>
-      <mat-slide-toggle [(ngModel)]="isChecked" [disabled]="!foundEmployee || !searchSuccessful" >Freigeben</mat-slide-toggle> <!--Bestätigung zum Freigeben des Löschen, könnte auch als Pop-Up implementiert werden-->
-      <button mat-raised-button color="primary" type="submit" [disabled]="!isChecked" (click)="deleteEmployee()">Löschen</button>
+      <div class="tab">
+        <br>
+        <mat-form-field appearance="fill">
+          <mat-label>Mitarbeiternummer</mat-label>
+          <input matInput type="number" min="1" (keyup)="setEmpNo($event)"  required>
+        </mat-form-field>
+        <button mat-raised-button color="primary" type="submit" (click)="submitSearch()">Suchen</button>
+        <br>
+        <mat-card *ngIf="searchSuccessful">
+          <mat-label>Mitarbeiternummer</mat-label>
+          <mat-card-title>{{foundEmployee.empNo}}</mat-card-title>
+          <mat-label>Mitarbeiterinformationen</mat-label>
+          <mat-card-content>
+            <table class="table table-bordered table-striped">
+              <tr>
+                <td>Name</td>
+                <td>{{ foundEmployee.empName }}</td>
+              </tr>
+              <tr>
+                <td>Rolle</td>
+                <td>{{ foundEmployee.givenRole }}</td>
+              </tr>
+              <tr>
+                <td>AccountID</td>
+                <td>{{ foundEmployee.accountID }}</td>
+              </tr>
+            </table>
+          </mat-card-content>
+        </mat-card>
+        <mat-card *ngIf="!searchSuccessful && empNo && searchButtonPressed">
+          <p>Kein Mitarbeiter mit dieser Nummer vorhanden.</p>
+        </mat-card>
+        <br>
+        <mat-slide-toggle [(ngModel)]="isChecked" [disabled]="!foundEmployee || !searchSuccessful" >Freigeben</mat-slide-toggle> <!--Bestätigung zum Freigeben des Löschen, könnte auch als Pop-Up implementiert werden-->
+        <button mat-raised-button color="primary" type="submit" [disabled]="!isChecked" (click)="deleteEmployee()">Löschen</button>
+      </div>
     </mat-tab>
 
 
@@ -143,36 +145,38 @@
 
 
     <mat-tab label="Anzeigen">
-      <br>
-      <mat-form-field appearance="fill">
-        <mat-label>Mitarbeiternummer</mat-label>
-        <input matInput type="number" min="1" (keyup)="setEmpNo($event)"  required>
-      </mat-form-field>
-      <button mat-raised-button color="primary" type="submit" (click)="submitSearch()">Suchen</button>
-      <mat-card *ngIf="searchSuccessful">
-        <mat-label>Mitarbeiternummer</mat-label>
-        <mat-card-title>{{foundEmployee.empNo}}</mat-card-title>
-        <mat-label>Mitarbeiterinformationen</mat-label>
-        <mat-card-content>
-          <table class="table table-bordered table-striped">
-            <tr>
-              <td>Name</td>
-              <td>{{ foundEmployee.empName }}</td>
-            </tr>
-            <tr>
-              <td>Rolle</td>
-              <td>{{ foundEmployee.givenRole }}</td>
-            </tr>
-            <tr>
-              <td>AccountID</td>
-              <td>{{ foundEmployee.accountID }}</td>
-            </tr>
-          </table>
-        </mat-card-content>
-      </mat-card>
-      <mat-card *ngIf="!searchSuccessful && empNo && searchButtonPressed">
-        <p>Kein Mitarbeiter mit dieser Nummer vorhanden.</p>
-      </mat-card>
+      <div class="tab">
+        <br>
+        <mat-form-field appearance="fill">
+          <mat-label>Mitarbeiternummer</mat-label>
+          <input matInput type="number" min="1" (keyup)="setEmpNo($event)"  required>
+        </mat-form-field>
+        <button mat-raised-button color="primary" type="submit" (click)="submitSearch()">Suchen</button>
+        <mat-card *ngIf="searchSuccessful">
+          <mat-label>Mitarbeiternummer</mat-label>
+          <mat-card-title>{{foundEmployee.empNo}}</mat-card-title>
+          <mat-label>Mitarbeiterinformationen</mat-label>
+          <mat-card-content>
+            <table class="table table-bordered table-striped">
+              <tr>
+                <td>Name</td>
+                <td>{{ foundEmployee.empName }}</td>
+              </tr>
+              <tr>
+                <td>Rolle</td>
+                <td>{{ foundEmployee.givenRole }}</td>
+              </tr>
+              <tr>
+                <td>AccountID</td>
+                <td>{{ foundEmployee.accountID }}</td>
+              </tr>
+            </table>
+          </mat-card-content>
+        </mat-card>
+        <mat-card *ngIf="!searchSuccessful && empNo && searchButtonPressed">
+          <p>Kein Mitarbeiter mit dieser Nummer vorhanden.</p>
+        </mat-card>
+      </div>
     </mat-tab>
   </mat-tab-group>
 

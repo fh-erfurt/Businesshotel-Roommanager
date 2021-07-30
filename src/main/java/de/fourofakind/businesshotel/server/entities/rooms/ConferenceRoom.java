@@ -44,7 +44,7 @@ public class ConferenceRoom extends Room
 
 
     //Mapping
-    @OneToOne(mappedBy = "conferenceRoom",optional = false)
+    @OneToOne(mappedBy = "conferenceRoom",optional = true)
     private Room room;
 
 
