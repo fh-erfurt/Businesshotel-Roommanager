@@ -7,7 +7,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+@CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "*")
 @RepositoryRestResource(collectionResourceRel = "employee", path="employee")
 public interface EmployeeRepository extends JpaRepository<Employee,Integer>
 {

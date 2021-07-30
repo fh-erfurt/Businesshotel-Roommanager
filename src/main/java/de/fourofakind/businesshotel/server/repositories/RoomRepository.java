@@ -8,15 +8,9 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.util.List;
 
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+@CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "*")
 @RepositoryRestResource(collectionResourceRel = "room", path="room")
 public interface RoomRepository extends JpaRepository<Room,Integer>
 {
-    List<Room> findAllByRoomNo (@Param("RoomNo") Integer roomNo); //-> liefert Liste von Customers, die erst auseinadner gebaut werden muss
-    //Room findFirstByContactData_FirstNameAndContactData_LastName (@Param("firstName") String firstName,@Param("lastName") String lastName); //->liefert Koji Kondo inklusive einiger Daten
-
+    List<Room> findAllByRoomNo (@Param("RoomNo") Integer roomNo);
 }
-
-
-    //List<Rooom> findByContactData_FirstNameAndContactData_LastName (@Param("firstName") String firstName, @Param("lastName") String lastName); //-> liefert Liste von Customers, die erst auseinadner gebaut werden muss
-    //Room findFirstByContactData_FirstNameAndContactData_LastName (@Param("firstName") String firstName,@Param("lastName") String lastName); //->liefert Koji Kondo inklusive einiger Daten
