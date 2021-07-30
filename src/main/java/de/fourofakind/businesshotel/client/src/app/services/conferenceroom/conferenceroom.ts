@@ -16,6 +16,7 @@ export interface Embedded {
 }
 
 export interface Conferenceroom {
+  roomNo?:number;
   pricePerUnit: number;
   category: string;
   areaInSqrMetre: number;

@@ -16,6 +16,8 @@ export interface Embedded {
 }
 
 export interface Hotelroom {
+
+  roomNo?:number;
   pricePerUnit: number;
   category: string;
   areaInSqrMetre: number;
