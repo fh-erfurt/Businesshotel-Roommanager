@@ -1,11 +1,11 @@
 
 
-INSERT INTO `contact_data` (`contact_data_id`, `first_name`, `last_name`, `street_name`, `street_number`, `postal_code`, `city_name`, `phone`, `mail_address`, `updated_at`, `created_at`) VALUES
-(1, 'Koji', 'Kondo', 'Bergstraße', '14', '07749', 'Jena', '0900767676', 'koj_kondo@web.de', NULL, '2021-05-24 08:21:37'),
-(2, 'Hiroshi', 'Yamauchi', 'Zauberweg', '9', '141815', 'Muisin', '+81142656565', 'suzukiDestroyer@jin.jp', NULL, '2021-05-24 08:23:39'),
-(3, 'Manfred', 'Reide', 'Chemietischstraße', '1', '142857', 'Simcity', '0124-148257', 'fensterWarenZuTeuer@dunkeldrin.de', NULL, '2021-05-24 08:25:26'),
-(4, 'Jonas', 'Stenberg', 'Gewinnerstraße', '7', '01248', 'Bergen', '14191111-142', 'BergeLiebhabber@gmx.net', NULL, '2021-05-24 08:29:04'),
-(5, 'Shigeru', 'Miyamoto', 'Nintendoweg', '14', '00100', 'Phinshin', '+81142833341', 'MarioMaker@shin.jp', NULL, '2021-05-24 08:30:17');
+INSERT INTO `contact_data` (`contact_data_id`, `first_name`, `last_name`, `street_name`, `street_number`, `postal_code`, `city_name`, `phone`, `mail_address`, `payment_credentials`, `updated_at`, `created_at`) VALUES
+(1, 'Koji', 'Kondo', 'Bergstraße', '14', '07749', 'Jena', '0900767676', 'koj_kondo@web.de','koj_kondo@web.de', NULL, '2021-05-24 08:21:37'),
+(2, 'Hiroshi', 'Yamauchi', 'Zauberweg', '9', '141815', 'Muisin', '+81142656565', 'suzukiDestroyer@jin.jp','DE1234567891011121', NULL, '2021-05-24 08:23:39'),
+(3, 'Manfred', 'Reide', 'Chemietischstraße', '1', '142857', 'Simcity', '0124-148257', 'fensterWarenZuTeuer@dunkeldrin.de', NULL, NULL, '2021-05-24 08:25:26'),
+(4, 'Jonas', 'Stenberg', 'Gewinnerstraße', '7', '01248', 'Bergen', '14191111-142', 'BergeLiebhabber@gmx.net',NULL, NULL, '2021-05-24 08:29:04'),
+(5, 'Shigeru', 'Miyamoto', 'Nintendoweg', '14', '00100', 'Phinshin', '+81142833341', 'MarioMaker@shin.jp','BergeLiebhabber@gmx.net', NULL, '2021-05-24 08:30:17');
 
 INSERT INTO `account_details` (`account_id`, `username`, `password_hash`, `created_at`, `updated_at`) VALUES
 (1, 'IggyPop', 'password123', '2021-05-31 10:27:36', NULL),
@@ -58,11 +58,11 @@ INSERT INTO `room` (`room_no`, `area_in_sqr_metre`, `category`, `price_per_unit`
 
 
 INSERT INTO `customer` (`customer_id`, `payment_method`, `updated_at`, `created_at`, `contact_data_id`,`account_id`, `is_business_customer`) VALUES
-(NULL, 'paypal', NULL, '2021-05-24 08:33:41', 1,1,1),
-(NULL, 'bill', '2021-05-24 08:34:52', '2021-05-24 08:34:18', 4,2,0),
-(NULL, 'debit', NULL, '2021-05-24 08:35:39', 2,3,1),
-(NULL, 'bill', NULL, '2021-05-24 08:35:56', 3,4,0),
-(NULL, 'paypal', NULL, '2021-05-24 08:36:25', 5,5,1);
+(NULL, 'paypal', NULL, '2021-05-24 08:33:41', 1,1,true),
+(NULL, 'bill', '2021-05-24 08:34:52', '2021-05-24 08:34:18', 4,2,false),
+(NULL, 'debit', NULL, '2021-05-24 08:35:39', 2,3,true),
+(NULL, 'bill', NULL, '2021-05-24 08:35:56', 3,4,false),
+(NULL, 'paypal', NULL, '2021-05-24 08:36:25', 5,5,true);
 
 INSERT INTO `booking` (`booking_no`, `updated_at`, `room_no`, `booking_type`, `start_date`, `end_date`, `special_wishes`, `emp_no`, `customer_id`, `pricing`) VALUES
 (1, '2021-05-24 06:42:26',  2, 'ConferenceRoomBooking', '2021-04-01 10:30:00', '2021-04-04 10:30', 'Cola so viel und so oft wie geht', 4, 2,1111.99),
