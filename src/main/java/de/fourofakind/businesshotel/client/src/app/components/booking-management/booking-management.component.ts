@@ -50,7 +50,7 @@ export class BookingManagementComponent implements OnInit {
   endTime!:string;
   bookingType!:string;
   booking!:Booking;
-  foundBooking!:Booking;
+  foundBooking!:Booking | null;
   bookings:Booking[]=[];
   hotelRoomBookings!:Booking[];
   conferenceRoomBookings!:Booking[];
@@ -214,8 +214,10 @@ export class BookingManagementComponent implements OnInit {
 
 
 
-  submitSearch(){
+  submitSearch()
+  {
 
+    this.foundBooking=null;
     console.log(this.bookingNo);
 
     this.bookingService.getBooking(this.bookingNo).subscribe(data=>
@@ -230,8 +232,12 @@ export class BookingManagementComponent implements OnInit {
   loadBookingInfoToFormular()
   {
 
+    this.foundBooking=null;
+
     this.bookingService.getBooking(this.bookingNo).subscribe(data=>
     {
+      this.foundBooking=data;
+
       data.startDate=formatDate(data.startDate,"dd.MM.yyyy HH:mm:ss","de");
       data.endDate=formatDate(data.endDate,"dd.MM.yyyy HH:mm:ss","de");
       this.customerID=data.customerID;

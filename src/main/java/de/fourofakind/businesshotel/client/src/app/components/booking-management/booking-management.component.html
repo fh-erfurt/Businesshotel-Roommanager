@@ -66,50 +66,52 @@
           </mat-form-field>
           <button mat-raised-button color="primary" (click)="loadBookingInfoToFormular()">Suchen</button> <!-- sollte Voraussetzung werden für die Aktivierung des restlicehn Formulars-->
           <br>
-          <mat-radio-group [(ngModel)]="bookingType" (change)="getValidRooms()" class="bookingtypeSelector">
-            <mat-radio-button required value="hotelRoom" [checked]="bookingType=='hotelRoom'">Hotelzimmer</mat-radio-button><br>
-            <mat-radio-button required value="conferenceRoom" [checked]="bookingType=='conferenceRoom'">Konferenzraum</mat-radio-button>
-          </mat-radio-group>
-          <br>
-          <mat-form-field appearance="fill">
-            <mat-label>Kundennummer</mat-label>
-            <input matInput type="number" min="1" name="customerID" [(ngModel)]="customerID" value="{{customerID}}" required>
-          </mat-form-field>
-          <br>
-          <mat-form-field appearance="fill">
-            <mat-label>Raumnummer</mat-label>
-            <mat-select  required [(ngModel)]="roomNo" value="{{roomNo}}">
-              <mat-option *ngFor="let room of rooms" value="{{room.roomNo}}">{{room.roomNo}}</mat-option>
-              <mat-option *ngIf="!rooms" value="" disabled>Keine Räume verfügbar oder keine Kategorie gewählt</mat-option>
-            </mat-select>
-          </mat-form-field>
-          <br>
-          <div>
-            <mat-form-field class="halfInput" appearance="fill">
-              <mat-label>Startdatum</mat-label>
-              <input matInput type="date" [(ngModel)]="startDate" value="{{startDate}}" required>
+          <div *ngIf="foundBooking" class="searchTab">
+            <mat-radio-group [(ngModel)]="bookingType" (change)="getValidRooms()" class="bookingtypeSelector">
+              <mat-radio-button required value="hotelRoom" [checked]="bookingType=='hotelRoom'">Hotelzimmer</mat-radio-button><br>
+              <mat-radio-button required value="conferenceRoom" [checked]="bookingType=='conferenceRoom'">Konferenzraum</mat-radio-button>
+            </mat-radio-group>
+            <br>
+            <mat-form-field appearance="fill">
+              <mat-label>Kundennummer</mat-label>
+              <input matInput type="number" min="1" name="customerID" [(ngModel)]="customerID" value="{{customerID}}" required>
             </mat-form-field>
-            <mat-form-field class="halfInput" appearance="fill">
-              <mat-label>Startzeit</mat-label>
-              <input matInput type="time" [(ngModel)]="startTime" value="{{startTime}}" required>
+            <br>
+            <mat-form-field appearance="fill">
+              <mat-label>Raumnummer</mat-label>
+              <mat-select  required [(ngModel)]="roomNo" value="{{roomNo}}">
+                <mat-option *ngFor="let room of rooms" value="{{room.roomNo}}">{{room.roomNo}}</mat-option>
+                <mat-option *ngIf="!rooms" value="" disabled>Keine Räume verfügbar oder keine Kategorie gewählt</mat-option>
+              </mat-select>
             </mat-form-field>
+            <br>
+            <div>
+              <mat-form-field class="halfInput" appearance="fill">
+                <mat-label>Startdatum</mat-label>
+                <input matInput type="date" [(ngModel)]="startDate" value="{{startDate}}" required>
+              </mat-form-field>
+              <mat-form-field class="halfInput" appearance="fill">
+                <mat-label>Startzeit</mat-label>
+                <input matInput type="time" [(ngModel)]="startTime" value="{{startTime}}" required>
+              </mat-form-field>
+            </div>
+            <div>
+              <mat-form-field class="halfInput" appearance="fill">
+                <mat-label>Enddatum</mat-label>
+                <input matInput type="date" [(ngModel)]="endDate" value="{{endDate}}" required>
+              </mat-form-field>
+              <mat-form-field class="halfInput" appearance="fill">
+                <mat-label>Endzeit</mat-label>
+                <input matInput type="time" [(ngModel)]="endTime" value="{{endTime}}" required>
+              </mat-form-field>
+            </div>
+            <br>
+            <mat-form-field appearance="fill">
+              <mat-label>Kundenwünsche</mat-label>
+              <textarea matInput type="text" [(ngModel)]="specialWishes" value="{{specialWishes}}"></textarea>
+            </mat-form-field>
+            <button mat-raised-button color="primary" type="submit" (click)="addOrUpdateBooking(false)">Absenden</button>
           </div>
-          <div>
-            <mat-form-field class="halfInput" appearance="fill">
-              <mat-label>Enddatum</mat-label>
-              <input matInput type="date" [(ngModel)]="endDate" value="{{endDate}}" required>
-            </mat-form-field>
-            <mat-form-field class="halfInput" appearance="fill">
-              <mat-label>Endzeit</mat-label>
-              <input matInput type="time" [(ngModel)]="endTime" value="{{endTime}}" required>
-            </mat-form-field>
-          </div>
-          <br>
-          <mat-form-field appearance="fill">
-            <mat-label>Kundenwünsche</mat-label>
-            <textarea matInput type="text" [(ngModel)]="specialWishes" value="{{specialWishes}}"></textarea>
-          </mat-form-field>
-          <button mat-raised-button color="primary" type="submit" (click)="addOrUpdateBooking(false)">Absenden</button>
         </div>
       </mat-tab>
 
@@ -128,40 +130,6 @@
           </mat-form-field>
           <button mat-raised-button color="primary" type="submit" (click)="submitSearch()">Suchen</button>
           <br>
-          <mat-card *ngIf="!foundBooking">
-
-            <mat-label>Buchungsnummer</mat-label>
-            <mat-card-title>..</mat-card-title>
-            <mat-label>Buchungsinformationen</mat-label>
-            <mat-card-content class="halfInput">
-              <table class="table table-bordered table-striped">
-                <tr>
-                  <td>customerID</td>
-                  <td>..</td>
-                </tr>
-                <tr>
-                  <td>empNo</td>
-                  <td>..</td>
-                </tr>
-                <tr>
-                  <td>startDate</td>
-                  <td>..</td>
-                </tr>
-                <tr>
-                  <td>endDate</td>
-                  <td>..</td>
-                </tr>
-                <tr>
-                  <td>specialWishes</td>
-                  <td>..</td>
-                </tr>
-                <tr>
-                  <td>pricing</td>
-                  <td>..</td>
-                </tr>
-              </table>
-            </mat-card-content>
-          </mat-card>
           <mat-card *ngIf="foundBooking">
 
             <mat-label>Buchungsnummer</mat-label>
