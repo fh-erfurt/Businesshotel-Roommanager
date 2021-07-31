@@ -249,7 +249,7 @@ export class CustomerManagementComponent implements OnInit {
   {
 
     let bookingNoOfCustomer:number[]=[];
-    this.bookingService.getBookingIDsByCustomerID(this.customerID)
+    this.bookingService.getBookingsByCustomerID(this.customerID)
       .subscribe((data)=>
       {
         console.log(data);
