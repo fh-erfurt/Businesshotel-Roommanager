@@ -19,21 +19,15 @@ import java.util.Date;
 
 @Entity(name="ConferenceRoomBooking")
 @AllArgsConstructor
-@NoArgsConstructor
 @Setter
 @Getter
 @DiscriminatorValue("ConferenceRoomBooking")
 public class ConferenceRoomBooking extends Booking
 {
-    //Attributes
-    private float pricing;
 
     //Constructor
-    public ConferenceRoomBooking (Integer bookingNo, Integer roomNo, float pricing, Integer empNo, Date startDate, Date endDate, String specialWishes, Integer customerID, Customer customer,
-                                  Employee employee)
-    {
-        super(bookingNo, roomNo, pricing, empNo, startDate, endDate, specialWishes, customerID, customer, employee);
-    }
+    //managed by Lombok
+
 
     //Setter/Getter
     //managed by Lombok
