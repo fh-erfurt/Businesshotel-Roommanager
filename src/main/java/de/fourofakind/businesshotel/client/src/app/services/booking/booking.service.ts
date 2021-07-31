@@ -29,6 +29,17 @@ export class BookingService {
     )
   }
 
+  public getBookingIDsByCustomerID(id:number): Observable<Booking[]>
+  {
+    return this.http.get<Booking[]>(`${this.baseUrl}search/findByCustomerID?customerID=${id}`).pipe(
+      map((result:any) =>{
+        console.log(result);
+
+        return result;
+      })
+    )
+  }
+
   public getConferenceRoomBookings(): Observable<Booking[]>
   {
     return this.http.get<Booking[]>(`${this.baseUrl}`).pipe(
@@ -123,6 +134,8 @@ export class BookingService {
         }
       )
   }
+
+
 
 }
 
