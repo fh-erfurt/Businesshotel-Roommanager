@@ -228,7 +228,10 @@ export class CustomerManagementComponent implements OnInit {
     this.foundAccountdetails=null;
     this.foundContactData=null;
 
-    this.searchForCustomer(intoFormular,()=>this.searchForAccountdetails(intoFormular),()=>this.searchForContactData(intoFormular))
+    if(this.customerID!=1)
+    {
+      this.searchForCustomer(intoFormular,()=>this.searchForAccountdetails(intoFormular),()=>this.searchForContactData(intoFormular))
+    }
 
   }
 
@@ -242,16 +245,53 @@ export class CustomerManagementComponent implements OnInit {
       });
   }
 
-  patchBookings(_callback?:Function)
+  patchBookings(_callback:Function)
   {
+
+    let bookingNoOfCustomer:number[]=[];
     this.bookingService.getBookingIDsByCustomerID(this.customerID)
       .subscribe((data)=>
-      console.log(data));
-    // this.bookingService.patchBookingsAtCustomerDelete();
+      {
+        console.log(data);
+        data.forEach((data)=>{if(data && data.bookingNo) {bookingNoOfCustomer.push(data.bookingNo)}})
+        console.log(bookingNoOfCustomer)
+        if(bookingNoOfCustomer)
+        {
+          bookingNoOfCustomer.forEach((bookingNo)=>
+          {
+            this.bookingService.patchBookingsAtCustomerDelete(bookingNo).subscribe(()=>console.log("noice"));
+          })
+          _callback();
+        }
+        else _callback();
+      })
+
   }
   patchBookingRequests(_callback:Function)
   {
+    let bookingRequestIDsOfCustomer:number[]=[];
+    this.bookingRequestService.getBookingRequestIDsByCustomerID(this.customerID)
+      .subscribe((data)=>
+      {
+        console.log(data);
+        data.forEach((data)=>{if(data && data.bookingRequestID) {bookingRequestIDsOfCustomer.push(data.bookingRequestID)}})
+        console.log(bookingRequestIDsOfCustomer)
+        if(bookingRequestIDsOfCustomer.length)
+        {
+          let currentIdx=0;
+          bookingRequestIDsOfCustomer.forEach((bookingRequestID)=>
+          {
+            currentIdx++;
+            this.bookingRequestService.patchBookingRequestsAtCustomerDelete(bookingRequestID)
+              .subscribe(()=>
+              {
+                if(currentIdx==bookingRequestIDsOfCustomer.length-1) _callback();
+              });
 
+          })
+        }
+        else _callback();
+      })
   }
 
 
@@ -261,8 +301,7 @@ export class CustomerManagementComponent implements OnInit {
     this.foundAccountdetails=null;
     this.foundContactData=null;
 
-    // this.patchBookings(()=>this.patchBookingRequests(()=>this.deleteCustomer()));
-    this.patchBookings();
+    this.patchBookings(()=>this.patchBookingRequests(()=>this.deleteCustomer()));
 
 
   }
