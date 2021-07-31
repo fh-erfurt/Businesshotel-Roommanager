@@ -3,7 +3,6 @@ import {Employee} from "../../services/employee/employee";
 import {Accountdetails} from "../../services/accountdetails/accountdetails";
 import {AccountdetailsService} from "../../services/accountdetails/accountdetails.service";
 import {EmployeeService} from "../../services/employee/employee.service";
-import {throwError} from "rxjs";
 import {isNumeric} from "rxjs/internal-compatibility";
 
 @Component({
@@ -67,44 +66,41 @@ export class EmployeeManagementComponent implements OnInit {
        });
   }
 
-  getUsername(_callback:Function)
+  getUsername(_callback:Function, username:string)
   {
-    var username = this.firstName.trim().replace(" ", ".") + "." + this.lastName.trim().replace(" ", ".");
-    username = username.toLowerCase();
-
-    this.username=username;
-
-    this.accountdetailsService.getAccountdetailsByUsername(username).subscribe(
-      (data)=>
-      {
-        this.modifyUsernameIfAlreadyExists(username);
-        _callback();
+    this.accountdetailsService.getAccountdetailsByUsername(username)
+      .subscribe(
+      (data)=> {
+        if (data.username == username) {
+          this.modifyUsernameIfAlreadyExists(username);
+          _callback();
+        }
       },
     (error)=>
-    {
-      if (error.status === 404) _callback();
-    }
+      {
+        if (error.status === 404) _callback();
+      }
     )
   }
 
   modifyUsernameIfAlreadyExists(username:string)
   {
     let modifiedUsername;
+    console.log(username[username.length - 1])
+    console.log(isNumeric(parseInt(username[username.length - 1])))
     if(isNumeric(parseInt(username[username.length - 1])))
     {
       let newIndex=parseInt(username[username.length - 1])+1;
       modifiedUsername=username.substring(0, username.length - 1)+newIndex;
       console.log(modifiedUsername);
-
-
     }
     else
     {
       modifiedUsername=username+"1";
       console.log(modifiedUsername);
-
     }
     if(modifiedUsername) this.username=modifiedUsername;
+    this.getUsername(()=>this.addAccount(()=>this.addEmployee()),modifiedUsername);
     return;
   }
 
@@ -122,7 +118,11 @@ export class EmployeeManagementComponent implements OnInit {
 
   addEmployeeAndDetails()
   {
-    this.getUsername(()=>this.addAccount(()=>this.addEmployee()));
+    var username = this.firstName.trim().replace(" ", ".") + "." + this.lastName.trim().replace(" ", ".");
+    username = username.toLowerCase();
+
+    this.username=username;
+    this.getUsername(()=>this.addAccount(()=>this.addEmployee()),username);
 
   }
 
