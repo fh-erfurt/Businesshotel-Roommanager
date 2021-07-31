@@ -1,8 +1,8 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from "@angular/material/core";
 import {MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter} from "@angular/material-moment-adapter";
 import {BookingService} from "../../services/booking/booking.service";
-import {Booking, ConferenceRoomBooking, HotelRoomBooking, RawData} from "../../services/booking/booking";
+import {Booking} from "../../services/booking/booking";
 import {formatDate} from "@angular/common";
 import {RoomService} from "../../services/room/room.service";
 import {Room} from "../../services/room/room";
@@ -86,11 +86,11 @@ export class BookingManagementComponent implements OnInit {
       this.bookingService.getBookings().subscribe((data)=>
       {
         this.bookings=data;
-        for (let i=0; i<this.bookings.length;i++)
+        this.bookings.forEach((booking)=>
         {
-          this.bookings[i].startDate=formatDate(this.bookings[i].startDate,"dd.MM.yyyy HH:mm:ss","de",);
-          this.bookings[i].endDate=formatDate(this.bookings[i].endDate,"dd.MM.yyyy HH:mm:ss","de",);
-        }
+          booking.startDate=formatDate(booking.startDate,"dd.MM.yyyy HH:mm:ss","de")
+          booking.endDate=formatDate(booking.endDate,"dd.MM.yyyy HH:mm:ss","de")
+        })
       })
   }
 
