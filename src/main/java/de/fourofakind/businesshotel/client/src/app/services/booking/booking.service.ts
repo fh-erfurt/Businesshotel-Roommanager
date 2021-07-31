@@ -29,7 +29,7 @@ export class BookingService {
     )
   }
 
-  public getBookingIDsByCustomerID(id:number): Observable<Booking[]>
+  public getBookingsByCustomerID(id:number): Observable<Booking[]>
   {
     return this.http.get<Booking[]>(`${this.baseUrl}search/findByCustomerID?customerID=${id}`).pipe(
       map((result:any) =>{
@@ -47,25 +47,43 @@ export class BookingService {
     )
   }
 
-  public getConferenceRoomBookings(): Observable<Booking[]>
+  public getBookings(): Observable<Booking[]>
   {
-    return this.http.get<Booking[]>(`${this.baseUrl}`).pipe(
+    return this.http.get<Booking[]>(this.baseUrl).pipe(
       map((result:any) =>{
-        //console.log(result);
-        return result._embedded.conferenceRoomBookings;
+        console.log(result);
+        let bookings=[];
+        if(result._embedded.conferenceRoomBooking && result._embedded.hotelRoomBooking)
+        {
+          bookings=result._embedded.conferenceRoomBooking.concat(result._embedded.hotelRoomBooking);
+        }
+        else if(result._embedded.conferenceRoomBooking) bookings=result._embedded.conferenceRoomBooking
+        else if(result._embedded.hotelRoomBooking) bookings=result._embedded.hotelRoomBooking
+
+        return bookings;
       })
     )
   }
 
-  public getHotelRoomBookings(): Observable<Booking[]>
-  {
-    return this.http.get<Booking[]>(`${this.baseUrl}`).pipe(
-      map((result:any) =>{
-        //console.log(result);
-        return result._embedded.hotelRoomBookings;
-      })
-    )
-  }
+  // public getConferenceRoomBookings(): Observable<Booking[]>
+  // {
+  //   return this.http.get<Booking[]>(`${this.baseUrl}`).pipe(
+  //     map((result:any) =>{
+  //       //console.log(result);
+  //       return result._embedded.conferenceRoomBookings;
+  //     })
+  //   )
+  // }
+  //
+  // public getHotelRoomBookings(): Observable<Booking[]>
+  // {
+  //   return this.http.get<Booking[]>(`${this.baseUrl}`).pipe(
+  //     map((result:any) =>{
+  //       //console.log(result);
+  //       return result._embedded.hotelRoomBookings;
+  //     })
+  //   )
+  // }
 
   public save(booking:Booking, bookingType:string)
   {
