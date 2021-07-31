@@ -176,13 +176,50 @@
           <mat-label>Kundennummer</mat-label>
           <mat-card-title>{{foundCustomer.customerID}}</mat-card-title>
           <mat-label>Kundeninformationen</mat-label>
-          <mat-card-content class="halfInput">
-
+          <mat-card-content>
+            <table class="table table-bordered table-striped">
+              <tr>
+                <th>Vorname</th>
+                <td>{{foundContactData.firstName}}</td>
+                <th>Nachname</th>
+                <td>{{foundContactData.lastName}}</td>
+              </tr>
+              <tr>
+                <th>Straße</th>
+                <td>{{foundContactData.streetName}}</td>
+                <th>Hausnummer</th>
+                <td>{{foundContactData.streetNumber}}</td>
+              </tr>
+              <tr>
+                <th>PLZ</th>
+                <td>{{foundContactData.postalCode}}</td>
+                <th>Stadt</th>
+                <td>{{foundContactData.cityName}}</td>
+              </tr>
+              <tr>
+                <th>Telefonnummer</th>
+                <td>{{foundContactData.phone}}</td>
+                <th>E-Mail</th>
+                <td>{{foundContactData.mailAddress}}</td>
+              </tr>
+              <tr>
+                <th>Zahlungsdaten</th>
+                <td>{{foundContactData.paymentCredentials}}</td>
+                <th>Zahlungsart</th>
+                <td>{{foundCustomer.paymentMethod?foundCustomer.paymentMethod:"Auf Rechnung"}}</td>
+              </tr>
+              <tr>
+                <th>Username (Login)</th>
+                <td>{{foundAccountdetails.username}}</td>
+                <th>Business-Kunde?</th>
+                <td>{{foundCustomer.isBusinessCustomer?"Ja":"Nein"}}</td>
+              </tr>
+            </table>
           </mat-card-content>
         </mat-card>
         <br>
         <mat-slide-toggle [(ngModel)]="isChecked" [disabled]="!foundCustomer" >Freigeben</mat-slide-toggle> <!--Bestätigung zum Freigeben des Löschen, könnte auch als Pop-Up implementiert werden-->
-        <button mat-raised-button color="primary" type="submit" [disabled]="!isChecked" (click)="deleteRoom()">Löschen</button>
+        <button mat-raised-button color="primary" type="submit" [disabled]="!isChecked" (click)="deleteCustomerAndDetails()">Löschen</button>
       </div>
     </mat-tab>
 
@@ -194,16 +231,53 @@
       <div class="tab">
         <br>
         <mat-form-field appearance="fill">
-          <mat-label>Raumnummer</mat-label>
+          <mat-label>Kundennummer</mat-label>
           <input matInput type="number" [(ngModel)]="customerID"  required>
         </mat-form-field>
         <button mat-raised-button color="primary" type="submit" (click)="submitSearch(false)">Suchen</button>
-        <mat-card *ngIf="foundCustomer">
-          <mat-label>Raumnummer</mat-label>
+        <mat-card *ngIf="foundCustomer && foundContactData && foundAccountdetails">
+          <mat-label>Kundennummer</mat-label>
           <mat-card-title>{{foundCustomer.customerID}}</mat-card-title>
-          <mat-label>Rauminformationen</mat-label>
-          <mat-card-content class="halfInput">
-
+          <mat-label>Kundeninformationen</mat-label>
+          <mat-card-content>
+            <table class="table table-bordered table-striped">
+              <tr>
+                <th>Vorname</th>
+                <td>{{foundContactData.firstName}}</td>
+                <th>Nachname</th>
+                <td>{{foundContactData.lastName}}</td>
+              </tr>
+              <tr>
+                <th>Straße</th>
+                <td>{{foundContactData.streetName}}</td>
+                <th>Hausnummer</th>
+                <td>{{foundContactData.streetNumber}}</td>
+              </tr>
+              <tr>
+                <th>PLZ</th>
+                <td>{{foundContactData.postalCode}}</td>
+                <th>Stadt</th>
+                <td>{{foundContactData.cityName}}</td>
+              </tr>
+              <tr>
+                <th>Telefonnummer</th>
+                <td>{{foundContactData.phone}}</td>
+                <th>E-Mail</th>
+                <td>{{foundContactData.mailAddress}}</td>
+              </tr>
+              <tr>
+                <th>Zahlungsdaten</th>
+                <td>{{foundContactData.paymentCredentials}}</td>
+                <th>Zahlungsart</th>
+                <td>{{foundCustomer.paymentMethod?foundCustomer.paymentMethod:"Auf Rechnung"}}</td>
+              </tr>
+              <tr>
+                <th>Username (Login)</th>
+                <td>{{foundAccountdetails.username}}</td>
+                <th>Business-Kunde?</th>
+                <td>{{foundCustomer.isBusinessCustomer?"Ja":"Nein"}}</td>
+              </tr>
+            </table>
           </mat-card-content>
         </mat-card>
       </div>

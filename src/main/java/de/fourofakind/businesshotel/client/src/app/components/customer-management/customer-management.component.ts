@@ -5,6 +5,8 @@ import {ContactdataService} from "../../services/contactdata/contactdata.service
 import {Customer} from "../../services/customer/customer";
 import {Accountdetails} from "../../services/accountdetails/accountdetails";
 import {Contactdata} from "../../services/contactdata/contactdata";
+import {BookingService} from "../../services/booking/booking.service";
+import {BookingrequestService} from "../../services/bookingrequest/bookingrequest.service";
 
 @Component({
   selector: 'app-customer-management',
@@ -15,7 +17,9 @@ export class CustomerManagementComponent implements OnInit {
 
   constructor(private customerService: CustomerService,
               private accountdetailsService: AccountdetailsService,
-              private contactdataService: ContactdataService)
+              private contactdataService: ContactdataService,
+              private bookingService: BookingService,
+              private bookingRequestService: BookingrequestService,)
   {
 
   }
@@ -228,13 +232,38 @@ export class CustomerManagementComponent implements OnInit {
 
   }
 
-  deleteRoom()
+
+  deleteCustomer()
+  {
+    this.customerService.delete(this.customerID)
+      .subscribe((res)=>
+      {
+        console.log(res);
+      });
+  }
+
+  patchBookings(_callback?:Function)
+  {
+    this.bookingService.getBookingIDsByCustomerID(this.customerID)
+      .subscribe((data)=>
+      console.log(data));
+    // this.bookingService.patchBookingsAtCustomerDelete();
+  }
+  patchBookingRequests(_callback:Function)
+  {
+
+  }
+
+
+  deleteCustomerAndDetails()
   {
     this.foundCustomer=null;
     this.foundAccountdetails=null;
     this.foundContactData=null;
-    this.customerService.delete(this.customerID).subscribe((res)=>console.log(res));
-    this.accountdetailsService.delete(this.accountID).subscribe((res)=>console.log(res));
-    this.contactdataService.delete(this.contactDataID).subscribe((res)=>console.log(res));
+
+    // this.patchBookings(()=>this.patchBookingRequests(()=>this.deleteCustomer()));
+    this.patchBookings();
+
+
   }
 }
