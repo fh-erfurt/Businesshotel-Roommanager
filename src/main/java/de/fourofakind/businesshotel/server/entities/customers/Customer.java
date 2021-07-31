@@ -26,7 +26,7 @@ public class Customer
 
     //Attributes
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="customer_id")
     private Integer customerID;
     @Column(name="contact_data_id")

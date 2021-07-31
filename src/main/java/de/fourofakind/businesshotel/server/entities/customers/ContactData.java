@@ -24,7 +24,7 @@ public class ContactData {
 
     //Attributes
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="contact_data_id")
     private Integer contactDataID;
     private String firstName;
