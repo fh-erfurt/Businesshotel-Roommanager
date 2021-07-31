@@ -4,6 +4,7 @@ import {Accountdetails} from "../../services/accountdetails/accountdetails";
 import {AccountdetailsService} from "../../services/accountdetails/accountdetails.service";
 import {EmployeeService} from "../../services/employee/employee.service";
 import {throwError} from "rxjs";
+import {isNumeric} from "rxjs/internal-compatibility";
 
 @Component({
   selector: 'app-employee-management',
@@ -42,143 +43,87 @@ export class EmployeeManagementComponent implements OnInit {
 
   }
 
-  setFirstName(event:any){
-    this.firstName=event.target.value;
-    console.log(this.firstName);
-  }
-
-  setLastName(event:any){
-    this.lastName=event.target.value;
-    console.log(this.lastName);
-  }
-
-  setPassword(event:any){
-    this.password=event.target.value;
-    console.log(this.password);
-  }
-
-  setRepeatedPassword(event:any){
-    this.repeatedPassword=event.target.value;
-    console.log(this.repeatedPassword);
-  }
-
   validateRepeatedPassword(){
     this.passwordsAreEqual = this.repeatedPassword == this.password;
   }
 
-  setEmpNo(event:any){
-    this.empNo=event.target.value;
-    console.log(this.empNo);
-  }
-
-  setGivenRole(role:string){
-    this.givenRole=role;
-    console.log(this.givenRole);
-  }
 
 
-  async createAccount(newAccount:Accountdetails)
+  addAccount(_callback:Function)
   {
-    await this.accountdetailsService.save(newAccount);
-    return 1;
+    console.log(this.username);
+
+    let newAccount: Accountdetails =
+      {
+        username: this.username,
+        passwordHash: this.password, //TODO:passwort hashen
+      }
+
+     this.accountdetailsService.save(newAccount)
+       .subscribe((data)=>
+       {
+         if(data.accountID) this.accountID=data.accountID;
+         _callback();
+       });
   }
 
-  async generateUsername()
+  getUsername(_callback:Function)
   {
     var username = this.firstName.trim().replace(" ", ".") + "." + this.lastName.trim().replace(" ", ".");
     username = username.toLowerCase();
-    console.log("zeile 87:",username);
+
     this.username=username;
 
     this.accountdetailsService.getAccountdetailsByUsername(username).subscribe(
-      (_accountDetails) =>
+      (data)=>
       {
-        console.log(_accountDetails.username);
-
-        this.usernameAlreadyExists = true;
-        console.log(this);
-        console.log("keine accountDetails angekommen");
-        console.log("username kann so bleiben");
-
-        if (this.usernameAlreadyExists)
-        {
-          console.log("username already exists");
-          let characterToTest=parseInt(username[username.length - 1])
-          if (isNaN(characterToTest))
-          {
-            username = username + "1";
-            console.log("Ich hänge ne 1 dran");
-            this.username=username;
-            console.log("neue 111",this.username);
-          }
-
-          else
-          {
-            console.log(username);
-            console.log("Ich erhöhe um 1");
-
-
-            let numberSuffix = parseInt(username[username.length - 1]) + 1;
-            username = username + numberSuffix;
-          }
-
-        }
-        else
-        {
-          console.log("Arbeitsverweigerung");
-          console.log(username);
-          this.username=username;
-        }
-
+        this.modifyUsernameIfAlreadyExists(username);
+        _callback();
       },
-      (error =>
-      {
-        console.log("username kann so bleiben");
-      }),
-    );
-
-
-
-      console.log("zeile 96:", username);
-    console.log("111",this);
-
-
+    (error)=>
+    {
+      if (error.status === 404) _callback();
+    }
+    )
   }
 
-  async addEmployee()
+  modifyUsernameIfAlreadyExists(username:string)
   {
-
-    this.generateUsername().then(()=>
+    let modifiedUsername;
+    if(isNumeric(parseInt(username[username.length - 1])))
     {
-      console.log("150",this);
-      console.log("151",this.username);
-      let newAccount: Accountdetails =
-        {
-          username: this.username,
-          passwordHash: this.password, //TODO:passwort hashen
+      let newIndex=parseInt(username[username.length - 1])+1;
+      modifiedUsername=username.substring(0, username.length - 1)+newIndex;
+      console.log(modifiedUsername);
 
-        }
-      console.log(newAccount);
-      this.createAccount(newAccount).then(() =>
+
+    }
+    else
+    {
+      modifiedUsername=username+"1";
+      console.log(modifiedUsername);
+
+    }
+    if(modifiedUsername) this.username=modifiedUsername;
+    return;
+  }
+
+  addEmployee()
+  {
+    let newEmployee: Employee =
       {
-          if (this.accountdetailsService.lastInsertedID)
-          {
-            this.accountID = this.accountdetailsService.lastInsertedID;
-            let newEmployee: Employee =
-              {
-                empName: this.firstName + " " + this.lastName,
-                givenRole: this.givenRole,
-                accountID: this.accountID,
-              };
-            this.employeeService.save(newEmployee);
-            console.log("Employee delivered");
+        empName: this.firstName + " " + this.lastName,
+        givenRole: this.givenRole,
+        accountID: this.accountID,
+      };
+    this.employeeService.save(newEmployee);
+  }
 
-          }
-        console.log(this.accountID);
 
-      })
+  addEmployeeAndDetails()
+  {
+    this.getUsername(()=>this.addAccount(()=>this.addEmployee()));
 
-    })
   }
 
 
