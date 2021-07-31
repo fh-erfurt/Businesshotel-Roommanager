@@ -43,27 +43,13 @@ import {Conferenceroom} from "../../services/conferenceroom/conferenceroom";
 export class RoomManagementComponent implements OnInit {
 
   isChecked:boolean = false;
-  customerID!:number;
-  roomNo!:number;
-  startDate!:string;
-  startTime!:string;
-  rooms!:Room[];
-  endDate!:string;
-  endTime!:string;
-  room!:Room;
-
-  minDateStart!:string;
-  minDateEnd!:string;
-  startTimestamp!:Date;
-  endTimestamp!:Date;
-  calculatedPricing!:number;
-
-
   labelPosition:"before"| "after" ="before";
   foundHotelroom!:Hotelroom | null;
   foundConferenceroom!:Conferenceroom | null;
   foundRoom!:Room | null
+
   //common
+  roomNo!:number;
   areaInSqrMetre!:number;
   category!:string;
   pricePerUnit!: number;
