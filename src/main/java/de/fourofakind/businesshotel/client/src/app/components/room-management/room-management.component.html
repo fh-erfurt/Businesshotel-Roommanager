@@ -85,7 +85,7 @@
           <mat-label>Raumnummer</mat-label>
           <input matInput type="number" min="1" [(ngModel)]="roomNo" required>
         </mat-form-field>
-        <button mat-raised-button color="primary" (click)="loadRoomInfoToFormular()">Suchen</button> <!-- sollte Voraussetzung werden für die Aktivierung des restlicehn Formulars-->
+        <button mat-raised-button color="primary" (click)="submitSearch(true)">Suchen</button> <!-- sollte Voraussetzung werden für die Aktivierung des restlicehn Formulars-->
         <br>
         <div *ngIf="foundRoom">
           <mat-radio-group [(ngModel)]="roomType"  class="roomtypeSelector">
@@ -176,7 +176,7 @@
           <mat-label>Raumnummer</mat-label>
           <input matInput type="number" [(ngModel)]="roomNo"  required>
         </mat-form-field>
-        <button mat-raised-button color="primary" type="submit" (click)="submitSearch()">Suchen</button>
+        <button mat-raised-button color="primary" type="submit" (click)="submitSearch(false)">Suchen</button>
         <br>
         <mat-card *ngIf="foundRoom">
           <mat-label>Raumnummer</mat-label>
@@ -243,7 +243,7 @@
           <mat-label>Raumnummer</mat-label>
           <input matInput type="number" [(ngModel)]="roomNo"  required>
         </mat-form-field>
-        <button mat-raised-button color="primary" type="submit" (click)="submitSearch()">Suchen</button>
+        <button mat-raised-button color="primary" type="submit" (click)="submitSearch(false)">Suchen</button>
         <mat-card *ngIf="foundRoom">
           <mat-label>Raumnummer</mat-label>
           <mat-card-title>{{foundRoom.roomNo}}</mat-card-title>

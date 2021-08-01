@@ -212,25 +212,9 @@ export class BookingManagementComponent implements OnInit {
     }
   }
 
-
-
-  submitSearch()
+  submitSearch(intoFormular:boolean)
   {
-
-    this.foundBooking=null;
-    console.log(this.bookingNo);
-
-    this.bookingService.getBooking(this.bookingNo).subscribe(data=>
-    {
-      data.startDate=formatDate(data.startDate,"dd.MM.yyyy HH:mm:ss","de");
-      data.endDate=formatDate(data.endDate,"dd.MM.yyyy HH:mm:ss","de");
-      this.foundBooking=data;
-    },
-      (error)=>
-      {
-        this.addAlertForXSeconds(new Alert('danger',"Keine Buchungen zu dieser Buchungsnummer vorhanden"),5);
-      })
-
+    this.getBookingType(()=>this.getValidRooms(()=>this.getBookingData(intoFormular)))
   }
 
   getBookingType(_callback:Function)
@@ -247,22 +231,28 @@ export class BookingManagementComponent implements OnInit {
       })
   }
 
-  getBookingData()
+  getBookingData(intoFormular:boolean)
   {
     this.foundBooking=null;
     console.log(this.rooms);
     this.bookingService.getBooking(this.bookingNo).subscribe(data=>
     {
       this.foundBooking=data;
-      data.startDate=formatDate(data.startDate,"yyyy-MM-dd HH:mm:ss","de");
-      data.endDate=formatDate(data.endDate,"yyyy-MM-dd HH:mm:ss","de");
-      this.customerID=data.customerID;
-      this.roomNo=data.roomNo;
-      this.startDate=formatDate(data.startDate,"yyyy-MM-dd","de");
-      this.startTime=formatDate(data.startDate,"HH:mm","de");
-      this.endDate=formatDate(data.endDate,"yyyy-MM-dd","de");
-      this.endTime=formatDate(data.endDate,"HH:mm","de");
-      this.specialWishes=data.specialWishes
+      this.foundBooking.startDate=formatDate(data.startDate,"yyyy-MM-dd HH:mm:ss","de");
+      this.foundBooking.endDate=formatDate(data.endDate,"yyyy-MM-dd HH:mm:ss","de");
+
+      if(intoFormular)
+      {
+        data.startDate=formatDate(data.startDate,"yyyy-MM-dd HH:mm:ss","de");
+        data.endDate=formatDate(data.endDate,"yyyy-MM-dd HH:mm:ss","de");
+        this.customerID=data.customerID;
+        this.roomNo=data.roomNo;
+        this.startDate=formatDate(data.startDate,"yyyy-MM-dd","de");
+        this.startTime=formatDate(data.startDate,"HH:mm","de");
+        this.endDate=formatDate(data.endDate,"yyyy-MM-dd","de");
+        this.endTime=formatDate(data.endDate,"HH:mm","de");
+        this.specialWishes=data.specialWishes
+      }
     },
       (error)=>
       {
@@ -271,10 +261,7 @@ export class BookingManagementComponent implements OnInit {
     return;
   }
 
-  loadBookingInfoToFormular()
-  {
-    this.getBookingType(()=>this.getValidRooms(()=>this.getBookingData()))
-  }
+
 
   deleteBooking()
   {

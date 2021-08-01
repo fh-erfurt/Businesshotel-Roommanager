@@ -184,15 +184,15 @@ export class RoomManagementComponent implements OnInit {
       }
   }
 
-  submitSearch()
-  {
-    this.foundRoom=null;
-    console.log(this.roomNo);
 
+  submitSearch(intoFormular:boolean)
+  {
+
+
+    this.foundRoom=null;
     this.roomService.getRoom(this.roomNo).subscribe(data=>
     {
       this.foundRoom = data;
-      this.roomType=data.roomType;
 
       if(data.roomType=="HOTELROOM")
       {
@@ -200,79 +200,62 @@ export class RoomManagementComponent implements OnInit {
         {
           this.foundHotelroom=data;
           this.foundConferenceroom=null;
-          this.hotelRoomAttributes.set("Bettenanzahl",data.bedCount.toString());
-          this.hotelRoomAttributes.set("Highspeed Internet vorhanden",data.hasSpeedLAN?"Ja":"Nein");
-          this.hotelRoomAttributes.set("Fernseher vorhanden",data.hasTV?"Ja":"Nein");
-          this.hotelRoomAttributes.set("Küchenzeile vorhanden",data.hasKitchen?"Ja":"Nein");
-          this.hotelRoomAttributes.set("Kaffeemaschine vorhanden",data.hasCoffeemaker?"Ja":"Nein");
-        })
 
+          if(intoFormular)
+          {
+            this.areaInSqrMetre=data.areaInSqrMetre;
+            this.category=data.category;
+            this.pricePerUnit=data.pricePerUnit;
+            this.roomType=data.roomType;
+            this.bedCount=data.bedCount;
+            this.hasSpeedLAN=data.hasSpeedLAN;
+            this.hasTV=data.hasTV;
+            this.hasKitchen=data.hasKitchen;
+            this.hasCoffeemaker=data.hasCoffeemaker;
+          }
+          else
+          {
+            this.hotelRoomAttributes.set("Bettenanzahl",data.bedCount.toString());
+            this.hotelRoomAttributes.set("Highspeed Internet vorhanden",data.hasSpeedLAN?"Ja":"Nein");
+            this.hotelRoomAttributes.set("Fernseher vorhanden",data.hasTV?"Ja":"Nein");
+            this.hotelRoomAttributes.set("Küchenzeile vorhanden",data.hasKitchen?"Ja":"Nein");
+            this.hotelRoomAttributes.set("Kaffeemaschine vorhanden",data.hasCoffeemaker?"Ja":"Nein");
+
+          }
+
+        })
       }
       else
       {
         this.roomService.getConferenceRoom(this.roomNo).subscribe(data=>
         {
+
           this.foundConferenceroom=data;
           this.foundHotelroom=null;
-          this.conferenceRoomAttributes.set("Maximale Teilnehmeranzahl",data.maxAmountOfParticipants.toString())
-          this.conferenceRoomAttributes.set("Anzahl Whiteboards",data.amountOfWhiteboards.toString())
-          this.conferenceRoomAttributes.set("Anzahl Beamer",data.amountOfBeamer.toString())
-          this.conferenceRoomAttributes.set("Projektionsfläche vorhanden",data.hasScreen?"Ja":"Nein")
-          this.conferenceRoomAttributes.set("Computer vorhanden",data.hasComputer?"Ja":"Nein")
-          this.conferenceRoomAttributes.set("Anzahl Bildschirme",data.amountOfTV.toString())
-        })
-      }
 
-    },
-      (error)=>
-      {
-        this.addAlertForXSeconds(new Alert('danger',"Kein Raum mit dieser Raumnummer vorhanden"),5);
+          if(intoFormular)
+          {
+            this.areaInSqrMetre = data.areaInSqrMetre;
+            this.category = data.category;
+            this.pricePerUnit = data.pricePerUnit;
+            this.roomType = data.roomType;
+            this.maxAmountOfParticipants = data.maxAmountOfParticipants;
+            this.amountOfWhiteboards = data.amountOfWhiteboards;
+            this.amountOfBeamer = data.amountOfBeamer;
+            this.hasScreen = data.hasScreen;
+            this.hasComputer = data.hasComputer;
+            this.amountOfTV = data.amountOfTV;
+          }
+          else
+          {
+            this.conferenceRoomAttributes.set("Maximale Teilnehmeranzahl",data.maxAmountOfParticipants.toString())
+            this.conferenceRoomAttributes.set("Anzahl Whiteboards",data.amountOfWhiteboards.toString())
+            this.conferenceRoomAttributes.set("Anzahl Beamer",data.amountOfBeamer.toString())
+            this.conferenceRoomAttributes.set("Projektionsfläche vorhanden",data.hasScreen?"Ja":"Nein")
+            this.conferenceRoomAttributes.set("Computer vorhanden",data.hasComputer?"Ja":"Nein")
+            this.conferenceRoomAttributes.set("Anzahl Bildschirme",data.amountOfTV.toString())
 
-      });
-
-
-
-  }
-
-  loadRoomInfoToFormular()
-  {
-
-
-    this.foundRoom=null;
-    this.roomService.getRoom(this.roomNo).subscribe(data=>
-    {
-      this.foundRoom = data;
-
-      if(data.roomType=="HOTELROOM")
-      {
-        this.roomService.getHotelRoom(this.roomNo).subscribe(data=>
-        {
-
-          this.areaInSqrMetre=data.areaInSqrMetre;
-          this.category=data.category;
-          this.pricePerUnit=data.pricePerUnit;
-          this.roomType=data.roomType;
-          this.bedCount=data.bedCount;
-          this.hasSpeedLAN=data.hasSpeedLAN;
-          this.hasTV=data.hasTV;
-          this.hasKitchen=data.hasKitchen;
-          this.hasCoffeemaker=data.hasCoffeemaker;
-        })
-      }
-      else
-      {
-        this.roomService.getConferenceRoom(this.roomNo).subscribe(data=>
-        {
-          this.areaInSqrMetre=data.areaInSqrMetre;
-          this.category=data.category;
-          this.pricePerUnit=data.pricePerUnit;
-          this.roomType=data.roomType;
-          this.maxAmountOfParticipants=data.maxAmountOfParticipants;
-          this.amountOfWhiteboards=data.amountOfWhiteboards;
-          this.amountOfBeamer=data.amountOfBeamer;
-          this.hasScreen=data.hasScreen;
-          this.hasComputer=data.hasComputer;
-          this.amountOfTV=data.amountOfTV;
+          }
         })
       }
     },

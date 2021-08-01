@@ -27,7 +27,7 @@ export class EmployeeManagementComponent implements OnInit {
   lastName!:string;
   password!:string;
   repeatedPassword!:string;
-  empNo:number=0;
+  empNo!:number;
   empName!:string;
   username!:string;
   passwordsAreEqual!:boolean;
@@ -155,39 +155,24 @@ export class EmployeeManagementComponent implements OnInit {
   }
 
 
-
-
-
-  submitSearch(){
+  submitSearch(intoFormular:boolean){
     this.foundEmployee=null;
     this.employeeService.getEmployee(this.empNo)
       .subscribe(data=>
     {
       this.foundEmployee=data;
+      if(intoFormular)
+      {
+        this.firstName=data.empName.substring(0, data.empName.lastIndexOf(" "));
+        this.lastName=data.empName.substring(data.empName.lastIndexOf(" "));
+        this.givenRole=data.givenRole;
+        this.accountID=data.accountID;
+      }
     },
       (error)=>
       {
         this.addAlertForXSeconds(new Alert('danger',"Kein Mitarbeiter mit dieser Mitarbeiternummer vorhanden"),5);
       })
-
-  }
-
-  loadEmployeeInfoToFormular()
-  {
-    this.foundEmployee=null;
-    this.employeeService.getEmployee(this.empNo)
-      .subscribe(data=>
-    {
-      this.foundEmployee=data;
-      this.firstName=data.empName.substring(0, data.empName.lastIndexOf(" "));
-      this.lastName=data.empName.substring(data.empName.lastIndexOf(" "));
-      this.givenRole=data.givenRole;
-      this.accountID=data.accountID;
-    },
-      (error)=>
-      {
-        this.addAlertForXSeconds(new Alert('danger',"Kein Mitarbeiter mit dieser Mitarbeiternummer vorhanden"),5);
-      });
   }
 
   deleteEmployee()
