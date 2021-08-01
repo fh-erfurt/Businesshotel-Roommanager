@@ -1,12 +1,13 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from "@angular/material/core";
 import {MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter} from "@angular/material-moment-adapter";
 import {BookingService} from "../../services/booking/booking.service";
-import {Booking, ConferenceRoomBooking, HotelRoomBooking, RawData} from "../../services/booking/booking";
+import {Booking} from "../../services/booking/booking";
 import {formatDate} from "@angular/common";
 import {RoomService} from "../../services/room/room.service";
 import {Room} from "../../services/room/room";
 import {parseDate} from "ngx-bootstrap/chronos";
+import {Alert} from "../../app.component";
 
 
 
@@ -15,9 +16,6 @@ import {parseDate} from "ngx-bootstrap/chronos";
   templateUrl: './booking-management.component.html',
   styleUrls: ['./booking-management.component.scss'],
   providers: [
-    // `MomentDateAdapter` can be automatically provided by importing `MomentDateModule` in your
-    // application's root module. We provide it at the component level here, due to limitations of
-    // our example generation script.
     {
       provide: DateAdapter,
       useClass: MomentDateAdapter,
@@ -36,6 +34,8 @@ import {parseDate} from "ngx-bootstrap/chronos";
     },
   ],
 })
+
+
 export class BookingManagementComponent implements OnInit {
 
   isChecked:boolean = false;
@@ -50,7 +50,7 @@ export class BookingManagementComponent implements OnInit {
   endTime!:string;
   bookingType!:string;
   booking!:Booking;
-  foundBooking!:Booking;
+  foundBooking!:Booking | null;
   bookings:Booking[]=[];
   hotelRoomBookings!:Booking[];
   conferenceRoomBookings!:Booking[];
@@ -62,10 +62,15 @@ export class BookingManagementComponent implements OnInit {
   pricePerUnit!: number;
 
 
+  alerts:Alert[]=[];
+
+
+
   constructor(private bookingService: BookingService, private roomService: RoomService) {
   }
 
-  ngOnInit() {
+  ngOnInit()
+  {
 
       let today;
 
@@ -81,118 +86,116 @@ export class BookingManagementComponent implements OnInit {
       console.log(today);
       this.minDateStart= today;
       this.minDateEnd= today;
-      console.log(this.minDateStart,this.minDateEnd );
 
-      this.bookingService.getConferenceRoomBookings().subscribe(data=>
+      this.bookingService.getBookings().subscribe((data)=>
       {
-        //console.log(data);
-        // console.log(...data);
-
-        this.bookings.push(...data);
-
-        // console.log(this.bookings);
+        this.bookings=data;
+        this.bookings.forEach((booking)=>
+        {
+          booking.startDate=formatDate(booking.startDate,"dd.MM.yyyy HH:mm:ss","de")
+          booking.endDate=formatDate(booking.endDate,"dd.MM.yyyy HH:mm:ss","de")
+        })
       })
-
-    this.bookingService.getHotelRoomBookings().subscribe(data=>
-    {
-      // console.log(data);
-      // console.log(...data);
-
-      this.bookings.push(...data);
-
-      for (let i=0; i<this.bookings.length;i++)
-      {
-        this.bookings[i].startDate=formatDate(this.bookings[i].startDate,"dd.MM.yyyy HH:mm:ss","de",);
-        this.bookings[i].endDate=formatDate(this.bookings[i].endDate,"dd.MM.yyyy HH:mm:ss","de",);
-      }
-    })
-
   }
 
-  calculatePricing()
+  addAlertForXSeconds(alert:Alert, seconds:number)
   {
-    this.startTimestamp=parseDate(this.startDate+"T"+this.startTime)
-    this.endTimestamp=parseDate(this.endDate+"T"+this.endTime)
-    let calculatedPricing:number;
+    this.alerts.push(alert);
+    setTimeout(()=>this.alerts=this.alerts.filter(entry=>entry!=alert),seconds*1000);
+  }
+
+  getPricePerUnit(_callback:Function)
+  {
     this.roomService.getRoom(this.roomNo).subscribe(data=>
     {
       this.pricePerUnit=data.pricePerUnit;
-
+      _callback();
     })
+  }
+
+  calculatePricing(_callback:Function)
+  {
+    let timeDifferenceInMilliseconds=this.endTimestamp.getTime()-this.startTimestamp.getTime()
+    let divisorToConvertFromMSInDays=1000 * 60 * 60 * 24;
+    let divisorToConvertFromMSInHours=60 * 60 * 1000;
+
     if(this.bookingType==="hotelRoom")
     {
       let pricePerNight:number;
-      console.log("entweder hier");
-
-
-      console.log("und dann hier");
       pricePerNight=this.pricePerUnit
-      console.log(this.endTimestamp);
-      console.log(this.startTimestamp);
-      console.log((this.endTimestamp.getTime()-this.startTimestamp.getTime()) / (1000 * 60 * 60 * 24))
-      let timeDifferenceInDays=Math.floor((this.endTimestamp.getTime()-this.startTimestamp.getTime()) / (1000 * 60 * 60 * 24));
-      if (timeDifferenceInDays==0) timeDifferenceInDays=1;
-      console.log(timeDifferenceInDays);
-      calculatedPricing=timeDifferenceInDays*pricePerNight;
-      console.log(calculatedPricing);
-      this.calculatedPricing=calculatedPricing;
-      console.log(175,this);
-      console.log(this.calculatedPricing);
-      return this.calculatedPricing;
 
+      let timeDifferenceInDays=Math.floor(timeDifferenceInMilliseconds / divisorToConvertFromMSInDays);
+      if (timeDifferenceInDays==0) timeDifferenceInDays=1;
+      this.calculatedPricing=timeDifferenceInDays*pricePerNight;
+      _callback();
     }
     else
     {
       let pricePerHour:number;
-      console.log("oder hier");
-      console.log("und dann hier unten");
       pricePerHour=this.pricePerUnit
-      let timeDifferenceInHours=Math.ceil((this.endTimestamp.getTime()-this.startTimestamp.getTime())/(60*60*1000));
-      calculatedPricing=timeDifferenceInHours*pricePerHour;
-      console.log(calculatedPricing);
-      this.calculatedPricing=calculatedPricing;
-      console.log(192,this);
-      console.log(this.calculatedPricing);
-      return this.calculatedPricing;
 
-
+      let timeDifferenceInHours=Math.ceil(timeDifferenceInMilliseconds/divisorToConvertFromMSInHours);
+      this.calculatedPricing=timeDifferenceInHours*pricePerHour;
+      _callback();
     }
   }
 
-  addOrUpdateBooking(addsNewBooking:boolean)
+  prepareAndInsertBooking(addsNewBooking:boolean)
   {
-    this.calculatePricing();
     console.log(this.calculatedPricing);
-
-    console.log(207,this.startDate,this.startTime)
-    console.log(this.calculatedPricing);
-    console.log(212,this);
-
     let newOrUpdatedBooking:Booking =
-    {
-      customerID:this.customerID,
-      roomNo:this.roomNo,
-      startDate:this.startDate+"T"+this.startTime+"+01:00",
-      endDate:this.endDate+"T"+this.endTime+"+01:00",
-      empNo:1, //TODO:Muss noch ersetzt werden
-      pricing:this.calculatedPricing,
-      specialWishes:this.specialWishes,
-    };
-
+      {
+        customerID:this.customerID,
+        roomNo:this.roomNo,
+        startDate:this.startDate+"T"+this.startTime+"+01:00",
+        endDate:this.endDate+"T"+this.endTime+"+01:00",
+        empNo:1, //TODO:Muss noch ersetzt werden
+        pricing:this.calculatedPricing,
+        specialWishes:this.specialWishes,
+      };
 
     if(addsNewBooking)
     {
-      this.bookingService.save(newOrUpdatedBooking,this.bookingType);
+      this.bookingService.save(newOrUpdatedBooking,this.bookingType)
+        .subscribe((data)=>
+        {
+          console.log(data)
+          this.addAlertForXSeconds(new Alert('success',"Buchung erfolgreich angelegt"),5);
+        },
+        (error)=>
+        {
+
+          this.addAlertForXSeconds(new Alert('danger',"Fehler beim Anlegen der Buchung"),10);
+          this.addAlertForXSeconds(new Alert('danger',`Fehler: ${error.error.cause.cause.cause.message}`),10);//TODO:entfernen nach Development
+        });
     }
     else
     {
-      this.bookingService.updateBooking(this.bookingNo, newOrUpdatedBooking);
+      this.bookingService.updateBooking(this.bookingNo, newOrUpdatedBooking)
+        .subscribe((data)=>
+        {
+          console.log(data)
+          this.addAlertForXSeconds(new Alert('success',"Buchung erfolgreich geändert"),5);
+        },
+        (error)=>
+        {
+          this.addAlertForXSeconds(new Alert('danger',"Fehler beim Ändern der Buchung"),10);
+          this.addAlertForXSeconds(new Alert('danger',`Fehler: ${error.error.cause.cause.cause.message}`),10); //TODO:entfernen nach Development
+        });
     }
 
   }
 
 
-  getValidRooms()
+  addOrUpdateBooking(addsNewBooking:boolean)
+  {
+    this.startTimestamp=parseDate(this.startDate+"T"+this.startTime)
+    this.endTimestamp=parseDate(this.endDate+"T"+this.endTime)
+    this.getPricePerUnit(()=>this.calculatePricing(()=>this.prepareAndInsertBooking(addsNewBooking)))
+  }
+
+
+  getValidRooms(_callback?:Function)
   {
     if (this.bookingType=="hotelRoom")
     {
@@ -200,6 +203,7 @@ export class BookingManagementComponent implements OnInit {
         console.log(data);
         this.rooms=data;
         console.log(this.rooms);
+        if(_callback) _callback();
       })
     }
     else
@@ -208,14 +212,17 @@ export class BookingManagementComponent implements OnInit {
         console.log(data);
         this.rooms=data;
         console.log(this.rooms);
+        if(_callback) _callback();
       })
     }
   }
 
 
 
-  submitSearch(){
+  submitSearch()
+  {
 
+    this.foundBooking=null;
     console.log(this.bookingNo);
 
     this.bookingService.getBooking(this.bookingNo).subscribe(data=>
@@ -223,17 +230,37 @@ export class BookingManagementComponent implements OnInit {
       data.startDate=formatDate(data.startDate,"dd.MM.yyyy HH:mm:ss","de");
       data.endDate=formatDate(data.endDate,"dd.MM.yyyy HH:mm:ss","de");
       this.foundBooking=data;
-    })
+    },
+      (error)=>
+      {
+        this.addAlertForXSeconds(new Alert('danger',"Keine Buchungen zu dieser Buchungsnummer vorhanden"),10);
+      })
 
   }
 
-  loadBookingInfoToFormular()
+  getBookingType(_callback:Function)
   {
-
     this.bookingService.getBooking(this.bookingNo).subscribe(data=>
     {
-      data.startDate=formatDate(data.startDate,"dd.MM.yyyy HH:mm:ss","de");
-      data.endDate=formatDate(data.endDate,"dd.MM.yyyy HH:mm:ss","de");
+      if(data._links?.hotelRoomBooking) this.bookingType="hotelRoom";
+      else if(data._links?.conferenceRoomBooking) this.bookingType="conferenceRoom";
+      _callback();
+    },
+      (error)=>
+      {
+        this.addAlertForXSeconds(new Alert('danger',"Keine Buchungen zu dieser Buchungsnummer vorhanden"),10);
+      })
+  }
+
+  getBookingData()
+  {
+    this.foundBooking=null;
+    console.log(this.rooms);
+    this.bookingService.getBooking(this.bookingNo).subscribe(data=>
+    {
+      this.foundBooking=data;
+      data.startDate=formatDate(data.startDate,"yyyy-MM-dd HH:mm:ss","de");
+      data.endDate=formatDate(data.endDate,"yyyy-MM-dd HH:mm:ss","de");
       this.customerID=data.customerID;
       this.roomNo=data.roomNo;
       this.startDate=formatDate(data.startDate,"yyyy-MM-dd","de");
@@ -241,19 +268,33 @@ export class BookingManagementComponent implements OnInit {
       this.endDate=formatDate(data.endDate,"yyyy-MM-dd","de");
       this.endTime=formatDate(data.endDate,"HH:mm","de");
       this.specialWishes=data.specialWishes
+    },
+      (error)=>
+      {
+        this.addAlertForXSeconds(new Alert('danger',"Keine Buchungen zu dieser Buchungsnummer vorhanden"),10);
+      });
+    return;
+  }
 
-      if(data._links?.hotelRoomBooking) this.bookingType="hotelRoom";
-      else if(data._links?.conferenceRoomBooking) this.bookingType="conferenceRoom";
-
-    });
-
-    this.getValidRooms();
-
+  loadBookingInfoToFormular()
+  {
+    this.getBookingType(()=>this.getValidRooms(()=>this.getBookingData()))
   }
 
   deleteBooking()
   {
-    this.bookingService.delete(this.bookingNo);
+    this.bookingService.delete(this.bookingNo)
+      .subscribe(
+        (data)=>
+        {
+          this.addAlertForXSeconds(new Alert('success',"Buchung erfolgreich gelöscht"),5);
+        },
+
+      (error)=>
+      {
+        this.addAlertForXSeconds(new Alert('danger',"Fehler beim Löschen der Buchung"),10);
+      }
+        )
   }
 
 }

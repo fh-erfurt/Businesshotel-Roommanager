@@ -29,22 +29,38 @@ export class BookingService {
     )
   }
 
-  public getConferenceRoomBookings(): Observable<Booking[]>
+  public getBookingsByCustomerID(id:number): Observable<Booking[]>
   {
-    return this.http.get<Booking[]>(`${this.baseUrl}`).pipe(
+    return this.http.get<Booking[]>(`${this.baseUrl}search/findByCustomerID?customerID=${id}`).pipe(
       map((result:any) =>{
-        //console.log(result);
-        return result._embedded.conferenceRoomBookings;
+        console.log(result);
+        let bookings=[];
+        if(result._embedded.conferenceRoomBooking && result._embedded.hotelRoomBooking)
+        {
+          bookings=result._embedded.conferenceRoomBooking.concat(result._embedded.hotelRoomBooking);
+        }
+        else if(result._embedded.conferenceRoomBooking) bookings=result._embedded.conferenceRoomBooking
+        else if(result._embedded.hotelRoomBooking) bookings=result._embedded.hotelRoomBooking
+
+        return bookings;
       })
     )
   }
 
-  public getHotelRoomBookings(): Observable<Booking[]>
+  public getBookings(): Observable<Booking[]>
   {
-    return this.http.get<Booking[]>(`${this.baseUrl}`).pipe(
+    return this.http.get<Booking[]>(this.baseUrl).pipe(
       map((result:any) =>{
-        //console.log(result);
-        return result._embedded.hotelRoomBookings;
+        console.log(result);
+        let bookings=[];
+        if(result._embedded.conferenceRoomBooking && result._embedded.hotelRoomBooking)
+        {
+          bookings=result._embedded.conferenceRoomBooking.concat(result._embedded.hotelRoomBooking);
+        }
+        else if(result._embedded.conferenceRoomBooking) bookings=result._embedded.conferenceRoomBooking
+        else if(result._embedded.hotelRoomBooking) bookings=result._embedded.hotelRoomBooking
+
+        return bookings;
       })
     )
   }
@@ -64,65 +80,63 @@ export class BookingService {
 
     }
 
-    this.http.post<Booking>(url, booking)
-      .subscribe(
-        (val)=>
-        {
-          console.log("Post call => successful value returned in body: ", val);
-        },
-
-        response=>
-        {
-          console.log("Post call => error in: ", response);
-        },
-        ()=>
-        {
-          console.log("Post call => Booking creation successful");
-        }
+    return this.http.post<Booking>(url, booking)
+      .pipe(
+        map(
+          (res)=>
+          {
+            return res;
+          }
+        )
       )
+
 
   }
 
 
   public delete(id: number) {
-    this.http.delete<Booking>(`${this.baseUrl}${id}`)
-      .subscribe(
-        (val)=>
-        {
-          console.log("Post call => successful value returned in body: ", val);
-        },
-
-        response=>
-        {
-          console.log("Post call => error in: ", response);
-        },
-        ()=>
-        {
-          console.log("Post call => Booking deletion successful");
-        }
+    return this.http.delete<Booking>(`${this.baseUrl}${id}`)
+      .pipe(
+        map(
+          (res)=>
+          {
+            return res;
+          }
+        )
       )
   }
 
   public updateBooking(id: number, booking: Booking) {
     console.log(booking);
 
-    this.http.put(`${this.baseUrl}${id}`, booking)
-      .subscribe(
-        (val)=>
-        {
-          console.log("Put call => successful value returned in body: ", val);
-        },
+    console.log(booking);
 
-        response=>
-        {
-          console.log("Put call => error in: ", response);
-        },
-        ()=>
-        {
-          console.log("Put call => Booking update successful");
-        }
+    return this.http.put<Booking>(`${this.baseUrl}${id}`, booking)
+      .pipe(
+        map(
+          (res)=>
+          {
+            return res;
+          }
+        )
       )
   }
+
+  public patchBookingsAtCustomerDelete(bookingNo:number)
+  {
+    console.log(bookingNo);
+
+    return this.http.patch<Booking>(`${this.baseUrl}${bookingNo}`, {customerID:1})
+      .pipe(
+        map(
+          (res)=>
+          {
+            return res;
+          }
+        )
+      )
+  }
+
 
 }
 

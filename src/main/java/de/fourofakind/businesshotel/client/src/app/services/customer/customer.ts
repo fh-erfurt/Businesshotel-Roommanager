@@ -18,11 +18,12 @@ export interface Embedded {
 }
 
 export interface Customer {
-  contactDataID: number;
+  customerID?:number;
+  contactDataID?: number;
   paymentMethod: string;
-  account_id: number;
-  businessCustomer: boolean;
-  _links: CustomerLinks;
+  accountID?: number;
+  isBusinessCustomer: boolean;
+  _links?: CustomerLinks;
 }
 
 export interface CustomerLinks {

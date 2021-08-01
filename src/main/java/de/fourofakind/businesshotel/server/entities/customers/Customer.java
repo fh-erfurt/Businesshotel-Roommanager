@@ -26,7 +26,7 @@ public class Customer
 
     //Attributes
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="customer_id")
     private Integer customerID;
     @Column(name="contact_data_id")
@@ -35,7 +35,8 @@ public class Customer
     private PaymentMethod paymentMethod;
     @Column(name="is_business_customer")
     private boolean isBusinessCustomer;
-    private Integer account_id;
+    @Column(name="account_id")
+    private Integer accountID;
 
     //Fields
     public enum PaymentMethod
@@ -58,12 +59,12 @@ public class Customer
 
 
     //Constructors
-    public Customer (Integer contactDataID, PaymentMethod paymentMethod, boolean isBusinessCustomer, Integer account_id, AccountDetails accountDetails, ContactData contactData, List<Booking> bookings)
+    public Customer (Integer contactDataID, PaymentMethod paymentMethod, boolean isBusinessCustomer, Integer accountID, AccountDetails accountDetails, ContactData contactData, List<Booking> bookings)
     {
         this.contactDataID = contactDataID;
         this.paymentMethod = paymentMethod;
         this.isBusinessCustomer = isBusinessCustomer;
-        this.account_id = account_id;
+        this.accountID = accountID;
         this.accountDetails = accountDetails;
         this.contactData = contactData;
         this.bookings = bookings;

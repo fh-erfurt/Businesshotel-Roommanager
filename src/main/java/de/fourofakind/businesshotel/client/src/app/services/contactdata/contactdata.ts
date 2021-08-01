@@ -18,6 +18,7 @@ export interface Embedded {
 }
 
 export interface Contactdata {
+  contactDataID?:number;
   firstName: string;
   lastName: string;
   streetName: string;
@@ -26,8 +27,8 @@ export interface Contactdata {
   cityName: string;
   phone: string;
   mailAddress: string;
-  paymentCredentials?: any;
-  _links: ContactDataLinks;
+  paymentCredentials?: string;
+  _links?: ContactDataLinks;
 }
 
 export interface ContactDataLinks {

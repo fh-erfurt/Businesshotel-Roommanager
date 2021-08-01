@@ -16,13 +16,14 @@ export interface Embedded {
 }
 
 export interface Bookingrequest {
+  bookingRequestID?:number;
   customerID: number;
   startDate: Date;
   endDate: Date;
   bookingtype: string;
   roomCategory: string;
   specialWishes?: any;
-  _links: BookingRequestLinks;
+  _links?: BookingRequestLinks;
 }
 
 export interface BookingRequestLinks {
