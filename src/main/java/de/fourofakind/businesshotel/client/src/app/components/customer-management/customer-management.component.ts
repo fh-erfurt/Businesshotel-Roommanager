@@ -70,30 +70,6 @@ export class CustomerManagementComponent implements OnInit {
     setTimeout(()=>this.alerts=this.alerts.filter(entry=>entry!=alert),seconds*1000);
   }
 
-
-  addAccount(_callback:Function)
-  {
-    let newOrUpdatedAccount:Accountdetails=
-      {
-        passwordHash: this.password,
-        username: this.username
-      }
-    console.log(this);
-    this.accountdetailsService.save(newOrUpdatedAccount)
-      .subscribe((res)=>
-      {
-        if(res.accountID) this.accountID=res.accountID
-        _callback();
-      },
-      (error)=>
-      {
-        this.addAlertForXSeconds(new Alert('danger',"Fehler beim Erstellen des Accounts"),5);
-      }
-      )
-    console.log(this);
-    console.log(this.accountID);
-  }
-
   addContactData(_callback:Function)
   {
 
@@ -126,8 +102,7 @@ export class CustomerManagementComponent implements OnInit {
 
   addCustomer()
   {
-    console.log(this.accountID);
-    console.log(this.contactDataID);
+    
 
     let newOrUpdatedCustomer:Customer=
       {
@@ -158,7 +133,7 @@ export class CustomerManagementComponent implements OnInit {
 
     if(addsNewCustomer)
     {
-      this.addAccount(()=>this.addContactData(()=>this.addCustomer()));
+      this.addContactData(()=>this.addCustomer());
     }
     else
     {

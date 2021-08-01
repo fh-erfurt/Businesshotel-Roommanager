@@ -59,16 +59,7 @@
               <input matInput type="text" name="paymentCredentials" [(ngModel)]="paymentCredentials" required>
             </mat-form-field>
             <br>
-            <div>
-              <mat-form-field class="halfInput" appearance="fill">
-                <mat-label>Passwort</mat-label>
-                <input matInput type="password" name="password" [(ngModel)]="password" required>
-              </mat-form-field>
-              <mat-form-field class="halfInput" appearance="fill">
-                <mat-label>Passwort wiederholen</mat-label>
-                <input matInput type="password" name="repeatedPassword" [(ngModel)]="repeatedPassword" required>
-              </mat-form-field>
-            </div>
+
           <br>
           <button mat-raised-button color="primary" type="submit" (click)="addOrUpdateCustomerAndDetails(true)">Absenden</button>
         </div>
