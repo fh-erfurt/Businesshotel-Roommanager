@@ -5,6 +5,7 @@ import {AccountdetailsService} from "../../services/accountdetails/accountdetail
 import {EmployeeService} from "../../services/employee/employee.service";
 import {isNumeric} from "rxjs/internal-compatibility";
 import {Alert} from "../../app.component";
+import {BookingService} from "../../services/booking/booking.service";
 
 @Component({
   selector: 'app-employee-management',
@@ -13,7 +14,10 @@ import {Alert} from "../../app.component";
 })
 export class EmployeeManagementComponent implements OnInit {
 
-  constructor(private accountdetailsService: AccountdetailsService, private employeeService: EmployeeService) {
+  constructor(private accountdetailsService: AccountdetailsService,
+              private employeeService: EmployeeService,
+              private bookingService: BookingService)
+  {
 
   }
 
@@ -188,6 +192,12 @@ export class EmployeeManagementComponent implements OnInit {
           this.addAlertForXSeconds(new Alert('danger',"Kein Mitarbeiter mit dieser Mitarbeiternummer vorhanden"),5);
         }
       );
+  }
 
+  deleteEmployeeAndDetails()
+  {
+    this.foundEmployee=null;
+
+    //this.patchBookings(()=>this.deleteEmployee());
   }
 }
