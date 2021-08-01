@@ -181,6 +181,7 @@ export class EmployeeManagementComponent implements OnInit {
 
   deleteEmployee()
   {
+
     this.employeeService.delete(this.empNo)
       .subscribe(
         (data)=>
@@ -194,10 +195,43 @@ export class EmployeeManagementComponent implements OnInit {
       );
   }
 
+  patchBookings(_callback:Function)
+  {
+
+    let bookingNoOfEmployee:number[]=[];
+    this.bookingService.getBookingsByEmpNo(this.empNo)
+      .subscribe((data)=>
+      {
+        console.log(data);
+        data.forEach((data)=>{if(data && data.bookingNo) {bookingNoOfEmployee.push(data.bookingNo)}})
+        console.log(bookingNoOfEmployee)
+        if(bookingNoOfEmployee)
+        {
+          let currentIdx=0;
+          bookingNoOfEmployee.forEach((bookingNo)=>
+          {
+            currentIdx++;
+            this.bookingService.patchBookingsAtEmployeeDelete(bookingNo).subscribe(()=>
+            {
+
+              if(currentIdx<=bookingNoOfEmployee.length) {_callback()}
+            },
+            (error)=>
+            {
+              this.addAlertForXSeconds(new Alert('danger',"Abbruch: Fehler beim Patchen der Buchungen"),5);
+            });
+          })
+
+        }
+        else _callback();
+      })
+
+  }
+
   deleteEmployeeAndDetails()
   {
     this.foundEmployee=null;
 
-    //this.patchBookings(()=>this.deleteEmployee());
+    this.patchBookings(()=>this.deleteEmployee());
   }
 }

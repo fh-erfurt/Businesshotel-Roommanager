@@ -40,7 +40,7 @@
         <button mat-raised-button color="primary" type="submit" (click)="addOrUpdateEmployeeAndDetails(true)">Absenden</button>
       </div>
         <div class="notificationArea">
-          <ngb-alert class="alert"#alert *ngFor="let alert of alerts"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
+          <ngb-alert class="alert" #alert *ngFor="let alert of alerts"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
         </div>
       </div>
     </mat-tab>
@@ -99,7 +99,7 @@
           </div>
         </div>
         <div class="notificationArea">
-          <ngb-alert class="alert"#alert *ngFor="let alert of alerts"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
+          <ngb-alert class="alert" #alert *ngFor="let alert of alerts"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
         </div>
       </div>
     </mat-tab>
@@ -143,10 +143,10 @@
         </mat-card>
         <br>
         <mat-slide-toggle [(ngModel)]="isChecked" [disabled]="!foundEmployee" >Freigeben</mat-slide-toggle>
-        <button mat-raised-button color="primary" type="submit" [disabled]="!isChecked" (click)="deleteEmployee()">Löschen</button>
+        <button mat-raised-button color="primary" type="submit" [disabled]="!isChecked" (click)="deleteEmployeeAndDetails()">Löschen</button>
       </div>
         <div class="notificationArea">
-          <ngb-alert class="alert"#alert *ngFor="let alert of alerts"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
+          <ngb-alert class="alert" #alert *ngFor="let alert of alerts"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
         </div>
       </div>
     </mat-tab>
@@ -187,7 +187,7 @@
         </mat-card>
       </div>
         <div class="notificationArea">
-          <ngb-alert class="alert"#alert *ngFor="let alert of alerts"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
+          <ngb-alert class="alert" #alert *ngFor="let alert of alerts"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
         </div>
       </div>
     </mat-tab>

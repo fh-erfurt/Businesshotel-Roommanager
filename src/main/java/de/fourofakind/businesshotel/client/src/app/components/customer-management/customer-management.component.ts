@@ -335,7 +335,7 @@ export class CustomerManagementComponent implements OnInit {
             currentIdx++;
             this.bookingService.patchBookingsAtCustomerDelete(bookingNo).subscribe(()=>
             {
-              if(currentIdx==bookingNoOfCustomer.length-1) _callback();
+              if(currentIdx<=bookingNoOfCustomer.length) _callback();
             },
             (error)=>
             {
