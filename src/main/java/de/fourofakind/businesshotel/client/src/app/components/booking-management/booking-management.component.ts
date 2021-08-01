@@ -7,6 +7,7 @@ import {formatDate} from "@angular/common";
 import {RoomService} from "../../services/room/room.service";
 import {Room} from "../../services/room/room";
 import {parseDate} from "ngx-bootstrap/chronos";
+import {Alert} from "../../app.component";
 
 
 
@@ -15,9 +16,6 @@ import {parseDate} from "ngx-bootstrap/chronos";
   templateUrl: './booking-management.component.html',
   styleUrls: ['./booking-management.component.scss'],
   providers: [
-    // `MomentDateAdapter` can be automatically provided by importing `MomentDateModule` in your
-    // application's root module. We provide it at the component level here, due to limitations of
-    // our example generation script.
     {
       provide: DateAdapter,
       useClass: MomentDateAdapter,
@@ -36,6 +34,8 @@ import {parseDate} from "ngx-bootstrap/chronos";
     },
   ],
 })
+
+
 export class BookingManagementComponent implements OnInit {
 
   isChecked:boolean = false;
@@ -60,6 +60,10 @@ export class BookingManagementComponent implements OnInit {
   endTimestamp!:Date;
   calculatedPricing!:number;
   pricePerUnit!: number;
+
+
+  alerts:Alert[]=[];
+
 
 
   constructor(private bookingService: BookingService, private roomService: RoomService) {
@@ -92,6 +96,12 @@ export class BookingManagementComponent implements OnInit {
           booking.endDate=formatDate(booking.endDate,"dd.MM.yyyy HH:mm:ss","de")
         })
       })
+  }
+
+  addAlertForXSeconds(alert:Alert, seconds:number)
+  {
+    this.alerts.push(alert);
+    setTimeout(()=>this.alerts=this.alerts.filter(entry=>entry!=alert),seconds*1000);
   }
 
   getPricePerUnit(_callback:Function)
@@ -146,11 +156,32 @@ export class BookingManagementComponent implements OnInit {
 
     if(addsNewBooking)
     {
-      this.bookingService.save(newOrUpdatedBooking,this.bookingType).subscribe((data)=>console.log(data));
+      this.bookingService.save(newOrUpdatedBooking,this.bookingType)
+        .subscribe((data)=>
+        {
+          console.log(data)
+          this.addAlertForXSeconds(new Alert('success',"Buchung erfolgreich angelegt"),5);
+        },
+        (error)=>
+        {
+
+          this.addAlertForXSeconds(new Alert('danger',"Fehler beim Anlegen der Buchung"),10);
+          this.addAlertForXSeconds(new Alert('danger',`Fehler: ${error.error.cause.cause.cause.message}`),10);//TODO:entfernen nach Development
+        });
     }
     else
     {
-      this.bookingService.updateBooking(this.bookingNo, newOrUpdatedBooking).subscribe((data)=>console.log(data));
+      this.bookingService.updateBooking(this.bookingNo, newOrUpdatedBooking)
+        .subscribe((data)=>
+        {
+          console.log(data)
+          this.addAlertForXSeconds(new Alert('success',"Buchung erfolgreich geändert"),5);
+        },
+        (error)=>
+        {
+          this.addAlertForXSeconds(new Alert('danger',"Fehler beim Ändern der Buchung"),10);
+          this.addAlertForXSeconds(new Alert('danger',`Fehler: ${error.error.cause.cause.cause.message}`),10); //TODO:entfernen nach Development
+        });
     }
 
   }
@@ -199,7 +230,11 @@ export class BookingManagementComponent implements OnInit {
       data.startDate=formatDate(data.startDate,"dd.MM.yyyy HH:mm:ss","de");
       data.endDate=formatDate(data.endDate,"dd.MM.yyyy HH:mm:ss","de");
       this.foundBooking=data;
-    })
+    },
+      (error)=>
+      {
+        this.addAlertForXSeconds(new Alert('danger',"Keine Buchungen zu dieser Buchungsnummer vorhanden"),10);
+      })
 
   }
 
@@ -210,7 +245,11 @@ export class BookingManagementComponent implements OnInit {
       if(data._links?.hotelRoomBooking) this.bookingType="hotelRoom";
       else if(data._links?.conferenceRoomBooking) this.bookingType="conferenceRoom";
       _callback();
-    })
+    },
+      (error)=>
+      {
+        this.addAlertForXSeconds(new Alert('danger',"Keine Buchungen zu dieser Buchungsnummer vorhanden"),10);
+      })
   }
 
   getBookingData()
@@ -229,7 +268,11 @@ export class BookingManagementComponent implements OnInit {
       this.endDate=formatDate(data.endDate,"yyyy-MM-dd","de");
       this.endTime=formatDate(data.endDate,"HH:mm","de");
       this.specialWishes=data.specialWishes
-    });
+    },
+      (error)=>
+      {
+        this.addAlertForXSeconds(new Alert('danger',"Keine Buchungen zu dieser Buchungsnummer vorhanden"),10);
+      });
     return;
   }
 
@@ -240,7 +283,18 @@ export class BookingManagementComponent implements OnInit {
 
   deleteBooking()
   {
-    this.bookingService.delete(this.bookingNo);
+    this.bookingService.delete(this.bookingNo)
+      .subscribe(
+        (data)=>
+        {
+          this.addAlertForXSeconds(new Alert('success',"Buchung erfolgreich gelöscht"),5);
+        },
+
+      (error)=>
+      {
+        this.addAlertForXSeconds(new Alert('danger',"Fehler beim Löschen der Buchung"),10);
+      }
+        )
   }
 
 }
