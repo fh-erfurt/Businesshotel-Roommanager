@@ -7,6 +7,7 @@ import {Accountdetails} from "../../services/accountdetails/accountdetails";
 import {Contactdata} from "../../services/contactdata/contactdata";
 import {BookingService} from "../../services/booking/booking.service";
 import {BookingrequestService} from "../../services/bookingrequest/bookingrequest.service";
+import {Alert} from "../../app.component";
 
 @Component({
   selector: 'app-customer-management',
@@ -54,6 +55,7 @@ export class CustomerManagementComponent implements OnInit {
   repeatedPassword!:string;
   username!:string;
 
+  alerts:Alert[]=[];
 
   paymentMethods=new Map
   ([
@@ -61,6 +63,13 @@ export class CustomerManagementComponent implements OnInit {
     ["debit","EC-Karte"],
     ["bill","Rechnung"]
   ]);
+
+  addAlertForXSeconds(alert:Alert, seconds:number)
+  {
+    this.alerts.push(alert);
+    setTimeout(()=>this.alerts=this.alerts.filter(entry=>entry!=alert),seconds*1000);
+  }
+
 
   addAccount(_callback:Function)
   {
@@ -74,10 +83,13 @@ export class CustomerManagementComponent implements OnInit {
       .subscribe((res)=>
       {
         if(res.accountID) this.accountID=res.accountID
-        else console.log("keine accountID angekommen");
-
         _callback();
-      })
+      },
+      (error)=>
+      {
+        this.addAlertForXSeconds(new Alert('danger',"Fehler beim Erstellen des Accounts"),5);
+      }
+      )
     console.log(this);
     console.log(this.accountID);
   }
@@ -102,10 +114,14 @@ export class CustomerManagementComponent implements OnInit {
       .subscribe((res)=>
       {
         if(res.contactDataID) this.contactDataID=res.contactDataID
-        else console.log("keine accountID angekommen");
 
         _callback();
-      });
+      },
+      (error)=>
+      {
+        this.addAlertForXSeconds(new Alert('danger',"Fehler beim Erstellen der Kontaktdaten"),5);
+      }
+        );
   }
 
   addCustomer()
@@ -122,7 +138,15 @@ export class CustomerManagementComponent implements OnInit {
       }
 
     console.log(newOrUpdatedCustomer);
-    this.customerService.save(newOrUpdatedCustomer);
+    this.customerService.save(newOrUpdatedCustomer)
+      .subscribe((res)=>
+      {
+        this.addAlertForXSeconds(new Alert('success',"Kunde erfolgreich angelegt"),5);
+      },
+        (error)=>
+        {
+          this.addAlertForXSeconds(new Alert('danger',"Fehler beim Erstellen des Kunden"),5);
+        });
   }
 
 
@@ -162,10 +186,42 @@ export class CustomerManagementComponent implements OnInit {
           contactDataID:this.contactDataID,
           accountID:this.accountID,
         }
-      this.contactdataService.updateContactdata(this.contactDataID, newOrUpdatedContactData).subscribe((res)=>console.log(res));
-      this.customerService.updateCustomer(this.customerID, newOrUpdatedCustomer).subscribe((res)=>console.log(res));
+      this.contactdataService.updateContactdata(this.contactDataID, newOrUpdatedContactData)
+        .subscribe((res)=>
+        {
+          this.addAlertForXSeconds(new Alert('success',"Kontaktdaten erfolgreich geändert"),5);
+        },
+        (error)=>
+        {
+          this.addAlertForXSeconds(new Alert('danger',"Fehler beim Ändern der Kontaktdaten"),5);
+        });
+      this.customerService.updateCustomer(this.customerID, newOrUpdatedCustomer)
+        .subscribe((res)=>
+        {
+          this.addAlertForXSeconds(new Alert('success',"Kunde erfolgreich geändert"),5);
+        },
+        (error)=>
+        {
+          this.addAlertForXSeconds(new Alert('danger',"Fehler beim Ändern des Kunden"),5);
+        });
       this.accountdetailsService.updateUsername(this.accountID,this.username)
-      if(this.password) this.accountdetailsService.updateAccountdetails(this.accountID, newOrUpdatedAccount).subscribe((res)=>console.log(res));
+        .subscribe((res)=>
+        {
+          this.addAlertForXSeconds(new Alert('success',"Nutzernamen erfolgreich geändert"),5);
+        },
+        (error)=>
+        {
+          this.addAlertForXSeconds(new Alert('danger',"Fehler beim Ändern des Nutzernamen"),5);
+        });
+      if(this.password) this.accountdetailsService.updateAccountdetails(this.accountID, newOrUpdatedAccount)
+        .subscribe((res)=>
+        {
+          this.addAlertForXSeconds(new Alert('success',"Passwort erfolgreich geändert"),5);
+        },
+        (error)=>
+        {
+          this.addAlertForXSeconds(new Alert('danger',"Fehler beim Ändern des Passworts"),5);
+        });
     }
 
   }
@@ -187,7 +243,11 @@ export class CustomerManagementComponent implements OnInit {
 
       _callback1();
       _callback2();
-    })
+    },
+    (error)=>
+    {
+      this.addAlertForXSeconds(new Alert('danger',"Kein Kunde mit dieser Kundennummer vorhanden"),5);
+    });
   }
 
 
@@ -197,7 +257,11 @@ export class CustomerManagementComponent implements OnInit {
     {
       this.foundAccountdetails = data;
       if(intoFormular) this.username=data.username;
-    })
+    },
+    (error)=>
+    {
+      this.addAlertForXSeconds(new Alert('danger',"Kein Account für diesen Kunden vorhanden"),5);
+    });
   }
 
 
@@ -218,7 +282,11 @@ export class CustomerManagementComponent implements OnInit {
         this.mailAddress = data.mailAddress
         if (data.paymentCredentials) this.paymentCredentials = data.paymentCredentials
       }
-    })
+    },
+    (error)=>
+    {
+      this.addAlertForXSeconds(new Alert('danger',"Keine Kontaktdaten für diesen Kunden vorhanden"),5);
+    });
   }
 
   submitSearch(intoFormular:boolean)
@@ -241,7 +309,11 @@ export class CustomerManagementComponent implements OnInit {
     this.customerService.delete(this.customerID)
       .subscribe((res)=>
       {
-        console.log(res);
+        this.addAlertForXSeconds(new Alert('success',"Kunde erfolgreich gelöscht"),5);
+      },
+      (error)=>
+      {
+        this.addAlertForXSeconds(new Alert('danger',"Fehler beim Löschen des Kunden"),5);
       });
   }
 
@@ -257,11 +329,20 @@ export class CustomerManagementComponent implements OnInit {
         console.log(bookingNoOfCustomer)
         if(bookingNoOfCustomer)
         {
+          let currentIdx=0;
           bookingNoOfCustomer.forEach((bookingNo)=>
           {
-            this.bookingService.patchBookingsAtCustomerDelete(bookingNo).subscribe(()=>console.log("noice"));
+            currentIdx++;
+            this.bookingService.patchBookingsAtCustomerDelete(bookingNo).subscribe(()=>
+            {
+              if(currentIdx==bookingNoOfCustomer.length-1) _callback();
+            },
+            (error)=>
+            {
+              this.addAlertForXSeconds(new Alert('danger',"Abbruch: Fehler beim Patchen der Buchungen"),5);
+            });
           })
-          _callback();
+
         }
         else _callback();
       })
@@ -286,6 +367,10 @@ export class CustomerManagementComponent implements OnInit {
               .subscribe(()=>
               {
                 if(currentIdx==bookingRequestIDsOfCustomer.length-1) _callback();
+              },
+              (error)=>
+              {
+                this.addAlertForXSeconds(new Alert('danger',"Abbruch: Fehler beim Patchen der Buchungsanfragen"),5);
               });
 
           })

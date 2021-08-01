@@ -1,8 +1,9 @@
-<div>
+<div class="pageContent">
   <h1>Personalverwaltung</h1>
   <mat-tab-group>
     <mat-tab label="Hinzufügen">
-      <div class="tab">
+      <div class="matTab">
+        <div class="tab">
         <br>
         <mat-form-field appearance="fill">
           <mat-label>Rolle</mat-label>
@@ -36,7 +37,11 @@
           </mat-form-field>
         </div>
         <br>
-        <button mat-raised-button color="primary" type="submit" (click)="addEmployeeAndDetails()">Absenden</button>
+        <button mat-raised-button color="primary" type="submit" (click)="addOrUpdateEmployeeAndDetails(true)">Absenden</button>
+      </div>
+        <div class="notificationArea">
+          <ngb-alert class="alert"#alert *ngFor="let alert of alerts"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
+        </div>
       </div>
     </mat-tab>
 
@@ -47,7 +52,8 @@
 
 
     <mat-tab label="Bearbeiten">
-      <div class="tab">
+      <div class="matTab">
+        <div class="tab">
         <br>
         <mat-form-field appearance="fill">
           <mat-label>Mitarbeiternummer</mat-label>
@@ -56,42 +62,45 @@
         <br>
         <button mat-raised-button color="primary" (click)="loadEmployeeInfoToFormular()">Suchen</button> <!-- sollte Voraussetzung werden für die Aktivierung des restlicehn Formulars-->
         <br>
-        <mat-card *ngIf="!searchForFillInSuccessful && empNo && fillInButtonPressed">
-          <p>Kein Mitarbeiter mit dieser Nummer vorhanden.</p>
-        </mat-card>
-        <mat-form-field appearance="fill">
-          <mat-label>Rolle</mat-label>
-          <mat-select [(ngModel)]="givenRole" required>
-            <mat-option value="Raummanager">Raummanager</mat-option>
-            <mat-option value="Buchungsmanager">Buchungsmanager</mat-option>
-            <mat-option value="Kundenmanager">Kundenmanager</mat-option>
-            <mat-option value="Personalmanager">Personalmanager</mat-option>
-            <mat-option value="Hotelleiter">Hotelleiter</mat-option>
-          </mat-select>
-        </mat-form-field>
-        <br>
-        <div>
-          <mat-form-field class="halfInput" appearance="fill">
-            <mat-label>Vorname</mat-label>
-            <input matInput type="text" [(ngModel)]="firstName" required>
-          </mat-form-field>
-          <mat-form-field class="halfInput" appearance="fill">
-            <mat-label>Nachname</mat-label>
-            <input matInput type="text" [(ngModel)]="lastName" required>
-          </mat-form-field>
+        <div *ngIf="foundEmployee" class="searchTab">
+            <mat-form-field appearance="fill">
+              <mat-label>Rolle</mat-label>
+              <mat-select [(ngModel)]="givenRole" required>
+                <mat-option value="Raummanager">Raummanager</mat-option>
+                <mat-option value="Buchungsmanager">Buchungsmanager</mat-option>
+                <mat-option value="Kundenmanager">Kundenmanager</mat-option>
+                <mat-option value="Personalmanager">Personalmanager</mat-option>
+                <mat-option value="Hotelleiter">Hotelleiter</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <br>
+            <div>
+              <mat-form-field class="halfInput" appearance="fill">
+                <mat-label>Vorname</mat-label>
+                <input matInput type="text" [(ngModel)]="firstName" required>
+              </mat-form-field>
+              <mat-form-field class="halfInput" appearance="fill">
+                <mat-label>Nachname</mat-label>
+                <input matInput type="text" [(ngModel)]="lastName" required>
+              </mat-form-field>
+            </div>
+            <div>
+              <mat-form-field class="halfInput" appearance="fill">
+                <mat-label>Passwort</mat-label>
+                <input matInput type="password" [(ngModel)]="password" required>
+              </mat-form-field>
+              <mat-form-field class="halfInput" appearance="fill">
+                <mat-label>Passwort wiederholen</mat-label>
+                <input matInput type="password" [(ngModel)]="repeatedPassword" (keyup)="validateRepeatedPassword()" required>
+              </mat-form-field>
+            </div>
+            <br>
+            <button mat-raised-button color="primary" type="submit" (click)="addOrUpdateEmployeeAndDetails(false)">Absenden</button>
+          </div>
         </div>
-        <div>
-          <mat-form-field class="halfInput" appearance="fill">
-            <mat-label>Passwort</mat-label>
-            <input matInput type="password" [(ngModel)]="password" required>
-          </mat-form-field>
-          <mat-form-field class="halfInput" appearance="fill">
-            <mat-label>Passwort wiederholen</mat-label>
-            <input matInput type="password" [(ngModel)]="repeatedPassword" (keyup)="validateRepeatedPassword()" required>
-          </mat-form-field>
+        <div class="notificationArea">
+          <ngb-alert class="alert"#alert *ngFor="let alert of alerts"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
         </div>
-        <br>
-        <button mat-raised-button color="primary" type="submit" (click)="changeEmployee()">Absenden</button>
       </div>
     </mat-tab>
 
@@ -102,7 +111,8 @@
 
 
     <mat-tab label="Löschen">
-      <div class="tab">
+      <div class="matTab">
+        <div class="tab">
         <br>
         <mat-form-field appearance="fill">
           <mat-label>Mitarbeiternummer</mat-label>
@@ -110,7 +120,7 @@
         </mat-form-field>
         <button mat-raised-button color="primary" type="submit" (click)="submitSearch()">Suchen</button>
         <br>
-        <mat-card *ngIf="searchSuccessful">
+        <mat-card *ngIf="foundEmployee">
           <mat-label>Mitarbeiternummer</mat-label>
           <mat-card-title>{{foundEmployee.empNo}}</mat-card-title>
           <mat-label>Mitarbeiterinformationen</mat-label>
@@ -131,12 +141,13 @@
             </table>
           </mat-card-content>
         </mat-card>
-        <mat-card *ngIf="!searchSuccessful && empNo && searchButtonPressed">
-          <p>Kein Mitarbeiter mit dieser Nummer vorhanden.</p>
-        </mat-card>
         <br>
-        <mat-slide-toggle [(ngModel)]="isChecked" [disabled]="!foundEmployee || !searchSuccessful" >Freigeben</mat-slide-toggle> <!--Bestätigung zum Freigeben des Löschen, könnte auch als Pop-Up implementiert werden-->
+        <mat-slide-toggle [(ngModel)]="isChecked" [disabled]="!foundEmployee" >Freigeben</mat-slide-toggle>
         <button mat-raised-button color="primary" type="submit" [disabled]="!isChecked" (click)="deleteEmployee()">Löschen</button>
+      </div>
+        <div class="notificationArea">
+          <ngb-alert class="alert"#alert *ngFor="let alert of alerts"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
+        </div>
       </div>
     </mat-tab>
 
@@ -145,14 +156,15 @@
 
 
     <mat-tab label="Anzeigen">
-      <div class="tab">
+      <div class="matTab">
+        <div class="tab">
         <br>
         <mat-form-field appearance="fill">
           <mat-label>Mitarbeiternummer</mat-label>
           <input matInput type="number" min="1" [(ngModel)]="empNo"  required>
         </mat-form-field>
         <button mat-raised-button color="primary" type="submit" (click)="submitSearch()">Suchen</button>
-        <mat-card *ngIf="searchSuccessful">
+        <mat-card *ngIf="foundEmployee">
           <mat-label>Mitarbeiternummer</mat-label>
           <mat-card-title>{{foundEmployee.empNo}}</mat-card-title>
           <mat-label>Mitarbeiterinformationen</mat-label>
@@ -173,9 +185,10 @@
             </table>
           </mat-card-content>
         </mat-card>
-        <mat-card *ngIf="!searchSuccessful && empNo && searchButtonPressed">
-          <p>Kein Mitarbeiter mit dieser Nummer vorhanden.</p>
-        </mat-card>
+      </div>
+        <div class="notificationArea">
+          <ngb-alert class="alert"#alert *ngFor="let alert of alerts"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
+        </div>
       </div>
     </mat-tab>
   </mat-tab-group>

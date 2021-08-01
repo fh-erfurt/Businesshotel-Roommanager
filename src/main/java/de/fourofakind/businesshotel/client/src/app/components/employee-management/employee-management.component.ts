@@ -4,6 +4,7 @@ import {Accountdetails} from "../../services/accountdetails/accountdetails";
 import {AccountdetailsService} from "../../services/accountdetails/accountdetails.service";
 import {EmployeeService} from "../../services/employee/employee.service";
 import {isNumeric} from "rxjs/internal-compatibility";
+import {Alert} from "../../app.component";
 
 @Component({
   selector: 'app-employee-management',
@@ -12,7 +13,14 @@ import {isNumeric} from "rxjs/internal-compatibility";
 })
 export class EmployeeManagementComponent implements OnInit {
 
+  constructor(private accountdetailsService: AccountdetailsService, private employeeService: EmployeeService) {
 
+  }
+
+  ngOnInit()
+  {
+
+  }
 
   isChecked:boolean = false;
   firstName!:string;
@@ -24,29 +32,20 @@ export class EmployeeManagementComponent implements OnInit {
   username!:string;
   passwordsAreEqual!:boolean;
   givenRole!:string;
-  foundEmployee!:Employee;
+  foundEmployee!:Employee | null;
   accountID!:number;
-  searchSuccessful:boolean=false;
-  searchForFillInSuccessful:boolean=false;
-  lastFoundEmployee!:Employee;
-  searchButtonPressed:boolean=false;
-  fillInButtonPressed:boolean=false;
-  usernameAlreadyExists:boolean=false;
 
-  constructor(private accountdetailsService: AccountdetailsService, private employeeService: EmployeeService) {
+  alerts:Alert[]=[];
 
-  }
-
-  ngOnInit()
+  addAlertForXSeconds(alert:Alert, seconds:number)
   {
-
+    this.alerts.push(alert);
+    setTimeout(()=>this.alerts=this.alerts.filter(entry=>entry!=alert),seconds*1000);
   }
 
   validateRepeatedPassword(){
     this.passwordsAreEqual = this.repeatedPassword == this.password;
   }
-
-
 
   addAccount(_callback:Function)
   {
@@ -63,16 +62,20 @@ export class EmployeeManagementComponent implements OnInit {
        {
          if(data.accountID) this.accountID=data.accountID;
          _callback();
+       },
+       (error)=>
+       {
+         this.addAlertForXSeconds(new Alert('danger',"Fehler beim Anlegen des Accounts"),5);
        });
   }
 
-  getUsername(_callback:Function, username:string)
+  getUsername(_callback:Function, username:string, addsNewEmployee:boolean)
   {
     this.accountdetailsService.getAccountdetailsByUsername(username)
       .subscribe(
       (data)=> {
         if (data.username == username) {
-          this.modifyUsernameIfAlreadyExists(username);
+          this.modifyUsernameIfAlreadyExists(username,addsNewEmployee);
           _callback();
         }
       },
@@ -83,7 +86,7 @@ export class EmployeeManagementComponent implements OnInit {
     )
   }
 
-  modifyUsernameIfAlreadyExists(username:string)
+  modifyUsernameIfAlreadyExists(username:string,addsNewEmployee:boolean)
   {
     let modifiedUsername;
     console.log(username[username.length - 1])
@@ -100,11 +103,11 @@ export class EmployeeManagementComponent implements OnInit {
       console.log(modifiedUsername);
     }
     if(modifiedUsername) this.username=modifiedUsername;
-    this.getUsername(()=>this.addAccount(()=>this.addEmployee()),modifiedUsername);
+    this.getUsername(()=>this.addAccount(()=>this.addOrUpdateEmployee(addsNewEmployee)),modifiedUsername,addsNewEmployee);
     return;
   }
 
-  addEmployee()
+  addOrUpdateEmployee(addsNewEmployee:boolean)
   {
     let newEmployee: Employee =
       {
@@ -112,17 +115,42 @@ export class EmployeeManagementComponent implements OnInit {
         givenRole: this.givenRole,
         accountID: this.accountID,
       };
-    this.employeeService.save(newEmployee);
+
+    if(addsNewEmployee) {
+      this.employeeService.save(newEmployee)
+        .subscribe(
+          (data) => {
+            this.addAlertForXSeconds(new Alert('success', "Mitarbeiter erfolgreich angelegt"), 5);
+          },
+          (error) => {
+            this.addAlertForXSeconds(new Alert('danger', "Fehler beim Anlegen des Mitarbeiters"), 5);
+          }
+        );
+    }
+    else
+    {
+      this.employeeService.updateEmployee(this.empNo,newEmployee)
+        .subscribe(
+          (data)=>
+          {
+            this.addAlertForXSeconds(new Alert('success',"Mitarbeiter erfolgreich geändert"),5);
+          },
+          (error)=>
+          {
+            this.addAlertForXSeconds(new Alert('danger',"Fehler beim Ändern des Mitarbeiters"),5);
+          }
+        );
+    }
   }
 
 
-  addEmployeeAndDetails()
+  addOrUpdateEmployeeAndDetails(addsNewEmployee:boolean)
   {
     var username = this.firstName.trim().replace(" ", ".") + "." + this.lastName.trim().replace(" ", ".");
     username = username.toLowerCase();
 
     this.username=username;
-    this.getUsername(()=>this.addAccount(()=>this.addEmployee()),username);
+    this.getUsername(()=>this.addAccount(()=>this.addOrUpdateEmployee(addsNewEmployee)),username,addsNewEmployee);
 
   }
 
@@ -131,47 +159,50 @@ export class EmployeeManagementComponent implements OnInit {
 
 
   submitSearch(){
-    this.searchButtonPressed=true;
-    console.log(this.empNo);
-    this.searchSuccessful=false;
-    this.employeeService.getEmployee(this.empNo).subscribe(data=>
+    this.foundEmployee=null;
+    this.employeeService.getEmployee(this.empNo)
+      .subscribe(data=>
     {
-
-      this.lastFoundEmployee=this.foundEmployee;
       this.foundEmployee=data;
-
-      if(this.lastFoundEmployee!==this.foundEmployee)
+    },
+      (error)=>
       {
-        this.searchSuccessful=true;
-      }
-
-
-    })
+        this.addAlertForXSeconds(new Alert('danger',"Kein Mitarbeiter mit dieser Mitarbeiternummer vorhanden"),5);
+      })
 
   }
 
   loadEmployeeInfoToFormular()
   {
-    this.searchForFillInSuccessful=false;
-    this.fillInButtonPressed=true;
-    this.employeeService.getEmployee(this.empNo).subscribe(data=>
+    this.foundEmployee=null;
+    this.employeeService.getEmployee(this.empNo)
+      .subscribe(data=>
     {
+      this.foundEmployee=data;
       this.firstName=data.empName.substring(0, data.empName.lastIndexOf(" "));
       this.lastName=data.empName.substring(data.empName.lastIndexOf(" "));
       this.givenRole=data.givenRole;
       this.accountID=data.accountID;
-      this.searchForFillInSuccessful=true;
-    });
+    },
+      (error)=>
+      {
+        this.addAlertForXSeconds(new Alert('danger',"Kein Mitarbeiter mit dieser Mitarbeiternummer vorhanden"),5);
+      });
   }
 
   deleteEmployee()
   {
-    this.employeeService.delete(this.empNo);
+    this.employeeService.delete(this.empNo)
+      .subscribe(
+        (data)=>
+        {
+          this.addAlertForXSeconds(new Alert('success',"Mitarbeiter erfolgreich gelöscht"),5);
+        },
+        (error)=>
+        {
+          this.addAlertForXSeconds(new Alert('danger',"Kein Mitarbeiter mit dieser Mitarbeiternummer vorhanden"),5);
+        }
+      );
 
-  }
-
-  changeEmployee()
-  {
-    //TODO:Logik implementieren
   }
 }

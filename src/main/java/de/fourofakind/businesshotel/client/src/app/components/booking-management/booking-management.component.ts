@@ -38,34 +38,6 @@ import {Alert} from "../../app.component";
 
 export class BookingManagementComponent implements OnInit {
 
-  isChecked:boolean = false;
-  customerID!:number;
-  bookingNo!:number;
-  startDate!:string;
-  startTime!:string;
-  specialWishes!:string;
-  roomNo!:number;
-  rooms!:Room[];
-  endDate!:string;
-  endTime!:string;
-  bookingType!:string;
-  booking!:Booking;
-  foundBooking!:Booking | null;
-  bookings:Booking[]=[];
-  hotelRoomBookings!:Booking[];
-  conferenceRoomBookings!:Booking[];
-  minDateStart!:string;
-  minDateEnd!:string;
-  startTimestamp!:Date;
-  endTimestamp!:Date;
-  calculatedPricing!:number;
-  pricePerUnit!: number;
-
-
-  alerts:Alert[]=[];
-
-
-
   constructor(private bookingService: BookingService, private roomService: RoomService) {
   }
 
@@ -97,6 +69,34 @@ export class BookingManagementComponent implements OnInit {
         })
       })
   }
+
+  isChecked:boolean = false;
+  customerID!:number;
+  bookingNo!:number;
+  startDate!:string;
+  startTime!:string;
+  specialWishes!:string;
+  roomNo!:number;
+  rooms!:Room[];
+  endDate!:string;
+  endTime!:string;
+  bookingType!:string;
+  booking!:Booking;
+  foundBooking!:Booking | null;
+  bookings:Booking[]=[];
+  hotelRoomBookings!:Booking[];
+  conferenceRoomBookings!:Booking[];
+  minDateStart!:string;
+  minDateEnd!:string;
+  startTimestamp!:Date;
+  endTimestamp!:Date;
+  calculatedPricing!:number;
+  pricePerUnit!: number;
+
+
+  alerts:Alert[]=[];
+
+
 
   addAlertForXSeconds(alert:Alert, seconds:number)
   {
@@ -159,14 +159,11 @@ export class BookingManagementComponent implements OnInit {
       this.bookingService.save(newOrUpdatedBooking,this.bookingType)
         .subscribe((data)=>
         {
-          console.log(data)
           this.addAlertForXSeconds(new Alert('success',"Buchung erfolgreich angelegt"),5);
         },
         (error)=>
         {
-
-          this.addAlertForXSeconds(new Alert('danger',"Fehler beim Anlegen der Buchung"),10);
-          this.addAlertForXSeconds(new Alert('danger',`Fehler: ${error.error.cause.cause.cause.message}`),10);//TODO:entfernen nach Development
+          this.addAlertForXSeconds(new Alert('danger',"Fehler beim Anlegen der Buchung"),5);
         });
     }
     else
@@ -174,13 +171,11 @@ export class BookingManagementComponent implements OnInit {
       this.bookingService.updateBooking(this.bookingNo, newOrUpdatedBooking)
         .subscribe((data)=>
         {
-          console.log(data)
           this.addAlertForXSeconds(new Alert('success',"Buchung erfolgreich geändert"),5);
         },
         (error)=>
         {
-          this.addAlertForXSeconds(new Alert('danger',"Fehler beim Ändern der Buchung"),10);
-          this.addAlertForXSeconds(new Alert('danger',`Fehler: ${error.error.cause.cause.cause.message}`),10); //TODO:entfernen nach Development
+          this.addAlertForXSeconds(new Alert('danger',"Fehler beim Ändern der Buchung"),5);
         });
     }
 
@@ -233,7 +228,7 @@ export class BookingManagementComponent implements OnInit {
     },
       (error)=>
       {
-        this.addAlertForXSeconds(new Alert('danger',"Keine Buchungen zu dieser Buchungsnummer vorhanden"),10);
+        this.addAlertForXSeconds(new Alert('danger',"Keine Buchungen zu dieser Buchungsnummer vorhanden"),5);
       })
 
   }
@@ -248,7 +243,7 @@ export class BookingManagementComponent implements OnInit {
     },
       (error)=>
       {
-        this.addAlertForXSeconds(new Alert('danger',"Keine Buchungen zu dieser Buchungsnummer vorhanden"),10);
+        this.addAlertForXSeconds(new Alert('danger',"Keine Buchungen zu dieser Buchungsnummer vorhanden"),5);
       })
   }
 
@@ -271,7 +266,7 @@ export class BookingManagementComponent implements OnInit {
     },
       (error)=>
       {
-        this.addAlertForXSeconds(new Alert('danger',"Keine Buchungen zu dieser Buchungsnummer vorhanden"),10);
+        this.addAlertForXSeconds(new Alert('danger',"Keine Buchungen zu dieser Buchungsnummer vorhanden"),5);
       });
     return;
   }
@@ -292,7 +287,7 @@ export class BookingManagementComponent implements OnInit {
 
       (error)=>
       {
-        this.addAlertForXSeconds(new Alert('danger',"Fehler beim Löschen der Buchung"),10);
+        this.addAlertForXSeconds(new Alert('danger',"Fehler beim Löschen der Buchung"),5);
       }
         )
   }

@@ -1,8 +1,9 @@
-<div>
+<div class="pageContent">
   <h1>Raumverwaltung</h1>
   <mat-tab-group>
     <mat-tab label="Hinzufügen">
-      <div class="tab">
+      <div class="matTab">
+        <div class="tab">
         <br>
         <mat-radio-group [(ngModel)]="roomType"  class="roomtypeSelector">
           <mat-radio-button required value="HOTELROOM">Hotelzimmer</mat-radio-button>
@@ -69,11 +70,16 @@
         <br>
         <button mat-raised-button color="primary" type="submit" (click)="addOrUpdateRoom(true)">Absenden</button>
       </div>
+        <div class="notificationArea">
+          <ngb-alert class="alert"#alert *ngFor="let alert of alerts"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
+        </div>
+        </div>
     </mat-tab>
 
 
     <mat-tab label="Bearbeiten">
-      <div class="tab">
+      <div class="matTab">
+        <div class="tab">
         <br>
         <mat-form-field appearance="fill">
           <mat-label>Raumnummer</mat-label>
@@ -148,6 +154,10 @@
           <button mat-raised-button color="primary" type="submit" (click)="addOrUpdateRoom(false)">Absenden</button>
         </div>
       </div>
+        <div class="notificationArea">
+          <ngb-alert class="alert"#alert *ngFor="let alert of alerts"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
+        </div>
+        </div>
     </mat-tab>
 
 
@@ -157,7 +167,8 @@
 
 
     <mat-tab label="Löschen">
-      <div class="tab">
+      <div class="matTab">
+        <div class="tab">
         <br>
 
         <br>
@@ -214,6 +225,10 @@
         <mat-slide-toggle [(ngModel)]="isChecked" [disabled]="!foundRoom" >Freigeben</mat-slide-toggle> <!--Bestätigung zum Freigeben des Löschen, könnte auch als Pop-Up implementiert werden-->
         <button mat-raised-button color="primary" type="submit" [disabled]="!isChecked" (click)="deleteRoom()">Löschen</button>
       </div>
+        <div class="notificationArea">
+          <ngb-alert class="alert"#alert *ngFor="let alert of alerts"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
+        </div>
+        </div>
     </mat-tab>
 
 
@@ -221,7 +236,8 @@
 
 
     <mat-tab label="Anzeigen">
-      <div class="tab">
+      <div class="matTab">
+        <div class="tab">
         <br>
         <mat-form-field appearance="fill">
           <mat-label>Raumnummer</mat-label>
@@ -272,6 +288,10 @@
           </mat-card-content>
         </mat-card>
       </div>
+        <div class="notificationArea">
+          <ngb-alert class="alert"#alert *ngFor="let alert of alerts"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
+        </div>
+        </div>
     </mat-tab>
   </mat-tab-group>
 

@@ -1,7 +1,30 @@
+.pageContent{
+  margin-left:2%;
+}
+
 .tab{
   display:flex;
   flex-direction:column;
   width:50%;
+  .searchTab{
+    display:flex;
+    flex-direction:column;
+    width:100%;
+  }
+}
+
+.notificationArea{
+  display:flex;
+  flex-direction:column;
+  width:50%;
+  padding:2%;
+}
+
+.matTab{
+  display:flex;
+  flex-direction: row;
+  width:100%;
+  justify-content: space-around;
 }
 
 button{
@@ -37,4 +60,17 @@ button{
 
 td{
   width:50%;
+}
+
+.alert{
+
+  animation:fade-out 5s;
+}
+
+
+
+@keyframes fade-out {
+  0% { opacity: 1; }
+  75% { opacity: 1; }
+  100% { opacity: 0; }
 }
