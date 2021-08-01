@@ -3,6 +3,7 @@ import { RoomService } from '../../services/room/room.service';
 import { Room } from '../../services/room/room';
 import { environment} from "../../../environments/environment";
 import { HostListener } from "@angular/core";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-room',
@@ -12,6 +13,7 @@ import { HostListener } from "@angular/core";
 
 export class RoomComponent implements OnInit {
 
+  loading = false;
   screenHeight: number = 0;
   screenWidth: number = 0;
   hotelRooms: Room[] = new Array(0);
@@ -19,39 +21,69 @@ export class RoomComponent implements OnInit {
   currency: string = "$"
   numberOfRowsOfHotelRooms = new Array(1);
   numberOfRowsOfConferenceRooms = new Array(1);
+
   numbersOfColsOfHotelRooms = new Array(3);
   numbersOfColsOfConferenceRooms = new Array(3);
 
+  cardWidth = 286
+  cardHeight = 302
+
+  constructor(private roomService: RoomService, private router: Router) {
+    // this.getScreenSize();
+  }
+
   @HostListener('window:resize', ['$event'])
-  getScreenSize(event?: any) {
+  getWindowSize(event?: any) {
+    this.calcNumbersOfColsOfHotelRooms()
+    this.calcNumbersOfColsOfConferenceRooms()
+  }
+
+
+  calcNumbersOfColsOfHotelRooms(event?: any) {
     this.screenHeight = window.innerHeight;
     this.screenWidth = window.innerWidth;
-    // console.log(this.screenHeight, this.screenWidth);
-    console.log("screenWidth: ", this.screenWidth);
 
-    const numberOfColsLenght = Math.round((this.screenWidth - 44) / 330) - (((this.screenWidth - 44) / 330) === 0 ? 0 : 1);
-    console.log(numberOfColsLenght);
-    console.log(this.numberOfRowsOfHotelRooms.length);
-    console.log(this.numbersOfColsOfConferenceRooms.length);
+    const numberOfColsLenght = Math.round((this.screenWidth - 44) / this.cardWidth) - (((this.screenWidth - 44) / this.cardWidth) === 0 ? 0 : 1);
 
-    if (numberOfColsLenght < this.numberOfRowsOfHotelRooms.length) {
+    if (numberOfColsLenght <= this.hotelRooms.length) {
       this.numbersOfColsOfHotelRooms.length = numberOfColsLenght;
     } else {
-      this.numbersOfColsOfHotelRooms.length = this.numberOfRowsOfHotelRooms.length
+      if (numberOfColsLenght <= 5 || this.hotelRooms.length < 5) {
+        this.numbersOfColsOfHotelRooms.length = this.hotelRooms.length
+      } else {
+        this.numbersOfColsOfHotelRooms.length = 5
+      }
     }
+  }
 
-    if (numberOfColsLenght < this.numberOfRowsOfConferenceRooms.length) {
+  calcNumbersOfColsOfConferenceRooms(event?: any) {
+    this.screenHeight = window.innerHeight;
+    this.screenWidth = window.innerWidth;
+
+    const numberOfColsLenght = Math.round((this.screenWidth - 44) / this.cardWidth) - (((this.screenWidth - 44) / this.cardWidth) === 0 ? 0 : 1);
+
+    console.log("numberOfColsLenght: ", numberOfColsLenght)
+
+    if (numberOfColsLenght <= this.conferenceRooms.length && this.conferenceRooms.length > 5 ) {
       this.numbersOfColsOfConferenceRooms.length = numberOfColsLenght;
     } else {
-      this.numbersOfColsOfConferenceRooms.length = this.numberOfRowsOfConferenceRooms.length
+      if (numberOfColsLenght <= 5 || this.conferenceRooms.length < 5) {
+        this.numbersOfColsOfConferenceRooms.length = this.conferenceRooms.length
+      } else {
+        this.numbersOfColsOfConferenceRooms.length = 5
+      }
     }
-
-    console.log(this.numbersOfColsOfConferenceRooms.length);
   }
 
-  constructor(private roomService: RoomService) {
-    this.getScreenSize();
+  selectHotelRoom(roomIndex: number) {
+    // this.router.navigateByUrl('/booking/' + roomIndex)
   }
+
+  selectConferenceRoom(roomIndex: number) {
+    this.router.navigateByUrl('/booking/' + this.getConferenceRoom(roomIndex).roomNo)
+  }
+
+
 
   ngOnInit(): void {
     this.currency = environment.currency
@@ -59,14 +91,34 @@ export class RoomComponent implements OnInit {
       .subscribe((data: Room[])=>{
         this.hotelRooms = data;
         // this.numberOfRowsOfHotelRooms.length = this.hotelRooms.length % this.numbersOfCols.length
-        this.numberOfRowsOfHotelRooms.length = Math.round(this.hotelRooms.length / this.numbersOfColsOfHotelRooms.length) + (this.hotelRooms.length % this.numbersOfColsOfHotelRooms.length === 0 ? 0 : 1)
+        // console.log("numberOfRowsOfHotelRooms: ", this.numberOfRowsOfHotelRooms.length);
+        // console.log("hotelRooms: ", this.hotelRooms.length);
+        //
+        // console.log("hotelRooms: ", this.hotelRooms.length);
+        // console.log("numbersOfColsOfHotelRooms: ", this.numbersOfColsOfHotelRooms.length);
+        // console.log("")
+        // console.log("Math.round: ", Math.round(this.hotelRooms.length / this.numbersOfColsOfHotelRooms.length));
+        // console.log("plus: ", (this.hotelRooms.length % this.numbersOfColsOfHotelRooms.length === 0 ? 0 : 1));
+        // console.log("numberOfRowsOfHotelRooms: ", Math.round(this.hotelRooms.length / this.numbersOfColsOfHotelRooms.length)
+        //   + (this.hotelRooms.length % this.numbersOfColsOfHotelRooms.length === 0 ? 0 : 1))
+
+        this.numberOfRowsOfHotelRooms.length =
+          Math.round(this.hotelRooms.length / this.numbersOfColsOfHotelRooms.length)
+          + (this.hotelRooms.length % this.numbersOfColsOfHotelRooms.length === 0 ? 0 : 1)
+
+        this.calcNumbersOfColsOfHotelRooms();
+
     })
     this.roomService.getConferenceRooms()
       .subscribe((data: Room[])=>{
         this.conferenceRooms = data;
         // this.numberOfRowsOfConferenceRooms.length = this.conferenceRooms.length % this.numbersOfCols.length
 
-        this.numberOfRowsOfConferenceRooms.length = Math.round(this.conferenceRooms.length / this.numbersOfColsOfConferenceRooms.length) + (this.conferenceRooms.length % this.numbersOfColsOfConferenceRooms.length == 0 ? 0 : 1)
+        this.numberOfRowsOfConferenceRooms.length =
+          Math.round(this.conferenceRooms.length / this.numbersOfColsOfConferenceRooms.length)
+          + (this.conferenceRooms.length % this.numbersOfColsOfConferenceRooms.length == 0 ? 0 : 1)
+
+        this.calcNumbersOfColsOfConferenceRooms();
     })
   }
 

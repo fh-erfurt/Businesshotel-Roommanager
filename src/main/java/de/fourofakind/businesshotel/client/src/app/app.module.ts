@@ -38,6 +38,7 @@ import {MatGridListModule} from "@angular/material/grid-list";
 import {BookingComponent} from './components/bookingRequest/booking.component';
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {MatTableModule} from "@angular/material/table";
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 registerLocaleData(localeDe, localeDeExtra);
@@ -62,6 +63,7 @@ registerLocaleData(localeDe, localeDeExtra);
     BookingComponent
   ],
   imports: [
+    NgbModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,

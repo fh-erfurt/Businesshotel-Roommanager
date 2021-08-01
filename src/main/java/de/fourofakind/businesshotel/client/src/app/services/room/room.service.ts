@@ -44,7 +44,6 @@ export class RoomService {
   public getRoom(id:number): Observable<Room>{
     return this.http.get<Room>(`${this.baseUrl}${id}`).pipe(
       map((result:any) =>{
-        console.log(result);
         return result;
       })
     )

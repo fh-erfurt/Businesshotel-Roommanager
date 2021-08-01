@@ -10,7 +10,7 @@ import {CustomerManagementComponent} from "../components/customer-management/cus
 import {RoomManagementComponent} from "../components/room-management/room-management.component";
 import {EmployeeManagementComponent} from "../components/employee-management/employee-management.component";
 import {RegistrationComponent} from "../components/registration/registration.component";
-
+import {BookingComponent} from "../components/bookingRequest/booking.component";
 
 const routes: Routes = [
   { path: '', component: MainComponent, pathMatch: 'full'},
@@ -22,6 +22,7 @@ const routes: Routes = [
   { path: 'management/room', component: RoomManagementComponent},
   { path: 'management/employee', component: EmployeeManagementComponent},
   { path: 'employees', component: EmployeeComponent},
+  { path: 'booking/:roomID', component: BookingComponent},
 
 ];
 

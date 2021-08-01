@@ -11,4 +11,5 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 public interface AccountDetailsRepository  extends JpaRepository<AccountDetails,Integer>
 {
     AccountDetails findByUsername (@Param("username") String username);
+
 }

@@ -16,6 +16,9 @@ export class RegistrationComponent implements OnInit {
   username!: string;
   password!: string;
 
+  title = 'appBootstrap';
+
+
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -25,7 +28,6 @@ export class RegistrationComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
-
       lastName: ['', Validators.required],
       firstName: ['', Validators.required],
       companyName: ['', Validators.required],
@@ -34,7 +36,6 @@ export class RegistrationComponent implements OnInit {
       username: ['', Validators.required],
       password: ['', Validators.required],
       passwordVerify: ['', Validators.required]
-
     });
   }
 

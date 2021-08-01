@@ -18,8 +18,13 @@
 
               <h5>{{getHotelRoom(colIndex + numbersOfColsOfHotelRooms.length * rowIndex).category}}</h5>
               <h6> ({{getHotelRoom(colIndex + numbersOfColsOfHotelRooms.length * rowIndex).areaInSqrMetre}}qm) </h6>
-              <!--            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>-->
-              <!--            <a href="#" class="btn btn-primary">Go somewhere</a>-->
+<!--              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>-->
+
+              <br>
+              <button [disabled]="loading" class="btn btn-secondary" [routerLink]="['/booking', getHotelRoom(colIndex + numbersOfColsOfHotelRooms.length * rowIndex).roomNo]">
+                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                Buchen
+              </button>
             </div>
           </div>
         </div>
@@ -33,6 +38,12 @@
             <div class="card-body" align="left">
               <h5>{{getConferenceRoom(colIndex + numbersOfColsOfConferenceRooms.length * rowIndex).category}}</h5>
               <h6> ({{getConferenceRoom(colIndex + numbersOfColsOfConferenceRooms.length * rowIndex).areaInSqrMetre}}qm) </h6>
+
+              <br>
+              <button [disabled]="loading" class="btn btn-secondary" (click)="selectConferenceRoom(colIndex + numbersOfColsOfConferenceRooms.length * rowIndex)">
+                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                Buchen
+              </button>
             </div>
           </div>
         </div>

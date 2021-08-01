@@ -1,109 +1,71 @@
-<!--<ul class="nav nav-tabs nav-fill" id="myTab" role="tablist">-->
-<!--  <li class="nav-item" role="presentation">-->
-<!--    <button class="nav-link active" id="hotelRoom-tab" data-bs-toggle="tab" data-bs-target="#hotelRoom" type="button" role="tab" aria-controls="home" aria-selected="true">Übernachtungszimmer</button>-->
-<!--  </li>-->
-<!--  <li class="nav-item" role="presentation">-->
-<!--    <button class="nav-link" id="conferencRoom-tab" data-bs-toggle="tab" data-bs-target="#conferencRoom" type="button" role="tab" aria-controls="profile" aria-selected="false">Konferenzraum</button>-->
-<!--  </li>-->
-<!--  <li class="nav-item" role="presentation">-->
-<!--    <button class="nav-link" id="test-tab" data-bs-toggle="tab" data-bs-target="#test" type="button" role="tab" aria-controls="profile" aria-selected="false">Test</button>-->
-<!--  </li>-->
-<!--</ul>-->
-<!--<div class="tab-content rooms-list" id="myTabContent">-->
-<!--  <div class="tab-pane fade show active" id="hotelRoom" role="tabpanel" aria-labelledby="home-tab">-->
-<!--    <table class = "table table-hover">-->
-<!--      <thead>-->
-<!--      <th>Kategorie</th>-->
-<!--      <th>Nutzfläche</th>-->
-<!--      <th>Preis pro Nacht</th>-->
-<!--      </thead>-->
-<!--      <tbody>-->
-<!--      <tr *ngFor = "let hotelRoom of hotelRooms">-->
-<!--        <td>{{ hotelRoom.category }}</td>-->
-<!--        <td>{{ hotelRoom.areaInSqrMetre + " qm" }}</td>-->
-<!--        <td>{{ hotelRoom.pricePerUnit + " " + currency }}</td>-->
-<!--      </tr>-->
-<!--      </tbody>-->
-<!--    </table>-->
-<!--  </div>-->
-<!--  <div class="tab-pane fade" id="conferencRoom" role="tabpanel" aria-labelledby="profile-tab">-->
-<!--    <table class = "table table-hover">-->
-<!--      <thead>-->
-<!--      <th>Kategorie</th>-->
-<!--      <th>Wohnfläche</th>-->
-<!--      <th>Preis pro Nacht</th>-->
-<!--      </thead>-->
-<!--      <tbody>-->
-<!--      <tr *ngFor = "let conferenceroom of conferenceRooms" data-toggle="collapse" data-target="#accordion" class="accordion-toggle">-->
-<!--        <td>{{ conferenceroom.category }}</td>-->
-<!--        <td>{{ conferenceroom.areaInSqrMetre + " qm"}}</td>-->
-<!--        <td>{{ conferenceroom.pricePerUnit + " " + currency}}</td>-->
-<!--      </tr>-->
-<!--      <tr>-->
-<!--        <td colspan="3" class="hiddenRow">-->
-<!--          <div id="accordion" class="accordian-body collapse">Hidden by default</div>-->
-<!--        </td>-->
-<!--      </tr>-->
-<!--      </tbody>-->
-<!--    </table>-->
-<!--  </div>-->
-<!--  <div class="tab-pane fade" id="test" role="tabpanel" aria-labelledby="profile-tab">-->
-<!--    <div id="accordion">-->
-<!--      <div class="card">-->
-<!--        <div class="card-header" id="headingOne">-->
-<!--          <h5 class="mb-0">-->
-<!--            <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">-->
-<!--              Collapsible Group Item #1-->
-<!--            </button>-->
-<!--          </h5>-->
-<!--        </div>-->
 
-<!--        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">-->
-<!--          <div class="card-body">-->
-<!--            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.-->
+<div class="booking-view">
+  <div class="card">
+    <h4 class="card-header">{{selectedRoom.roomType + " - " + selectedRoom.category}}</h4>
+    <div class="card-body">
+      <label>{{pricesLabel + ": " +selectedRoom.pricePerUnit + "" + currency}}</label>
+      <br>
+      <label>{{"Fläche : " +selectedRoom.areaInSqrMetre + "qm"}}</label>
+      <br>
+      <br>
+      <form class="form-inline">
+        <div class="form-group">
+          <div class="input-group">
+<!--            <ngb-datepicker #dp [(ngModel)]="model" (navigate)="date = $event.next"></ngb-datepicker>-->
+
+<!--&lt;!&ndash;            <input class="form-control" placeholder="yyyy-mm-dd"&ndash;&gt;-->
+<!--&lt;!&ndash;                   name="dp" [(ngModel)]="model" ngbDatepicker #dp="ngbDatepicker">&ndash;&gt;-->
+<!--&lt;!&ndash;            <div class="input-group-append">&ndash;&gt;-->
+<!--&lt;!&ndash;              <button class="btn btn-outline-secondary calendar" (click)="dp.toggle()" type="button"></button>&ndash;&gt;-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+<!--            <hr/>-->
+<!--            <button class="btn btn-sm btn-outline-primary mr-2" (click)="selectToday()">Select Today</button>-->
+<!--            <button class="btn btn-sm btn-outline-primary mr-2" (click)="dp.navigateTo()">To current month</button>-->
+<!--            <button class="btn btn-sm btn-outline-primary mr-2" (click)="dp.navigateTo({year: 2013, month: 2})">To Feb 2013</button>-->
+<!--            <hr/>-->
+<!--            <pre>Month: {{ date.month }}.{{ date.year }}</pre>-->
+<!--            <pre>Model: {{ model | json }}</pre>-->
+
+
+
+          </div>
+          <div class="date-picker">
+            <p>Example of the range selection</p>
+
+            <ngb-datepicker #dp (dateSelect)="onDateSelection($event)" [displayMonths]="2" [dayTemplate]="t" outsideDays="hidden">
+            </ngb-datepicker>
+
+            <ng-template #t let-date let-focused="focused">
+              <span class="custom-day"
+                    [class.focused]="focused"
+                    [class.range]="isRange(date)"
+                    [class.faded]="isHovered(date) || isInside(date)"
+                    (mouseenter)="hoveredDate = date"
+                    (mouseleave)="hoveredDate = null">
+                {{ date.day }}
+              </span>
+            </ng-template>
+
+            <hr>
+
+            <pre>From: {{ fromDate | json }} </pre>
+            <pre>To: {{ toDate | json }} </pre>
+          </div>
+<!--          <br>-->
+<!--          <div class="input-group">-->
+<!--            <ngb-timepicker [(ngModel)]="time"></ngb-timepicker>-->
+<!--            <hr>-->
+<!--            <pre>Selected time: {{time | json}}</pre>-->
 <!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--      <div class="card">-->
-<!--        <div class="card-header" id="headingTwo">-->
-<!--          <h5 class="mb-0">-->
-<!--            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">-->
-<!--              Collapsible Group Item #2-->
-<!--            </button>-->
-<!--          </h5>-->
-<!--        </div>-->
-<!--        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">-->
-<!--          <div class="card-body">-->
-<!--            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--      <div class="card">-->
-<!--        <div class="card-header" id="headingThree">-->
-<!--          <h5 class="mb-0">-->
-<!--            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">-->
-<!--              Collapsible Group Item #3-->
-<!--            </button>-->
-<!--          </h5>-->
-<!--        </div>-->
-<!--        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">-->
-<!--          <div class="card-body">-->
-<!--            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</div>-->
+        </div>
+      </form>
+
+<!--      <hr/>-->
+<!--      <pre>Model: {{ model | json }}</pre>-->
+<!--      <br>-->
+    </div>
+  </div>
+</div>
 
 
 
-<!--&lt;!&ndash;<div class = "container">&ndash;&gt;-->
-<!--&lt;!&ndash;  <div class = "card">&ndash;&gt;-->
-<!--&lt;!&ndash;    <h3 class="text-center">Raumliste</h3>&ndash;&gt;-->
-<!--&lt;!&ndash;    <div class = "card-body">&ndash;&gt;-->
-<!--&lt;!&ndash;      &ndash;&gt;-->
-
-<!--&lt;!&ndash;    </div>&ndash;&gt;-->
-<!--&lt;!&ndash;  </div>&ndash;&gt;-->
-<!--&lt;!&ndash;</div>&ndash;&gt;-->

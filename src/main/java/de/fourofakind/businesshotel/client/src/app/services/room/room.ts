@@ -18,7 +18,6 @@ export interface Embedded {
 
 export interface Room {
   roomNo: number;
-  roomName: string;
   areaInSqrMetre: number;
   category: string;
   pricePerUnit: number;
