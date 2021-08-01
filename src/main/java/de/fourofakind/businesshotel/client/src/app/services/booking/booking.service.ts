@@ -65,26 +65,6 @@ export class BookingService {
     )
   }
 
-  // public getConferenceRoomBookings(): Observable<Booking[]>
-  // {
-  //   return this.http.get<Booking[]>(`${this.baseUrl}`).pipe(
-  //     map((result:any) =>{
-  //       //console.log(result);
-  //       return result._embedded.conferenceRoomBookings;
-  //     })
-  //   )
-  // }
-  //
-  // public getHotelRoomBookings(): Observable<Booking[]>
-  // {
-  //   return this.http.get<Booking[]>(`${this.baseUrl}`).pipe(
-  //     map((result:any) =>{
-  //       //console.log(result);
-  //       return result._embedded.hotelRoomBookings;
-  //     })
-  //   )
-  // }
-
   public save(booking:Booking, bookingType:string)
   {
     console.log(booking);
