@@ -9,8 +9,11 @@ import {map} from "rxjs/operators";
 })
 export class EmployeeService {
 
-  private baseUrl = "http://localhost:8081/employee/"
-  constructor(private http: HttpClient) { }
+  private readonly baseUrl:string;
+
+  constructor(private http: HttpClient) {
+    this.baseUrl="http://localhost:8081/employee/"
+  }
 
   public getEmployees(): Observable<RawData>{
     return this.http.get<RawData>(`${this.baseUrl}`)
@@ -26,48 +29,49 @@ export class EmployeeService {
     )
   }
 
-  public save(employee: Employee) {
+  public save(employee: Employee): Observable<Employee>
+  {
     console.log(employee);
 
-    this.http.post<Employee>(this.baseUrl, employee)
-      .subscribe(
-        (val)=>
-        {
-          console.log("Post call => successful value returned in body: ", val);
-        },
-
-        response=>
-        {
-          console.log("Post call => error in: ", response);
-          return response;
-        },
-        ()=>
-        {
-          console.log("Post call => Employee creation successful");
-        }
+    return this.http.post<Employee>(this.baseUrl, employee)
+      .pipe(
+        map(
+          (res)=>
+          {
+            return res;
+          }
+        )
       )
   }
 
-  public delete(id: number) {
-    this.http.delete<Employee>(`${this.baseUrl}${id}`)
-      .subscribe(
-        (val)=>
-        {
-          console.log("Post call => successful value returned in body: ", val);
-        },
-
-        response=>
-        {
-          console.log("Post call => error in: ", response);
-          return response;
-        },
-        ()=>
-        {
-          console.log("Post call => Employee deletion successful");
-        }
-
+  public delete(id: number) : Observable<Employee>
+  {
+    return this.http.delete<Employee>(`${this.baseUrl}${id}`)
+      .pipe(
+        map(
+          (res)=>
+          {
+            return res;
+          }
+        )
       )
   }
+
+  public updateEmployee(id: number, employee: Employee)
+  {
+    console.log(employee);
+
+    return this.http.put<Employee>(`${this.baseUrl}${id}`, employee)
+      .pipe(
+        map(
+          (res)=>
+          {
+            return res;
+          }
+        )
+      )
+  }
+
 }
 
 
