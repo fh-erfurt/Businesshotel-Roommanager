@@ -60,7 +60,7 @@ registerLocaleData(localeDe, localeDeExtra);
     EmployeeComponent,
     FooterComponent,
     RegistrationComponent,
-    BookingComponent
+    BookingComponent,
   ],
   imports: [
     NgbModule,

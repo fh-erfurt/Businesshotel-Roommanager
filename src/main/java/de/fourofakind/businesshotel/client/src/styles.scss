@@ -6,6 +6,17 @@
 //@import "../node_modules/bootstrap/scss/mixins";
 @import "scss/var";
 @import '../node_modules/bootstrap/scss/bootstrap';
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+  visibility: hidden;
+}
 //@import "scss/custom.scss";
 
 //$primary: rgb(33, 37, 41);
@@ -18,7 +29,7 @@
 //$dark: #343a40;
 
 //.bg-primary {
-//  background-color: $primary !important;
+//  background-color: $primary !imp ortant;
 //  color: $primary !important;
 //}
 

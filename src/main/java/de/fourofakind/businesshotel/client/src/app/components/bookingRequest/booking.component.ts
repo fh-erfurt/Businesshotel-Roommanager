@@ -6,7 +6,7 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import {RoomService} from "../../services/room/room.service";
 import {Room} from "../../services/room/room";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {NgbCalendar, NgbDate, NgbDateStruct} from "@ng-bootstrap/ng-bootstrap";
+import {NgbCalendar, NgbDate, NgbDateStruct, NgbTimeStruct} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'app-booking',
@@ -22,14 +22,16 @@ export class BookingComponent implements OnInit {
   unitLabel: string = "Nächte"
   form!: FormGroup;
 
-  // model!: NgbDateStruct;
-  // date!: {year: number, month: number};
+  // datePicker
   hoveredDate: NgbDate | null = null;
-
   fromDate: NgbDate;
   toDate: NgbDate | null = null;
 
-  time = {hour: 13, minute: 30};
+
+  // timePicker
+  time: NgbTimeStruct = {hour: 8, minute: 0, second: 0};
+  hourStep = 1;
+  minuteStep = 15;
 
 
   selectedRoom: Room = {roomNo: 0,

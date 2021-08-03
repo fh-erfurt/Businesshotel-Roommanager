@@ -3,8 +3,32 @@
 }
 
 .date-picker {
-
+  //margin-left: auto;
+  margin-right: 0px;
+  float: right;
+  //align-content: center;
 }
+
+.form-inline {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+  gap: 0px 0px;
+  grid-template-areas:
+    "booking-details date-group";
+}
+.date-group {
+  grid-area: date-group;
+}
+.booking-details {
+  grid-area: booking-details;
+}
+
+.btn {
+  visibility: hidden;
+}
+
+
 
 //button.calendar, button.calendar:active {
 //  width: 2.75rem;
