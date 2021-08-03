@@ -51,7 +51,7 @@
             <button mat-raised-button color="primary" type="submit" (click)="addOrUpdateBooking(true)">Absenden</button>
           </div>
           <div class="notificationArea">
-          <ngb-alert #alert *ngFor="let alert of alerts"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
+          <ngb-alert class="alert"#alert *ngFor="let alert of alerts"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
         </div>
         </div>
       </mat-tab>
@@ -70,7 +70,7 @@
               <mat-label>Buchungsnummer</mat-label>
               <input matInput type="number" min="1" [(ngModel)]="bookingNo" required>
             </mat-form-field>
-            <button mat-raised-button color="primary" (click)="loadBookingInfoToFormular()">Suchen</button> <!-- sollte Voraussetzung werden für die Aktivierung des restlicehn Formulars-->
+            <button mat-raised-button color="primary" (click)="submitSearch(true)">Suchen</button> <!-- sollte Voraussetzung werden für die Aktivierung des restlicehn Formulars-->
             <br>
             <div *ngIf="foundBooking" class="searchTab">
               <mat-radio-group [(ngModel)]="bookingType" (change)="getValidRooms()" class="bookingtypeSelector">
@@ -120,7 +120,7 @@
             </div>
           </div>
           <div class="notificationArea">
-            <ngb-alert *ngFor="let alert of alerts" [dismissible]="false" [type]="alert.type">{{alert.message}}</ngb-alert>
+            <ngb-alert class="alert" *ngFor="let alert of alerts" [dismissible]="false" [type]="alert.type">{{alert.message}}</ngb-alert>
           </div>
         </div>
       </mat-tab>
@@ -139,7 +139,7 @@
               <mat-label>Buchungsnummer</mat-label>
               <input matInput type="number" [(ngModel)]="bookingNo" required>
             </mat-form-field>
-            <button mat-raised-button color="primary" type="submit" (click)="submitSearch()">Suchen</button>
+            <button mat-raised-button color="primary" type="submit" (click)="submitSearch(false)">Suchen</button>
             <br>
             <mat-card *ngIf="foundBooking">
 
@@ -180,7 +180,7 @@
               <button mat-raised-button color="primary" type="submit" [disabled]="!isChecked" (click)="deleteBooking()">Löschen</button>
           </div>
           <div class="notificationArea">
-            <ngb-alert *ngFor="let alert of alerts" [dismissible]="false" [type]="alert.type">{{alert.message}}</ngb-alert>
+            <ngb-alert class="alert" *ngFor="let alert of alerts" [dismissible]="false" [type]="alert.type">{{alert.message}}</ngb-alert>
           </div>
         </div>
       </mat-tab>
@@ -196,7 +196,7 @@
               <mat-label>Buchungsnummer</mat-label>
               <input matInput type="number" [(ngModel)]="bookingNo" required>
             </mat-form-field>
-            <button mat-raised-button color="primary" type="submit" (click)="submitSearch()">Suchen</button>
+            <button mat-raised-button color="primary" type="submit" (click)="submitSearch(false)">Suchen</button>
             <mat-card *ngIf="foundBooking">
               <mat-label>Buchungsnummer</mat-label>
               <mat-card-title>{{foundBooking.bookingNo}}</mat-card-title>
@@ -232,7 +232,7 @@
             </mat-card>
           </div>
           <div class="notificationArea">
-            <ngb-alert *ngFor="let alert of alerts" [dismissible]="false" [type]="alert.type">{{alert.message}}</ngb-alert>
+            <ngb-alert class="alert" *ngFor="let alert of alerts" [dismissible]="false" [type]="alert.type">{{alert.message}}</ngb-alert>
           </div>
         </div>
       </mat-tab>

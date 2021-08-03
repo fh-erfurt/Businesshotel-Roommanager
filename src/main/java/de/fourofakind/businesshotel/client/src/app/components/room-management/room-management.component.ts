@@ -1,12 +1,11 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from "@angular/material/core";
 import {MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter} from "@angular/material-moment-adapter";
 import {RoomService} from "../../services/room/room.service";
-import {formatDate} from "@angular/common";
-import {parseDate} from "ngx-bootstrap/chronos";
 import {Room} from "../../services/room/room";
 import {Hotelroom} from "../../services/hotelroom/hotelroom";
 import {Conferenceroom} from "../../services/conferenceroom/conferenceroom";
+import {Alert} from "../../app.component";
 
 
 
@@ -42,6 +41,13 @@ import {Conferenceroom} from "../../services/conferenceroom/conferenceroom";
 
 export class RoomManagementComponent implements OnInit {
 
+  constructor(private roomService: RoomService) {
+  }
+
+  ngOnInit() {
+
+  }
+
   isChecked:boolean = false;
   labelPosition:"before"| "after" ="before";
   foundHotelroom!:Hotelroom | null;
@@ -69,6 +75,14 @@ export class RoomManagementComponent implements OnInit {
   amountOfTV!:number;
 
 
+  alerts:Alert[]=[];
+
+
+  addAlertForXSeconds(alert:Alert, seconds:number)
+  {
+    this.alerts.push(alert);
+    setTimeout(()=>this.alerts=this.alerts.filter(entry=>entry!=alert),seconds*1000);
+  }
 
   hotelRoomCategories=new Map
   ([
@@ -103,20 +117,16 @@ export class RoomManagementComponent implements OnInit {
     ["Anzahl Bildschirme",""],
   ])
 
-  constructor(private roomService: RoomService) {
-  }
 
-  ngOnInit() {
-
-  }
 
 
 
   addOrUpdateRoom(addsNewRoom:boolean)
   {
+    let newOrUpdatedRoom:Hotelroom | Conferenceroom
     if(this.roomType=="HOTELROOM")
     {
-      let newOrUpdatedRoom:Hotelroom =
+      newOrUpdatedRoom =
         {
           areaInSqrMetre: this.areaInSqrMetre,
           bedCount: this.bedCount,
@@ -127,23 +137,11 @@ export class RoomManagementComponent implements OnInit {
           hasTV: this.hasTV,
           pricePerUnit: this.pricePerUnit,
           roomType: this.roomType
-
         };
-
-      if(addsNewRoom)
-      {
-        this.roomService.save(newOrUpdatedRoom,this.roomType);
-      }
-      else
-      {
-        this.roomService.updateRoom(this.roomNo, newOrUpdatedRoom, this.roomType);
-      }
-
     }
     else
     {
-
-      let newOrUpdatedRoom:Conferenceroom =
+      newOrUpdatedRoom =
         {
           amountOfBeamer:this.amountOfBeamer,
           amountOfTV:this.amountOfTV,
@@ -156,30 +154,45 @@ export class RoomManagementComponent implements OnInit {
           pricePerUnit:this.pricePerUnit,
           roomType:this.roomType,
         };
+    }
 
       if(addsNewRoom)
       {
-        this.roomService.save(newOrUpdatedRoom,this.roomType);
+        this.roomService.save(newOrUpdatedRoom,this.roomType)
+          .subscribe((data)=>
+          {
+            this.addAlertForXSeconds(new Alert('success',"Raum erfolgreich angelegt"),5);
+          },
+          (error)=>
+          {
+            this.addAlertForXSeconds(new Alert('danger',"Fehler beim Anlegen des Raums"),5);
+
+          });
       }
       else
       {
-        this.roomService.updateRoom(this.roomNo, newOrUpdatedRoom, this.roomType);
+        this.roomService.updateRoom(this.roomNo, newOrUpdatedRoom, this.roomType)
+          .subscribe((data)=>
+          {
+            this.addAlertForXSeconds(new Alert('success',"Raum erfolgreich geändert"),5);
+          },
+          (error)=>
+          {
+            this.addAlertForXSeconds(new Alert('danger',"Fehler beim Ändern des Raums"),5);
+
+          });
       }
-
-    }
-
-
   }
 
-  submitSearch()
-  {
-    this.foundRoom=null;
-    console.log(this.roomNo);
 
+  submitSearch(intoFormular:boolean)
+  {
+
+
+    this.foundRoom=null;
     this.roomService.getRoom(this.roomNo).subscribe(data=>
     {
       this.foundRoom = data;
-      this.roomType=data.roomType;
 
       if(data.roomType=="HOTELROOM")
       {
@@ -187,77 +200,70 @@ export class RoomManagementComponent implements OnInit {
         {
           this.foundHotelroom=data;
           this.foundConferenceroom=null;
-          this.hotelRoomAttributes.set("Bettenanzahl",data.bedCount.toString());
-          this.hotelRoomAttributes.set("Highspeed Internet vorhanden",data.hasSpeedLAN?"Ja":"Nein");
-          this.hotelRoomAttributes.set("Fernseher vorhanden",data.hasTV?"Ja":"Nein");
-          this.hotelRoomAttributes.set("Küchenzeile vorhanden",data.hasKitchen?"Ja":"Nein");
-          this.hotelRoomAttributes.set("Kaffeemaschine vorhanden",data.hasCoffeemaker?"Ja":"Nein");
-        })
 
+          if(intoFormular)
+          {
+            this.areaInSqrMetre=data.areaInSqrMetre;
+            this.category=data.category;
+            this.pricePerUnit=data.pricePerUnit;
+            this.roomType=data.roomType;
+            this.bedCount=data.bedCount;
+            this.hasSpeedLAN=data.hasSpeedLAN;
+            this.hasTV=data.hasTV;
+            this.hasKitchen=data.hasKitchen;
+            this.hasCoffeemaker=data.hasCoffeemaker;
+          }
+          else
+          {
+            this.hotelRoomAttributes.set("Bettenanzahl",data.bedCount.toString());
+            this.hotelRoomAttributes.set("Highspeed Internet vorhanden",data.hasSpeedLAN?"Ja":"Nein");
+            this.hotelRoomAttributes.set("Fernseher vorhanden",data.hasTV?"Ja":"Nein");
+            this.hotelRoomAttributes.set("Küchenzeile vorhanden",data.hasKitchen?"Ja":"Nein");
+            this.hotelRoomAttributes.set("Kaffeemaschine vorhanden",data.hasCoffeemaker?"Ja":"Nein");
+
+          }
+
+        })
       }
       else
       {
         this.roomService.getConferenceRoom(this.roomNo).subscribe(data=>
         {
+
           this.foundConferenceroom=data;
           this.foundHotelroom=null;
-          this.conferenceRoomAttributes.set("Maximale Teilnehmeranzahl",data.maxAmountOfParticipants.toString())
-          this.conferenceRoomAttributes.set("Anzahl Whiteboards",data.amountOfWhiteboards.toString())
-          this.conferenceRoomAttributes.set("Anzahl Beamer",data.amountOfBeamer.toString())
-          this.conferenceRoomAttributes.set("Projektionsfläche vorhanden",data.hasScreen?"Ja":"Nein")
-          this.conferenceRoomAttributes.set("Computer vorhanden",data.hasComputer?"Ja":"Nein")
-          this.conferenceRoomAttributes.set("Anzahl Bildschirme",data.amountOfTV.toString())
+
+          if(intoFormular)
+          {
+            this.areaInSqrMetre = data.areaInSqrMetre;
+            this.category = data.category;
+            this.pricePerUnit = data.pricePerUnit;
+            this.roomType = data.roomType;
+            this.maxAmountOfParticipants = data.maxAmountOfParticipants;
+            this.amountOfWhiteboards = data.amountOfWhiteboards;
+            this.amountOfBeamer = data.amountOfBeamer;
+            this.hasScreen = data.hasScreen;
+            this.hasComputer = data.hasComputer;
+            this.amountOfTV = data.amountOfTV;
+          }
+          else
+          {
+            this.conferenceRoomAttributes.set("Maximale Teilnehmeranzahl",data.maxAmountOfParticipants.toString())
+            this.conferenceRoomAttributes.set("Anzahl Whiteboards",data.amountOfWhiteboards.toString())
+            this.conferenceRoomAttributes.set("Anzahl Beamer",data.amountOfBeamer.toString())
+            this.conferenceRoomAttributes.set("Projektionsfläche vorhanden",data.hasScreen?"Ja":"Nein")
+            this.conferenceRoomAttributes.set("Computer vorhanden",data.hasComputer?"Ja":"Nein")
+            this.conferenceRoomAttributes.set("Anzahl Bildschirme",data.amountOfTV.toString())
+
+          }
         })
       }
-
-    })
-
-
-
-  }
-
-  loadRoomInfoToFormular()
-  {
-
-
-    this.foundRoom=null;
-    this.roomService.getRoom(this.roomNo).subscribe(data=>
-    {
-      this.foundRoom = data;
-
-      if(data.roomType=="HOTELROOM")
+    },
+      (error)=>
       {
-        this.roomService.getHotelRoom(this.roomNo).subscribe(data=>
-        {
+        this.addAlertForXSeconds(new Alert('danger',"Kein Raum mit dieser Raumnummer vorhanden"),5);
 
-          this.areaInSqrMetre=data.areaInSqrMetre;
-          this.category=data.category;
-          this.pricePerUnit=data.pricePerUnit;
-          this.roomType=data.roomType;
-          this.bedCount=data.bedCount;
-          this.hasSpeedLAN=data.hasSpeedLAN;
-          this.hasTV=data.hasTV;
-          this.hasKitchen=data.hasKitchen;
-          this.hasCoffeemaker=data.hasCoffeemaker;
-        })
-      }
-      else
-      {
-        this.roomService.getConferenceRoom(this.roomNo).subscribe(data=>
-        {
-          this.areaInSqrMetre=data.areaInSqrMetre;
-          this.category=data.category;
-          this.pricePerUnit=data.pricePerUnit;
-          this.roomType=data.roomType;
-          this.maxAmountOfParticipants=data.maxAmountOfParticipants;
-          this.amountOfWhiteboards=data.amountOfWhiteboards;
-          this.amountOfBeamer=data.amountOfBeamer;
-          this.hasScreen=data.hasScreen;
-          this.hasComputer=data.hasComputer;
-          this.amountOfTV=data.amountOfTV;
-        })
-      }
-    });
+      });
   }
 
   deleteRoom()
@@ -265,7 +271,17 @@ export class RoomManagementComponent implements OnInit {
     this.foundRoom=null;
     this.foundConferenceroom=null;
     this.foundHotelroom=null;
-    this.roomService.delete(this.roomNo);
+    this.roomService.delete(this.roomNo)
+      .subscribe(
+        (data)=>
+        {
+          this.addAlertForXSeconds(new Alert('success',"Raum erfolgreich gelöscht"),5);
+        },
+        (error)=>
+        {
+          this.addAlertForXSeconds(new Alert('danger',"Fehler beim Löschen des Raums"),5);
+        }
+      );
   }
 
 }

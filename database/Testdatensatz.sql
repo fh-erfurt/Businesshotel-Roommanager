@@ -28,12 +28,13 @@ INSERT INTO `role` (`role_name`, `is_enabled_to_manage_rooms`, `is_enabled_to_ma
 ('Raummanager', 1, 0, 0, 0, '2021-05-31 10:53:32', 'NULL ON UPDATE CURRENT_TIMESTAMP');
 
 
-INSERT INTO `employee` (`emp_no`, `emp_name`, `given_role`, `account_id`, `created_at`, `updated_at`) VALUES
-(1, 'Peter Quistgard', 'Buchungsmanager', 3, '2021-05-31 10:57:24', NULL),
-(2, 'Malignes Rau', 'Hotelleiter', 7, '2021-05-24 08:15:13', '2021-05-24 08:18:54'),
-(3, 'Silikaten Muh', 'Kundenmanager',8, '2021-05-24 08:16:47', NULL),
-(4, 'Juri Juhu', 'Raummanager',9, '2021-05-24 08:19:47', NULL),
-(5, 'Peter Ersonal', 'Personalmanager',10, '2021-05-24 08:20:47', NULL);
+INSERT INTO `employee` (`emp_name`, `given_role`, `account_id`, `created_at`, `updated_at`) VALUES
+('DELETEDEMPLOYEE', 'Buchungsmanager', 1, '2021-05-31 10:57:24', NULL),
+('Peter Quistgard', 'Buchungsmanager', 3, '2021-05-31 10:57:24', NULL),
+('Malignes Rau', 'Hotelleiter', 7, '2021-05-24 08:15:13', '2021-05-24 08:18:54'),
+('Silikaten Muh', 'Kundenmanager',8, '2021-05-24 08:16:47', NULL),
+('Juri Juhu', 'Raummanager',9, '2021-05-24 08:19:47', NULL),
+('Peter Ersonal', 'Personalmanager',10, '2021-05-24 08:20:47', NULL);
 
 
 

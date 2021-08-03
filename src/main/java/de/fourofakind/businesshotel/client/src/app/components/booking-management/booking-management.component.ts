@@ -38,34 +38,6 @@ import {Alert} from "../../app.component";
 
 export class BookingManagementComponent implements OnInit {
 
-  isChecked:boolean = false;
-  customerID!:number;
-  bookingNo!:number;
-  startDate!:string;
-  startTime!:string;
-  specialWishes!:string;
-  roomNo!:number;
-  rooms!:Room[];
-  endDate!:string;
-  endTime!:string;
-  bookingType!:string;
-  booking!:Booking;
-  foundBooking!:Booking | null;
-  bookings:Booking[]=[];
-  hotelRoomBookings!:Booking[];
-  conferenceRoomBookings!:Booking[];
-  minDateStart!:string;
-  minDateEnd!:string;
-  startTimestamp!:Date;
-  endTimestamp!:Date;
-  calculatedPricing!:number;
-  pricePerUnit!: number;
-
-
-  alerts:Alert[]=[];
-
-
-
   constructor(private bookingService: BookingService, private roomService: RoomService) {
   }
 
@@ -97,6 +69,34 @@ export class BookingManagementComponent implements OnInit {
         })
       })
   }
+
+  isChecked:boolean = false;
+  customerID!:number;
+  bookingNo!:number;
+  startDate!:string;
+  startTime!:string;
+  specialWishes!:string;
+  roomNo!:number;
+  rooms!:Room[];
+  endDate!:string;
+  endTime!:string;
+  bookingType!:string;
+  booking!:Booking;
+  foundBooking!:Booking | null;
+  bookings:Booking[]=[];
+  hotelRoomBookings!:Booking[];
+  conferenceRoomBookings!:Booking[];
+  minDateStart!:string;
+  minDateEnd!:string;
+  startTimestamp!:Date;
+  endTimestamp!:Date;
+  calculatedPricing!:number;
+  pricePerUnit!: number;
+
+
+  alerts:Alert[]=[];
+
+
 
   addAlertForXSeconds(alert:Alert, seconds:number)
   {
@@ -159,14 +159,11 @@ export class BookingManagementComponent implements OnInit {
       this.bookingService.save(newOrUpdatedBooking,this.bookingType)
         .subscribe((data)=>
         {
-          console.log(data)
           this.addAlertForXSeconds(new Alert('success',"Buchung erfolgreich angelegt"),5);
         },
         (error)=>
         {
-
-          this.addAlertForXSeconds(new Alert('danger',"Fehler beim Anlegen der Buchung"),10);
-          this.addAlertForXSeconds(new Alert('danger',`Fehler: ${error.error.cause.cause.cause.message}`),10);//TODO:entfernen nach Development
+          this.addAlertForXSeconds(new Alert('danger',"Fehler beim Anlegen der Buchung"),5);
         });
     }
     else
@@ -174,13 +171,11 @@ export class BookingManagementComponent implements OnInit {
       this.bookingService.updateBooking(this.bookingNo, newOrUpdatedBooking)
         .subscribe((data)=>
         {
-          console.log(data)
           this.addAlertForXSeconds(new Alert('success',"Buchung erfolgreich geändert"),5);
         },
         (error)=>
         {
-          this.addAlertForXSeconds(new Alert('danger',"Fehler beim Ändern der Buchung"),10);
-          this.addAlertForXSeconds(new Alert('danger',`Fehler: ${error.error.cause.cause.cause.message}`),10); //TODO:entfernen nach Development
+          this.addAlertForXSeconds(new Alert('danger',"Fehler beim Ändern der Buchung"),5);
         });
     }
 
@@ -217,25 +212,9 @@ export class BookingManagementComponent implements OnInit {
     }
   }
 
-
-
-  submitSearch()
+  submitSearch(intoFormular:boolean)
   {
-
-    this.foundBooking=null;
-    console.log(this.bookingNo);
-
-    this.bookingService.getBooking(this.bookingNo).subscribe(data=>
-    {
-      data.startDate=formatDate(data.startDate,"dd.MM.yyyy HH:mm:ss","de");
-      data.endDate=formatDate(data.endDate,"dd.MM.yyyy HH:mm:ss","de");
-      this.foundBooking=data;
-    },
-      (error)=>
-      {
-        this.addAlertForXSeconds(new Alert('danger',"Keine Buchungen zu dieser Buchungsnummer vorhanden"),10);
-      })
-
+    this.getBookingType(()=>this.getValidRooms(()=>this.getBookingData(intoFormular)))
   }
 
   getBookingType(_callback:Function)
@@ -248,38 +227,41 @@ export class BookingManagementComponent implements OnInit {
     },
       (error)=>
       {
-        this.addAlertForXSeconds(new Alert('danger',"Keine Buchungen zu dieser Buchungsnummer vorhanden"),10);
+        this.addAlertForXSeconds(new Alert('danger',"Keine Buchungen zu dieser Buchungsnummer vorhanden"),5);
       })
   }
 
-  getBookingData()
+  getBookingData(intoFormular:boolean)
   {
     this.foundBooking=null;
     console.log(this.rooms);
     this.bookingService.getBooking(this.bookingNo).subscribe(data=>
     {
       this.foundBooking=data;
-      data.startDate=formatDate(data.startDate,"yyyy-MM-dd HH:mm:ss","de");
-      data.endDate=formatDate(data.endDate,"yyyy-MM-dd HH:mm:ss","de");
-      this.customerID=data.customerID;
-      this.roomNo=data.roomNo;
-      this.startDate=formatDate(data.startDate,"yyyy-MM-dd","de");
-      this.startTime=formatDate(data.startDate,"HH:mm","de");
-      this.endDate=formatDate(data.endDate,"yyyy-MM-dd","de");
-      this.endTime=formatDate(data.endDate,"HH:mm","de");
-      this.specialWishes=data.specialWishes
+      this.foundBooking.startDate=formatDate(data.startDate,"yyyy-MM-dd HH:mm:ss","de");
+      this.foundBooking.endDate=formatDate(data.endDate,"yyyy-MM-dd HH:mm:ss","de");
+
+      if(intoFormular)
+      {
+        data.startDate=formatDate(data.startDate,"yyyy-MM-dd HH:mm:ss","de");
+        data.endDate=formatDate(data.endDate,"yyyy-MM-dd HH:mm:ss","de");
+        this.customerID=data.customerID;
+        this.roomNo=data.roomNo;
+        this.startDate=formatDate(data.startDate,"yyyy-MM-dd","de");
+        this.startTime=formatDate(data.startDate,"HH:mm","de");
+        this.endDate=formatDate(data.endDate,"yyyy-MM-dd","de");
+        this.endTime=formatDate(data.endDate,"HH:mm","de");
+        this.specialWishes=data.specialWishes
+      }
     },
       (error)=>
       {
-        this.addAlertForXSeconds(new Alert('danger',"Keine Buchungen zu dieser Buchungsnummer vorhanden"),10);
+        this.addAlertForXSeconds(new Alert('danger',"Keine Buchungen zu dieser Buchungsnummer vorhanden"),5);
       });
     return;
   }
 
-  loadBookingInfoToFormular()
-  {
-    this.getBookingType(()=>this.getValidRooms(()=>this.getBookingData()))
-  }
+
 
   deleteBooking()
   {
@@ -292,7 +274,7 @@ export class BookingManagementComponent implements OnInit {
 
       (error)=>
       {
-        this.addAlertForXSeconds(new Alert('danger',"Fehler beim Löschen der Buchung"),10);
+        this.addAlertForXSeconds(new Alert('danger',"Fehler beim Löschen der Buchung"),5);
       }
         )
   }

@@ -1,8 +1,9 @@
-<div>
+<div class="pageContent">
   <h1>Raumverwaltung</h1>
   <mat-tab-group>
     <mat-tab label="Hinzufügen">
-      <div class="tab">
+      <div class="matTab">
+        <div class="tab">
         <br>
         <mat-radio-group [(ngModel)]="roomType"  class="roomtypeSelector">
           <mat-radio-button required value="HOTELROOM">Hotelzimmer</mat-radio-button>
@@ -69,17 +70,22 @@
         <br>
         <button mat-raised-button color="primary" type="submit" (click)="addOrUpdateRoom(true)">Absenden</button>
       </div>
+        <div class="notificationArea">
+          <ngb-alert class="alert"#alert *ngFor="let alert of alerts"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
+        </div>
+        </div>
     </mat-tab>
 
 
     <mat-tab label="Bearbeiten">
-      <div class="tab">
+      <div class="matTab">
+        <div class="tab">
         <br>
         <mat-form-field appearance="fill">
           <mat-label>Raumnummer</mat-label>
           <input matInput type="number" min="1" [(ngModel)]="roomNo" required>
         </mat-form-field>
-        <button mat-raised-button color="primary" (click)="loadRoomInfoToFormular()">Suchen</button> <!-- sollte Voraussetzung werden für die Aktivierung des restlicehn Formulars-->
+        <button mat-raised-button color="primary" (click)="submitSearch(true)">Suchen</button> <!-- sollte Voraussetzung werden für die Aktivierung des restlicehn Formulars-->
         <br>
         <div *ngIf="foundRoom">
           <mat-radio-group [(ngModel)]="roomType"  class="roomtypeSelector">
@@ -148,6 +154,10 @@
           <button mat-raised-button color="primary" type="submit" (click)="addOrUpdateRoom(false)">Absenden</button>
         </div>
       </div>
+        <div class="notificationArea">
+          <ngb-alert class="alert"#alert *ngFor="let alert of alerts"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
+        </div>
+        </div>
     </mat-tab>
 
 
@@ -157,7 +167,8 @@
 
 
     <mat-tab label="Löschen">
-      <div class="tab">
+      <div class="matTab">
+        <div class="tab">
         <br>
 
         <br>
@@ -165,7 +176,7 @@
           <mat-label>Raumnummer</mat-label>
           <input matInput type="number" [(ngModel)]="roomNo"  required>
         </mat-form-field>
-        <button mat-raised-button color="primary" type="submit" (click)="submitSearch()">Suchen</button>
+        <button mat-raised-button color="primary" type="submit" (click)="submitSearch(false)">Suchen</button>
         <br>
         <mat-card *ngIf="foundRoom">
           <mat-label>Raumnummer</mat-label>
@@ -214,6 +225,10 @@
         <mat-slide-toggle [(ngModel)]="isChecked" [disabled]="!foundRoom" >Freigeben</mat-slide-toggle> <!--Bestätigung zum Freigeben des Löschen, könnte auch als Pop-Up implementiert werden-->
         <button mat-raised-button color="primary" type="submit" [disabled]="!isChecked" (click)="deleteRoom()">Löschen</button>
       </div>
+        <div class="notificationArea">
+          <ngb-alert class="alert"#alert *ngFor="let alert of alerts"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
+        </div>
+        </div>
     </mat-tab>
 
 
@@ -221,13 +236,14 @@
 
 
     <mat-tab label="Anzeigen">
-      <div class="tab">
+      <div class="matTab">
+        <div class="tab">
         <br>
         <mat-form-field appearance="fill">
           <mat-label>Raumnummer</mat-label>
           <input matInput type="number" [(ngModel)]="roomNo"  required>
         </mat-form-field>
-        <button mat-raised-button color="primary" type="submit" (click)="submitSearch()">Suchen</button>
+        <button mat-raised-button color="primary" type="submit" (click)="submitSearch(false)">Suchen</button>
         <mat-card *ngIf="foundRoom">
           <mat-label>Raumnummer</mat-label>
           <mat-card-title>{{foundRoom.roomNo}}</mat-card-title>
@@ -272,6 +288,10 @@
           </mat-card-content>
         </mat-card>
       </div>
+        <div class="notificationArea">
+          <ngb-alert class="alert"#alert *ngFor="let alert of alerts"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
+        </div>
+        </div>
     </mat-tab>
   </mat-tab-group>
 

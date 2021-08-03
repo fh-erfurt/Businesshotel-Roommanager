@@ -1,22 +1,50 @@
+.pageContent{
+  margin-left:2%;
+}
+
 .tab{
   display:flex;
   flex-direction:column;
   width:50%;
+  .searchTab{
+    display:flex;
+    flex-direction:column;
+    width:100%;
+  }
+}
+
+.notificationArea{
+  display:flex;
+  flex-direction:column;
+  width:50%;
+  padding:2%;
+}
+
+.matTab{
+  display:flex;
+  flex-direction: row;
+  width:100%;
+  justify-content: space-around;
 }
 
 button{
   width:100px;
 }
 
-.halfInput, .halfInput
+.halfInput
 {
   width:50%;
 }
 
-.bookingtypeSelector
-{
-  width:100%;
-  display:flex;
-  flex-direction:row;
-  justify-content: space-evenly;
+.alert{
+
+  animation:fade-out 5s;
+}
+
+
+
+@keyframes fade-out {
+  0% { opacity: 1; }
+  75% { opacity: 1; }
+  100% { opacity: 0; }
 }

@@ -47,6 +47,24 @@ export class BookingService {
     )
   }
 
+  public getBookingsByEmpNo(id:number): Observable<Booking[]>
+  {
+    return this.http.get<Booking[]>(`${this.baseUrl}search/findByEmpNo?empNo=${id}`).pipe(
+      map((result:any) =>{
+        console.log(result);
+        let bookings=[];
+        if(result._embedded.conferenceRoomBooking && result._embedded.hotelRoomBooking)
+        {
+          bookings=result._embedded.conferenceRoomBooking.concat(result._embedded.hotelRoomBooking);
+        }
+        else if(result._embedded.conferenceRoomBooking) bookings=result._embedded.conferenceRoomBooking
+        else if(result._embedded.hotelRoomBooking) bookings=result._embedded.hotelRoomBooking
+
+        return bookings;
+      })
+    )
+  }
+
   public getBookings(): Observable<Booking[]>
   {
     return this.http.get<Booking[]>(this.baseUrl).pipe(
@@ -127,6 +145,21 @@ export class BookingService {
     console.log(bookingNo);
 
     return this.http.patch<Booking>(`${this.baseUrl}${bookingNo}`, {customerID:1})
+      .pipe(
+        map(
+          (res)=>
+          {
+            return res;
+          }
+        )
+      )
+  }
+
+  public patchBookingsAtEmployeeDelete(bookingNo:number)
+  {
+    console.log(bookingNo);
+
+    return this.http.patch<Booking>(`${this.baseUrl}${bookingNo}`, {empNo:1})
       .pipe(
         map(
           (res)=>

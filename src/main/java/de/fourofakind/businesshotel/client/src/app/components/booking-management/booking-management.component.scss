@@ -31,7 +31,7 @@ button{
   width:100px;
 }
 
-.halfInput, .halfInput
+.halfInput
 {
   width:50%;
 }
@@ -42,4 +42,17 @@ button{
   display:flex;
   flex-direction:row;
   justify-content: space-evenly;
+}
+
+.alert{
+
+  animation:fade-out 5s;
+}
+
+
+
+@keyframes fade-out {
+  0% { opacity: 1; }
+  75% { opacity: 1; }
+  100% { opacity: 0; }
 }
