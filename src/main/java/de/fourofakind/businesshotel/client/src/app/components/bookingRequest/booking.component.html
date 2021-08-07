@@ -1,85 +1,103 @@
 
-<!--<div class="booking-view">-->
-<!--  <div class="card">-->
-<!--    <h4 class="card-header">{{selectedRoom.roomType + " - " + selectedRoom.category}}</h4>-->
-<!--    <div class="card-body">-->
+<div class="booking-view">
+  <div class="card">
+    <h4 class="card-header">{{selectedRoom.roomType + " - " + selectedRoom.category}}</h4>
+    <div class="card-body">
 
-<!--      <form class="form-inline">-->
-<!--        <div class="booking-details">-->
-<!--          <label>{{pricesLabel + ": " +selectedRoom.pricePerUnit + "" + currency}}</label>-->
-<!--          <br>-->
-<!--          <label>{{"Fläche : " +selectedRoom.areaInSqrMetre + "qm"}}</label>-->
-<!--        </div>-->
-<!--        <div class="date-group">-->
-<!--          <div class="date-picker">-->
-<!--            <p>Example of the range selection</p>-->
+      <div class="form-inline">
+        <div class="booking-details">
 
-<!--            <ngb-datepicker #dp (dateSelect)="onDateSelection($event)" [displayMonths]="2" [dayTemplate]="t" outsideDays="hidden">-->
-<!--            </ngb-datepicker>-->
+          <div class="card" *ngIf="true">
+            <img src="assets/{{selectedRoom.category}}-{{selectedRoom.areaInSqrMetre}}.jpg"  class="card-img-top room-image" alt="...">
+            <div class="card-body" align="left">
 
-<!--            <ng-template #t let-date let-focused="focused">-->
-<!--              <span class="custom-day"-->
-<!--                    [class.focused]="focused"-->
-<!--                    [class.range]="isRange(date)"-->
-<!--                    [class.faded]="isHovered(date) || isInside(date)"-->
-<!--                    (mouseenter)="hoveredDate = date"-->
-<!--                    (mouseleave)="hoveredDate = null">-->
-<!--                {{ date.day }}-->
-<!--              </span>-->
-<!--            </ng-template>-->
+              <label>{{pricesLabel + ": " +selectedRoom.pricePerUnit + "" + currency}}</label>
+              <br>
+              <label>{{"Fläche : " +selectedRoom.areaInSqrMetre + "qm"}}</label>
+              <br>
+              <label [(ngModel)]="dateLabel" ngDefaultControl>{{dateLabel}}</label>
+              <br>
+<!--              <label *ngIf="timePickerVisible">{{this.startTime.hour + ":" + this.startTime.minute + ":" + this.startTime.second}}</label>-->
+<!--              <br>-->
+              <label *ngIf="timePickerVisible">{{startTime + " Uhr bis " + endTime + " Uhr"}}</label>
+              <br>
+              <button [disabled]="buttonDisabled" class="btn btn-secondary" [routerLink]="['/booking', selectedRoom.roomNo]">
+                <span *ngIf="buttonDisabled" class="spinner-border spinner-border-sm mr-1"></span>
+                Buchen
+              </button>
+            </div>
+          </div>
 
-<!--            <hr>-->
+        </div>
 
-<!--            <pre>From: {{ fromDate | json }} </pre>-->
-<!--            <pre>To: {{ toDate | json }} </pre>-->
-<!--          </div>-->
-<!--&lt;!&ndash;          <br>&ndash;&gt;-->
-<!--          <div class="time-picker">-->
-<!--            <ngb-timepicker [(ngModel)]="time" [seconds]="true"-->
-<!--                            [hourStep]="hourStep" [minuteStep]="minuteStep" [secondStep]="secondStep"></ngb-timepicker>-->
+        <div class="date-group">
 
-<!--            <div class="row">-->
-<!--              <div class="col-sm-3">-->
-<!--                <label for="changeHourStep">Hour Step</label>-->
-<!--                <input id="changeHourStep" type="number" class="form-control form-control-sm" [(ngModel)]="hourStep" />-->
-<!--              </div>-->
-<!--              <div class="col-sm-3">-->
-<!--                <label for="changeMinuteStep">Minute Step</label>-->
-<!--                <input id="changeMinuteStep" type="number" class="form-control form-control-sm" [(ngModel)]="minuteStep" />-->
-<!--              </div>-->
-<!--              <div class="col-sm-3">-->
-<!--                <label for="changeSecondStep">Second Step</label>-->
-<!--                <input id="changeSecondStep" type="number" class="form-control form-control-sm" [(ngModel)]="secondStep" />-->
-<!--              </div>-->
-<!--            </div>-->
-<!--            <hr>-->
-<!--            <pre>Selected time: {{time | json}}</pre>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </form>-->
+          <div class="card" *ngIf="true">
+            <div class="date-picker">
 
-<!--&lt;!&ndash;      <hr/>&ndash;&gt;-->
-<!--&lt;!&ndash;      <pre>Model: {{ model | json }}</pre>&ndash;&gt;-->
-<!--&lt;!&ndash;      <br>&ndash;&gt;-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</div>-->
+              <ngb-datepicker #dp (dateSelect)="bookingCalendar.onDateSelection($event)" [displayMonths]="1" [dayTemplate]="t" class="border-0" outsideDays="hidden">
+              </ngb-datepicker>
 
-<ngb-timepicker [(ngModel)]="time"
-                [hourStep]="hourStep" [minuteStep]="minuteStep">
+              <ng-template #t let-date let-focused="focused">
+                <div class="custom-day"
+                     [class.focused]="false"
 
-</ngb-timepicker>
 
-<!--<div class="row">-->
-<!--  <div class="col-sm-3">-->
-<!--    <label for="changeHourStep">Hour Step</label>-->
-<!--    <input id="changeHourStep" type="number" class="form-control form-control-sm" [(ngModel)]="hourStep" />-->
-<!--  </div>-->
-<!--  <div class="col-sm-3">-->
-<!--    <label for="changeMinuteStep">Minute Step</label>-->
-<!--    <input id="changeMinuteStep" type="number" class="form-control form-control-sm" [(ngModel)]="minuteStep" />-->
-<!--  </div>-->
-<!--</div>-->
-<hr>
-<pre>Selected time: {{time | json}}</pre>
+                     [class.unavailable]="bookingCalendar.isUnavailable(date)"
+                     [class.rangeStart]="bookingCalendar.isStart(date)"
+                     [class.rangeEnd]="bookingCalendar.isEnd(date)"
+
+                     [class.single]="bookingCalendar.isSingle(date)"
+
+                     [class.faded]="bookingCalendar.isHovered(date) || bookingCalendar.isInside(date)"
+
+
+                     (mouseenter)="bookingCalendar.hoveredDate = date"
+                     (mouseleave)="bookingCalendar.hoveredDate = null"
+                >
+                  {{ date.day }}
+                </div>
+              </ng-template>
+            </div>
+
+            <div *ngIf="timePickerVisible" class="card-body border-top">
+              <div class="time-picker">
+                <div class="start-time">
+                  <ngb-timepicker [(ngModel)]="_startTime"
+                                  [hourStep]="startHourStep"
+                                  [minuteStep]="startMinuteStep"
+                                  [meridian]="false"
+                                  style="display: inline"
+                  >
+                  </ngb-timepicker>
+                  <span style="display: inline">Uhr</span>
+
+                </div>
+                <div class="end-time">
+                  <ngb-timepicker [(ngModel)]="_endTime"
+                                  [hourStep]="endHourStep"
+                                  [minuteStep]="endMinuteStep"
+                                  [meridian]="false"
+                  >
+                  </ngb-timepicker>
+                </div>
+
+
+
+
+
+              </div>
+            </div>
+          </div>
+
+
+
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 

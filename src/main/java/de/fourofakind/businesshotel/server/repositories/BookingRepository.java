@@ -14,4 +14,5 @@ public interface BookingRepository extends JpaRepository<Booking,Integer>
 {
     List<Booking> findByCustomerID (@Param("customerID") Integer customerID);
     List<Booking> findByEmpNo (@Param("empNo") Integer empNo);
+    List<Booking> findByRoomNo (@Param("roomNo") Integer roomNo);
 }

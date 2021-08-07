@@ -47,6 +47,24 @@ export class BookingService {
     )
   }
 
+  public getBookingsByRoomNumber(id:number): Observable<Booking[]>
+  {
+    return this.http.get<Booking[]>(`${this.baseUrl}search/findByRoomNo?roomNo=${id}`).pipe(
+      map((result:any) =>{
+        console.log(result);
+        let bookings=[];
+        if(result._embedded.conferenceRoomBooking && result._embedded.hotelRoomBooking)
+        {
+          bookings=result._embedded.conferenceRoomBooking.concat(result._embedded.hotelRoomBooking);
+        }
+        else if(result._embedded.conferenceRoomBooking) bookings=result._embedded.conferenceRoomBooking
+        else if(result._embedded.hotelRoomBooking) bookings=result._embedded.hotelRoomBooking
+
+        return bookings;
+      })
+    )
+  }
+
   public getBookingsByEmpNo(id:number): Observable<Booking[]>
   {
     return this.http.get<Booking[]>(`${this.baseUrl}search/findByEmpNo?empNo=${id}`).pipe(

@@ -5,6 +5,7 @@
 //@import "../node_modules/bootstrap/scss/variables";
 //@import "../node_modules/bootstrap/scss/mixins";
 @import "scss/var";
+@import "scss/custom";
 @import '../node_modules/bootstrap/scss/bootstrap';
 .sr-only {
   position: absolute;
@@ -17,6 +18,26 @@
   border: 0;
   visibility: hidden;
 }
+//.custom-select {
+//  -webkit-appearance:none;
+//}
+
+//select {
+//
+//  -webkit-appearance: none;
+//  -moz-appearance: none;
+//  appearance: none;
+//
+//  -moz-border-radius: 3px;
+//  -webkit-border-radius: 3px;
+//
+//}
+
+// custom datePicker size
+
+
+
+
 //@import "scss/custom.scss";
 
 //$primary: rgb(33, 37, 41);

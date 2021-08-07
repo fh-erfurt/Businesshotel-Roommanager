@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 
 export class RoomComponent implements OnInit {
 
-  loading = false;
+  buttonDisabled = false;
   screenHeight: number = 0;
   screenWidth: number = 0;
   hotelRooms: Room[] = new Array(0);

@@ -48,10 +48,10 @@ public abstract class Booking {
     @ManyToOne(optional = false)
     @JoinColumn(name="customer_id", insertable = false,updatable = false)
     private Customer customer;
+
     @ManyToOne(optional = false)
     @JoinColumn(name="emp_no", insertable = false,updatable = false)
     private Employee employee;
-
 
     //Fields
     public enum BookingType
