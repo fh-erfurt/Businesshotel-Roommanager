@@ -1,4 +1,3 @@
-
 <div class="booking-view">
   <div class="card">
     <h4 class="card-header">{{selectedRoom.roomType + " - " + selectedRoom.category}}</h4>
@@ -6,8 +5,61 @@
 
       <div class="form-inline">
         <div class="booking-details">
+          <div class="card booking-details-card" align="left" *ngIf="true">
+            <div class="card-body" align="left">
+              <h3 class="card-title">Buchungs Details</h3>
+              <label ngDefaultControl>{{dateLabel}}</label>
+              <br>
+              <!--              <label *ngIf="timePickerVisible">{{this.startTime.hour + ":" + this.startTime.minute + ":" + this.startTime.second}}</label>-->
+              <!--              <br>-->
+              <label *ngIf="isConferenceRoom">{{startTime + " Uhr bis " + endTime + " Uhr"}}</label>
+              <br>
+              <div class="form-group">
+                <label>Name</label>
+                <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" />
+                <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
+                  <div *ngIf="f.lastName.errors.required">Bitte Nachname angeben</div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Vorname</label>
+                <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" />
+                <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+                  <div *ngIf="f.firstName.errors.required">Bitte Vorname angeben</div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Firma</label>
+                <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.companyName.errors }" />
+                <div *ngIf="submitted && f.companyName.errors" class="invalid-feedback">
+                  <div *ngIf="f.companyName.errors.required">Bitte Firma angeben</div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Email-Adresse</label>
+                <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.emailAddress.errors }" />
+                <div *ngIf="submitted && f.emailAddress.errors" class="invalid-feedback">
+                  <div *ngIf="f.emailAddress.errors.required">Bitte Email-Adresse angeben</div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Telefonnummer</label>
+                <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.phoneNumber.errors }" />
+                <div *ngIf="submitted && f.phoneNumber.errors" class="invalid-feedback">
+                  <div *ngIf="f.phoneNumber.errors.required">Bitte Nachname angeben</div>
+                </div>
+              </div>
+              <br>
+              <button [disabled]="buttonDisabled" class="btn btn-secondary" [routerLink]="['/booking', selectedRoom.roomNo]">
+                <span *ngIf="buttonDisabled" class="spinner-border spinner-border-sm mr-1"></span>
+                Jetzt Buchen
+              </button>
+            </div>
+          </div>
+        </div>
 
-          <div class="card" *ngIf="true">
+        <div class="room-details">
+          <div class="card room-details-card" *ngIf="true">
             <img src="assets/{{selectedRoom.category}}-{{selectedRoom.areaInSqrMetre}}.jpg"  class="card-img-top room-image" alt="...">
             <div class="card-body" align="left">
 
@@ -15,23 +67,12 @@
               <br>
               <label>{{"Fläche : " +selectedRoom.areaInSqrMetre + "qm"}}</label>
               <br>
-              <label [(ngModel)]="dateLabel" ngDefaultControl>{{dateLabel}}</label>
-              <br>
-<!--              <label *ngIf="timePickerVisible">{{this.startTime.hour + ":" + this.startTime.minute + ":" + this.startTime.second}}</label>-->
-<!--              <br>-->
-              <label *ngIf="timePickerVisible">{{startTime + " Uhr bis " + endTime + " Uhr"}}</label>
-              <br>
-              <button [disabled]="buttonDisabled" class="btn btn-secondary" [routerLink]="['/booking', selectedRoom.roomNo]">
-                <span *ngIf="buttonDisabled" class="spinner-border spinner-border-sm mr-1"></span>
-                Buchen
-              </button>
+
             </div>
           </div>
-
         </div>
 
         <div class="date-group">
-
           <div class="card" *ngIf="true">
             <div class="date-picker">
 
@@ -60,7 +101,7 @@
               </ng-template>
             </div>
 
-            <div *ngIf="timePickerVisible" class="card-body border-top">
+            <div *ngIf="isConferenceRoom" class="card-body border-top">
               <div class="time-picker">
                 <div class="start-time">
                   <ngb-timepicker [(ngModel)]="_startTime"

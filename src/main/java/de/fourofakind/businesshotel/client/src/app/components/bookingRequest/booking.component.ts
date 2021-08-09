@@ -36,7 +36,8 @@ export class BookingComponent implements OnInit {
   bookings: Booking[] = new Array(0);
   unavailableDates: dateTimeSpan[] = new Array(0)
   buttonDisabled = false;
-  timePickerVisible = true;
+  isConferenceRoom = false;
+  submitted = false
 
   private selectedFromDate: Date | null
   private selectedToDate: Date | null
@@ -115,6 +116,27 @@ export class BookingComponent implements OnInit {
 
   }
 
+  get f() { return this.form.controls; }
+
+  submit() {
+    this.submitted = true;
+
+    if (this.form.invalid) {
+      return;
+    }
+/*
+    this.registrationService.register(this.f.lastName.value,
+      this.f.firstName.value,
+      this.f.companyName.value,
+      this.f.emailAddress.value,
+      this.f.phoneNumber.value,
+      this.f.username.value,
+      this.f.password.value,
+      this.f.passwordVerify.value)
+*/
+
+  }
+
   @HostListener('window:resize', ['$event'])
   getWindowSize(event?: any) {
     this.screenHeight = window.innerHeight;
@@ -145,6 +167,17 @@ export class BookingComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    this.form = this.formBuilder.group({
+      lastName: ['', Validators.required],
+      firstName: ['', Validators.required],
+      companyName: ['', Validators.required],
+      emailAddress: ['', Validators.required],
+      phoneNumber: ['', Validators.required],
+      username: ['', Validators.required],
+      password: ['', Validators.required],
+      passwordVerify: ['', Validators.required]
+    });
 
     this.calendarSubscription = this.bookingCalendar.selectedFromDate$
       .subscribe(selectedFromDate => this.updateDateTimeLabel(selectedFromDate, undefined));
@@ -189,9 +222,13 @@ export class BookingComponent implements OnInit {
           if (data.roomType === "CONFERENCEROOM") {
             this.pricesLabel = "Preis pro Stunde"
             this.unitLabel = "Stunden"
+            this.isConferenceRoom = true
+            this.bookingCalendar.isConferenceRoom = true
           } else {
             this.pricesLabel = "Preis pro Nacht"
             this.unitLabel = "nächte"
+            this.isConferenceRoom = false
+            this.bookingCalendar.isConferenceRoom = false
           }
         })
     })
