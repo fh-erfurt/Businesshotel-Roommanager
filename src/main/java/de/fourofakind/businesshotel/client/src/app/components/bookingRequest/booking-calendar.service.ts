@@ -1,9 +1,10 @@
 import {Injectable, OnInit} from "@angular/core";
 import {RoomService} from "../../services/room/room.service";
 import {FormBuilder} from "@angular/forms";
-import {NgbCalendar, NgbDate} from "@ng-bootstrap/ng-bootstrap";
+import {NgbCalendar, NgbDate, NgbDateParserFormatter} from "@ng-bootstrap/ng-bootstrap";
 import {formatDate} from "@angular/common";
 import {BehaviorSubject, Observable} from "rxjs";
+import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
 
 type dateTimeSpan = {
   startDate: Date,
@@ -30,15 +31,21 @@ export class BookingCalendar implements OnInit {
   private dateIsUnavailable = false
   private dateInUnaviableRange = false
   public isConferenceRoom = false
+  public model!: NgbDateStruct;
 
   constructor(
-              private calendar: NgbCalendar)
+      private calendar: NgbCalendar,
+      public formatter: NgbDateParserFormatter)
   {
     // this.fromDate = calendar.getToday();
     // this.toDate = calendar.getNext(calendar.getToday(), 'd', 3);
-
     this.selectedFromDate.next(this.fromDate ? new Date(this.fromDate.year, this.fromDate.month - 1, this.fromDate.day) : null);
     this.selectedToDate.next(this.toDate ? new Date(this.toDate.year, this.toDate.month - 1, this.toDate.day) : null);
+  }
+
+  validateInput(currentValue: NgbDate | null, input: string): NgbDate | null {
+    const parsed = this.formatter.parse(input);
+    return parsed && this.calendar.isValid(NgbDate.from(parsed)) ? NgbDate.from(parsed) : currentValue;
   }
 
   onDateSelection(date: NgbDate) {

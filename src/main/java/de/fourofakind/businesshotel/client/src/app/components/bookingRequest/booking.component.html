@@ -3,16 +3,69 @@
     <h4 class="card-header">{{selectedRoom.roomType + " - " + selectedRoom.category}}</h4>
     <div class="card-body">
 
-      <div class="form-inline">
+
+
+      <form class="form-inline">
         <div class="booking-details">
           <div class="card booking-details-card" align="left" *ngIf="true">
+
             <div class="card-body" align="left">
               <h3 class="card-title">Buchungs Details</h3>
-              <label ngDefaultControl>{{dateLabel}}</label>
+
+              <div class="md-date-picker d-flex" style="display: inline-block">
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary calendar" (click)="datepicker.toggle()" type="button"></button>
+                </div>
+
+                <h5 ngDefaultControl>{{dateLabel}}</h5>
+
+
+
+                <label *ngIf="isConferenceRoom">{{startTime + " Uhr bis " + endTime + " Uhr"}}</label>
+
+
+
+              </div>
+              <div class="form-group hidden">
+                <div class="input-group">
+                  <input name="datepicker"
+                         class="form-control visually-hidden"
+                         ngbDatepicker
+                         #datepicker="ngbDatepicker"
+                         [autoClose]="'outside'"
+                         (dateSelect)="bookingCalendar.onDateSelection($event)"
+                         [displayMonths]="1"
+                         [dayTemplate]="t"
+                         outsideDays="hidden"
+                         [startDate]="bookingCalendar.fromDate!"
+                         tabindex="-1"
+                  >
+
+                  <ng-template #t let-date let-focused="focused">
+                    <div class="custom-day"
+                         [class.focused]="false"
+
+
+                         [class.unavailable]="bookingCalendar.isUnavailable(date)"
+                         [class.rangeStart]="bookingCalendar.isStart(date)"
+                         [class.rangeEnd]="bookingCalendar.isEnd(date)"
+
+                         [class.single]="bookingCalendar.isSingle(date)"
+
+                         [class.faded]="bookingCalendar.isHovered(date) || bookingCalendar.isInside(date)"
+
+
+                         (mouseenter)="bookingCalendar.hoveredDate = date"
+                         (mouseleave)="bookingCalendar.hoveredDate = null"
+                    >
+                      {{ date.day }}
+                    </div>
+                  </ng-template>
+
+                </div>
+              </div>
               <br>
-              <!--              <label *ngIf="timePickerVisible">{{this.startTime.hour + ":" + this.startTime.minute + ":" + this.startTime.second}}</label>-->
-              <!--              <br>-->
-              <label *ngIf="isConferenceRoom">{{startTime + " Uhr bis " + endTime + " Uhr"}}</label>
+
               <br>
               <div class="form-group">
                 <label>Name</label>
@@ -20,29 +73,21 @@
                 <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
                   <div *ngIf="f.lastName.errors.required">Bitte Nachname angeben</div>
                 </div>
-              </div>
-              <div class="form-group">
                 <label>Vorname</label>
                 <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" />
                 <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
                   <div *ngIf="f.firstName.errors.required">Bitte Vorname angeben</div>
                 </div>
-              </div>
-              <div class="form-group">
                 <label>Firma</label>
                 <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.companyName.errors }" />
                 <div *ngIf="submitted && f.companyName.errors" class="invalid-feedback">
                   <div *ngIf="f.companyName.errors.required">Bitte Firma angeben</div>
                 </div>
-              </div>
-              <div class="form-group">
                 <label>Email-Adresse</label>
                 <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.emailAddress.errors }" />
                 <div *ngIf="submitted && f.emailAddress.errors" class="invalid-feedback">
                   <div *ngIf="f.emailAddress.errors.required">Bitte Email-Adresse angeben</div>
                 </div>
-              </div>
-              <div class="form-group">
                 <label>Telefonnummer</label>
                 <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.phoneNumber.errors }" />
                 <div *ngIf="submitted && f.phoneNumber.errors" class="invalid-feedback">
@@ -135,7 +180,7 @@
 
 
         </div>
-      </div>
+      </form>
 
     </div>
   </div>

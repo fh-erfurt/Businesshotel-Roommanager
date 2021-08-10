@@ -5,7 +5,7 @@
 .booking-view {
   padding: 22px;
 
-  @media only screen and (min-width: 1250px) {
+  @media only screen and (min-width: 1300px) {
     .form-inline {
       display: grid;
       grid-template-columns: 400px 1fr 458px;
@@ -14,18 +14,47 @@
       grid-template-areas:
     "room-details booking-details date-group";
     }
+    .date-group {
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 0px 0px;
+      grid-template-areas:
+    "date-picker"
+    "time-picker";
+      grid-area: date-group;
+      float: right;
+    }
+    .md-date-picker {
+      visibility: hidden;
+      display: none;
+    }
   }
-  @media only screen and (max-width: 1249px) {
+  @media only screen and (max-width: 1299px) {
     .form-inline {
       display: grid;
-      grid-template-columns: 1fr 458px;
-      grid-template-rows: 500px 0.7fr;
-      justify-content: space-between;
+      grid-template-columns: 400px 1fr;
+      grid-template-rows: 1fr;
+      //justify-content: space-between;
       gap: 22px 22px;
       grid-template-areas:
-    "booking-details date-group"
-    "room-details date-group";
+    "room-details booking-details";
     }
+    .date-group {
+      visibility: hidden;
+      display: none;
+
+    }
+
+  }
+
+  button.calendar, button.calendar:active {
+    width: 2.75rem;
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACIAAAAcCAYAAAAEN20fAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAOxAAADsQBlSsOGwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAEUSURBVEiJ7ZQxToVAEIY/YCHGxN6XGOIpnpaEsBSeQC9ArZbm9TZ6ADyBNzAhQGGl8Riv4BLAWAgmkpBYkH1b8FWT2WK/zJ8ZJ4qiI6XUI3ANnGKWBnht2/ZBDRK3hgVGNsCd7/ui+JkEIrKtqurLpEWaphd933+IyI3LEIdpCYCiKD6HcuOa/nwOa0ScJEnk0BJg0UTUWJRl6RxCYEzEmomsIlPU3IPW+grIAbquy+q6fluy/28RIBeRMwDXdXMgXLj/B2uimRXpui4D9sBeRLKl+1N+L+t6RwbWrZliTTTr1oxYtzVWiTQAcRxvTX+eJMnlUDaO1vpZRO5NS0x48sIwfPc87xg4B04MCzQi8hIEwe4bl1DnFMCN2zsAAAAASUVORK5CYII=') !important;
+    background-repeat: no-repeat;
+    background-size: 23px;
+    background-position: center;
+    height: 2.75rem;
   }
 
   .room-image {
@@ -36,11 +65,11 @@
 
   .booking-details {
     grid-area: booking-details;
-    text-align: center;
+    // text-align: center;
   }
 
   .booking-details-card {
-    height: 500px;
+    // height: 500px;
 
   }
 
@@ -58,17 +87,7 @@
     //height: 300px;
   }
 
-  .date-group {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr;
-    gap: 0px 0px;
-    grid-template-areas:
-    "date-picker"
-    "time-picker";
-    grid-area: date-group;
-    float: right;
-  }
+
 
   .date-picker {
     grid-area: date-picker;

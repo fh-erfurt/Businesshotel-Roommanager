@@ -13,6 +13,7 @@ import {BehaviorSubject, Observable, Subscription} from "rxjs";
 import {BookingService} from "../../services/booking/booking.service";
 import {Booking} from "../../services/booking/booking";
 
+
 type dateTimeSpan = {
   startDate: Date,
   endDate: Date
