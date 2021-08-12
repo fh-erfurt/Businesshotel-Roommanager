@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import {HttpClient} from '@angular/common/http';
-import {Accountdetail} from "./login";
+import {Accountdetail, Links} from "./login";
+import {map} from "rxjs/operators";
+import {RawData} from "../accountdetails/accountdetail";
 
 @Injectable({
   providedIn: 'root'
@@ -10,20 +12,32 @@ export class LoginService {
 
   accountDetail!: Accountdetail;
 
-  private baseUrl = "http://localhost:8081/accountdetails/search/findAccountDetailsByUsername"
+  private baseUrl = "http://localhost:8081/accountdetails/"
   constructor(private http: HttpClient) { }
 
-  public getAccount(username: string): Observable<Accountdetail>{
-    return this.http.get<Accountdetail>(`${this.baseUrl}`, {
-      params: {
-        username: username
-      }
-    })
+  public getAccount(username: string): Observable<Accountdetail | null>{
+    return this.http.get<Accountdetail>(`${this.baseUrl}search/findByUsername?username=${username}`).pipe(
+      map((result:any) =>{
+        console.log("result", result);
+        let account: Accountdetail;
+        if(result.accountID)
+        {
+          account = {
+            accountID: result.accountID,
+            passwordHash: result.passwordHash,
+            username: result.username,
+          };
 
+          return account;
+        } else {
+          return null;
+        }
+      })
+    )
   }
 
   login(username: string, password: string) {
-    this.getAccount(username).subscribe((data: Accountdetail)=>{
+    this.getAccount(username).subscribe((data: Accountdetail | null)=>{
 
       if (data !== null) {
         this.accountDetail = data as Accountdetail
@@ -40,6 +54,8 @@ export class LoginService {
         console.log("Error Handling")
       }
       console.log(data)
+    }, (error)=>{
+      alert("Errrorororo")
     })
 
 

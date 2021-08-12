@@ -1,4 +1,5 @@
 import {EmployeeSelf} from "../employee/employee";
+import {Links} from "../login/login";
 
 export interface RawData {
   _embedded: Embedded;
@@ -14,10 +15,10 @@ export interface Page {
 }
 
 export interface Embedded {
-  accountdetail: Accountdetails[];
+  accountdetail: Accountdetail[];
 }
 
-export interface Accountdetails {
+export interface Accountdetail {
   accountID?: number;
   username:string;
   passwordHash:string;

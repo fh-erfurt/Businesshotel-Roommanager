@@ -4,6 +4,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {RegistrationService} from "../../services/registration/registration.service";
 
 
+
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
@@ -15,6 +16,7 @@ export class RegistrationComponent implements OnInit {
   submitted = false;
   username!: string;
   password!: string;
+  isBusinessCustomer: boolean = false
 
   title = 'appBootstrap';
 
@@ -32,11 +34,16 @@ export class RegistrationComponent implements OnInit {
       firstName: ['', Validators.required],
       companyName: ['', Validators.required],
       emailAddress: ['', Validators.required],
-      phoneNumber: ['', Validators.required],
-      username: ['', Validators.required],
+      phoneNumber: [''],
+      username: [''],
       password: ['', Validators.required],
-      passwordVerify: ['', Validators.required]
+      passwordVerify: ['', Validators.required],
+      businessCustomer: ['']
     });
+  }
+
+  toggleIsBusinessCustomer() {
+    this.isBusinessCustomer = !this.isBusinessCustomer
   }
 
   get f() { return this.form.controls; }

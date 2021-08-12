@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Accountdetails} from "./accountdetails";
+import {Accountdetail} from "./accountdetail";
 import {Observable} from "rxjs";
 import {map} from "rxjs/operators";
 
@@ -17,9 +17,9 @@ export class AccountdetailsService {
     this.lastInsertedID=0;
   }
 
-  public getAllAccountdetails(): Observable<Accountdetails>
+  public getAllAccountdetails(): Observable<Accountdetail>
   {
-    return this.http.get<Accountdetails>(`${this.baseUrl}`).pipe(
+    return this.http.get<Accountdetail>(`${this.baseUrl}`).pipe(
       map((result:any) =>{
         //console.log(result);
         return result._embedded.accountdetails;
@@ -27,9 +27,9 @@ export class AccountdetailsService {
     )
   }
 
-  public getAccountdetails(id:number): Observable<Accountdetails>
+  public getAccountdetails(id:number): Observable<Accountdetail>
   {
-    return this.http.get<Accountdetails>(`${this.baseUrl}${id}`).pipe(
+    return this.http.get<Accountdetail>(`${this.baseUrl}${id}`).pipe(
       map((result:any) =>{
         //console.log(result);
         return result;
@@ -37,9 +37,9 @@ export class AccountdetailsService {
     )
   }
 
-  public getAccountdetailsByUsername(username:string): Observable<Accountdetails>
+  public getAccountdetailsByUsername(username:string): Observable<Accountdetail>
   {
-    return this.http.get<Accountdetails>(`${this.baseUrl}search/findByUsername?username=${username}`).pipe(
+    return this.http.get<Accountdetail>(`${this.baseUrl}search/findByUsername?username=${username}`).pipe(
       map((result:any) =>{
         //console.log(result);
         return result;
@@ -47,11 +47,11 @@ export class AccountdetailsService {
     )
   }
 
-  public save(accountdetails: Accountdetails):Observable<Accountdetails>
+  public save(accountdetails: Accountdetail):Observable<Accountdetail>
   {
     console.log(accountdetails);
 
-    return this.http.post<Accountdetails>(this.baseUrl, accountdetails)
+    return this.http.post<Accountdetail>(this.baseUrl, accountdetails)
         .pipe(
           map(
             (res)=>
@@ -64,9 +64,9 @@ export class AccountdetailsService {
 
   }
 
-  public delete(id: number):Observable<Accountdetails>
+  public delete(id: number):Observable<Accountdetail>
   {
-    return this.http.delete<Accountdetails>(`${this.baseUrl}${id}`)
+    return this.http.delete<Accountdetail>(`${this.baseUrl}${id}`)
       .pipe(
         map(
           (res)=>
@@ -80,11 +80,11 @@ export class AccountdetailsService {
 
   }
 
-  public updateAccountdetails(id: number, accountdetails: Accountdetails)
+  public updateAccountdetails(id: number, accountdetails: Accountdetail)
   {
     console.log(accountdetails);
 
-    return this.http.put<Accountdetails>(`${this.baseUrl}${id}`, accountdetails)
+    return this.http.put<Accountdetail>(`${this.baseUrl}${id}`, accountdetails)
       .pipe(
         map(
           (res)=>
@@ -100,7 +100,7 @@ export class AccountdetailsService {
   {
     console.log(username);
 
-    return this.http.patch<Accountdetails>(`${this.baseUrl}${id}`, {username:username})
+    return this.http.patch<Accountdetail>(`${this.baseUrl}${id}`, {username:username})
       .pipe(
         map(
           (res)=>

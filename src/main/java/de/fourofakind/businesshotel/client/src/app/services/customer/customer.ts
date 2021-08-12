@@ -20,7 +20,7 @@ export interface Embedded {
 export interface Customer {
   customerID?:number;
   contactDataID?: number;
-  paymentMethod: string;
+  paymentMethod?: string;
   accountID?: number;
   isBusinessCustomer: boolean;
   _links?: CustomerLinks;

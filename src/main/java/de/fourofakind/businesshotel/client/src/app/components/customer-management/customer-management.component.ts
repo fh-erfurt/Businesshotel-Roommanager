@@ -3,7 +3,7 @@ import { CustomerService } from '../../services/customer/customer.service';
 import {AccountdetailsService} from "../../services/accountdetails/accountdetails.service";
 import {ContactdataService} from "../../services/contactdata/contactdata.service";
 import {Customer} from "../../services/customer/customer";
-import {Accountdetails} from "../../services/accountdetails/accountdetails";
+import {Accountdetail} from "../../services/accountdetails/accountdetail";
 import {Contactdata} from "../../services/contactdata/contactdata";
 import {BookingService} from "../../services/booking/booking.service";
 import {BookingrequestService} from "../../services/bookingrequest/bookingrequest.service";
@@ -31,7 +31,7 @@ export class CustomerManagementComponent implements OnInit {
   isChecked:boolean=false;
   labelPosition:'before' | 'after'='before';
   foundCustomer!:Customer | null;
-  foundAccountdetails!: Accountdetails| null;
+  foundAccountdetails!: Accountdetail| null;
   foundContactData!: Contactdata | null;
 
   //ContactData
@@ -102,7 +102,7 @@ export class CustomerManagementComponent implements OnInit {
 
   addCustomer()
   {
-    
+
 
     let newOrUpdatedCustomer:Customer=
       {
@@ -137,7 +137,7 @@ export class CustomerManagementComponent implements OnInit {
     }
     else
     {
-      let newOrUpdatedAccount:Accountdetails=
+      let newOrUpdatedAccount:Accountdetail=
         {
           passwordHash: this.password,
           username: this.username
@@ -213,7 +213,7 @@ export class CustomerManagementComponent implements OnInit {
       {
         if(data.contactDataID)this.contactDataID=data.contactDataID
         this.isBusinessCustomer=data.isBusinessCustomer
-        this.paymentMethod=data.paymentMethod
+        this.paymentMethod=data.paymentMethod ? data.paymentMethod : ""
       }
 
       _callback1();
@@ -249,11 +249,11 @@ export class CustomerManagementComponent implements OnInit {
       {
         this.firstName = data.firstName
         this.lastName = data.lastName
-        this.streetName = data.streetName
-        this.streetNumber = data.streetNumber
-        this.postalCode = data.postalCode
-        this.cityName = data.cityName
-        this.phone = data.phone
+        this.streetName = data.streetName ? data.streetName : ""
+        this.streetNumber = data.streetNumber ? data.streetNumber : ""
+        this.postalCode = data.postalCode ? data.postalCode : ""
+        this.cityName = data.cityName ? data.cityName : ""
+        this.phone = data.phone ? data.phone : ""
         this.mailAddress = data.mailAddress
         if (data.paymentCredentials) this.paymentCredentials = data.paymentCredentials
       }

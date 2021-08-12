@@ -21,11 +21,11 @@ export interface Contactdata {
   contactDataID?:number;
   firstName: string;
   lastName: string;
-  streetName: string;
-  streetNumber: string;
-  postalCode: string;
-  cityName: string;
-  phone: string;
+  streetName?: string;
+  streetNumber?: string;
+  postalCode?: string;
+  cityName?: string;
+  phone?: string;
   mailAddress: string;
   paymentCredentials?: string;
   _links?: ContactDataLinks;
