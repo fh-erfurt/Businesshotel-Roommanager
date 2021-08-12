@@ -214,6 +214,7 @@ export class BookingManagementComponent implements OnInit {
 
   submitSearch(intoFormular:boolean)
   {
+    this.foundBooking=null;
     this.getBookingType(()=>this.getValidRooms(()=>this.getBookingData(intoFormular)))
   }
 
