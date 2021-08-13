@@ -1,16 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 
 import {LoginService} from "../login/login.service";
-import {Employee} from "../employee/employee";
-import {map} from "rxjs/operators";
 import {Accountdetail} from "../accountdetails/accountdetail";
 import {AccountdetailsService} from "../accountdetails/accountdetails.service";
 import {ContactdataService} from "../contactdata/contactdata.service";
 import {Contactdata} from "../contactdata/contactdata";
-import {Alert} from "../../app.component";
 import {Customer} from "../customer/customer";
+import {CustomerService} from "../customer/customer.service";
 
 
 @Injectable({
@@ -26,7 +23,8 @@ export class RegistrationService {
   constructor(private http: HttpClient,
               private loginService: LoginService,
               private accountdetailsService: AccountdetailsService,
-              private contactDataService: ContactdataService)
+              private contactDataService: ContactdataService,
+              private customerService: CustomerService)
   {
     this.accountDetail = {
       passwordHash: "password",
@@ -53,13 +51,15 @@ export class RegistrationService {
            phoneNumber: string,
            username: string,
            password: string,
-           passwordVerify: string) {
+           passwordVerify: string,
+           isBusinessCustomer: boolean) {
 
     this.loginService.getAccount(username).subscribe((data: Accountdetail | null)=>{
       if (data) {
         alert("Username schon vergeben")
       }
     }, (error)=>{
+      console.log("Kein User mit diesem Namen")
       this.accountDetail = {
         passwordHash: password,
         username: username,
@@ -73,7 +73,7 @@ export class RegistrationService {
 
       this.saveAccountDetail(
         ()=>this.saveContactDate(
-          ()=>this.saveCustomer()
+          ()=>this.saveCustomer(isBusinessCustomer)
         )
       )
 
@@ -81,35 +81,53 @@ export class RegistrationService {
   }
 
   saveAccountDetail(_callback:Function) {
+    console.log("saveAccountDetail")
     this.accountdetailsService.save(this.accountDetail)
       .subscribe((data)=>
         {
           if(data.accountID) {
             this.accountDetail.accountID = data.accountID;
-            _callback
+            _callback()
           }
         },
         (error)=>
         {
+          console.log("saveAccountDetail ERROR")
           // this.addAlertForXSeconds(new Alert('danger',"Fehler beim Anlegen des Accounts"),5);
         });
   }
   saveContactDate(_callback:Function) {
+    console.log("saveContactDate")
     this.contactDataService.save(this.contactData)
       .subscribe((data)=>
         {
           if(data.contactDataID) {
             this.contactData.contactDataID=data.contactDataID;
+            _callback()
           }
         },
         (error)=>
         {
+          console.log("saveContactDate ERROR")
           // this.addAlertForXSeconds(new Alert('danger',"Fehler beim Anlegen des Accounts"),5);
         });
   }
-  saveCustomer() {
+  saveCustomer(isBusinessCustomer: boolean) {
+    console.log("saveCustomer")
     this.customer.accountID = this.accountDetail.accountID
     this.customer.contactDataID = this.contactData.contactDataID
+    this.customer.isBusinessCustomer = isBusinessCustomer
+
+    this.customerService.save(this.customer)
+      .subscribe((data)=>
+        {
+          console.log("saveCustomer SUCCESS")
+        },
+        (error)=>
+        {
+          console.log("saveContactDate ERROR")
+          // this.addAlertForXSeconds(new Alert('danger',"Fehler beim Anlegen des Accounts"),5);
+        });
 
   }
 

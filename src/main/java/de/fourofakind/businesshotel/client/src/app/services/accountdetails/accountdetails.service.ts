@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Accountdetail} from "./accountdetail";
 import {Observable} from "rxjs";
 import {map} from "rxjs/operators";
+import * as bcrypt from 'bcryptjs';
 
 @Injectable({
   providedIn: 'root'
@@ -50,6 +51,12 @@ export class AccountdetailsService {
   public save(accountdetails: Accountdetail):Observable<Accountdetail>
   {
     console.log(accountdetails);
+
+    const salt = bcrypt.genSaltSync(10);
+    const passwordHash = bcrypt.hashSync(accountdetails.passwordHash, salt)
+    console.log(passwordHash);
+
+    accountdetails.passwordHash = passwordHash
 
     return this.http.post<Accountdetail>(this.baseUrl, accountdetails)
         .pipe(
