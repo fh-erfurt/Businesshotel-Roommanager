@@ -23,9 +23,6 @@ export class RegistrationComponent implements OnInit {
   registerForm!: FormGroup;
   loading = false;
 
-  // username!: string;
-  // password!: string;
-
   submitted = false;
   isBusinessCustomer: boolean = false
   equalPassword: boolean = true
@@ -77,8 +74,6 @@ export class RegistrationComponent implements OnInit {
   toggleIsBusinessCustomer() {
     this.isBusinessCustomer = !this.isBusinessCustomer
   }
-
-
 
   submit() {
     console.log("submit:", this.submitted)

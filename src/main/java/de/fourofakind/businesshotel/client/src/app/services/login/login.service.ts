@@ -12,6 +12,7 @@ import * as bcrypt from 'bcryptjs';
 export class LoginService {
 
   accountDetail!: Accountdetail;
+  equalPassword: boolean = true
 
   private baseUrl = "http://localhost:8081/accountdetails/"
   constructor(private http: HttpClient) { }
