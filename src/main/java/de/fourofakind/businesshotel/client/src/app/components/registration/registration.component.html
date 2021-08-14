@@ -24,9 +24,11 @@
           </div>
         </div>
         <div class="form-group">
+
           <div *ngIf="isBusinessCustomer">
             <label>Firma *</label>
-            <input type="text" formControlName="companyName" name="company" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.companyName.errors }" />
+<!--            <input type="text" formControlName="companyName" name="company" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.companyName.errors }" />-->
+            <input *ngIf="isBusinessCustomer" type="text" value="d" formControlName="companyName" name="company" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.companyName.errors }" />
             <div *ngIf="submitted && f.companyName.errors" class="invalid-feedback">
               <div *ngIf="f.companyName.errors.required">Bitte Firma angeben</div>
             </div>

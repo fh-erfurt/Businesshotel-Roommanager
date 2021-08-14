@@ -38,41 +38,31 @@ export class RegistrationComponent implements OnInit {
   ) { }
 
 
-
   ngOnInit(): void {
 
-    if (this.isBusinessCustomer) {
-      this.registerForm = this.formBuilder.group({
-        lastName: ['', Validators.required],
-        firstName: ['', Validators.required],
-        companyName: ['', Validators.required],
-        emailAddress: ['', Validators.required],
-        phoneNumber: [''],
-        username: [''],
-        password: ['', [Validators.required, Validators.minLength(10)]],
-        passwordVerify:  ['',Validators.required]
-      }, {
-        validators: MustMatch('password', 'passwordVerify')
-      });
-    } else {
-      this.registerForm = this.formBuilder.group({
-        lastName: ['', Validators.required],
-        firstName: ['', Validators.required],
-        emailAddress: ['', Validators.required],
-        phoneNumber: [''],
-        username: [''],
-        password: ['', [Validators.required, Validators.minLength(10)]],
-        passwordVerify: ['',Validators.required]
-      }, {
-        validators: MustMatch('password', 'passwordVerify')
-      });
-    }
+    this.registerForm = this.formBuilder.group({
+      lastName: ['', Validators.required],
+      firstName: ['', Validators.required],
+      emailAddress: ['', Validators.required],
+      phoneNumber: [''],
+      username: [''],
+      password: ['', [Validators.required, Validators.minLength(10)]],
+      passwordVerify:  ['',Validators.required]
+    }, {
+      validators: MustMatch('password', 'passwordVerify')
+    });
   }
 
   get f() { return this.registerForm.controls; }
 
   toggleIsBusinessCustomer() {
     this.isBusinessCustomer = !this.isBusinessCustomer
+
+    if (this.isBusinessCustomer) {
+      this.registerForm.addControl('companyName', new FormControl('', Validators.required));
+    } else {
+      this.registerForm.removeControl("companyName")
+    }
   }
 
   submit() {
