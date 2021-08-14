@@ -119,9 +119,16 @@ export class RegistrationService {
     this.customer.isBusinessCustomer = isBusinessCustomer
 
     this.customerService.save(this.customer)
-      .subscribe((data)=>
+      .subscribe((data) =>
         {
-          console.log("saveCustomer SUCCESS")
+          if(data.customerID) {
+            this.customer.customerID=data.customerID;
+            console.log("saveCustomer SUCCESS")
+            localStorage.setItem('user', this.accountDetail.username);
+            localStorage.setItem('userID', String(this.customer.customerID));
+            window.location.href = "";
+          }
+
         },
         (error)=>
         {

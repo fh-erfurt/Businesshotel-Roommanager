@@ -48,28 +48,79 @@ export class AccountdetailsService {
     )
   }
 
-  public save(accountdetails: Accountdetail):Observable<Accountdetail>
-  {
+  public save(accountdetails: Accountdetail): Observable<Accountdetail> {
     console.log(accountdetails);
 
     const salt = bcrypt.genSaltSync(10);
     const passwordHash = bcrypt.hashSync(accountdetails.passwordHash, salt)
-    console.log(passwordHash);
-
+    console.log("passwordHash: ", passwordHash);
     accountdetails.passwordHash = passwordHash
 
-    return this.http.post<Accountdetail>(this.baseUrl, accountdetails)
-        .pipe(
-          map(
-            (res)=>
-            {
-              console.log(res);
-              return res;
-            }
-          )
-        )
+      // this.hashPassword(accountdetails.passwordHash)
+      //   .then(hash => {
+      //     if (hash && typeof hash === "string") {
+      //       console.log("hash: ", hash)
+      //       accountdetails.passwordHash = hash
+      //     }
+      //   })
+      //   .catch(e => {
+      //     console.log(e);
+      //   })
 
+    return this.http.post<Accountdetail>(this.baseUrl, accountdetails)
+      .pipe(
+        map(
+          (res) => {
+            console.log(res);
+            return res;
+          }
+        )
+      )
   }
+
+  // deprecated
+  hashPassword = (password: string) => {
+    return new Promise((resolve, reject) => {
+        const saltRounds = 10;
+
+        try{
+          bcrypt.genSalt(saltRounds, function(err, salt) {
+            bcrypt.hash(password, salt, function(err, hash) {
+              if (err) {
+                reject(err);
+              } else {
+                resolve(hash);
+              }
+            });
+          });
+        }
+        catch(e){
+          console.log('caught error', e);
+          // Handle exceptions
+        }
+    });
+  };
+
+
+
+  // public async hashPasswort(password: string, _callback: (n: string) => string){
+  //   const saltRounds = 10;
+  //   var generatedHash = ""
+  //
+  //   try{
+  //     bcrypt.genSalt(saltRounds, function(err, salt) {
+  //       bcrypt.hash(password, salt, function(err, hash) {
+  //         console.log(hash)
+  //         _callback(hash)
+  //       });
+  //     });
+  //   }
+  //   catch(e){
+  //     console.log('caught error', e);
+  //     // Handle exceptions
+  //   }
+  //
+  // }
 
   public delete(id: number):Observable<Accountdetail>
   {

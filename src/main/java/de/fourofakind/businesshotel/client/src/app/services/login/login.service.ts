@@ -4,6 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {Accountdetail, Links} from "./login";
 import {map} from "rxjs/operators";
 import {RawData} from "../accountdetails/accountdetail";
+import * as bcrypt from 'bcryptjs';
 
 @Injectable({
   providedIn: 'root'
@@ -42,20 +43,25 @@ export class LoginService {
       if (data !== null) {
         this.accountDetail = data as Accountdetail
 
-        if (this.accountDetail.passwordHash === password) {
-          console.log("Success")
-          localStorage.setItem('user', username);
-          localStorage.setItem('userID', String(this.accountDetail.accountID));
-          window.location.href = "";
-        } else {
-          console.log("Error Handling")
-        }
+        bcrypt.compare(password, this.accountDetail.passwordHash, (err, result) => {
+          if (err) {
+            console.log("Error Handling: ", err)
+          }
+          if (result) {
+            console.log("Success: ", result)
+            localStorage.setItem('user', username);
+            localStorage.setItem('userID', String(this.accountDetail.accountID));
+            window.location.href = "";
+          } else {
+            console.log("Error Handling: ", result)
+          }
+        });
       } else {
         console.log("Error Handling")
       }
       console.log(data)
     }, (error)=>{
-      alert("Errrorororo")
+      alert("Username oder Passwort falsch")
     })
 
 
