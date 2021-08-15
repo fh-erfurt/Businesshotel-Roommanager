@@ -18,12 +18,15 @@ export class LoginService {
   constructor(private http: HttpClient) { }
 
   public getAccount(username: string): Observable<Accountdetail | null>{
+    console.log("getAccount 1")
     return this.http.get<Accountdetail>(`${this.baseUrl}search/findByUsername?username=${username}`).pipe(
       map((result:any) =>{
+        console.log("getAccount 2")
         console.log("result", result);
         let account: Accountdetail;
         if(result.accountID)
         {
+          console.log("getAccount 3")
           account = {
             accountID: result.accountID,
             passwordHash: result.passwordHash,
@@ -32,52 +35,62 @@ export class LoginService {
 
           return account;
         } else {
+          console.log("getAccount 4")
           return null;
         }
       })
     )
   }
 
-  login(username: string, password: string) {
-    this.getAccount(username).subscribe((data: Accountdetail | null)=>{
+  hashPassword = (password: string) => {
+    return new Promise((resolve, reject) => {
+      const saltRounds = 10;
 
-      if (data !== null) {
-        this.accountDetail = data as Accountdetail
-
-        bcrypt.compare(password, this.accountDetail.passwordHash, (err, result) => {
-          if (err) {
-            console.log("Error Handling: ", err)
-          }
-          if (result) {
-            console.log("Success: ", result)
-            localStorage.setItem('user', username);
-            localStorage.setItem('userID', String(this.accountDetail.accountID));
-            window.location.href = "";
-          } else {
-            console.log("Error Handling: ", result)
-          }
+      try{
+        bcrypt.genSalt(saltRounds, function(err, salt) {
+          bcrypt.hash(password, salt, function(err, hash) {
+            if (err) {
+              reject(err);
+            } else {
+              resolve(hash);
+            }
+          });
         });
-      } else {
-        console.log("Error Handling")
       }
-      console.log(data)
-    }, (error)=>{
-      alert("Username oder Passwort falsch")
+      catch(e){
+        console.log('caught error', e);
+        // Handle exceptions
+      }
+    });
+  };
+
+  login = (username: string, password: string) => {
+    return new Promise((resolve, reject) => {
+      this.getAccount(username).subscribe((data: Accountdetail | null)=>{
+
+        if (data !== null) {
+          this.accountDetail = data as Accountdetail
+
+          bcrypt.compare(password, this.accountDetail.passwordHash, (err, result) => {
+            if (err) {
+              reject("something unexpected happened: " + err)
+            }
+            if (result) {
+              localStorage.setItem('user', username);
+              localStorage.setItem('userID', String(this.accountDetail.accountID));
+              resolve("Success: " + result)
+
+            } else {
+              reject("wrong password")
+            }
+          });
+        } else {
+          console.log("userdata not existing")
+        }
+        console.log(data)
+      }, (error)=>{
+        reject("username not found")
+      })
     })
-
-
-    // this.getAccountDetails().subscribe((data: RootObject)=> {
-    //   for (accountdetails of data._embedded.accountdetails) {
-    //
-    //   }
-    // })
-
-    // return this.http.post<RootObject>(`${environment.apiUrl}/accountdetails`, { username, password })
-    //   .pipe(map(user => {
-    //     // store user details and jwt token in local storage to keep user logged in between page refreshes
-    //     localStorage.setItem('user', JSON.stringify(user));
-    //     // this.userSubject.next(user);
-    //     return user;
-    //   }));
   }
 }

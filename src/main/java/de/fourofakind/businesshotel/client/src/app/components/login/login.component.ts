@@ -5,6 +5,7 @@ import { first } from 'rxjs/operators';
 
 import { LoginService } from '../../services/login/login.service';
 import {RootObject} from "../../services/login/login";
+import {MustMatch} from "../../services/registration/must-match.validator";
 
 @Component({ templateUrl: 'login.component.html' })
 export class LoginComponent implements OnInit {
@@ -13,6 +14,7 @@ export class LoginComponent implements OnInit {
   submitted = false;
   username!: string;
   password!: string;
+  invalidUserData: boolean = false
 
   @ViewChild('someInput') usernameInput!: ElementRef;
   @ViewChild('someInput') passwordInpu!: ElementRef;
@@ -29,10 +31,8 @@ export class LoginComponent implements OnInit {
       username: ['', Validators.required],
       password: ['', Validators.required]
     });
-
   }
 
-  // convenience getter for easy access to form fields
   get f() { return this.form.controls; }
 
   submit() {
@@ -42,7 +42,18 @@ export class LoginComponent implements OnInit {
       return;
     }
 
+    console.log(this.form)
+
     this.loginService.login(this.f.username.value, this.f.password.value)
+      .then(success => {
+        this.invalidUserData = false
+        window.location.href = ""
+        console.log(success)
+      })
+      .catch(err => {
+        this.invalidUserData = true
+        console.log(err)
+      })
 
   }
 
