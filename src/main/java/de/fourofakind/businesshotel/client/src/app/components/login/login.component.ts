@@ -47,14 +47,10 @@ export class LoginComponent implements OnInit {
     this.loginService.login(this.f.username.value, this.f.password.value)
       .then(success => {
         this.invalidUserData = false
-        console.log("success")
-        console.log(success)
         window.location.href = ""
       })
       .catch(err => {
         this.invalidUserData = true
-        console.log("err: ")
-        console.log(err)
       })
 
   }

@@ -85,17 +85,26 @@ export class LoginService {
               console.log("result: ", result)
               console.log("data", data)
 
+              console.log("continue")
+              localStorage.setItem('user', username);
+              localStorage.setItem('userID', String(this.accountDetail.accountID));
+
               this.employeeService.getEmployeeByAccountID(data.accountID)
                 .subscribe((data: Employee) => {
                   if (data) {
                     localStorage.setItem('empNo', String(data.empNo));
+                  } else {
+                    console.log("no Data")
                   }
+
+
+                  resolve("Success: " + result)
+
+                }, (error)=>{
+                  resolve("Success: " + error)
                 })
 
-              console.log("continue")
-              localStorage.setItem('user', username);
-              localStorage.setItem('userID', String(this.accountDetail.accountID));
-              resolve("Success: " + result)
+
 
 
             } else {
