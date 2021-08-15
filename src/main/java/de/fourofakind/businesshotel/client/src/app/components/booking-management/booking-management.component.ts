@@ -70,6 +70,9 @@ export class BookingManagementComponent implements OnInit {
       })
   }
 
+
+
+  today:Date=new Date();
   isChecked:boolean = false;
   customerID!:number;
   bookingNo!:number;
@@ -92,6 +95,11 @@ export class BookingManagementComponent implements OnInit {
   endTimestamp!:Date;
   calculatedPricing!:number;
   pricePerUnit!: number;
+  occupationChecked:boolean=false;
+
+  //errors
+  startDateError:boolean=false;
+  endDateError:boolean=false;
 
 
   alerts:Alert[]=[];
@@ -102,6 +110,29 @@ export class BookingManagementComponent implements OnInit {
   {
     this.alerts.push(alert);
     setTimeout(()=>this.alerts=this.alerts.filter(entry=>entry!=alert),seconds*1000);
+  }
+
+  validateDate()
+  {
+    // console.log(this.startDate)
+    // console.log(new Date(this.startDate+"T00:00:00"))
+    // console.log(new Date(this.startDate+"T00:00:00").getTime())
+    // console.log(parseDate(this.endDate).getMilliseconds())
+
+    this.startDateError = parseDate(this.startDate).getTime() <= this.today.getTime();
+
+    if (parseDate(this.endDate).getTime()<=this.today.getTime())
+    {
+      this.endDateError = true;
+    }
+    else if(parseDate(this.endDate).getTime()<parseDate(this.startDate).getTime())
+    {
+      this.endDateError = true;
+    }
+    else
+    {
+      this.endDateError = false;
+    }
   }
 
   getPricePerUnit(_callback:Function)
@@ -147,8 +178,8 @@ export class BookingManagementComponent implements OnInit {
       {
         customerID:this.customerID,
         roomNo:this.roomNo,
-        startDate:this.startDate+"T"+this.startTime+"+01:00",
-        endDate:this.endDate+"T"+this.endTime+"+01:00",
+        startDate:this.startDate+"T"+this.startTime+"+02:00",
+        endDate:this.endDate+"T"+this.endTime+"+02:00",
         empNo:1, //TODO:Muss noch ersetzt werden
         pricing:this.calculatedPricing,
         specialWishes:this.specialWishes,
@@ -189,8 +220,28 @@ export class BookingManagementComponent implements OnInit {
     this.getPricePerUnit(()=>this.calculatePricing(()=>this.prepareAndInsertBooking(addsNewBooking)))
   }
 
+  filterRoomsByOccupation(isBookingChange:boolean)
+  {
+    console.log(this.startDate, this.endDate);
+    let startTimestamp=this.startDate+"T"+this.startTime+":00.000%2b02:00"
+    let endTimestamp=this.endDate+"T"+this.endTime+":00.000%2b02:00"
 
-  getValidRooms(_callback?:Function)
+    //http://localhost:8081/booking/search/findByStartDateIsBetween?startDate=2021-03-31T10:30:00.000%2b02:00&endDate=2021-04-02T10:30:00.000%2b02:00
+
+    this.bookingService.getBookingsByStartDateAndEndDate(startTimestamp, endTimestamp).subscribe(data=>
+    {
+      console.log(this.rooms);
+      data.forEach((booking:Booking) =>
+      {
+        if(isBookingChange) this.rooms=this.rooms.filter(room=> room.roomNo!==booking.roomNo || room.roomNo===this.roomNo)
+        else this.rooms=this.rooms.filter(room=> room.roomNo!==booking.roomNo)
+      })
+      console.log(this.rooms);
+      if(!isBookingChange) this.occupationChecked=true;
+    })
+  }
+
+  getValidRooms(isBookingChange: boolean, _callback?: Function)
   {
     if (this.bookingType=="hotelRoom")
     {
@@ -198,7 +249,9 @@ export class BookingManagementComponent implements OnInit {
         console.log(data);
         this.rooms=data;
         console.log(this.rooms);
+        this.filterRoomsByOccupation(isBookingChange);
         if(_callback) _callback();
+
       })
     }
     else
@@ -207,15 +260,17 @@ export class BookingManagementComponent implements OnInit {
         console.log(data);
         this.rooms=data;
         console.log(this.rooms);
+        this.filterRoomsByOccupation(isBookingChange);
         if(_callback) _callback();
       })
     }
+
   }
 
   submitSearch(intoFormular:boolean)
   {
     this.foundBooking=null;
-    this.getBookingType(()=>this.getValidRooms(()=>this.getBookingData(intoFormular)))
+    this.getBookingType(()=>this.getValidRooms(intoFormular, () => this.getBookingData(intoFormular)))
   }
 
   getBookingType(_callback:Function)
@@ -229,6 +284,7 @@ export class BookingManagementComponent implements OnInit {
       (error)=>
       {
         this.addAlertForXSeconds(new Alert('danger',"Keine Buchungen zu dieser Buchungsnummer vorhanden"),5);
+
       })
   }
 
@@ -236,6 +292,7 @@ export class BookingManagementComponent implements OnInit {
   {
     this.foundBooking=null;
     console.log(this.rooms);
+
     this.bookingService.getBooking(this.bookingNo).subscribe(data=>
     {
       this.foundBooking=data;
@@ -253,7 +310,9 @@ export class BookingManagementComponent implements OnInit {
         this.endDate=formatDate(data.endDate,"yyyy-MM-dd","de");
         this.endTime=formatDate(data.endDate,"HH:mm","de");
         this.specialWishes=data.specialWishes
+        this.filterRoomsByOccupation(true);
       }
+
     },
       (error)=>
       {
