@@ -54,6 +54,7 @@ export class CustomerManagementComponent implements OnInit {
   password!:string;
   repeatedPassword!:string;
   username!:string;
+  usernameAlreadyExists:boolean=false;
 
   alerts:Alert[]=[];
 
@@ -128,9 +129,6 @@ export class CustomerManagementComponent implements OnInit {
   addOrUpdateCustomerAndDetails(addsNewCustomer:boolean)
   {
 
-    var username = this.firstName.trim().replace(" ", ".") + "." + this.lastName.trim().replace(" ", ".");
-    this.username = username.toLowerCase();
-
     if(addsNewCustomer)
     {
       this.addContactData(()=>this.addCustomer());
@@ -179,6 +177,7 @@ export class CustomerManagementComponent implements OnInit {
         {
           this.addAlertForXSeconds(new Alert('danger',"Fehler beim Ändern des Kunden"),5);
         });
+
       this.accountdetailsService.updateUsername(this.accountID,this.username)
         .subscribe((res)=>
         {
@@ -354,6 +353,19 @@ export class CustomerManagementComponent implements OnInit {
       })
   }
 
+  validateUsername()
+  {
+    this.accountdetailsService.getAccountdetailsByUsername(this.username)
+      .subscribe(
+        (data=>
+        {
+          this.usernameAlreadyExists = true;
+        }),
+        (error)=>
+        {
+          this.usernameAlreadyExists=false;
+        })
+  }
 
   deleteCustomerAndDetails()
   {

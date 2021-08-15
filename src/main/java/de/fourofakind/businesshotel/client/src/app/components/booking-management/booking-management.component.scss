@@ -44,11 +44,21 @@ button{
   justify-content: space-evenly;
 }
 
-.alert{
+.roomNumberInput{
+  width:85%;
+}
 
+.success{
+
+  background-color: #c5e1a5;
   animation:fade-out 5s;
 }
 
+.danger{
+
+  background-color: #ffab91;
+  animation:fade-out 5s;
+}
 
 
 @keyframes fade-out {

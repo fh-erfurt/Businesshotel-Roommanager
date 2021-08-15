@@ -71,8 +71,11 @@
         <button mat-raised-button color="primary" type="submit" (click)="addOrUpdateRoom(true)">Absenden</button>
       </div>
         <div class="notificationArea">
-          <ngb-alert class="alert"#alert *ngFor="let alert of alerts"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
-        </div>
+        <p *ngFor="let alert of alerts">
+          <ngb-alert *ngIf="alert.type=='success'" class="success"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
+          <ngb-alert *ngIf="alert.type=='danger'" class="danger"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
+        </p>
+      </div>
         </div>
     </mat-tab>
 
@@ -155,7 +158,10 @@
         </div>
       </div>
         <div class="notificationArea">
-          <ngb-alert class="alert"#alert *ngFor="let alert of alerts"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
+          <p *ngFor="let alert of alerts">
+            <ngb-alert *ngIf="alert.type=='success'" class="success"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
+            <ngb-alert *ngIf="alert.type=='danger'" class="danger"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
+          </p>
         </div>
         </div>
     </mat-tab>
@@ -226,7 +232,10 @@
         <button mat-raised-button color="primary" type="submit" [disabled]="!isChecked" (click)="deleteRoom()">Löschen</button>
       </div>
         <div class="notificationArea">
-          <ngb-alert class="alert"#alert *ngFor="let alert of alerts"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
+          <p *ngFor="let alert of alerts">
+            <ngb-alert *ngIf="alert.type=='success'" class="success"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
+            <ngb-alert *ngIf="alert.type=='danger'" class="danger"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
+          </p>
         </div>
         </div>
     </mat-tab>
@@ -289,7 +298,10 @@
         </mat-card>
       </div>
         <div class="notificationArea">
-          <ngb-alert class="alert"#alert *ngFor="let alert of alerts"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
+          <p *ngFor="let alert of alerts">
+            <ngb-alert *ngIf="alert.type=='success'" class="success"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
+            <ngb-alert *ngIf="alert.type=='danger'" class="danger"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
+          </p>
         </div>
         </div>
     </mat-tab>

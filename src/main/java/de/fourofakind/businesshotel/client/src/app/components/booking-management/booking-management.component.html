@@ -5,43 +5,57 @@
         <div class="matTab">
           <div class="tab">
             <br>
-            <mat-radio-group [(ngModel)]="bookingType" (change)="getValidRooms()" class="bookingtypeSelector">
-              <mat-radio-button required value="hotelRoom">Hotelzimmer</mat-radio-button><br>
-              <mat-radio-button required value="conferenceRoom" >Konferenzraum</mat-radio-button>
+            <mat-radio-group [(ngModel)]="bookingType" (change)="getValidRooms(false)" class="bookingtypeSelector" [required]="true">
+              <mat-radio-button value="hotelRoom">Hotelzimmer</mat-radio-button><br>
+              <mat-radio-button value="conferenceRoom" >Konferenzraum</mat-radio-button>
             </mat-radio-group>
             <br>
             <mat-form-field appearance="fill">
               <mat-label>Kundennummer</mat-label>
-              <input matInput type="number" min="2" name="customerID" [(ngModel)]="customerID" required>
+              <input matInput type="number" [min]="2" name="customerID" [(ngModel)]="customerID" [required]="true">
+              <mat-error>Bitte gültige Kundennummer angeben</mat-error>
             </mat-form-field>
             <br>
-            <mat-form-field appearance="fill">
-              <mat-label>Raumnummer</mat-label>
-              <mat-select  [(ngModel)]="roomNo" required>
-                <mat-option *ngFor="let room of rooms"  value="{{room.roomNo}}">{{room.roomNo}}</mat-option>
-                <mat-option  *ngIf="!rooms" value="" disabled>Keine Räume verfügbar oder keine Kategorie gewählt</mat-option>
-              </mat-select>
-            </mat-form-field>
-            <br>
+
             <div>
               <mat-form-field class="halfInput" appearance="fill">
                 <mat-label>Startdatum</mat-label>
-                <input matInput type="date" min="{{minDateStart}}" [(ngModel)]="startDate" required>
+                <input matInput type="date" [(ngModel)]="startDate" [required]="true">
+                <mat-error>Bitte gültiges Datum angeben</mat-error>
               </mat-form-field>
               <mat-form-field class="halfInput" appearance="fill">
                 <mat-label>Startzeit</mat-label>
-                <input matInput type="time" [(ngModel)]="startTime" required>
+                <input matInput type="time" [(ngModel)]="startTime" [required]="true">
+                <mat-error>Bitte gültige Zeit angeben</mat-error>
               </mat-form-field>
             </div>
             <div>
               <mat-form-field class="halfInput" appearance="fill">
                 <mat-label>Enddatum</mat-label>
-                <input matInput type="date" min="{{minDateEnd}}" [(ngModel)]="endDate" required>
+                <input matInput type="date" [(ngModel)]="endDate" [required]="true">
+                <mat-error>Bitte gültiges Datum angeben</mat-error>
               </mat-form-field>
               <mat-form-field class="halfInput" appearance="fill">
                 <mat-label>Endzeit</mat-label>
-                <input matInput type="time" [(ngModel)]="endTime" required>
+                <input matInput type="time" [(ngModel)]="endTime" [required]="true">
+                <mat-error>Bitte gültige Zeit angeben</mat-error>
               </mat-form-field>
+            </div>
+            <br>
+            <div>
+              <mat-form-field class="roomNumberInput" appearance="fill">
+                <mat-label>Raumnummer</mat-label>
+                <mat-select #roomNoModel="ngModel" [(ngModel)]="roomNo" [required]="true" [disabled]="(!(startDate&&startTime&&endDate&&endTime)||!occupationChecked)">
+                  <mat-option *ngFor="let room of rooms"  [value]="room.roomNo" >{{room.roomNo}}</mat-option>
+                  <mat-option  *ngIf="!rooms" [value]="" disabled>Keine Räume verfügbar oder keine Kategorie gewählt</mat-option>
+                </mat-select>
+                <mat-hint *ngIf="(!(startDate&&startTime&&endDate&&endTime))">Zuerst Zeitraum wählen.</mat-hint>
+                <mat-hint *ngIf="((startDate&&startTime&&endDate&&endTime)&&!occupationChecked)">Such-Button drücken um verfügbare Räume zu finden.</mat-hint>
+                <mat-error *ngIf="!roomNoModel.touched">Bitte Raumnummer wählen</mat-error>
+              </mat-form-field>
+              <button mat-icon-button color="primary" (click)="filterRoomsByOccupation(false)" [disabled]="!occupationChecked">
+                <mat-icon >search</mat-icon>
+              </button>
             </div>
             <br>
             <mat-form-field appearance="fill">
@@ -51,8 +65,11 @@
             <button mat-raised-button color="primary" type="submit" (click)="addOrUpdateBooking(true)">Absenden</button>
           </div>
           <div class="notificationArea">
-          <ngb-alert class="alert"#alert *ngFor="let alert of alerts"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
-        </div>
+            <p *ngFor="let alert of alerts">
+              <ngb-alert *ngIf="alert.type=='success'" class="success"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
+              <ngb-alert *ngIf="alert.type=='danger'" class="danger"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
+            </p>
+          </div>
         </div>
       </mat-tab>
 
@@ -68,49 +85,53 @@
             <br>
             <mat-form-field appearance="fill">
               <mat-label>Buchungsnummer</mat-label>
-              <input matInput type="number" min="1" [(ngModel)]="bookingNo" required>
+              <input matInput type="number" [min]="1" [(ngModel)]="bookingNo" [required]="true">
+              <mat-error>Bitte gültige Buchungsnummer angegeben</mat-error>
             </mat-form-field>
             <button mat-raised-button color="primary" (click)="submitSearch(true)">Suchen</button>
             <br>
             <div *ngIf="foundBooking" class="searchTab">
-              <mat-radio-group [(ngModel)]="bookingType" (change)="getValidRooms()" class="bookingtypeSelector">
-                <mat-radio-button required value="hotelRoom">Hotelzimmer</mat-radio-button><br>
-                <mat-radio-button required value="conferenceRoom">Konferenzraum</mat-radio-button>
+              <mat-radio-group [(ngModel)]="bookingType" (change)="getValidRooms(true)" class="bookingtypeSelector" [required]="true">
+                <mat-radio-button value="hotelRoom">Hotelzimmer</mat-radio-button><br>
+                <mat-radio-button value="conferenceRoom">Konferenzraum</mat-radio-button>
               </mat-radio-group>
               <br>
               <mat-form-field appearance="fill">
                 <mat-label>Kundennummer</mat-label>
-                <input matInput type="number" min="2" name="customerID" [(ngModel)]="customerID" required>
+                <input matInput type="number" [min]="2" name="customerID" [(ngModel)]="customerID" [required]="true">
+                <mat-error>Bitte gültige Kundennummer angegeben</mat-error>
               </mat-form-field>
               <br>
-              <mat-form-field appearance="fill">
-                <mat-label>Raumnummer</mat-label>
-                <mat-select  required [(ngModel)]="roomNo">
-                  <mat-option *ngFor="let room of rooms" value="{{room.roomNo}}">{{room.roomNo}}</mat-option>
-                  <mat-option *ngIf="!rooms" value="" disabled>Keine Räume verfügbar oder keine Kategorie gewählt</mat-option>
-                </mat-select>
-              </mat-form-field>
-              <br>
+
               <div>
                 <mat-form-field class="halfInput" appearance="fill">
                   <mat-label>Startdatum</mat-label>
-                  <input matInput type="date" [(ngModel)]="startDate" required>
+                  <input matInput type="date" [(ngModel)]="startDate" [required]="true">
                 </mat-form-field>
                 <mat-form-field class="halfInput" appearance="fill">
                   <mat-label>Startzeit</mat-label>
-                  <input matInput type="time" [(ngModel)]="startTime" required>
+                  <input matInput type="time" [(ngModel)]="startTime" [required]="true">
                 </mat-form-field>
               </div>
               <div>
                 <mat-form-field class="halfInput" appearance="fill">
                   <mat-label>Enddatum</mat-label>
-                  <input matInput type="date" [(ngModel)]="endDate"  required>
+                  <input matInput type="date" [(ngModel)]="endDate"  [required]="true">
                 </mat-form-field>
                 <mat-form-field class="halfInput" appearance="fill">
                   <mat-label>Endzeit</mat-label>
-                  <input matInput type="time" [(ngModel)]="endTime"  required>
+                  <input matInput type="time" [(ngModel)]="endTime"  [required]="true">
                 </mat-form-field>
               </div>
+              <br>
+              <mat-form-field appearance="fill">
+                <mat-label>Raumnummer</mat-label>
+                <mat-select  [required]="true" [(ngModel)]="roomNo" [disabled]="(!(startDate&&startTime&&endDate&&endTime))">
+                  <mat-option *ngFor="let room of rooms" [value]="room.roomNo">{{room.roomNo}}</mat-option>
+                  <mat-option *ngIf="!rooms" value="" disabled>Keine Räume verfügbar oder keine Kategorie gewählt</mat-option>
+                </mat-select>
+                <mat-hint *ngIf="(!(startDate&&startTime&&endDate&&endTime))">Zuerst Zeitraum wählen.</mat-hint>
+              </mat-form-field>
               <br>
               <mat-form-field appearance="fill">
                 <mat-label>Kundenwünsche</mat-label>
@@ -120,7 +141,10 @@
             </div>
           </div>
           <div class="notificationArea">
-            <ngb-alert class="alert" *ngFor="let alert of alerts" [dismissible]="false" [type]="alert.type">{{alert.message}}</ngb-alert>
+            <p *ngFor="let alert of alerts">
+              <ngb-alert *ngIf="alert.type=='success'" class="success"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
+              <ngb-alert *ngIf="alert.type=='danger'" class="danger"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
+            </p>
           </div>
         </div>
       </mat-tab>
@@ -137,7 +161,8 @@
             <br>
             <mat-form-field appearance="fill">
               <mat-label>Buchungsnummer</mat-label>
-              <input matInput type="number" [(ngModel)]="bookingNo" required>
+              <input matInput type="number" [min]="1" [(ngModel)]="bookingNo" [required]="true">
+              <mat-error>Bitte gültige Buchungsnummer angegeben</mat-error>
             </mat-form-field>
             <button mat-raised-button color="primary" type="submit" (click)="submitSearch(false)">Suchen</button>
             <br>
@@ -176,11 +201,14 @@
               </mat-card-content>
             </mat-card>
             <br>
-              <mat-slide-toggle [(ngModel)]="isChecked" [disabled]="!foundBooking" >Freigeben</mat-slide-toggle> <!--Bestätigung zum Freigeben des Löschen, könnte auch als Pop-Up implementiert werden-->
+              <mat-slide-toggle [(ngModel)]="isChecked" [disabled]="!foundBooking" >Freigeben</mat-slide-toggle>
               <button mat-raised-button color="primary" type="submit" [disabled]="!isChecked" (click)="deleteBooking()">Löschen</button>
           </div>
           <div class="notificationArea">
-            <ngb-alert class="alert" *ngFor="let alert of alerts" [dismissible]="false" [type]="alert.type">{{alert.message}}</ngb-alert>
+            <p *ngFor="let alert of alerts">
+              <ngb-alert *ngIf="alert.type=='success'" class="success"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
+              <ngb-alert *ngIf="alert.type=='danger'" class="danger"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
+            </p>
           </div>
         </div>
       </mat-tab>
@@ -194,8 +222,10 @@
           <div class="tab">
             <mat-form-field appearance="fill">
               <mat-label>Buchungsnummer</mat-label>
-              <input matInput type="number" [(ngModel)]="bookingNo" required>
+              <input matInput type="number" [min]="1" [(ngModel)]="bookingNo" [required]="true">
+              <mat-error>Bitte gültige Buchungsnummer angegeben</mat-error>
             </mat-form-field>
+            <br>
             <button mat-raised-button color="primary" type="submit" (click)="submitSearch(false)">Suchen</button>
             <mat-card *ngIf="foundBooking">
               <mat-label>Buchungsnummer</mat-label>
@@ -232,7 +262,10 @@
             </mat-card>
           </div>
           <div class="notificationArea">
-            <ngb-alert class="alert" *ngFor="let alert of alerts" [dismissible]="false" [type]="alert.type">{{alert.message}}</ngb-alert>
+            <p *ngFor="let alert of alerts">
+              <ngb-alert *ngIf="alert.type=='success'" class="success"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
+              <ngb-alert *ngIf="alert.type=='danger'" class="danger"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
+            </p>
           </div>
         </div>
       </mat-tab>

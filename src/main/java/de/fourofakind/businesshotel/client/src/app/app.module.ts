@@ -39,7 +39,7 @@ import {BookingComponent} from './components/bookingRequest/booking.component';
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {MatTableModule} from "@angular/material/table";
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
+import {MatIconModule} from "@angular/material/icon";
 
 registerLocaleData(localeDe, localeDeExtra);
 
@@ -91,6 +91,7 @@ registerLocaleData(localeDe, localeDeExtra);
     NgbAlertModule,
     MatCheckboxModule,
     MatTableModule,
+    MatIconModule,
   ],
   providers: [
     { provide: LOCALE_ID, useValue: "de" }
