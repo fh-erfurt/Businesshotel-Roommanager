@@ -38,6 +38,7 @@ export class EmployeeManagementComponent implements OnInit {
   givenRole!:string;
   foundEmployee!:Employee | null;
   accountID!:number;
+  usernameAlreadyExists:boolean=false;
 
   alerts:Alert[]=[];
 
@@ -49,6 +50,20 @@ export class EmployeeManagementComponent implements OnInit {
 
   validateRepeatedPassword(){
     this.passwordsAreEqual = this.repeatedPassword == this.password;
+  }
+
+  validateUsername()
+  {
+    this.accountdetailsService.getAccountdetailsByUsername(this.username)
+      .subscribe(
+        (data=>
+        {
+          this.usernameAlreadyExists = true;
+        }),
+        (error)=>
+        {
+          this.usernameAlreadyExists=false;
+        })
   }
 
   addAccount(_callback:Function)
@@ -79,7 +94,6 @@ export class EmployeeManagementComponent implements OnInit {
       .subscribe(
       (data)=> {
         if (data.username == username) {
-          this.modifyUsernameIfAlreadyExists(username,addsNewEmployee);
           _callback();
         }
       },
@@ -90,26 +104,7 @@ export class EmployeeManagementComponent implements OnInit {
     )
   }
 
-  modifyUsernameIfAlreadyExists(username:string,addsNewEmployee:boolean)
-  {
-    let modifiedUsername;
-    console.log(username[username.length - 1])
-    console.log(isNumeric(parseInt(username[username.length - 1])))
-    if(isNumeric(parseInt(username[username.length - 1])))
-    {
-      let newIndex=parseInt(username[username.length - 1])+1;
-      modifiedUsername=username.substring(0, username.length - 1)+newIndex;
-      console.log(modifiedUsername);
-    }
-    else
-    {
-      modifiedUsername=username+"1";
-      console.log(modifiedUsername);
-    }
-    if(modifiedUsername) this.username=modifiedUsername;
-    this.getUsername(()=>this.addAccount(()=>this.addOrUpdateEmployee(addsNewEmployee)),modifiedUsername,addsNewEmployee);
-    return;
-  }
+
 
   addOrUpdateEmployee(addsNewEmployee:boolean)
   {
