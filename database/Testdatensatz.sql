@@ -1,4 +1,4 @@
-
+#Default password: SicheresPasswort
 
 INSERT INTO `contact_data` (`first_name`, `last_name`, `street_name`, `street_number`, `postal_code`, `city_name`, `phone`, `mail_address`, `payment_credentials`, `updated_at`, `created_at`) VALUES
 ('DELETEDUSER', 'DELETEDUSER', 'DELETEDUSER', 'DELETED', 'DELETED', 'DELETEDUSER', 'DELETEDUSER', 'DELETEDUSER','DELETEDUSER', NULL, '2021-05-24 08:21:37'),
@@ -9,16 +9,16 @@ INSERT INTO `contact_data` (`first_name`, `last_name`, `street_name`, `street_nu
 ('Shigeru', 'Miyamoto', 'Nintendoweg', '14', '00100', 'Phinshin', '+81142833341', 'MarioMaker@shin.jp','BergeLiebhabber@gmx.net', NULL, '2021-05-24 08:30:17');
 
 INSERT INTO `account_details` (`username`, `password_hash`, `created_at`, `updated_at`) VALUES
-('DELETEDUSER', 'DELETEDUSER', '2021-05-31 10:27:36', NULL),
-('IggyPop', 'password123', '2021-05-31 10:27:36', NULL),
-('SchlaubiSchlumpf', 'schlumpfineGeschlumpft', '2021-05-31 10:27:36', NULL),
-('Brightwing', 'ItOnlyHurtsUntilYouDie', '2021-05-31 10:28:18', NULL),
-('Kekslieferant400', 'MjamMjamMjam?!', '2021-05-31 10:28:48', NULL),
-('RocknRollOpa', 'ThePolice_123', '2021-05-31 10:29:16', NULL),
-('FlodinWiesret', '66410', '2021-05-31 10:31:18', NULL),
-('MagnolienAusStahl', 'Lemur418', '2021-05-31 10:31:38', NULL),
-('ColumboAuge', 'katalimata_megagut', '2021-05-31 10:32:04', NULL),
-('Marius Mac Mac', 'LangeIstsHer', '2021-05-31 10:32:48', NULL);
+('DELETEDUSER', '$2a$10$R6N1gr6g1n5saZmutBWWKeFTlAjvd0LUWX6zIiOCKqRqw/bs18vve', '2021-05-31 10:27:36', NULL),
+('IggyPop', '$2a$10$R6N1gr6g1n5saZmutBWWKeFTlAjvd0LUWX6zIiOCKqRqw/bs18vve', '2021-05-31 10:27:36', NULL),
+('SchlaubiSchlumpf', '$2a$10$R6N1gr6g1n5saZmutBWWKeFTlAjvd0LUWX6zIiOCKqRqw/bs18vve', '2021-05-31 10:27:36', NULL),
+('Brightwing', '$2a$10$R6N1gr6g1n5saZmutBWWKeFTlAjvd0LUWX6zIiOCKqRqw/bs18vve', '2021-05-31 10:28:18', NULL),
+('Kekslieferant400', '$2a$10$R6N1gr6g1n5saZmutBWWKeFTlAjvd0LUWX6zIiOCKqRqw/bs18vve', '2021-05-31 10:28:48', NULL),
+('RocknRollOpa', '$2a$10$R6N1gr6g1n5saZmutBWWKeFTlAjvd0LUWX6zIiOCKqRqw/bs18vve', '2021-05-31 10:29:16', NULL),
+('FlodinWiesret', '$2a$10$R6N1gr6g1n5saZmutBWWKeFTlAjvd0LUWX6zIiOCKqRqw/bs18vve', '2021-05-31 10:31:18', NULL),
+('MagnolienAusStahl', '$2a$10$R6N1gr6g1n5saZmutBWWKeFTlAjvd0LUWX6zIiOCKqRqw/bs18vve', '2021-05-31 10:31:38', NULL),
+('ColumboAuge', '$2a$10$R6N1gr6g1n5saZmutBWWKeFTlAjvd0LUWX6zIiOCKqRqw/bs18vve', '2021-05-31 10:32:04', NULL),
+('Marius Mac Mac', '$2a$10$R6N1gr6g1n5saZmutBWWKeFTlAjvd0LUWX6zIiOCKqRqw/bs18vve', '2021-05-31 10:32:48', NULL);
 
 INSERT INTO `role` (`role_name`, `is_enabled_to_manage_rooms`, `is_enabled_to_manage_bookings`, `is_enabled_to_manage_customer_data`, `is_enabled_to_manage_employee_data`, `created_at`, `updated_at`) VALUES
 ('Buchungsmanager', 0, 1, 0, 0, '2021-05-31 10:52:45', 'NULL ON UPDATE CURRENT_TIMESTAMP'),

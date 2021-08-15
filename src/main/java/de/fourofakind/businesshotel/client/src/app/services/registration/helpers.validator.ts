@@ -20,3 +20,30 @@ export function MustMatch(controlName: string, matchingControlName: string) {
     }
   }
 }
+
+export function ValidateEmail()
+{
+  return (formGroup: FormGroup) =>
+  {
+    const control = formGroup.controls["emailAddress"];
+
+    if (control.errors && !control.errors.emailInvalid) {
+      // return if another validator has already found an error on the matchingControl
+      return;
+    }
+
+    if (control.value.length !== 0)
+    {
+      const re = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+      if (control.value.match(re))
+      {
+        control.setErrors(null)
+      }
+      else
+      {
+        control.setErrors({emailInvalid: true})
+      }
+
+    }
+  }
+}

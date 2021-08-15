@@ -9,30 +9,32 @@
 
       <ul class="navbar-nav nav nav-pills ms-auto mb-2 mb-lg-0" id="pills-tab">
 
-
-        <li class="nav-item" role="presentation" *ngIf="displayNavItems == false">
+        <li class="nav-item" role="presentation" *ngIf="!isEmployee">
           <button routerLink="rooms" class="nav-link nav-item d-none d-sm-none d-md-none d-lg-block" id="pills-rooms-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home"  aria-selected="true">Räume</button>
         </li>
-        <li class="nav-item" role="presentation" *ngIf="displayNavItems == true">
+        <li class="nav-item" role="presentation" *ngIf="isEmployee">
           <button routerLink="management/booking" class="nav-link nav-item" id="pills-booking-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Buchungsverwaltung</button>
         </li>
-        <li class="nav-item" role="presentation" *ngIf="displayNavItems == true">
+        <li class="nav-item" role="presentation" *ngIf="isEmployee">
           <button routerLink="management/customer" class="nav-link nav-item" id="pills-customer-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Kundenverwaltung</button>
         </li>
-        <li class="nav-item" role="presentation" *ngIf="displayNavItems == true">
+        <li class="nav-item" role="presentation" *ngIf="isEmployee">
           <button routerLink="management/room" class="nav-link nav-item" id="pills-room-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Raumverwaltung</button>
         </li>
-        <li class="nav-item" role="presentation" *ngIf="displayNavItems == true">
+        <li class="nav-item" role="presentation" *ngIf="isEmployee">
           <button routerLink="management/employee" class="nav-link nav-item" id="pills-employee-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Personalverwaltung</button>
         </li>
-        <li class="nav-item" role="presentation" *ngIf="displayNavItems == true">
+        <li class="nav-item" role="presentation" *ngIf="isEmployee">
           <button routerLink="employees" class="nav-link nav-item" id="pills-employees-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Employee</button>
         </li>
-        <li class="nav-item" role="presentation" *ngIf="displayNavItems == false">
+        <li class="nav-item" role="presentation" *ngIf="isLoggedIn && !isEmployee">
+          <button routerLink="bookings" class="nav-link nav-item" id="pills-bookings-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Buchungen</button>
+        </li>
+        <li class="nav-item" role="presentation" *ngIf="!isLoggedIn">
 <!--          <a href="login" class="nav-link" id="pills-login-tab"  type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Login</a>-->
           <a class="nav-link nav-item" href="login">Login</a>
         </li>
-        <li class="nav-item" role="presentation" *ngIf="displayNavItems == true">
+        <li class="nav-item" role="presentation" *ngIf="isLoggedIn">
           <button (click)="logout()" class="nav-link nav-item" id="pills-logout-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Logout</button>
         </li>
       </ul>

@@ -7,19 +7,33 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavigationComponent implements OnInit {
 
-  displayNavItems: boolean = true
+  // displayNavItems: boolean = true
+  isEmployee: boolean = false
+  isLoggedIn: boolean = false
 
   constructor() { }
 
   ngOnInit(): void {
-    if (localStorage.getItem("user") === null) {
-      this.displayNavItems = false;
-      document.getElementById('searchfield')
+    console.log(localStorage.getItem("user"))
+    console.log(localStorage.getItem("empNo"))
+
+
+    if (localStorage.getItem("user")) {
+      this.isLoggedIn = true
+      if (localStorage.getItem("empNo")) {
+        this.isEmployee = true
+      } else {
+        this.isEmployee = false
+      }
+    } else {
+      this.isLoggedIn = false
     }
   }
 
   logout() {
     localStorage.removeItem('user')
+    localStorage.removeItem('userID')
+    localStorage.removeItem('empNo')
     window.location.href = "";
   }
 

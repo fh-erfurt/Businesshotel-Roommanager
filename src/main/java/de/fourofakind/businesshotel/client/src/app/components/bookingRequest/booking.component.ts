@@ -5,7 +5,7 @@ import {RootObject} from "../../services/bookingrequest/bookingrequest";
 import {ActivatedRoute, ParamMap } from '@angular/router';
 import {RoomService} from "../../services/room/room.service";
 import {Room} from "../../services/room/room";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {NgbTimeStruct} from "@ng-bootstrap/ng-bootstrap";
 import {formatDate} from "@angular/common";
 import {BookingCalendar} from "./booking-calendar.service";
@@ -33,13 +33,14 @@ export class BookingComponent implements OnInit {
   unitLabel: string = "Nächte"
   dateLabel: string = "Datum:"
   timeLabel: string = "Uhrzeit:"
-  form!: FormGroup;
+  bookingForm!: FormGroup;
   bookings: Booking[] = new Array(0);
   unavailableDates: dateTimeSpan[] = new Array(0)
   buttonDisabled = false;
   isConferenceRoom = false;
   submitted = false
   isMobileDevice = false
+  isBusinessCustomer: boolean = false
 
   private selectedFromDate: Date | null
   private selectedToDate: Date | null
@@ -118,7 +119,15 @@ export class BookingComponent implements OnInit {
 
   }
 
+  toggleIsBusinessCustomer() {
+    this.isBusinessCustomer = !this.isBusinessCustomer
 
+    if (this.isBusinessCustomer) {
+      this.bookingForm.addControl('companyName', new FormControl('', Validators.required));
+    } else {
+      this.bookingForm.removeControl("companyName")
+    }
+  }
 
   @HostListener('window:resize', ['$event'])
   getWindowSize(event?: any) {
@@ -158,18 +167,18 @@ export class BookingComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.form = this.formBuilder.group({
+    this.bookingForm = this.formBuilder.group({
       lastName: ['', Validators.required],
       firstName: ['', Validators.required],
-      companyName: ['', Validators.required],
       emailAddress: ['', Validators.required],
-      phoneNumber: ['', Validators.required],
-      username: ['', Validators.required],
-      password: ['', Validators.required],
-      passwordVerify: ['', Validators.required],
-      unitCount: ['', Validators.required],
-      startDate: ['', Validators.required],
-      endDate: ['', Validators.required]
+      phoneNumber: ['', Validators.required]
+      // ,
+      // username: ['', Validators.required],
+      // password: ['', Validators.required],
+      // passwordVerify: ['', Validators.required],
+      // unitCount: ['', Validators.required],
+      // startDate: ['', Validators.required],
+      // endDate: ['', Validators.required]
     });
 
     this.getWindowSize()
@@ -234,12 +243,12 @@ export class BookingComponent implements OnInit {
 
   }
 
-  get f() { return this.form.controls; }
+  get f() { return this.bookingForm.controls; }
 
   submit() {
     this.submitted = true;
 
-    if (this.form.invalid) {
+    if (this.bookingForm.invalid) {
       return;
     }
     /*

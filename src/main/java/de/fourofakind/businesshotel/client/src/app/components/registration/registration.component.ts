@@ -11,7 +11,7 @@ import {
 import {ActivatedRoute, Router} from "@angular/router";
 import {errors, RegistrationService} from "../../services/registration/registration.service";
 import {ErrorStateMatcher} from "@angular/material/core";
-import {MustMatch} from "../../services/registration/must-match.validator";
+import {MustMatch, ValidateEmail} from "../../services/registration/helpers.validator";
 
 
 @Component({
@@ -51,7 +51,7 @@ export class RegistrationComponent implements OnInit {
       password: ['', [Validators.required, Validators.minLength(10)]],
       passwordVerify:  ['',Validators.required]
     }, {
-      validators: MustMatch('password', 'passwordVerify')
+      validators: [MustMatch('password', 'passwordVerify'), ValidateEmail()]
     });
   }
 

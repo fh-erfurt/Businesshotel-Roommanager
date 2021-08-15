@@ -36,9 +36,10 @@
         </div>
         <div class="form-group">
           <label>Email-Adresse *</label>
-          <input type="email" formControlName="emailAddress" name="emailAddress" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.emailAddress.errors }" />
+          <input type="text" formControlName="emailAddress" name="emailAddress" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.emailAddress.errors }" />
           <div *ngIf="submitted && f.emailAddress.errors" class="invalid-feedback">
             <div *ngIf="f.emailAddress.errors.required">Bitte Email-Adresse angeben</div>
+            <div *ngIf="f.emailAddress.errors.emailInvalid">Ungültiges Emailformat</div>
           </div>
         </div>
         <div class="form-group">

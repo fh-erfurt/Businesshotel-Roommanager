@@ -5,7 +5,7 @@ import { first } from 'rxjs/operators';
 
 import { LoginService } from '../../services/login/login.service';
 import {RootObject} from "../../services/login/login";
-import {MustMatch} from "../../services/registration/must-match.validator";
+import {MustMatch} from "../../services/registration/helpers.validator";
 
 @Component({ templateUrl: 'login.component.html' })
 export class LoginComponent implements OnInit {
@@ -47,11 +47,13 @@ export class LoginComponent implements OnInit {
     this.loginService.login(this.f.username.value, this.f.password.value)
       .then(success => {
         this.invalidUserData = false
-        window.location.href = ""
+        console.log("success")
         console.log(success)
+        window.location.href = ""
       })
       .catch(err => {
         this.invalidUserData = true
+        console.log("err: ")
         console.log(err)
       })
 

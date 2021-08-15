@@ -29,6 +29,16 @@ export class EmployeeService {
     )
   }
 
+  public getEmployeeByAccountID(id:number): Observable<Employee>
+  {
+    return this.http.get<Employee>(`${this.baseUrl}search/findEmployeeByAccountID?account_id=${id}`).pipe(
+      map((result:any) =>{
+        //console.log(result);
+        return result;
+      })
+    )
+  }
+
   public save(employee: Employee): Observable<Employee>
   {
     console.log(employee);

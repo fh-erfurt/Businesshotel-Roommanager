@@ -5,6 +5,9 @@ import {Accountdetail, Links} from "./login";
 import {map} from "rxjs/operators";
 import {RawData} from "../accountdetails/accountdetail";
 import * as bcrypt from 'bcryptjs';
+import {EmployeeService} from "../employee/employee.service";
+import {Employee} from "../employee/employee";
+
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +18,8 @@ export class LoginService {
   equalPassword: boolean = true
 
   private baseUrl = "http://localhost:8081/accountdetails/"
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+              private employeeService: EmployeeService) { }
 
   public getAccount(username: string): Observable<Accountdetail | null>{
     console.log("getAccount 1")
@@ -66,7 +70,8 @@ export class LoginService {
 
   login = (username: string, password: string) => {
     return new Promise((resolve, reject) => {
-      this.getAccount(username).subscribe((data: Accountdetail | null)=>{
+      this.getAccount(username)
+        .subscribe((data: Accountdetail | null)=>{
 
         if (data !== null) {
           this.accountDetail = data as Accountdetail
@@ -76,9 +81,22 @@ export class LoginService {
               reject("something unexpected happened: " + err)
             }
             if (result) {
+
+              console.log("result: ", result)
+              console.log("data", data)
+
+              this.employeeService.getEmployeeByAccountID(data.accountID)
+                .subscribe((data: Employee) => {
+                  if (data) {
+                    localStorage.setItem('empNo', String(data.empNo));
+                  }
+                })
+
+              console.log("continue")
               localStorage.setItem('user', username);
               localStorage.setItem('userID', String(this.accountDetail.accountID));
               resolve("Success: " + result)
+
 
             } else {
               reject("wrong password")

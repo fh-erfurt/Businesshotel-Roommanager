@@ -75,6 +75,7 @@ export class AccountdetailsService {
               if (err) {
                 reject(err);
               } else {
+                console.log(hash)
                 resolve(hash);
               }
             });
@@ -86,27 +87,6 @@ export class AccountdetailsService {
         }
     });
   };
-
-
-
-  // public async hashPasswort(password: string, _callback: (n: string) => string){
-  //   const saltRounds = 10;
-  //   var generatedHash = ""
-  //
-  //   try{
-  //     bcrypt.genSalt(saltRounds, function(err, salt) {
-  //       bcrypt.hash(password, salt, function(err, hash) {
-  //         console.log(hash)
-  //         _callback(hash)
-  //       });
-  //     });
-  //   }
-  //   catch(e){
-  //     console.log('caught error', e);
-  //     // Handle exceptions
-  //   }
-  //
-  // }
 
   public delete(id: number):Observable<Accountdetail>
   {
@@ -120,8 +100,6 @@ export class AccountdetailsService {
           }
         )
       )
-
-
   }
 
   public updateAccountdetails(id: number, accountdetails: Accountdetail)
