@@ -45,13 +45,13 @@
             <div>
               <mat-form-field class="roomNumberInput" appearance="fill">
                 <mat-label>Raumnummer</mat-label>
-                <mat-select  [(ngModel)]="roomNo" [required]="true" [disabled]="(!(startDate&&startTime&&endDate&&endTime)||!occupationChecked)">
-                  <mat-option *ngFor="let room of rooms"  value="{{room.roomNo}}">{{room.roomNo}}</mat-option>
-                  <mat-option  *ngIf="!rooms" value="" disabled>Keine Räume verfügbar oder keine Kategorie gewählt</mat-option>
+                <mat-select #roomNoModel="ngModel" [(ngModel)]="roomNo" [required]="true" [disabled]="(!(startDate&&startTime&&endDate&&endTime)||!occupationChecked)">
+                  <mat-option *ngFor="let room of rooms"  [value]="room.roomNo" >{{room.roomNo}}</mat-option>
+                  <mat-option  *ngIf="!rooms" [value]="" disabled>Keine Räume verfügbar oder keine Kategorie gewählt</mat-option>
                 </mat-select>
                 <mat-hint *ngIf="(!(startDate&&startTime&&endDate&&endTime))">Zuerst Zeitraum wählen.</mat-hint>
                 <mat-hint *ngIf="((startDate&&startTime&&endDate&&endTime)&&!occupationChecked)">Such-Button drücken um verfügbare Räume zu finden.</mat-hint>
-                <mat-error *ngIf="((startDate&&startTime&&endDate&&endTime)&&occupationChecked)">Bitte Raumnummer wählen</mat-error>
+                <mat-error *ngIf="!roomNoModel.touched">Bitte Raumnummer wählen</mat-error>
               </mat-form-field>
               <button mat-icon-button color="primary" (click)="filterRoomsByOccupation(false)" [disabled]="!occupationChecked">
                 <mat-icon >search</mat-icon>
@@ -127,7 +127,7 @@
               <mat-form-field appearance="fill">
                 <mat-label>Raumnummer</mat-label>
                 <mat-select  [required]="true" [(ngModel)]="roomNo" [disabled]="(!(startDate&&startTime&&endDate&&endTime))">
-                  <mat-option *ngFor="let room of rooms" value="{{room.roomNo}}">{{room.roomNo}}</mat-option>
+                  <mat-option *ngFor="let room of rooms" [value]="room.roomNo">{{room.roomNo}}</mat-option>
                   <mat-option *ngIf="!rooms" value="" disabled>Keine Räume verfügbar oder keine Kategorie gewählt</mat-option>
                 </mat-select>
                 <mat-hint *ngIf="(!(startDate&&startTime&&endDate&&endTime))">Zuerst Zeitraum wählen.</mat-hint>
