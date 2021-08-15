@@ -1,7 +1,17 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {Component, OnInit} from '@angular/core';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormControl,
+  FormGroup, FormGroupDirective, NgForm,
+  ValidationErrors,
+  ValidatorFn,
+  Validators
+} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {RegistrationService} from "../../services/registration/registration.service";
+import {ErrorStateMatcher} from "@angular/material/core";
+import {MustMatch} from "../../services/registration/must-match.validator";
 
 
 @Component({
@@ -10,11 +20,12 @@ import {RegistrationService} from "../../services/registration/registration.serv
   styleUrls: ['./registration.component.scss']
 })
 export class RegistrationComponent implements OnInit {
-  form!: FormGroup;
+  registerForm!: FormGroup;
   loading = false;
+
   submitted = false;
-  username!: string;
-  password!: string;
+  isBusinessCustomer: boolean = false
+  equalPassword: boolean = true
 
   title = 'appBootstrap';
 
@@ -26,38 +37,70 @@ export class RegistrationComponent implements OnInit {
     private registrationService: RegistrationService
   ) { }
 
+
   ngOnInit(): void {
-    this.form = this.formBuilder.group({
+
+    this.registerForm = this.formBuilder.group({
       lastName: ['', Validators.required],
       firstName: ['', Validators.required],
-      companyName: ['', Validators.required],
       emailAddress: ['', Validators.required],
-      phoneNumber: ['', Validators.required],
-      username: ['', Validators.required],
-      password: ['', Validators.required],
-      passwordVerify: ['', Validators.required]
+      phoneNumber: [''],
+      username: [''],
+      password: ['', [Validators.required, Validators.minLength(10)]],
+      passwordVerify:  ['',Validators.required]
+    }, {
+      validators: MustMatch('password', 'passwordVerify')
     });
   }
 
-  get f() { return this.form.controls; }
+  get f() { return this.registerForm.controls; }
+
+  toggleIsBusinessCustomer() {
+    this.isBusinessCustomer = !this.isBusinessCustomer
+
+    if (this.isBusinessCustomer) {
+      this.registerForm.addControl('companyName', new FormControl('', Validators.required));
+    } else {
+      this.registerForm.removeControl("companyName")
+    }
+  }
 
   submit() {
+    console.log("submit:", this.submitted)
     this.submitted = true;
 
-    if (this.form.invalid) {
+    console.log("form: ", this.registerForm)
+
+
+    if (this.registerForm.invalid) {
+      console.log("form invalid")
       return;
     }
 
-    this.registrationService.register(this.f.lastName.value,
-                                      this.f.firstName.value,
-                                      this.f.companyName.value,
-                                      this.f.emailAddress.value,
-                                      this.f.phoneNumber.value,
-                                      this.f.username.value,
-                                      this.f.password.value,
-                                      this.f.passwordVerify.value)
+    if (this.f.password.value !== this.f.passwordVerify.value) {
+      this.submitted = false
+      this.equalPassword = false
+    } else {
+      this.equalPassword = true
+    }
 
+    var companyName = ""
 
+    if (this.isBusinessCustomer) {
+      companyName = this.f.companyName.value
+    }
+
+    this.registrationService.register(
+      this.f.lastName.value,
+      this.f.firstName.value,
+      companyName,
+      this.f.emailAddress.value,
+      this.f.phoneNumber.value,
+      this.f.username.value,
+      this.f.password.value,
+      this.f.passwordVerify.value,
+      this.isBusinessCustomer
+    )
   }
 
 }

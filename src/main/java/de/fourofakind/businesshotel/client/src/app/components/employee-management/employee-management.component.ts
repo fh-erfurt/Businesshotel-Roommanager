@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Employee} from "../../services/employee/employee";
-import {Accountdetails} from "../../services/accountdetails/accountdetails";
+import {Accountdetail} from "../../services/accountdetails/accountdetail";
 import {AccountdetailsService} from "../../services/accountdetails/accountdetails.service";
 import {EmployeeService} from "../../services/employee/employee.service";
 import {isNumeric} from "rxjs/internal-compatibility";
@@ -55,7 +55,7 @@ export class EmployeeManagementComponent implements OnInit {
   {
     console.log(this.username);
 
-    let newAccount: Accountdetails =
+    let newAccount: Accountdetail =
       {
         username: this.username,
         passwordHash: this.password, //TODO:passwort hashen

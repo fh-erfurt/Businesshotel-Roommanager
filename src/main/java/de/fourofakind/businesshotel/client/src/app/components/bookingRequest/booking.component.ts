@@ -39,6 +39,7 @@ export class BookingComponent implements OnInit {
   buttonDisabled = false;
   isConferenceRoom = false;
   submitted = false
+  isMobileDevice = false
 
   private selectedFromDate: Date | null
   private selectedToDate: Date | null
@@ -108,40 +109,26 @@ export class BookingComponent implements OnInit {
       : null;
 
     this.dateLabel = "Datum: "
-      + (this.selectedFromDate ? formatDate(this.selectedFromDate, "dd.MM.yyyy", "de") : "Datum Wählen")
+      + (this.selectedFromDate ? formatDate(this.selectedFromDate, "dd.MM.yyyy", "de") : "")
       + (this.selectedToDate ? " bis " + formatDate(this.selectedToDate, "dd.MM.yyyy", "de") : "")
 
     // this.timeLabel = "Uhrzeit: "
-    //   + (this.selectedFromDate ? formatDate(this.selectedFromDate, "hh:mm:ss", "de") : "Datum Wählen")
+    //   + (this.selectedFromDate ? formatDate(this.selectedFromDate, "hh:mm:ss", "de") : "")
     //   + (this.selectedToDate ? "Uhr bis " + formatDate(this.selectedToDate, "hh.mm.ss", "de") + "Uhr" : "")
 
   }
 
-  get f() { return this.form.controls; }
 
-  submit() {
-    this.submitted = true;
-
-    if (this.form.invalid) {
-      return;
-    }
-/*
-    this.registrationService.register(this.f.lastName.value,
-      this.f.firstName.value,
-      this.f.companyName.value,
-      this.f.emailAddress.value,
-      this.f.phoneNumber.value,
-      this.f.username.value,
-      this.f.password.value,
-      this.f.passwordVerify.value)
-*/
-
-  }
 
   @HostListener('window:resize', ['$event'])
   getWindowSize(event?: any) {
     this.screenHeight = window.innerHeight;
     this.screenWidth = window.innerWidth;
+    if (this.screenWidth < 1300) {
+      this.isMobileDevice = true
+    } else {
+      this.isMobileDevice = false
+    }
   }
 
   updateDateTimeLabel(selectedFromDate?: Date | null, selectedToDate?: Date | null) {
@@ -159,13 +146,15 @@ export class BookingComponent implements OnInit {
     )
 
     this.dateLabel = "Datum: "
-      + (this.selectedFromDate ? formatDate(this.selectedFromDate, "dd.MM.yyyy", "de") : "Datum Wählen")
+      + (this.selectedFromDate ? formatDate(this.selectedFromDate, "dd.MM.yyyy", "de") : "")
       + (this.selectedToDate ? " bis " + formatDate(this.selectedToDate, "dd.MM.yyyy", "de") : "")
 
     this.timeLabel = "Uhrzeit: "
-      + (this.selectedFromDate ? formatDate(this.selectedFromDate, "hh:mm:ss", "de") : "Datum Wählen")
+      + (this.selectedFromDate ? formatDate(this.selectedFromDate, "hh:mm:ss", "de") : "")
       + (this.selectedToDate ? "Uhr bis " + formatDate(this.selectedToDate, "hh.mm.ss", "de") + "Uhr" : "")
   }
+
+
 
   ngOnInit(): void {
 
@@ -177,8 +166,15 @@ export class BookingComponent implements OnInit {
       phoneNumber: ['', Validators.required],
       username: ['', Validators.required],
       password: ['', Validators.required],
-      passwordVerify: ['', Validators.required]
+      passwordVerify: ['', Validators.required],
+      unitCount: ['', Validators.required],
+      startDate: ['', Validators.required],
+      endDate: ['', Validators.required]
     });
+
+    this.getWindowSize()
+
+
 
     this.calendarSubscription = this.bookingCalendar.selectedFromDate$
       .subscribe(selectedFromDate => this.updateDateTimeLabel(selectedFromDate, undefined));
@@ -187,11 +183,6 @@ export class BookingComponent implements OnInit {
       .subscribe(selectedToDate => this.updateDateTimeLabel(undefined, selectedToDate));
 
 
-    this.form = this.formBuilder.group({
-      unitCount: ['', Validators.required],
-      startDate: ['', Validators.required],
-      endDate: ['', Validators.required]
-    });
 
     this.bookingService.getBookings()
       .subscribe((data: Booking[])=>{
@@ -243,13 +234,24 @@ export class BookingComponent implements OnInit {
 
   }
 
-  // getSelectedRoom() {
-  //   if (this.selectedRoom) {
-  //     return this.selectedRoom
-  //   } else {
-  //
-  //
-  //   }
-  // }
+  get f() { return this.form.controls; }
+
+  submit() {
+    this.submitted = true;
+
+    if (this.form.invalid) {
+      return;
+    }
+    /*
+        this.registrationService.register(this.f.lastName.value,
+          this.f.firstName.value,
+          this.f.companyName.value,
+          this.f.emailAddress.value,
+          this.f.phoneNumber.value,
+          this.f.username.value,
+          this.f.password.value,
+          this.f.passwordVerify.value)
+    */
+  }
 
 }

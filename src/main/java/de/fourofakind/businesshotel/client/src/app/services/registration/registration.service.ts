@@ -1,26 +1,48 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import {HttpClient} from '@angular/common/http';
-import {Accountdetail} from "../login/login";
+
+import {LoginService} from "../login/login.service";
+import {Accountdetail} from "../accountdetails/accountdetail";
+import {AccountdetailsService} from "../accountdetails/accountdetails.service";
+import {ContactdataService} from "../contactdata/contactdata.service";
+import {Contactdata} from "../contactdata/contactdata";
+import {Customer} from "../customer/customer";
+import {CustomerService} from "../customer/customer.service";
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class RegistrationService {
 
-  accountDetail!: Accountdetail;
-
   private baseUrl = "http://localhost:8081/accountdetails/search/findAccountDetailsByUsername"
-  constructor(private http: HttpClient) { }
+  private accountDetail: Accountdetail
+  private contactData: Contactdata
+  private customer: Customer
 
-  public getAccount(username: string): Observable<Accountdetail>{
-    return this.http.get<Accountdetail>(`${this.baseUrl}`, {
-      params: {
-        username: username
-      }
-    })
+  constructor(private http: HttpClient,
+              private loginService: LoginService,
+              private accountdetailsService: AccountdetailsService,
+              private contactDataService: ContactdataService,
+              private customerService: CustomerService)
+  {
+    this.accountDetail = {
+      passwordHash: "password",
+      username: "username",
+    };
 
+    this.contactData = {
+      firstName: "firstName",
+      lastName: "lastName",
+      phone: "phoneNumber",
+      mailAddress: "emailaddress"
+    }
+
+    this.customer = {
+      isBusinessCustomer: false
+    }
   }
+
 
   register(lastName: string,
            firstName: string,
@@ -29,41 +51,91 @@ export class RegistrationService {
            phoneNumber: string,
            username: string,
            password: string,
-           passwordVerify: string) {
+           passwordVerify: string,
+           isBusinessCustomer: boolean) {
 
-    this.getAccount(username).subscribe((data: Accountdetail)=>{
-
-
-      if (data !== null) {
-        this.accountDetail = data as Accountdetail
-
-        if (this.accountDetail.passwordHash === password) {
-          console.log("Success")
-          localStorage.setItem('user', username);
-          localStorage.setItem('userID', String(this.accountDetail.accountID));
-          window.location.href = "";
-        } else {
-          console.log("Error Handling")
-        }
-      } else {
-        console.log("Error Handling")
+    this.loginService.getAccount(username).subscribe((data: Accountdetail | null)=>{
+      if (data) {
+        alert("Username schon vergeben")
       }
-      console.log(data)
+    }, (error)=>{
+      console.log("Kein User mit diesem Namen")
+      this.accountDetail = {
+        passwordHash: password,
+        username: username,
+      };
+      this.contactData = {
+        firstName: firstName,
+        lastName: lastName,
+        phone: phoneNumber,
+        mailAddress: emailaddress
+      }
+
+      this.saveAccountDetail(
+        ()=>this.saveContactDate(
+          ()=>this.saveCustomer(isBusinessCustomer)
+        )
+      )
+
     })
-
-
-    // this.getAccountDetails().subscribe((data: RootObject)=> {
-    //   for (accountdetails of data._embedded.accountdetails) {
-    //
-    //   }
-    // })
-
-    // return this.http.post<RootObject>(`${environment.apiUrl}/accountdetails`, { username, password })
-    //   .pipe(map(user => {
-    //     // store user details and jwt token in local storage to keep user logged in between page refreshes
-    //     localStorage.setItem('user', JSON.stringify(user));
-    //     // this.userSubject.next(user);
-    //     return user;
-    //   }));
   }
+
+  saveAccountDetail(_callback:Function) {
+    console.log("saveAccountDetail")
+    this.accountdetailsService.save(this.accountDetail)
+      .subscribe((data)=>
+        {
+          if(data.accountID) {
+            this.accountDetail.accountID = data.accountID;
+            _callback()
+          }
+        },
+        (error)=>
+        {
+          console.log("saveAccountDetail ERROR")
+          // this.addAlertForXSeconds(new Alert('danger',"Fehler beim Anlegen des Accounts"),5);
+        });
+  }
+  saveContactDate(_callback:Function) {
+    console.log("saveContactDate")
+    this.contactDataService.save(this.contactData)
+      .subscribe((data)=>
+        {
+          if(data.contactDataID) {
+            this.contactData.contactDataID=data.contactDataID;
+            _callback()
+          }
+        },
+        (error)=>
+        {
+          console.log("saveContactDate ERROR")
+          // this.addAlertForXSeconds(new Alert('danger',"Fehler beim Anlegen des Accounts"),5);
+        });
+  }
+  saveCustomer(isBusinessCustomer: boolean) {
+    console.log("saveCustomer")
+    this.customer.accountID = this.accountDetail.accountID
+    this.customer.contactDataID = this.contactData.contactDataID
+    this.customer.isBusinessCustomer = isBusinessCustomer
+
+    this.customerService.save(this.customer)
+      .subscribe((data) =>
+        {
+          if(data.customerID) {
+            this.customer.customerID=data.customerID;
+            console.log("saveCustomer SUCCESS")
+            localStorage.setItem('user', this.accountDetail.username);
+            localStorage.setItem('userID', String(this.customer.customerID));
+            window.location.href = "";
+          }
+
+        },
+        (error)=>
+        {
+          console.log("saveContactDate ERROR")
+          // this.addAlertForXSeconds(new Alert('danger',"Fehler beim Anlegen des Accounts"),5);
+        });
+
+  }
+
 }
