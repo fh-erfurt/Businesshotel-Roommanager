@@ -75,7 +75,7 @@ INSERT INTO `booking` (`booking_no`, `updated_at`, `room_no`, `booking_type`, `s
 
 INSERT INTO `room_has_booking` (`room_no`, `booking_id`) VALUES
 ('2', '1'),
-('4', '1');
+('4', '2');
 
 INSERT INTO `booking_request` (booking_request_id, customer_id, room_category, booking_type, start_date, end_date, special_wishes) VALUES
 (1,1,'SINGLE','ConferenceRoomBooking','2021-06-28','2021-06-29',null),
