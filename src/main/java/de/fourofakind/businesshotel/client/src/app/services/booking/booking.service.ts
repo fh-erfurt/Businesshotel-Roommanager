@@ -7,6 +7,7 @@ import {map} from "rxjs/operators";
 @Injectable({
   providedIn: 'root'
 })
+
 export class BookingService {
 
   private readonly baseUrl:string;
@@ -28,6 +29,25 @@ export class BookingService {
       })
     )
   }
+
+  public getBookingsByStartDateAndEndDate(startDate:string, endDate:string):Observable<Booking[]>
+  {
+    return this.http.get<Booking[]>(`${this.baseUrl}search/findByStartDateIsBetweenOrEndDateIsBetweenOrStartDateBeforeAndEndDateAfter?startDate=${startDate}&endDate=${endDate}`).pipe(
+      map((result:any) =>{
+        console.log(result);
+        let bookings=[];
+        if(result._embedded.conferenceRoomBooking && result._embedded.hotelRoomBooking)
+        {
+          bookings=result._embedded.conferenceRoomBooking.concat(result._embedded.hotelRoomBooking);
+        }
+        else if(result._embedded.conferenceRoomBooking) bookings=result._embedded.conferenceRoomBooking
+        else if(result._embedded.hotelRoomBooking) bookings=result._embedded.hotelRoomBooking
+
+        return bookings;
+      })
+    )
+  }
+
 
   public getBookingsByCustomerID(id:number): Observable<Booking[]>
   {
