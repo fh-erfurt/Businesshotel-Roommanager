@@ -36,11 +36,26 @@
             <input matInput type="password" [(ngModel)]="repeatedPassword" (keyup)="validateRepeatedPassword()" required>
           </mat-form-field>
         </div>
-        <br>
+        <div>
+          <mat-form-field class="usernameInput" appearance="fill">
+            <mat-label>Username</mat-label>
+            <input matInput type="text" [(ngModel)]="username" required>
+            <mat-hint>Achtung: Kann später nicht geändert werden!</mat-hint>
+          </mat-form-field>
+          <button mat-icon-button color="primary" (click)="validateUsername()">
+            <mat-icon>search</mat-icon>
+          </button>
+        </div>
+          <p *ngIf="usernameAlreadyExists">Username schon vorhanden</p>
+          <br>
+
         <button mat-raised-button color="primary" type="submit" (click)="addOrUpdateEmployeeAndDetails(true)">Absenden</button>
       </div>
         <div class="notificationArea">
-          <ngb-alert class="alert" #alert *ngFor="let alert of alerts"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
+          <p *ngFor="let alert of alerts">
+            <ngb-alert *ngIf="alert.type=='success'" class="success"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
+            <ngb-alert *ngIf="alert.type=='danger'" class="danger"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
+          </p>
         </div>
       </div>
     </mat-tab>
@@ -99,7 +114,10 @@
           </div>
         </div>
         <div class="notificationArea">
-          <ngb-alert class="alert" #alert *ngFor="let alert of alerts"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
+          <p *ngFor="let alert of alerts">
+            <ngb-alert *ngIf="alert.type=='success'" class="success"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
+            <ngb-alert *ngIf="alert.type=='danger'" class="danger"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
+          </p>
         </div>
       </div>
     </mat-tab>
@@ -146,7 +164,10 @@
         <button mat-raised-button color="primary" type="submit" [disabled]="!isChecked" (click)="deleteEmployeeAndDetails()">Löschen</button>
       </div>
         <div class="notificationArea">
-          <ngb-alert class="alert" #alert *ngFor="let alert of alerts"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
+          <p *ngFor="let alert of alerts">
+            <ngb-alert *ngIf="alert.type=='success'" class="success"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
+            <ngb-alert *ngIf="alert.type=='danger'" class="danger"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
+          </p>
         </div>
       </div>
     </mat-tab>
@@ -187,7 +208,10 @@
         </mat-card>
       </div>
         <div class="notificationArea">
-          <ngb-alert class="alert" #alert *ngFor="let alert of alerts"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
+          <p *ngFor="let alert of alerts">
+            <ngb-alert *ngIf="alert.type=='success'" class="success"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
+            <ngb-alert *ngIf="alert.type=='danger'" class="danger"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
+          </p>
         </div>
       </div>
     </mat-tab>
