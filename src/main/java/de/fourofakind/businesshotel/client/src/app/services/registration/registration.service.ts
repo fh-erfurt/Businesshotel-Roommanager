@@ -9,6 +9,28 @@ import {Contactdata} from "../contactdata/contactdata";
 import {Customer} from "../customer/customer";
 import {CustomerService} from "../customer/customer.service";
 
+// enum errors {
+//   unaviableUsername = "username already in use",
+//   saveCustomerStatusUnknown = "customer possibly not saved (no customerID returned)",
+//   saveAccountDetailsStatusUnknown = "accountDetails possibly not saved (no accountDetailsID returned)",
+//   saveContactDataStatusUnknown = "contactData possibly not saved (no contactDataID returned)",
+//   saveCustomerFailed = "customer not saved",
+//   saveAccountDetailsFailed = "accountDetails not saved",
+//   saveContactDataFailed = "contactData not saved"
+// }
+
+export enum errors {
+  unavailableUsername = "unavailableUsername",
+  saveCustomerStatusUnknown = "saveCustomerStatusUnknown",
+  saveAccountDetailsStatusUnknown = "saveAccountDetailsStatusUnknown",
+  saveContactDataStatusUnknown = "saveContactDataStatusUnknown",
+  saveCustomerFailed = "saveCustomerFailed",
+  saveAccountDetailsFailed = "saveAccountDetailsFailed",
+  saveContactDataFailed = "saveContactDataFailed",
+  missingDataBaseConnection = "missingDataBaseConnection",
+  success = "success"
+}
+
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +41,7 @@ export class RegistrationService {
   private accountDetail: Accountdetail
   private contactData: Contactdata
   private customer: Customer
+
 
   constructor(private http: HttpClient,
               private loginService: LoginService,
@@ -44,97 +67,139 @@ export class RegistrationService {
   }
 
 
-  register(lastName: string,
-           firstName: string,
-           companyName: string,
-           emailaddress: string,
-           phoneNumber: string,
-           username: string,
-           password: string,
-           passwordVerify: string,
-           isBusinessCustomer: boolean) {
+  register = (
+    lastName: string,
+    firstName: string,
+    companyName: string,
+    emailaddress: string,
+    phoneNumber: string,
+    username: string,
+    password: string,
+    passwordVerify: string,
+    isBusinessCustomer: boolean) =>
+  {
 
-    this.loginService.getAccount(username).subscribe((data: Accountdetail | null)=>{
-      if (data) {
-        alert("Username schon vergeben")
-      }
-    }, (error)=>{
-      console.log("Kein User mit diesem Namen")
-      this.accountDetail = {
-        passwordHash: password,
-        username: username,
-      };
-      this.contactData = {
-        firstName: firstName,
-        lastName: lastName,
-        phone: phoneNumber,
-        mailAddress: emailaddress
-      }
+    return new Promise((resolve, reject) => {
+      this.loginService.getAccount(username).subscribe((data: Accountdetail | null)=>{
+        if (data) {
+          reject(errors.unavailableUsername)
+        } else {
+          reject(errors.missingDataBaseConnection)
+        }
+      }, (error)=>{
+        console.log("Kein User mit diesem Namen")
+        this.accountDetail = {
+          passwordHash: password,
+          username: username,
+        };
+        this.contactData = {
+          firstName: firstName,
+          lastName: lastName,
+          phone: phoneNumber,
+          mailAddress: emailaddress
+        }
 
-      this.saveAccountDetail(
-        ()=>this.saveContactDate(
-          ()=>this.saveCustomer(isBusinessCustomer)
-        )
-      )
-
+        this.saveAccountDetail()
+          .then(success => {
+            this.saveContactData()
+              .then(success => {
+                this.saveCustomer(isBusinessCustomer)
+                  .then(success => {
+                    resolve(success)
+                  })
+                  .catch(error => {
+                    reject(error)
+                  })
+              })
+              .catch(error => {
+                reject(error)
+              })
+          })
+          .catch(error => {
+            reject(error)
+          })
+      })
     })
   }
 
-  saveAccountDetail(_callback:Function) {
-    console.log("saveAccountDetail")
-    this.accountdetailsService.save(this.accountDetail)
-      .subscribe((data)=>
-        {
-          if(data.accountID) {
-            this.accountDetail.accountID = data.accountID;
-            _callback()
-          }
-        },
-        (error)=>
-        {
-          console.log("saveAccountDetail ERROR")
-          // this.addAlertForXSeconds(new Alert('danger',"Fehler beim Anlegen des Accounts"),5);
-        });
-  }
-  saveContactDate(_callback:Function) {
-    console.log("saveContactDate")
-    this.contactDataService.save(this.contactData)
-      .subscribe((data)=>
-        {
-          if(data.contactDataID) {
-            this.contactData.contactDataID=data.contactDataID;
-            _callback()
-          }
-        },
-        (error)=>
-        {
-          console.log("saveContactDate ERROR")
-          // this.addAlertForXSeconds(new Alert('danger',"Fehler beim Anlegen des Accounts"),5);
-        });
-  }
-  saveCustomer(isBusinessCustomer: boolean) {
-    console.log("saveCustomer")
-    this.customer.accountID = this.accountDetail.accountID
-    this.customer.contactDataID = this.contactData.contactDataID
-    this.customer.isBusinessCustomer = isBusinessCustomer
+  saveAccountDetail = () => {
+    return new Promise((resolve, reject) => {
+      console.log("saveAccountDetail")
+      this.accountdetailsService.save(this.accountDetail)
+        .subscribe((data)=>
+          {
+            if(data.accountID) {
+              this.accountDetail.accountID = data.accountID;
+              resolve(errors.success)
+            } else {
+              reject(errors.saveAccountDetailsStatusUnknown)
+            }
+          },
+          (error)=>
+          {
+            console.log("accountDetailError: ", error)
+            reject(errors.saveAccountDetailsFailed)
+            // this.addAlertForXSeconds(new Alert('danger',"Fehler beim Anlegen des Accounts"),5);
+          });
+    })
 
-    this.customerService.save(this.customer)
-      .subscribe((data) =>
-        {
-          if(data.customerID) {
-            this.customer.customerID=data.customerID;
-            console.log("saveCustomer SUCCESS")
-            localStorage.setItem('user', this.accountDetail.username);
-            localStorage.setItem('userID', String(this.customer.customerID));
-            window.location.href = "";
-          }
+  }
+  saveContactData = () => {
 
-        },
-        (error)=>
-        {
-          console.log("saveContactDate ERROR")
-          // this.addAlertForXSeconds(new Alert('danger',"Fehler beim Anlegen des Accounts"),5);
-        });
+    return new Promise((resolve, reject) => {
+      console.log("saveContactDate")
+      this.contactDataService.save(this.contactData)
+        .subscribe((data)=>
+          {
+            if(data.contactDataID) {
+              this.contactData.contactDataID=data.contactDataID;
+              resolve(errors.success)
+            } else {
+              reject(errors.saveContactDataStatusUnknown)
+            }
+          },
+          (error)=>
+          {
+            console.log("contactDataError: ", error)
+            reject(errors.saveContactDataFailed)
+            // this.addAlertForXSeconds(new Alert('danger',"Fehler beim Anlegen des Accounts"),5);
+          });
+    })
+
+
+  }
+  saveCustomer = (isBusinessCustomer: boolean) => {
+
+    return new Promise((resolve, reject) => {
+      console.log("saveCustomer")
+      this.customer.accountID = this.accountDetail.accountID
+      this.customer.contactDataID = this.contactData.contactDataID
+      this.customer.isBusinessCustomer = isBusinessCustomer
+
+      this.customerService.save(this.customer)
+        .subscribe((data) =>
+          {
+            if(data.customerID) {
+              this.customer.customerID=data.customerID;
+              console.log("saveCustomer SUCCESS")
+              localStorage.setItem('user', this.accountDetail.username);
+              localStorage.setItem('userID', String(this.customer.customerID));
+              resolve(errors.success)
+
+            } else {
+              reject(errors.saveCustomerStatusUnknown)
+            }
+          },
+          (error)=>
+          {
+            console.log("customerError: ", error)
+            reject(errors.saveCustomerFailed)
+            // this.addAlertForXSeconds(new Alert('danger',"Fehler beim Anlegen des Accounts"),5);
+          });
+      }
+    )
+
+
 
   }
 

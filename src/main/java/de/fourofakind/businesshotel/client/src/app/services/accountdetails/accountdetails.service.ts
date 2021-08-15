@@ -48,25 +48,11 @@ export class AccountdetailsService {
     )
   }
 
-  public save(accountdetails: Accountdetail): Observable<Accountdetail> {
-    console.log(accountdetails);
-
+  public save(accountdetails: Accountdetail): Observable<Accountdetail>
+  {
     const salt = bcrypt.genSaltSync(10);
     const passwordHash = bcrypt.hashSync(accountdetails.passwordHash, salt)
-    console.log("passwordHash: ", passwordHash);
     accountdetails.passwordHash = passwordHash
-
-      // this.hashPassword(accountdetails.passwordHash)
-      //   .then(hash => {
-      //     if (hash && typeof hash === "string") {
-      //       console.log("hash: ", hash)
-      //       accountdetails.passwordHash = hash
-      //     }
-      //   })
-      //   .catch(e => {
-      //     console.log(e);
-      //   })
-
     return this.http.post<Accountdetail>(this.baseUrl, accountdetails)
       .pipe(
         map(
