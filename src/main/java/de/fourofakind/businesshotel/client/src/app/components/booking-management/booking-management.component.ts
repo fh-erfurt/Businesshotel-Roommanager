@@ -180,7 +180,7 @@ export class BookingManagementComponent implements OnInit {
         roomNo:this.roomNo,
         startDate:this.startDate+"T"+this.startTime+"+02:00",
         endDate:this.endDate+"T"+this.endTime+"+02:00",
-        empNo:1, //TODO:Muss noch ersetzt werden
+        empNo:parseInt(<string>localStorage.getItem('empNo')),
         pricing:this.calculatedPricing,
         specialWishes:this.specialWishes,
       };
@@ -225,8 +225,6 @@ export class BookingManagementComponent implements OnInit {
     console.log(this.startDate, this.endDate);
     let startTimestamp=this.startDate+"T"+this.startTime+":00.000%2b02:00"
     let endTimestamp=this.endDate+"T"+this.endTime+":00.000%2b02:00"
-
-    //http://localhost:8081/booking/search/findByStartDateIsBetween?startDate=2021-03-31T10:30:00.000%2b02:00&endDate=2021-04-02T10:30:00.000%2b02:00
 
     this.bookingService.getBookingsByStartDateAndEndDate(startTimestamp, endTimestamp).subscribe(data=>
     {

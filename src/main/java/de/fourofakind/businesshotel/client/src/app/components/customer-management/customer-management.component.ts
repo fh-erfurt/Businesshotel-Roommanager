@@ -48,7 +48,7 @@ export class CustomerManagementComponent implements OnInit {
   accountID!:number;
   customerID!:number;
   contactDataID!:number;
-  isBusinessCustomer:boolean=false;
+  isBusinessCustomer!:boolean;
   paymentMethod!:string;
   //Accountdetails
   password!:string;

@@ -70,7 +70,6 @@
             </mat-form-field>
             <br>
 
-          <br>
           <button mat-raised-button color="primary" type="submit" (click)="addOrUpdateCustomerAndDetails(true)">Absenden</button>
         </div>
         <div class="notificationArea">
@@ -90,7 +89,9 @@
         <mat-form-field appearance="fill">
           <mat-label>Kundennummer</mat-label>
           <input matInput type="number" [min]="2" [(ngModel)]="customerID" [required]="true">
+          <mat-error>Bitte gültige Kundennummer angeben</mat-error>
         </mat-form-field>
+        <br>
         <button mat-raised-button color="primary" (click)="submitSearch(true)">Suchen</button>
         <br>
         <div *ngIf="foundCustomer" class="searchTab">
@@ -173,7 +174,7 @@
           <div>
             <mat-form-field class="usernameInput" appearance="fill">
               <mat-label>Username</mat-label>
-              <input matInput type="text" [(ngModel)]="username" required>
+              <input matInput type="text" [(ngModel)]="username" [required]="true">
               <mat-hint>Achtung: Kann später nicht geändert werden!</mat-hint>
             </mat-form-field>
             <button mat-icon-button color="primary" (click)="validateUsername()">
@@ -205,12 +206,12 @@
         <div class="tab">
           <br>
 
-          <br>
           <mat-form-field appearance="fill">
             <mat-label>Kundennummer</mat-label>
             <input matInput type="number" [min]="2" [(ngModel)]="customerID"  [required]="true">
             <mat-error>Bitte gültige Kundennummer angeben</mat-error>
           </mat-form-field>
+          <br>
           <button mat-raised-button color="primary" type="submit" (click)="submitSearch(false)">Suchen</button>
           <br>
           <mat-card *ngIf="foundCustomer && foundContactData && foundAccountdetails">
@@ -284,6 +285,7 @@
             <input matInput type="number" [min]="2" [(ngModel)]="customerID"  [required]="true">
             <mat-error>Bitte gültige Kundennummer angeben</mat-error>
           </mat-form-field>
+          <br>
           <button mat-raised-button color="primary" type="submit" (click)="submitSearch(false)">Suchen</button>
           <mat-card *ngIf="foundCustomer && foundContactData && foundAccountdetails">
             <mat-label>Kundennummer</mat-label>
