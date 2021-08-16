@@ -48,7 +48,7 @@
             <mat-hint>Achtung: Kann später nicht geändert werden!</mat-hint>
             <mat-error>Bitte Username mit maximal 75 Zeichen angeben</mat-error>
           </mat-form-field>
-          <button mat-icon-button color="primary" (click)="validateUsername()">
+          <button mat-icon-button color="primary" (click)="validateUsername()" [disabled]="!username">
             <mat-icon (click)="allowSubmit()">search</mat-icon>
           </button>
         </div>

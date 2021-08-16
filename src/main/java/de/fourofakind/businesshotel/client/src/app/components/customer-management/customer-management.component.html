@@ -45,14 +45,15 @@
           </div>
             <mat-form-field appearance="fill">
               <mat-label>Telefonnummer</mat-label>
-              <input matInput type="tel" name="phone" [(ngModel)]="phone" [required]="true" [maxLength]="45">
-              <mat-error>Bitte Telefonnummer mit maximal 45 Zeichen angeben </mat-error>
+              <input matInput [pattern]="phoneRegex" type="tel" name="phone" [(ngModel)]="phone" [required]="true" [maxLength]="45" >
+              <mat-hint>Internationales Format (+491234567891011)</mat-hint>
+              <mat-error>Bitte gültige Telefonnummer (+491...) mit maximal 45 Zeichen angeben </mat-error>
             </mat-form-field>
             <br>
             <mat-form-field appearance="fill">
               <mat-label>E-Mail</mat-label>
-              <input matInput type="email" name="mailAddress" [(ngModel)]="mailAddress" [required]="true" [maxLength]="80">
-              <mat-error>Bitte E-Mail mit maximal 80 Zeichen angeben </mat-error>
+              <input matInput [pattern]="emailRegex" type="email" name="mailAddress" [(ngModel)]="mailAddress" [required]="true" [maxLength]="80">
+              <mat-error>Bitte gültige E-Mail mit maximal 80 Zeichen angeben </mat-error>
             </mat-form-field>
             <br>
             <mat-form-field appearance="fill">
@@ -65,8 +66,8 @@
             <mat-form-field *ngIf="paymentMethod && paymentMethod!='bill'" appearance="fill">
               <mat-label *ngIf="paymentMethod=='paypal'">PayPal-Adresse angeben:</mat-label>
               <mat-label *ngIf="paymentMethod=='debit'">IBAN-Adresse angeben:</mat-label>
-              <input matInput type="text" name="paymentCredentials" [(ngModel)]="paymentCredentials" [required]="true" [maxLength]="255">
-              <mat-error>Bitte Zahlungsdaten mit maximal 255 Zeichen angeben </mat-error>
+              <input matInput type="text" name="paymentCredentials" [(ngModel)]="paymentCredentials" [pattern]="paymentMethod=='paypal'?emailRegex:ibanRegex" [required]="true" [maxLength]="255">
+              <mat-error>Bitte gültige Zahlungsdaten mit maximal 255 Zeichen angeben </mat-error>
             </mat-form-field>
             <br>
 
@@ -136,14 +137,15 @@
           </div>
           <mat-form-field appearance="fill">
             <mat-label>Telefonnummer</mat-label>
-            <input matInput type="tel" name="phone" [(ngModel)]="phone" [required]="true"  [maxLength]="45">
-            <mat-error>Bitte Telefonnummer mit maximal 45 Zeichen angeben </mat-error>
+            <input matInput [pattern]="phoneRegex"  type="tel" name="phone" [(ngModel)]="phone" [required]="true"  [maxLength]="45">
+            <mat-hint>Internationales Format (+491234567891011)</mat-hint>
+            <mat-error>Bitte gültige Telefonnummer  (+491...) mit maximal 45 Zeichen angeben </mat-error>
           </mat-form-field>
           <br>
           <mat-form-field appearance="fill">
             <mat-label>E-Mail</mat-label>
-            <input matInput type="email" name="mailAddress" [(ngModel)]="mailAddress" [required]="true"  [maxLength]="80">
-            <mat-error>Bitte E-Mail mit maximal 80 Zeichen angeben </mat-error>
+            <input matInput [pattern]="emailRegex" type="email" name="mailAddress" [(ngModel)]="mailAddress" [required]="true"  [maxLength]="80">
+            <mat-error>Bitte gültige E-Mail mit maximal 80 Zeichen angeben </mat-error>
           </mat-form-field>
           <br>
           <mat-form-field appearance="fill">
@@ -155,7 +157,7 @@
           <mat-form-field *ngIf="paymentMethod && paymentMethod!='bill'" appearance="fill">
             <mat-label *ngIf="paymentMethod=='paypal'">PayPal-Adresse angeben:</mat-label>
             <mat-label *ngIf="paymentMethod=='debit'">IBAN-Adresse angeben:</mat-label>
-            <input matInput type="text" name="paymentCredentials" [(ngModel)]="paymentCredentials" [required]="true"  [maxLength]="255">
+            <input matInput type="text" name="paymentCredentials" [(ngModel)]="paymentCredentials" [pattern]="paymentMethod=='paypal'?emailRegex:ibanRegex" [required]="true"  [maxLength]="255">
             <mat-error>Bitte Zahlungsdaten mit maximal 255 Zeichen angeben </mat-error>
           </mat-form-field>
           <br>

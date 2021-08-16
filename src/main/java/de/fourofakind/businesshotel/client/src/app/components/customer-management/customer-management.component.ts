@@ -27,7 +27,9 @@ export class CustomerManagementComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
+  emailRegex:RegExp=/^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
+  phoneRegex:RegExp=/^\+(?:[0-9] ?){6,14}[0-9]$/;
+  ibanRegex:RegExp=/^([A-Z]{2}[ \-]?[0-9]{2})(?=(?:[ \-]?[A-Z0-9]){9,30}$)((?:[ \-]?[A-Z0-9]{3,5}){2,7})([ \-]?[A-Z0-9]{1,3})?$/;
   isChecked:boolean=false;
   labelPosition:'before' | 'after'='before';
   foundCustomer!:Customer | null;
