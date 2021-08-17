@@ -45,14 +45,15 @@
           </div>
             <mat-form-field appearance="fill">
               <mat-label>Telefonnummer</mat-label>
-              <input matInput type="tel" name="phone" [(ngModel)]="phone" [required]="true" [maxLength]="45">
-              <mat-error>Bitte Telefonnummer mit maximal 45 Zeichen angeben </mat-error>
+              <input matInput [pattern]="phoneRegex" type="tel" name="phone" [(ngModel)]="phone" [required]="true" [maxLength]="45" >
+              <mat-hint>Internationales Format (+491234567891011)</mat-hint>
+              <mat-error>Bitte gültige Telefonnummer (+491...) mit maximal 45 Zeichen angeben </mat-error>
             </mat-form-field>
             <br>
             <mat-form-field appearance="fill">
               <mat-label>E-Mail</mat-label>
-              <input matInput type="email" name="mailAddress" [(ngModel)]="mailAddress" [required]="true" [maxLength]="80">
-              <mat-error>Bitte E-Mail mit maximal 80 Zeichen angeben </mat-error>
+              <input matInput [pattern]="emailRegex" type="email" name="mailAddress" [(ngModel)]="mailAddress" [required]="true" [maxLength]="80">
+              <mat-error>Bitte gültige E-Mail mit maximal 80 Zeichen angeben </mat-error>
             </mat-form-field>
             <br>
             <mat-form-field appearance="fill">
@@ -65,12 +66,11 @@
             <mat-form-field *ngIf="paymentMethod && paymentMethod!='bill'" appearance="fill">
               <mat-label *ngIf="paymentMethod=='paypal'">PayPal-Adresse angeben:</mat-label>
               <mat-label *ngIf="paymentMethod=='debit'">IBAN-Adresse angeben:</mat-label>
-              <input matInput type="text" name="paymentCredentials" [(ngModel)]="paymentCredentials" [required]="true" [maxLength]="255">
-              <mat-error>Bitte Zahlungsdaten mit maximal 255 Zeichen angeben </mat-error>
+              <input matInput type="text" name="paymentCredentials" [(ngModel)]="paymentCredentials" [pattern]="paymentMethod=='paypal'?emailRegex:ibanRegex" [required]="true" [maxLength]="255">
+              <mat-error>Bitte gültige Zahlungsdaten mit maximal 255 Zeichen angeben </mat-error>
             </mat-form-field>
             <br>
 
-          <br>
           <button mat-raised-button color="primary" type="submit" (click)="addOrUpdateCustomerAndDetails(true)">Absenden</button>
         </div>
         <div class="notificationArea">
@@ -90,7 +90,9 @@
         <mat-form-field appearance="fill">
           <mat-label>Kundennummer</mat-label>
           <input matInput type="number" [min]="2" [(ngModel)]="customerID" [required]="true">
+          <mat-error>Bitte gültige Kundennummer angeben</mat-error>
         </mat-form-field>
+        <br>
         <button mat-raised-button color="primary" (click)="submitSearch(true)">Suchen</button>
         <br>
         <div *ngIf="foundCustomer" class="searchTab">
@@ -135,14 +137,15 @@
           </div>
           <mat-form-field appearance="fill">
             <mat-label>Telefonnummer</mat-label>
-            <input matInput type="tel" name="phone" [(ngModel)]="phone" [required]="true"  [maxLength]="45">
-            <mat-error>Bitte Telefonnummer mit maximal 45 Zeichen angeben </mat-error>
+            <input matInput [pattern]="phoneRegex"  type="tel" name="phone" [(ngModel)]="phone" [required]="true"  [maxLength]="45">
+            <mat-hint>Internationales Format (+491234567891011)</mat-hint>
+            <mat-error>Bitte gültige Telefonnummer  (+491...) mit maximal 45 Zeichen angeben </mat-error>
           </mat-form-field>
           <br>
           <mat-form-field appearance="fill">
             <mat-label>E-Mail</mat-label>
-            <input matInput type="email" name="mailAddress" [(ngModel)]="mailAddress" [required]="true"  [maxLength]="80">
-            <mat-error>Bitte E-Mail mit maximal 80 Zeichen angeben </mat-error>
+            <input matInput [pattern]="emailRegex" type="email" name="mailAddress" [(ngModel)]="mailAddress" [required]="true"  [maxLength]="80">
+            <mat-error>Bitte gültige E-Mail mit maximal 80 Zeichen angeben </mat-error>
           </mat-form-field>
           <br>
           <mat-form-field appearance="fill">
@@ -154,7 +157,7 @@
           <mat-form-field *ngIf="paymentMethod && paymentMethod!='bill'" appearance="fill">
             <mat-label *ngIf="paymentMethod=='paypal'">PayPal-Adresse angeben:</mat-label>
             <mat-label *ngIf="paymentMethod=='debit'">IBAN-Adresse angeben:</mat-label>
-            <input matInput type="text" name="paymentCredentials" [(ngModel)]="paymentCredentials" [required]="true"  [maxLength]="255">
+            <input matInput type="text" name="paymentCredentials" [(ngModel)]="paymentCredentials" [pattern]="paymentMethod=='paypal'?emailRegex:ibanRegex" [required]="true"  [maxLength]="255">
             <mat-error>Bitte Zahlungsdaten mit maximal 255 Zeichen angeben </mat-error>
           </mat-form-field>
           <br>
@@ -173,7 +176,7 @@
           <div>
             <mat-form-field class="usernameInput" appearance="fill">
               <mat-label>Username</mat-label>
-              <input matInput type="text" [(ngModel)]="username" required>
+              <input matInput type="text" [(ngModel)]="username" [required]="true">
               <mat-hint>Achtung: Kann später nicht geändert werden!</mat-hint>
             </mat-form-field>
             <button mat-icon-button color="primary" (click)="validateUsername()">
@@ -205,12 +208,12 @@
         <div class="tab">
           <br>
 
-          <br>
           <mat-form-field appearance="fill">
             <mat-label>Kundennummer</mat-label>
             <input matInput type="number" [min]="2" [(ngModel)]="customerID"  [required]="true">
             <mat-error>Bitte gültige Kundennummer angeben</mat-error>
           </mat-form-field>
+          <br>
           <button mat-raised-button color="primary" type="submit" (click)="submitSearch(false)">Suchen</button>
           <br>
           <mat-card *ngIf="foundCustomer && foundContactData && foundAccountdetails">
@@ -284,6 +287,7 @@
             <input matInput type="number" [min]="2" [(ngModel)]="customerID"  [required]="true">
             <mat-error>Bitte gültige Kundennummer angeben</mat-error>
           </mat-form-field>
+          <br>
           <button mat-raised-button color="primary" type="submit" (click)="submitSearch(false)">Suchen</button>
           <mat-card *ngIf="foundCustomer && foundContactData && foundAccountdetails">
             <mat-label>Kundennummer</mat-label>

@@ -5,55 +5,66 @@
       <div class="matTab">
         <div class="tab">
         <br>
-        <mat-radio-group [(ngModel)]="roomType"  class="roomtypeSelector">
-          <mat-radio-button required value="HOTELROOM">Hotelzimmer</mat-radio-button>
-          <mat-radio-button required value="CONFERENCEROOM" >Konferenzraum</mat-radio-button>
+        <mat-radio-group [(ngModel)]="roomType"  class="roomtypeSelector" [required]="true">
+          <mat-radio-button value="HOTELROOM">Hotelzimmer</mat-radio-button>
+          <mat-radio-button value="CONFERENCEROOM" >Konferenzraum</mat-radio-button>
         </mat-radio-group>
         <br>
         <div>
           <mat-form-field class="halfInput" appearance="fill">
             <mat-label>Fläche in m²</mat-label>
-            <input matInput type="number" min="1" name="areaInSqrMetre" [(ngModel)]="areaInSqrMetre" required>
+            <input matInput type="number" [min]="1" name="areaInSqrMetre" [(ngModel)]="areaInSqrMetre" [required]="true">
+            <mat-error>Bitte gültige Fläche angeben</mat-error>
           </mat-form-field>
           <mat-form-field class="halfInput" appearance="fill">
             <mat-label>Kategorie</mat-label>
-            <mat-select *ngIf="roomType=='HOTELROOM'" [(ngModel)]="category" required>
+            <mat-select *ngIf="roomType=='HOTELROOM'" [(ngModel)]="category" [required]="roomType=='HOTELROOM'">
               <mat-option *ngFor="let category of hotelRoomCategories | keyvalue"  value="{{category.key}}">{{category.value}}</mat-option>
             </mat-select>
-            <mat-select *ngIf="roomType=='CONFERENCEROOM'" [(ngModel)]="category" required>
+            <mat-error>Bitte Kategorie wählen</mat-error>
+            <mat-select *ngIf="roomType=='CONFERENCEROOM'" [(ngModel)]="category" [required]="roomType=='CONFERENCEROOM'">
               <mat-option *ngFor="let category of conferenceRoomCategories | keyvalue"  value="{{category.key}}">{{category.value}}</mat-option>
             </mat-select>
-            <mat-select *ngIf="!roomType" required>
+            <mat-error>Bitte Kategorie wählen</mat-error>
+            <mat-select *ngIf="!roomType" [required]="true">
               <mat-option value="" disabled>Keine Raumart gewählt</mat-option>
             </mat-select>
+            <mat-error>Zuerst Raumart wählen</mat-error>
+
           </mat-form-field>
           <div>
             <mat-form-field class="halfInput" appearance="fill" *ngIf="roomType">
               <mat-label *ngIf="roomType=='HOTELROOM'">Preis pro Nacht</mat-label>
               <mat-label *ngIf="roomType=='CONFERENCEROOM'">Preis pro Stunde</mat-label>
-              <input matInput type="number" min="1" step="0.01" name="pricePerUnit" [(ngModel)]="pricePerUnit" required>
+              <input matInput type="number" [min]="1" [step]="0.01" name="pricePerUnit" [(ngModel)]="pricePerUnit" [required]="true">
+              <mat-error>Bitte gültigen Preis angeben</mat-error>
             </mat-form-field>
               <mat-form-field class="halfInput" appearance="fill" *ngIf="roomType=='HOTELROOM'">
                 <mat-label>Anzahl Betten</mat-label>
-                <input matInput type="number" min="1" name="bedCount" [(ngModel)]="bedCount" required>
+                <input matInput type="number" [min]="1" name="bedCount" [(ngModel)]="bedCount" [required]="roomType=='HOTELROOM'">
+                <mat-error>Bitte Anzahl Betten angeben</mat-error>
               </mat-form-field>
               <mat-form-field class="halfInput" appearance="fill" *ngIf="roomType=='CONFERENCEROOM'">
                 <mat-label>maximale Anzahl Teilnehmer</mat-label>
-                <input matInput type="number" min="1" name="maxAmountOfParticipants" [(ngModel)]="maxAmountOfParticipants" required>
+                <input matInput type="number" [min]="1" name="maxAmountOfParticipants" [(ngModel)]="maxAmountOfParticipants" [required]="roomType=='CONFERENCEROOM'">
+                <mat-error>Bitte maximale Teilnehmeranzahl angeben</mat-error>
               </mat-form-field>
           </div>
           <div *ngIf="roomType=='CONFERENCEROOM'">
             <mat-form-field class="oneThirdInput" appearance="fill">
               <mat-label>Anzahl Whiteboards</mat-label>
-              <input matInput type="number" [(ngModel)]="amountOfWhiteboards">
+              <input matInput type="number" [min]="0" [(ngModel)]="amountOfWhiteboards" [required]="roomType=='CONFERENCEROOM'">
+              <mat-error>Bitte Anzahl Whiteboards angeben</mat-error>
             </mat-form-field>
             <mat-form-field class="oneThirdInput" appearance="fill">
               <mat-label>Anzahl Beamer</mat-label>
-              <input matInput type="number" [(ngModel)]="amountOfBeamer">
+              <input matInput type="number" [min]="0" [(ngModel)]="amountOfBeamer" [required]="roomType=='CONFERENCEROOM'">
+              <mat-error>Bitte Anzahl Beamer angeben</mat-error>
             </mat-form-field>
             <mat-form-field class="oneThirdInput" appearance="fill">
               <mat-label>Anzahl Bildschirme</mat-label>
-              <input matInput type="number" [(ngModel)]="amountOfTV">
+              <input matInput type="number" [min]="0" [(ngModel)]="amountOfTV" [required]="roomType=='CONFERENCEROOM'">
+              <mat-error>Bitte Anzahl Bildschirme angeben</mat-error>
             </mat-form-field>
           </div>
           <div class="checkboxContainer" *ngIf="roomType=='HOTELROOM'">
@@ -86,60 +97,70 @@
         <br>
         <mat-form-field appearance="fill">
           <mat-label>Raumnummer</mat-label>
-          <input matInput type="number" min="1" [(ngModel)]="roomNo" required>
+          <input matInput type="number" [min]="1" [(ngModel)]="roomNo" [required]="true">
+          <mat-error>Bitte gültige Raumnummer angeben</mat-error>
         </mat-form-field>
+        <br>
         <button mat-raised-button color="primary" (click)="submitSearch(true)">Suchen</button> <!-- sollte Voraussetzung werden für die Aktivierung des restlicehn Formulars-->
         <br>
         <div *ngIf="foundRoom">
-          <mat-radio-group [(ngModel)]="roomType"  class="roomtypeSelector">
-            <mat-radio-button required value="HOTELROOM" [checked]="!!foundHotelroom" [disabled]="true">Hotelzimmer</mat-radio-button>
-            <mat-radio-button required value="CONFERENCEROOM" [checked]="!!foundConferenceroom" [disabled]="true">Konferenzraum</mat-radio-button>
+          <mat-radio-group [(ngModel)]="roomType"  class="roomtypeSelector" [required]="true">
+            <mat-radio-button [value]="'HOTELROOM'"  [disabled]="true">Hotelzimmer</mat-radio-button>
+            <mat-radio-button [value]="'CONFERENCEROOM'"  [disabled]="true">Konferenzraum</mat-radio-button>
           </mat-radio-group>
           <br>
           <div>
             <mat-form-field class="halfInput" appearance="fill">
               <mat-label>Fläche in m²</mat-label>
-              <input matInput type="number" min="1" name="areaInSqrMetre" value="{{areaInSqrMetre}}" [(ngModel)]="areaInSqrMetre" required>
+              <input matInput type="number" [min]="1" name="areaInSqrMetre" [(ngModel)]="areaInSqrMetre" [required]="true">
+              <mat-error>Bitte gültige Fläche angeben</mat-error>
             </mat-form-field>
             <mat-form-field class="halfInput" appearance="fill">
               <mat-label>Kategorie</mat-label>
-              <mat-select *ngIf="roomType=='HOTELROOM'" [(ngModel)]="category" value="{{category}}" required>
-                <mat-option *ngFor="let category of hotelRoomCategories | keyvalue"  value="{{category.key}}">{{category.value}}</mat-option>
+              <mat-select *ngIf="roomType=='HOTELROOM'" [(ngModel)]="category" [required]="true">
+                <mat-option *ngFor="let category of hotelRoomCategories | keyvalue"  [value]="category.key">{{category.value}}</mat-option>
               </mat-select>
-              <mat-select *ngIf="roomType=='CONFERENCEROOM'" [(ngModel)]="category" value="{{category}}" required>
-                <mat-option *ngFor="let category of conferenceRoomCategories | keyvalue"  value="{{category.key}}">{{category.value}}</mat-option>
+              <mat-select *ngIf="roomType=='CONFERENCEROOM'" [(ngModel)]="category"  [required]="true">
+                <mat-option *ngFor="let category of conferenceRoomCategories | keyvalue"  [value]="category.key">{{category.value}}</mat-option>
               </mat-select>
-              <mat-select *ngIf="!roomType" required>
+              <mat-select *ngIf="!roomType" [required]="true">
                 <mat-option value="" disabled>Keine Raumart gewählt</mat-option>
+                <mat-error>Bitte Kategorie wählen</mat-error>
               </mat-select>
             </mat-form-field>
             <div>
               <mat-form-field class="halfInput" appearance="fill" *ngIf="roomType">
                 <mat-label *ngIf="roomType=='HOTELROOM'">Preis pro Nacht</mat-label>
                 <mat-label *ngIf="roomType=='CONFERENCEROOM'">Preis pro Stunde</mat-label>
-                <input matInput type="number" min="1" step="0.01" name="pricePerUnit" value="{{pricePerUnit}}" [(ngModel)]="pricePerUnit" required>
+                <input matInput type="number" [min]="1" step="0.01" name="pricePerUnit" [(ngModel)]="pricePerUnit" [required]="true">
+                <mat-error>Bitte gültigen Preis angeben</mat-error>
               </mat-form-field>
               <mat-form-field class="halfInput" appearance="fill" *ngIf="roomType=='HOTELROOM'">
                 <mat-label>Anzahl Betten</mat-label>
-                <input matInput type="number" min="1" name="bedCount" [(ngModel)]="bedCount" value="{{bedCount}}" required>
+                <input matInput type="number" [min]="1" name="bedCount" [(ngModel)]="bedCount"  [required]="roomType=='HOTELROOM'">
+                <mat-error>Bitte Anzahl Betten angeben</mat-error>
               </mat-form-field>
               <mat-form-field class="halfInput" appearance="fill" *ngIf="roomType=='CONFERENCEROOM'">
                 <mat-label>maximale Anzahl Teilnehmer</mat-label>
-                <input matInput type="number" min="1" name="maxAmountOfParticipants" [(ngModel)]="maxAmountOfParticipants"  value="{{maxAmountOfParticipants}}" required>
+                <input matInput type="number" [min]="1" name="maxAmountOfParticipants" [(ngModel)]="maxAmountOfParticipants" [required]="roomType=='CONFERENCEROOM'">
+                <mat-error>Bitte maximale Teilnehmeranzahl angeben</mat-error>
               </mat-form-field>
             </div>
             <div *ngIf="roomType=='CONFERENCEROOM'">
               <mat-form-field class="oneThirdInput" appearance="fill">
                 <mat-label>Anzahl Whiteboards</mat-label>
-                <input matInput type="number" [(ngModel)]="amountOfWhiteboards" value="{{amountOfWhiteboards}}">
+                <input matInput type="number" [(ngModel)]="amountOfWhiteboards">
+                <mat-error>Bitte Anzahl Whiteboards angeben</mat-error>
               </mat-form-field>
               <mat-form-field class="oneThirdInput" appearance="fill">
                 <mat-label>Anzahl Beamer</mat-label>
-                <input matInput type="number" [(ngModel)]="amountOfBeamer" value="{{amountOfBeamer}}">
+                <input matInput type="number" [(ngModel)]="amountOfBeamer">
+                <mat-error>Bitte Anzahl Beamer angeben</mat-error>
               </mat-form-field>
               <mat-form-field class="oneThirdInput" appearance="fill">
                 <mat-label>Anzahl Bildschirme</mat-label>
-                <input matInput type="number" [(ngModel)]="amountOfTV" value="{{amountOfTV}}">
+                <input matInput type="number" [(ngModel)]="amountOfTV">
+                <mat-error>Bitte Anzahl Bildschirme angeben</mat-error>
               </mat-form-field>
             </div>
             <div class="checkboxContainer" *ngIf="roomType=='HOTELROOM'">
@@ -176,12 +197,12 @@
       <div class="matTab">
         <div class="tab">
         <br>
-
-        <br>
         <mat-form-field appearance="fill">
           <mat-label>Raumnummer</mat-label>
-          <input matInput type="number" [(ngModel)]="roomNo"  required>
+          <input matInput type="number" [(ngModel)]="roomNo"  [required]="true">
+          <mat-error>Bitte gültige Raumnummer angeben</mat-error>
         </mat-form-field>
+        <br>
         <button mat-raised-button color="primary" type="submit" (click)="submitSearch(false)">Suchen</button>
         <br>
         <mat-card *ngIf="foundRoom">
@@ -250,8 +271,10 @@
         <br>
         <mat-form-field appearance="fill">
           <mat-label>Raumnummer</mat-label>
-          <input matInput type="number" [(ngModel)]="roomNo"  required>
+          <input matInput type="number" [(ngModel)]="roomNo"  [required]="true">
+          <mat-error>Bitte gültige Raumnummer angeben</mat-error>
         </mat-form-field>
+        <br>
         <button mat-raised-button color="primary" type="submit" (click)="submitSearch(false)">Suchen</button>
         <mat-card *ngIf="foundRoom">
           <mat-label>Raumnummer</mat-label>

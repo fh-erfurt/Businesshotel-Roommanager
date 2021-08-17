@@ -39,8 +39,14 @@ export class EmployeeManagementComponent implements OnInit {
   foundEmployee!:Employee | null;
   accountID!:number;
   usernameAlreadyExists:boolean=false;
+  isSubmitAllowed:boolean=false;
 
   alerts:Alert[]=[];
+
+  allowSubmit()
+  {
+    this.isSubmitAllowed = true;
+  }
 
   addAlertForXSeconds(alert:Alert, seconds:number)
   {
@@ -73,7 +79,7 @@ export class EmployeeManagementComponent implements OnInit {
     let newAccount: Accountdetail =
       {
         username: this.username,
-        passwordHash: this.password, //TODO:passwort hashen
+        passwordHash: this.password,
       }
 
      this.accountdetailsService.save(newAccount)
@@ -87,23 +93,6 @@ export class EmployeeManagementComponent implements OnInit {
          this.addAlertForXSeconds(new Alert('danger',"Fehler beim Anlegen des Accounts"),5);
        });
   }
-
-  getUsername(_callback:Function, username:string, addsNewEmployee:boolean)
-  {
-    this.accountdetailsService.getAccountdetailsByUsername(username)
-      .subscribe(
-      (data)=> {
-        if (data.username == username) {
-          _callback();
-        }
-      },
-    (error)=>
-      {
-        if (error.status === 404) _callback();
-      }
-    )
-  }
-
 
 
   addOrUpdateEmployee(addsNewEmployee:boolean)
@@ -145,11 +134,7 @@ export class EmployeeManagementComponent implements OnInit {
 
   addOrUpdateEmployeeAndDetails(addsNewEmployee:boolean)
   {
-    var username = this.firstName.trim().replace(" ", ".") + "." + this.lastName.trim().replace(" ", ".");
-    username = username.toLowerCase();
-
-    this.username=username;
-    this.getUsername(()=>this.addAccount(()=>this.addOrUpdateEmployee(addsNewEmployee)),username,addsNewEmployee);
+    this.addAccount(()=>this.addOrUpdateEmployee(addsNewEmployee));
 
   }
 
