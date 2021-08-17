@@ -93,7 +93,7 @@
         <div *ngIf="foundEmployee" class="searchTab">
             <mat-form-field appearance="fill">
               <mat-label>Rolle</mat-label>
-              <mat-select [(ngModel)]="givenRole" [required]="true">
+              <mat-select name="givenRole" [(ngModel)]="givenRole" [required]="true">
                 <mat-option [value]="'Raummanager'">Raummanager</mat-option>
                 <mat-option [value]="'Buchungsmanager'">Buchungsmanager</mat-option>
                 <mat-option [value]="'Kundenmanager'">Kundenmanager</mat-option>
