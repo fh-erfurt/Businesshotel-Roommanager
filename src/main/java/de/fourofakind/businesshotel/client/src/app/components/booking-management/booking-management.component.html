@@ -54,7 +54,7 @@
                 <mat-hint *ngIf="((startDate&&startTime&&endDate&&endTime)&&bookingTypeModel.untouched)">Zuerst Raumart wählen.</mat-hint>
                 <mat-error *ngIf="roomNoModel.untouched">Bitte Raumnummer wählen</mat-error>
               </mat-form-field>
-              <button mat-icon-button color="primary" (click)="filterRoomsByOccupation(false)" [disabled]="!occupationChecked">
+              <button mat-icon-button color="primary" (click)="filterRoomsByOccupation(false)" [disabled]="(!(startDate&&startTime&&endDate&&endTime)||bookingTypeModel.untouched)">
                 <mat-icon >search</mat-icon>
               </button>
             </div>
