@@ -59,7 +59,7 @@
             </div>
               <p *ngIf="usernameAlreadyExists">Username schon vorhanden</p>
               <br>
-            <button mat-raised-button color="primary" type="submit" (click)="addOrUpdateEmployeeAndDetails(true)" [disabled]="!isSubmitAllowed || usernameAlreadyExists || insertEmployeeForm.invalid">Absenden</button>
+            <button mat-raised-button color="primary" type="submit" (click)="addOrUpdateEmployeeAndDetails(true,insertEmployeeForm)" [disabled]="!isSubmitAllowed || usernameAlreadyExists || insertEmployeeForm.invalid">Absenden</button>
           </div>
             </form>
             <div class="notificationArea">
@@ -128,7 +128,7 @@
               </mat-form-field>
             </div>
             <br>
-            <button mat-raised-button color="primary" type="submit" (click)="addOrUpdateEmployeeAndDetails(false)" [disabled]="updateEmployeeForm.invalid">Absenden</button>
+            <button mat-raised-button color="primary" type="submit" (click)="addOrUpdateEmployeeAndDetails(false,updateEmployeeForm)" [disabled]="updateEmployeeForm.invalid">Absenden</button>
           </div>
         </div>
         </form>
@@ -149,6 +149,7 @@
 
     <mat-tab label="Löschen">
       <div class="matTab">
+        <form #deleteEmployeeForm="ngForm" class="formTab">
           <div class="tab">
         <br>
         <mat-form-field appearance="fill">
@@ -181,9 +182,10 @@
           </mat-card-content>
         </mat-card>
         <br>
-        <mat-slide-toggle [(ngModel)]="isChecked" [disabled]="!foundEmployee" >Freigeben</mat-slide-toggle>
-        <button mat-raised-button color="primary" type="submit" [disabled]="!isChecked" (click)="deleteEmployeeAndDetails()">Löschen</button>
+        <mat-slide-toggle name="isChecked" [(ngModel)]="isChecked" [disabled]="!foundEmployee" >Freigeben</mat-slide-toggle>
+        <button mat-raised-button color="primary" type="submit" [disabled]="!isChecked" (click)="deleteEmployeeAndDetails(deleteEmployeeForm)">Löschen</button>
       </div>
+          </form>
         <div class="notificationArea">
           <p *ngFor="let alert of alerts">
             <ngb-alert *ngIf="alert.type=='success'" class="success"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>

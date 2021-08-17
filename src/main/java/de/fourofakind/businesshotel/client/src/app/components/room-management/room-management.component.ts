@@ -6,6 +6,7 @@ import {Room} from "../../services/room/room";
 import {Hotelroom} from "../../services/hotelroom/hotelroom";
 import {Conferenceroom} from "../../services/conferenceroom/conferenceroom";
 import {Alert} from "../../app.component";
+import {NgForm} from "@angular/forms";
 
 
 
@@ -118,8 +119,11 @@ export class RoomManagementComponent implements OnInit {
 
 
 
-  addOrUpdateRoom(addsNewRoom:boolean)
+  addOrUpdateRoom(addsNewRoom:boolean,insertOrUpdateRoomForm: NgForm)
   {
+    this.foundRoom=null;
+    this.foundConferenceroom=null;
+    this.foundHotelroom=null;
     let newOrUpdatedRoom:Hotelroom | Conferenceroom
     if(this.roomType=="HOTELROOM")
     {
@@ -159,6 +163,7 @@ export class RoomManagementComponent implements OnInit {
           .subscribe((data)=>
           {
             this.addAlertForXSeconds(new Alert('success',"Raum erfolgreich angelegt"),5);
+            insertOrUpdateRoomForm.resetForm();
           },
           (error)=>
           {
@@ -168,10 +173,12 @@ export class RoomManagementComponent implements OnInit {
       }
       else
       {
+
         this.roomService.updateRoom(this.roomNo, newOrUpdatedRoom, this.roomType)
           .subscribe((data)=>
           {
             this.addAlertForXSeconds(new Alert('success',"Raum erfolgreich geändert"),5);
+            insertOrUpdateRoomForm.resetForm();
           },
           (error)=>
           {
@@ -263,7 +270,7 @@ export class RoomManagementComponent implements OnInit {
       });
   }
 
-  deleteRoom()
+  deleteRoom(deleteRoomForm: NgForm)
   {
     this.foundRoom=null;
     this.foundConferenceroom=null;
@@ -273,6 +280,7 @@ export class RoomManagementComponent implements OnInit {
         (data)=>
         {
           this.addAlertForXSeconds(new Alert('success',"Raum erfolgreich gelöscht"),5);
+          deleteRoomForm.resetForm();
         },
         (error)=>
         {

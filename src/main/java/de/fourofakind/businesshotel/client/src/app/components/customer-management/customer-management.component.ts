@@ -8,6 +8,7 @@ import {Contactdata} from "../../services/contactdata/contactdata";
 import {BookingService} from "../../services/booking/booking.service";
 import {BookingrequestService} from "../../services/bookingrequest/bookingrequest.service";
 import {Alert} from "../../app.component";
+import {NgForm} from "@angular/forms";
 
 @Component({
   selector: 'app-customer-management',
@@ -128,7 +129,7 @@ export class CustomerManagementComponent implements OnInit {
   }
 
 
-  addOrUpdateCustomerAndDetails(addsNewCustomer:boolean)
+  addOrUpdateCustomerAndDetails(addsNewCustomer:boolean,addOrUpdateCustomerForm: NgForm)
   {
 
     if(addsNewCustomer)
@@ -165,34 +166,39 @@ export class CustomerManagementComponent implements OnInit {
         .subscribe((res)=>
         {
           this.addAlertForXSeconds(new Alert('success',"Kontaktdaten erfolgreich geändert"),5);
+          this.customerService.updateCustomer(this.customerID, newOrUpdatedCustomer)
+            .subscribe((res)=>
+              {
+                this.addAlertForXSeconds(new Alert('success',"Kunde erfolgreich geändert"),5);
+                this.accountdetailsService.updateUsername(this.accountID,this.username)
+                  .subscribe((res)=>
+                    {
+                      this.addAlertForXSeconds(new Alert('success',"Nutzernamen erfolgreich geändert"),5);
+                      this.foundCustomer=null;
+                      if(!this.password) addOrUpdateCustomerForm.resetForm()
+                    },
+                    (error)=>
+                    {
+                      this.addAlertForXSeconds(new Alert('danger',"Fehler beim Ändern des Nutzernamen"),5);
+                    });
+              },
+              (error)=>
+              {
+                this.addAlertForXSeconds(new Alert('danger',"Fehler beim Ändern des Kunden"),5);
+              });
         },
         (error)=>
         {
           this.addAlertForXSeconds(new Alert('danger',"Fehler beim Ändern der Kontaktdaten"),5);
         });
-      this.customerService.updateCustomer(this.customerID, newOrUpdatedCustomer)
-        .subscribe((res)=>
-        {
-          this.addAlertForXSeconds(new Alert('success',"Kunde erfolgreich geändert"),5);
-        },
-        (error)=>
-        {
-          this.addAlertForXSeconds(new Alert('danger',"Fehler beim Ändern des Kunden"),5);
-        });
 
-      this.accountdetailsService.updateUsername(this.accountID,this.username)
-        .subscribe((res)=>
-        {
-          this.addAlertForXSeconds(new Alert('success',"Nutzernamen erfolgreich geändert"),5);
-        },
-        (error)=>
-        {
-          this.addAlertForXSeconds(new Alert('danger',"Fehler beim Ändern des Nutzernamen"),5);
-        });
+
+
       if(this.password) this.accountdetailsService.updateAccountdetails(this.accountID, newOrUpdatedAccount)
         .subscribe((res)=>
         {
           this.addAlertForXSeconds(new Alert('success',"Passwort erfolgreich geändert"),5);
+          addOrUpdateCustomerForm.resetForm()
         },
         (error)=>
         {
@@ -280,12 +286,14 @@ export class CustomerManagementComponent implements OnInit {
   }
 
 
-  deleteCustomer()
+  deleteCustomer(deleteCustomerForm: NgForm)
   {
     this.customerService.delete(this.customerID)
       .subscribe((res)=>
       {
         this.addAlertForXSeconds(new Alert('success',"Kunde erfolgreich gelöscht"),5);
+        this.foundCustomer=null;
+        deleteCustomerForm.resetForm();
       },
       (error)=>
       {
@@ -303,7 +311,7 @@ export class CustomerManagementComponent implements OnInit {
         console.log(data);
         data.forEach((data)=>{if(data && data.bookingNo) {bookingNoOfCustomer.push(data.bookingNo)}})
         console.log(bookingNoOfCustomer)
-        if(bookingNoOfCustomer)
+        if(bookingNoOfCustomer.length>0)
         {
           let currentIdx=0;
           bookingNoOfCustomer.forEach((bookingNo)=>
@@ -369,13 +377,13 @@ export class CustomerManagementComponent implements OnInit {
         })
   }
 
-  deleteCustomerAndDetails()
+  deleteCustomerAndDetails(deleteCustomerForm: NgForm)
   {
     this.foundCustomer=null;
     this.foundAccountdetails=null;
     this.foundContactData=null;
 
-    this.patchBookings(()=>this.patchBookingRequests(()=>this.deleteCustomer()));
+    this.patchBookings(()=>this.patchBookingRequests(()=>this.deleteCustomer(deleteCustomerForm)));
 
 
   }

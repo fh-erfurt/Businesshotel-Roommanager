@@ -8,6 +8,7 @@ import {RoomService} from "../../services/room/room.service";
 import {Room} from "../../services/room/room";
 import {parseDate} from "ngx-bootstrap/chronos";
 import {Alert} from "../../app.component";
+import {NgForm} from "@angular/forms";
 
 
 
@@ -163,7 +164,7 @@ export class BookingManagementComponent implements OnInit {
     }
   }
 
-  prepareAndInsertBooking(addsNewBooking:boolean)
+  prepareAndInsertBooking(addsNewBooking:boolean,addOrUpdateBookingForm:NgForm)
   {
     console.log(this.calculatedPricing);
     let newOrUpdatedBooking:Booking =
@@ -183,6 +184,7 @@ export class BookingManagementComponent implements OnInit {
         .subscribe((data)=>
         {
           this.addAlertForXSeconds(new Alert('success',"Buchung erfolgreich angelegt"),5);
+          addOrUpdateBookingForm.resetForm();
         },
         (error)=>
         {
@@ -195,6 +197,8 @@ export class BookingManagementComponent implements OnInit {
         .subscribe((data)=>
         {
           this.addAlertForXSeconds(new Alert('success',"Buchung erfolgreich geändert"),5);
+          addOrUpdateBookingForm.resetForm();
+          this.foundBooking=null;
         },
         (error)=>
         {
@@ -205,11 +209,11 @@ export class BookingManagementComponent implements OnInit {
   }
 
 
-  addOrUpdateBooking(addsNewBooking:boolean)
+  addOrUpdateBooking(addsNewBooking:boolean, addOrUpdateBookingForm:NgForm)
   {
     this.startTimestamp=parseDate(this.startDate+"T"+this.startTime)
     this.endTimestamp=parseDate(this.endDate+"T"+this.endTime)
-    this.getPricePerUnit(()=>this.calculatePricing(()=>this.prepareAndInsertBooking(addsNewBooking)))
+    this.getPricePerUnit(()=>this.calculatePricing(()=>this.prepareAndInsertBooking(addsNewBooking,addOrUpdateBookingForm)))
   }
 
   filterRoomsByOccupation(isBookingChange:boolean)
@@ -313,13 +317,15 @@ export class BookingManagementComponent implements OnInit {
 
 
 
-  deleteBooking()
+  deleteBooking(deleteBookingForm:NgForm)
   {
     this.bookingService.delete(this.bookingNo)
       .subscribe(
         (data)=>
         {
           this.addAlertForXSeconds(new Alert('success',"Buchung erfolgreich gelöscht"),5);
+          deleteBookingForm.resetForm()
+          this.foundBooking=null;
         },
 
       (error)=>
