@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {Booking} from "./booking";
+import {Booking, ConferenceRoomBooking, HotelRoomBooking} from "./booking";
 import {map} from "rxjs/operators";
+import {Contactdata} from "../contactdata/contactdata";
 
 @Injectable({
   providedIn: 'root'
@@ -145,9 +146,79 @@ export class BookingService {
           }
         )
       )
+  }
 
+  public saveMy(booking: Booking, bookingType:string):Observable<Booking>
+  {
+    console.log("saveBooking")
+    // console.log(booking);
+    let url;
+
+    // var finalBooking = {}
+
+    console.log("this.baseUrl: ", this.baseUrl)
+
+    // console.log("booking: ", JSON.stringify(booking))
+
+    if(bookingType ==="hotelRoom")
+    {
+      url=this.hotelRoomBaseUrl;
+      console.log("url: ", url)
+
+      const finalBooking: HotelRoomBooking = {
+        roomNo: booking.roomNo,
+        pricing: booking.pricing,
+        empNo: booking.empNo,
+        startDate: new Date(booking.startDate),
+        endDate: new Date(booking.endDate),
+        specialWishes: booking.specialWishes,
+        customerID: booking.customerID
+      }
+      console.log("booking: ", JSON.stringify(finalBooking))
+      console.log("finalHotelRoomBooking: ", finalBooking)
+
+      return this.http.post<Booking>(url, finalBooking)
+        .pipe(
+          map(
+            (res)=>
+            {
+              console.log("res: ", res)
+              return res;
+            }
+          )
+        )
+
+    } else {
+
+      url=this.conferenceRoomBaseUrl;
+      console.log("url: ", url)
+
+      const finalBooking: ConferenceRoomBooking = {
+        roomNo: booking.roomNo,
+        pricing: booking.pricing,
+        empNo: booking.empNo,
+        startDate: new Date(booking.startDate),
+        endDate: new Date(booking.endDate),
+        specialWishes: booking.specialWishes,
+        customerID: booking.customerID
+      }
+      console.log("booking: ", JSON.stringify(finalBooking))
+      console.log("finalConferenceRoomBooking: ", finalBooking)
+
+      return this.http.post<Booking>(url, finalBooking)
+        .pipe(
+          map(
+            (res)=>
+            {
+              console.log("res: ", res)
+              return res;
+            }
+          )
+        )
+    }
 
   }
+
 
 
   public delete(id: number) {

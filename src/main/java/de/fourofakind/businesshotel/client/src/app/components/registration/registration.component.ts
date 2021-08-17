@@ -25,7 +25,6 @@ export class RegistrationComponent implements OnInit {
 
   submitted = false;
   isBusinessCustomer: boolean = false
-  equalPassword: boolean = true
 
   title = 'appBootstrap';
 
@@ -76,13 +75,6 @@ export class RegistrationComponent implements OnInit {
     if (this.registerForm.invalid) {
       console.log("form invalid")
       return;
-    }
-
-    if (this.f.password.value !== this.f.passwordVerify.value) {
-      this.submitted = false
-      this.equalPassword = false
-    } else {
-      this.equalPassword = true
     }
 
     var companyName = ""

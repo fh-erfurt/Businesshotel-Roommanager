@@ -30,7 +30,7 @@ export interface Booking {
 
 
 export interface ConferenceRoomBooking {
-  bookingNo:number;
+  bookingNo? :number;
   roomNo: number;
   pricing: number;
   empNo: number;
@@ -42,7 +42,7 @@ export interface ConferenceRoomBooking {
 }
 
 export interface HotelRoomBooking {
-  bookingNo:number;
+  bookingNo? :number;
   roomNo: number;
   pricing: number;
   empNo: number;

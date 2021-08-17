@@ -18,6 +18,7 @@ import {EmployeeManagementComponent} from './components/employee-management/empl
 import {CustomerManagementComponent} from './components/customer-management/customer-management.component';
 import {RoomManagementComponent} from './components/room-management/room-management.component';
 import {EmployeeComponent} from './components/employee/employee.component';
+import {BookingViewerComponent} from "./components/booking-viewer/booking-viewer.component";
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatToolbarModule} from "@angular/material/toolbar";
@@ -41,6 +42,8 @@ import {MatTableModule} from "@angular/material/table";
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {MatIconModule} from "@angular/material/icon";
 
+
+
 registerLocaleData(localeDe, localeDeExtra);
 
 
@@ -61,6 +64,7 @@ registerLocaleData(localeDe, localeDeExtra);
     FooterComponent,
     RegistrationComponent,
     BookingComponent,
+    BookingViewerComponent,
   ],
   imports: [
     NgbModule,

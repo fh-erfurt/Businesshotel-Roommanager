@@ -105,6 +105,7 @@ export class RegistrationService {
               .then(success => {
                 this.saveCustomer(isBusinessCustomer)
                   .then(success => {
+                    console.log("then(success => {})")
                     resolve(success)
                   })
                   .catch(error => {
@@ -171,7 +172,6 @@ export class RegistrationService {
   saveCustomer = (isBusinessCustomer: boolean) => {
 
     return new Promise((resolve, reject) => {
-      console.log("saveCustomer")
       this.customer.accountID = this.accountDetail.accountID
       this.customer.contactDataID = this.contactData.contactDataID
       this.customer.isBusinessCustomer = isBusinessCustomer
@@ -181,11 +181,9 @@ export class RegistrationService {
           {
             if(data.customerID) {
               this.customer.customerID=data.customerID;
-              console.log("saveCustomer SUCCESS")
               localStorage.setItem('user', this.accountDetail.username);
               localStorage.setItem('userID', String(this.customer.customerID));
-              resolve(errors.success)
-
+              resolve(data.customerID)
             } else {
               reject(errors.saveCustomerStatusUnknown)
             }
