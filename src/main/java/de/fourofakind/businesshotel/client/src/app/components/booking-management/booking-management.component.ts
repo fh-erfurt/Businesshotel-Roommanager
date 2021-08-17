@@ -59,15 +59,7 @@ export class BookingManagementComponent implements OnInit {
       this.minDateStart= today;
       this.minDateEnd= today;
 
-      this.bookingService.getBookings().subscribe((data)=>
-      {
-        this.bookings=data;
-        this.bookings.forEach((booking)=>
-        {
-          booking.startDate=formatDate(booking.startDate,"dd.MM.yyyy HH:mm:ss","de")
-          booking.endDate=formatDate(booking.endDate,"dd.MM.yyyy HH:mm:ss","de")
-        })
-      })
+
   }
 
 

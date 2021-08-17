@@ -5,12 +5,18 @@
 .tab{
   display:flex;
   flex-direction:column;
-  width:50%;
+  width:100%;
   .searchTab{
     display:flex;
     flex-direction:column;
     width:100%;
   }
+}
+
+.formTab {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
 }
 
 .notificationArea{
