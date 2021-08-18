@@ -19,6 +19,10 @@ export class RoleService {
     ["room-management","Raummanager"],
   ]);
 
+  /*
+  * relevant department as input param
+  * returns Boolean which approves the employees rights or denies the transaction
+  */
   public checkRights(department: string)
   {
     let givenRole=localStorage.getItem('givenRole');
