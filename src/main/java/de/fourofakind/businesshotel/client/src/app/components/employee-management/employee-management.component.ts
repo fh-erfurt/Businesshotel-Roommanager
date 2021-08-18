@@ -6,6 +6,7 @@ import {EmployeeService} from "../../services/employee/employee.service";
 import {isNumeric} from "rxjs/internal-compatibility";
 import {Alert} from "../../app.component";
 import {BookingService} from "../../services/booking/booking.service";
+import {NgForm} from "@angular/forms";
 
 @Component({
   selector: 'app-employee-management',
@@ -22,6 +23,11 @@ export class EmployeeManagementComponent implements OnInit {
   }
 
   ngOnInit()
+  {
+
+  }
+
+  onSubmit()
   {
 
   }
@@ -95,8 +101,10 @@ export class EmployeeManagementComponent implements OnInit {
   }
 
 
-  addOrUpdateEmployee(addsNewEmployee:boolean)
+  addOrUpdateEmployee(addsNewEmployee:boolean, addOrUpdateEmployeeForm:NgForm)
   {
+    this.foundEmployee=null;
+
     let newEmployee: Employee =
       {
         empName: this.firstName + " " + this.lastName,
@@ -109,6 +117,7 @@ export class EmployeeManagementComponent implements OnInit {
         .subscribe(
           (data) => {
             this.addAlertForXSeconds(new Alert('success', "Mitarbeiter erfolgreich angelegt"), 5);
+            addOrUpdateEmployeeForm.resetForm()
           },
           (error) => {
             this.addAlertForXSeconds(new Alert('danger', "Fehler beim Anlegen des Mitarbeiters"), 5);
@@ -122,6 +131,7 @@ export class EmployeeManagementComponent implements OnInit {
           (data)=>
           {
             this.addAlertForXSeconds(new Alert('success',"Mitarbeiter erfolgreich geändert"),5);
+            addOrUpdateEmployeeForm.resetForm()
           },
           (error)=>
           {
@@ -132,10 +142,10 @@ export class EmployeeManagementComponent implements OnInit {
   }
 
 
-  addOrUpdateEmployeeAndDetails(addsNewEmployee:boolean)
+  addOrUpdateEmployeeAndDetails(addsNewEmployee:boolean, addOrUpdateEmployeeForm:NgForm)
   {
-    this.addAccount(()=>this.addOrUpdateEmployee(addsNewEmployee));
-
+    if(addsNewEmployee) this.addAccount(()=>this.addOrUpdateEmployee(addsNewEmployee,addOrUpdateEmployeeForm));
+    else this.addOrUpdateEmployee(addsNewEmployee,addOrUpdateEmployeeForm)
   }
 
 
@@ -159,7 +169,7 @@ export class EmployeeManagementComponent implements OnInit {
       })
   }
 
-  deleteEmployee()
+  deleteEmployee(deleteEmployeeForm: NgForm)
   {
 
     this.employeeService.delete(this.empNo)
@@ -167,6 +177,7 @@ export class EmployeeManagementComponent implements OnInit {
         (data)=>
         {
           this.addAlertForXSeconds(new Alert('success',"Mitarbeiter erfolgreich gelöscht"),5);
+          deleteEmployeeForm.resetForm();
         },
         (error)=>
         {
@@ -185,7 +196,7 @@ export class EmployeeManagementComponent implements OnInit {
         console.log(data);
         data.forEach((data)=>{if(data && data.bookingNo) {bookingNoOfEmployee.push(data.bookingNo)}})
         console.log(bookingNoOfEmployee)
-        if(bookingNoOfEmployee)
+        if(bookingNoOfEmployee.length>0)
         {
           let currentIdx=0;
           bookingNoOfEmployee.forEach((bookingNo)=>
@@ -208,10 +219,12 @@ export class EmployeeManagementComponent implements OnInit {
 
   }
 
-  deleteEmployeeAndDetails()
+  deleteEmployeeAndDetails(deleteEmployeeForm: NgForm)
   {
-    this.foundEmployee=null;
 
-    this.patchBookings(()=>this.deleteEmployee());
+
+    this.foundEmployee=null;
+    this.patchBookings(()=>this.deleteEmployee(deleteEmployeeForm));
+
   }
 }
