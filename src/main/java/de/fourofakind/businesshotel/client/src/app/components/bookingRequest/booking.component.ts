@@ -20,6 +20,7 @@ import {CustomerService} from "../../services/customer/customer.service";
 import {Customer} from "../../services/customer/customer";
 import {Accountdetail} from "../../services/accountdetails/accountdetail";
 import {AccountdetailsService} from "../../services/accountdetails/accountdetails.service";
+import {Alert} from "../../app.component";
 
 type dateTimeSpan = {
   startDate: Date,
@@ -36,10 +37,11 @@ export class BookingComponent implements OnInit {
   rooms!: RootObject;
   currency!: string;
   roomID?: string | null
+  roomNumber: number
   pricesLabel: string = "Preis pro Nacht"
+  fullPriceLabel: string = "0,-€"
   unitLabel: string = "Nächte"
-  dateLabel: string = "Datum:"
-  startDateTimeLabel: string = "Datum:"
+  startDateTimeLabel: string = "Datum: bitte wählen"
   endDateTimeLabel: string = ""
   timeLabel: string = "Uhrzeit:"
   bookingForm!: FormGroup;
@@ -55,6 +57,7 @@ export class BookingComponent implements OnInit {
   dateSelected: boolean = false
   timeSelected: boolean = false
   pageDidLoad: boolean = false
+  dateUnavailable: boolean = false
 
   errorMessage: string = ""
 
@@ -71,6 +74,8 @@ export class BookingComponent implements OnInit {
   public selectedToDate: Date | null
   private calendarSubscription!: Subscription;
   private timePickerSubscription!: Subscription
+
+  alerts:Alert[]=[];
 
   // timePicker
   // public startTime: BehaviorSubject<NgbTimeStruct> = new BehaviorSubject<NgbTimeStruct>({hour: 8, minute: 0, second: 0})
@@ -95,7 +100,11 @@ export class BookingComponent implements OnInit {
   }
 
 
-
+  addAlertForXSeconds(alert:Alert, seconds:number)
+  {
+    this.alerts.push(alert);
+    setTimeout(()=>this.alerts.pop(),seconds*1000);
+  }
 
   selectedRoom: Room = {roomNo: 0,
     areaInSqrMetre: 0,
@@ -122,6 +131,8 @@ export class BookingComponent implements OnInit {
               private customerService: CustomerService,
               private accountDetailsService: AccountdetailsService)
   {
+    this.roomNumber = 0
+
     this.booking = {
       roomNo: 0,
       pricing: 0,
@@ -204,6 +215,30 @@ export class BookingComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    this.route.paramMap
+      .subscribe((params: ParamMap) => {
+        const id:number = Number((params.get('roomID')))
+
+        this.roomNumber = id
+
+        this.roomService.getRoom(id)
+          .subscribe((data: Room)=> {
+            this.selectedRoom = data;
+
+            if (data.roomType === "CONFERENCEROOM") {
+              this.pricesLabel = "Preis pro Stunde"
+              this.unitLabel = "Stunden"
+              this.isConferenceRoom = true
+              this.bookingCalendar.isConferenceRoom = true
+            } else {
+              this.pricesLabel = "Preis pro Nacht"
+              this.unitLabel = "nächte"
+              this.isConferenceRoom = false
+              this.bookingCalendar.isConferenceRoom = false
+            }
+          })
+      })
 
     this.isLoggedIn = localStorage.getItem('user') ? true : false
 
@@ -301,47 +336,47 @@ export class BookingComponent implements OnInit {
     this.calendarSubscription = this.bookingCalendar.selectedToDate$
       .subscribe(selectedToDate => this.updateDateTimeLabel(undefined, selectedToDate));
 
+    this.calendarSubscription = this.bookingCalendar.dateIsUnavailableObservable$
+      .subscribe(dateIsUnavailableObservable => {
+        if (dateIsUnavailableObservable === "unavailable") {
+          if (this.alerts.length < 1) {
+            this.addAlertForXSeconds(new Alert('danger', "Gewähltes Datum ist nicht verfügbar"), 3);
+          }
+        } else if (dateIsUnavailableObservable === "unavailableRange") {
+          if (this.alerts.length < 1) {
+            this.addAlertForXSeconds(new Alert('danger', "Gewählter Zeitraum nicht verfügbar"), 3);
+          }
+        }
+      })
+
 
     this.bookingService.getBookings()
       .subscribe((data: Booking[])=>{
         this.existingBookings = data;
         data.forEach( (booking) => {
 
-          // let newDateTimeSpan = {startDate: new Date(booking.startDate), endDate: new Date(booking.endDate)}
-          // this.unavailableDates.push(newDateTimeSpan)
-          // console.log("Date: ", formatDate(new Date(booking.startDate), "dd.MM.yyyy", "de"), " bis ", formatDate(new Date(booking.endDate), "dd.MM.yyyy", "de"))
+          if (booking.roomNo === this.selectedRoom.roomNo) {
+            const startDate = new Date(booking.startDate)
+            const endDate = new Date(booking.endDate)
+
+            let newDateTimeSpan: dateTimeSpan = {startDate:  new Date(startDate.setDate(startDate.getDate() + 1)), endDate: new Date(endDate.setDate(endDate.getDate() + 1))}
+            this.bookingCalendar.unavailableDateRanges.push(newDateTimeSpan)
+            console.log("Date: ", formatDate(new Date(booking.startDate), "dd.MM.yyyy", "de"), " bis ", formatDate(new Date(booking.endDate), "dd.MM.yyyy", "de"))
+          }
 
         });
 
-        let newDateTimeSpan = {startDate: new Date("2021-08-10"), endDate: new Date("2021-08-13")}
-        this.bookingCalendar.unavailableDateRanges.push(newDateTimeSpan)
-        newDateTimeSpan = {startDate: new Date("2021-08-21"), endDate: new Date("2021-08-30")}
-        this.bookingCalendar.unavailableDateRanges.push(newDateTimeSpan)
-        newDateTimeSpan = {startDate: new Date("2021-08-17"), endDate: new Date("2021-08-17")}
-        this.bookingCalendar.unavailableDateRanges.push(newDateTimeSpan)
+        // let newDateTimeSpan = {startDate: new Date("2021-08-10"), endDate: new Date("2021-08-13")}
+        // this.bookingCalendar.unavailableDateRanges.push(newDateTimeSpan)
+        // newDateTimeSpan = {startDate: new Date("2021-08-21"), endDate: new Date("2021-08-30")}
+        // this.bookingCalendar.unavailableDateRanges.push(newDateTimeSpan)
+        // newDateTimeSpan = {startDate: new Date("2021-08-17"), endDate: new Date("2021-08-17")}
+        // this.bookingCalendar.unavailableDateRanges.push(newDateTimeSpan)
+
+        // console.log(this.unavailableDates)
       })
 
-    this.route.paramMap
-      .subscribe((params: ParamMap) => {
-        const id:number = Number((params.get('roomID')))
 
-        this.roomService.getRoom(id)
-          .subscribe((data: Room)=> {
-            this.selectedRoom = data;
-
-            if (data.roomType === "CONFERENCEROOM") {
-              this.pricesLabel = "Preis pro Stunde"
-              this.unitLabel = "Stunden"
-              this.isConferenceRoom = true
-              this.bookingCalendar.isConferenceRoom = true
-            } else {
-              this.pricesLabel = "Preis pro Nacht"
-              this.unitLabel = "nächte"
-              this.isConferenceRoom = false
-              this.bookingCalendar.isConferenceRoom = false
-            }
-          })
-      })
 
     this.currency = environment.currency
 
@@ -379,17 +414,44 @@ export class BookingComponent implements OnInit {
   }
 
   updateDateTimeLabel(selectedFromDate?: Date | null, selectedToDate?: Date | null) {
-    this.selectedFromDate = selectedFromDate != undefined ? selectedFromDate : this.selectedFromDate
+
+    if (selectedFromDate != undefined) {
+      this.selectedFromDate = selectedFromDate
+    } else if (!selectedFromDate && !selectedToDate) {
+      this.selectedFromDate = null
+    } else {
+      this.selectedFromDate = this.selectedFromDate
+    }
+
+    // this.selectedFromDate = selectedFromDate != undefined ? selectedFromDate : this.selectedFromDate
     this.selectedToDate = selectedToDate ? selectedToDate : null
+
+    console.log("selectedFromDate: ", selectedFromDate)
+    console.log("selectedToDate: ", selectedToDate)
+
+    // this.selectedFromDate = selectedFromDate ?? null
+    // this.selectedToDate = selectedToDate ?? null
 
     const startDateTime = this.selectedFromDate ? this.selectedFromDate : new Date
     const endDateTime = this.selectedToDate ? this.selectedToDate : startDateTime
+
+    if (selectedFromDate || selectedToDate) {
+      const timeDiff = endDateTime.getTime() - startDateTime.getTime();
+      const units = this.isConferenceRoom ? timeDiff / (1000 * 3600) : timeDiff / (1000 * 3600 * 24) + 1;
+      const fullPrice = this.selectedRoom.pricePerUnit * units
+
+      this.fullPriceLabel = fullPrice + ",-€"
+    } else {
+      this.fullPriceLabel = "0,-€"
+    }
 
     const displayStartDateTime = new Date(startDateTime)
     const displayEndDateTime = new Date(endDateTime)
 
     if (this.selectedFromDate) {
       this.dateSelected = true
+    } else {
+      this.dateSelected = false
     }
 
     if (!this.isConferenceRoom)
@@ -398,7 +460,7 @@ export class BookingComponent implements OnInit {
         (this.selectedFromDate ? "Anreise: "
           + formatDate(startDateTime,
             "dd.MM.yyyy", "de")
-          : "Datum: ")
+          : "Datum: bitte wählen")
 
       this.endDateTimeLabel =
         (this.selectedToDate ? " Abreise: "
@@ -409,13 +471,15 @@ export class BookingComponent implements OnInit {
             : "" ))
     } else {
       this.startDateTimeLabel =
-        (this.selectedFromDate ? "Datum: "
+        (this.selectedFromDate ? "Datum: bitte wählen"
           + formatDate(startDateTime,
             "dd.MM.yyyy", "de")
-          : "Datum: ")
+          : "Datum: bitte wählen")
 
       this.endDateTimeLabel = ""
     }
+
+
 
   }
 
@@ -426,7 +490,7 @@ export class BookingComponent implements OnInit {
     const startDateTime = new Date(this.selectedFromDate ? this.selectedFromDate : new Date)
 
     const placeHolderDateTime = new Date(this.selectedToDate ? this.selectedToDate : startDateTime)
-    var endDateTime = new Date(this.selectedToDate ? placeHolderDateTime.setDate(this.selectedToDate.getDate() + 1) : placeHolderDateTime.setDate(startDateTime.getDate() + 1))
+    var endDateTime = new Date(this.selectedToDate ? placeHolderDateTime.setDate(this.selectedToDate.getDate()) : placeHolderDateTime.setDate(startDateTime.getDate()))
 
     if (this.isConferenceRoom) {
       endDateTime = new Date(startDateTime)
@@ -445,10 +509,11 @@ export class BookingComponent implements OnInit {
     const timeDiff = endDateTime.getTime() - startDateTime.getTime();
     const units = this.isConferenceRoom ? timeDiff / (1000 * 3600) : timeDiff / (1000 * 3600 * 24);
 
+    const fullPrice = this.selectedRoom.pricePerUnit * units
 
     const booking: Booking = {
       roomNo: this.selectedRoom.roomNo,
-      pricing: this.selectedRoom.pricePerUnit * units,
+      pricing: fullPrice,
       empNo: 1,
       startDate: startDateTime.toISOString(),
       endDate: endDateTime.toISOString(),
@@ -646,7 +711,7 @@ export class BookingComponent implements OnInit {
       this.bookingService.save(this.booking, bookingType)
         .subscribe(result => {
             console.log("bookingService result: ", result)
-            this.startDateTimeLabel = "Datum:"
+            this.startDateTimeLabel = "Datum: bitte wählen"
             this.endDateTimeLabel = ""
             this.selectedFromDate = null
             this.selectedToDate = null

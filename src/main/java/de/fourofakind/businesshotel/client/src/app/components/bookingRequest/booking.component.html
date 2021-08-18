@@ -11,15 +11,13 @@
 
             <div class="card-body ">
 
-
-
               <form *ngIf="pageDidLoad" [formGroup]="bookingForm" (ngSubmit)="submit()">
-
 
                 <div class="row">
                   <h3 class="card-title">Buchungs Details</h3>
                 </div>
 
+                <!--DatePickerLabel-->
                 <div class="row">
                   <label ngDefaultControl>{{startDateTimeLabel}}</label>
                   <br>
@@ -29,6 +27,7 @@
                   <br>
                 </div>
 
+                <!--DatePicker-->
                 <div class="md-date-time-picker row">
                   <div class=" d-flex">
                     <div class="">
@@ -74,9 +73,16 @@
                         </div>
                       </div>
                     </div>
+<!--                    <label *ngif="dateUnavailable" class="date-picker-error">Text</label>-->
+                    <label *ngFor="let alert of alerts" class="date-picker-error">
+                      <ngb-alert style="padding: 0; margin: 0" *ngIf="alert.type=='success'" class="success"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
+                      <ngb-alert style="padding: 0; margin: 0" *ngIf="alert.type=='danger'" class="danger"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
+                    </label>
                   </div>
+
                 </div>
 
+                <!--DatePickerError-->
                 <div class="form-group row">
                   <input name="datePicker" class="form-control visually-hidden" [ngClass]="{ 'is-invalid': submitted && !dateSelected }" />
                   <div *ngIf="submitted && !dateSelected" class="invalid-feedback row">
@@ -84,6 +90,7 @@
                   </div>
                 </div>
 
+                <!--TimeLabel-->
                 <div *ngIf="isConferenceRoom" class="row">
                   <label >{{startTime + " Uhr bis " + endTime + " Uhr"}}</label>
                   <br>
@@ -134,6 +141,7 @@
                   </div>
                 </div>
 
+                <!--TimePickerError-->
                 <div *ngIf="isConferenceRoom" class="form-group row">
                   <input name="timePicker"  class="form-control visually-hidden" [ngClass]="{ 'is-invalid': submitted && !timeSelected }" />
                   <div *ngIf="submitted && !timeSelected" class="invalid-feedback row">
@@ -244,12 +252,13 @@
                 </div>
 
 
-
                 <div class="form-group">
                   <label>Sonderwünsche</label>
                   <input type="text" formControlName="specialWishes" name="extras" class="form-control" />
-
                 </div>
+                <br>
+                <label style="border-bottom: 1px solid black" >Gesamtpreis: {{fullPriceLabel}}</label>
+                <br>
                 <br>
                 <div class="form-group">
                   <button [disabled]="buttonDisabled" class="btn btn-secondary" [routerLink]="['/booking', selectedRoom.roomNo]">
@@ -327,6 +336,10 @@
               </div>
             </div>
           </div>
+          <label *ngFor="let alert of alerts" class="date-picker-error">
+            <ngb-alert style="padding: 0; margin: 0" *ngIf="alert.type=='success'" class="success"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
+            <ngb-alert style="padding: 0; margin: 0" *ngIf="alert.type=='danger'" class="danger"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
+          </label>
         </div>
       </div>
     </div>
