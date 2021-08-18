@@ -9,6 +9,7 @@ import {BookingService} from "../../services/booking/booking.service";
 import {BookingrequestService} from "../../services/bookingrequest/bookingrequest.service";
 import {Alert} from "../../app.component";
 import {NgForm} from "@angular/forms";
+import {RoleService} from "../../services/role/role.service";
 
 @Component({
   selector: 'app-customer-management',
@@ -21,13 +22,17 @@ export class CustomerManagementComponent implements OnInit {
               private accountdetailsService: AccountdetailsService,
               private contactdataService: ContactdataService,
               private bookingService: BookingService,
-              private bookingRequestService: BookingrequestService,)
+              private bookingRequestService: BookingrequestService,
+              private roleService: RoleService)
   {
 
   }
 
   ngOnInit(): void {
   }
+
+  private readonly department:string="customer-management";
+
   emailRegex:RegExp=/^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
   phoneRegex:RegExp=/^\+(?:[0-9] ?){6,14}[0-9]$/;
   ibanRegex:RegExp=/^([A-Z]{2}[ \-]?[0-9]{2})(?=(?:[ \-]?[A-Z0-9]){9,30}$)((?:[ \-]?[A-Z0-9]{3,5}){2,7})([ \-]?[A-Z0-9]{1,3})?$/;
@@ -131,81 +136,83 @@ export class CustomerManagementComponent implements OnInit {
 
   addOrUpdateCustomerAndDetails(addsNewCustomer:boolean,addOrUpdateCustomerForm: NgForm)
   {
-
-    if(addsNewCustomer)
+    if (this.roleService.checkRights(this.department))
     {
-      this.addContactData(()=>this.addCustomer());
+      if(addsNewCustomer)
+      {
+        this.addContactData(()=>this.addCustomer());
+      }
+      else
+      {
+        let newOrUpdatedAccount:Accountdetail=
+          {
+            passwordHash: this.password,
+            username: this.username
+          }
+        let newOrUpdatedContactData:Contactdata=
+          {
+            cityName: this.cityName,
+            firstName: this.firstName,
+            lastName: this.lastName,
+            mailAddress: this.mailAddress,
+            phone: this.phone,
+            postalCode: this.postalCode,
+            streetName: this.streetName,
+            streetNumber: this.streetNumber,
+            paymentCredentials:this.paymentCredentials
+          }
+        let newOrUpdatedCustomer:Customer=
+          {
+            isBusinessCustomer: this.isBusinessCustomer,
+            paymentMethod: this.paymentMethod,
+            contactDataID:this.contactDataID,
+            accountID:this.accountID,
+          }
+        this.contactdataService.updateContactdata(this.contactDataID, newOrUpdatedContactData)
+          .subscribe((res)=>
+          {
+            this.addAlertForXSeconds(new Alert('success',"Kontaktdaten erfolgreich geändert"),5);
+            this.customerService.updateCustomer(this.customerID, newOrUpdatedCustomer)
+              .subscribe((res)=>
+                {
+                  this.addAlertForXSeconds(new Alert('success',"Kunde erfolgreich geändert"),5);
+                  this.accountdetailsService.updateUsername(this.accountID,this.username)
+                    .subscribe((res)=>
+                      {
+                        this.addAlertForXSeconds(new Alert('success',"Nutzernamen erfolgreich geändert"),5);
+                        this.foundCustomer=null;
+                        if(!this.password) addOrUpdateCustomerForm.resetForm()
+                      },
+                      (error)=>
+                      {
+                        this.addAlertForXSeconds(new Alert('danger',"Fehler beim Ändern des Nutzernamen"),5);
+                      });
+                },
+                (error)=>
+                {
+                  this.addAlertForXSeconds(new Alert('danger',"Fehler beim Ändern des Kunden"),5);
+                });
+          },
+          (error)=>
+          {
+            this.addAlertForXSeconds(new Alert('danger',"Fehler beim Ändern der Kontaktdaten"),5);
+          });
+
+
+
+        if(this.password) this.accountdetailsService.updateAccountdetails(this.accountID, newOrUpdatedAccount)
+          .subscribe((res)=>
+          {
+            this.addAlertForXSeconds(new Alert('success',"Passwort erfolgreich geändert"),5);
+            addOrUpdateCustomerForm.resetForm()
+          },
+          (error)=>
+          {
+            this.addAlertForXSeconds(new Alert('danger',"Fehler beim Ändern des Passworts"),5);
+          });
+      }
     }
-    else
-    {
-      let newOrUpdatedAccount:Accountdetail=
-        {
-          passwordHash: this.password,
-          username: this.username
-        }
-      let newOrUpdatedContactData:Contactdata=
-        {
-          cityName: this.cityName,
-          firstName: this.firstName,
-          lastName: this.lastName,
-          mailAddress: this.mailAddress,
-          phone: this.phone,
-          postalCode: this.postalCode,
-          streetName: this.streetName,
-          streetNumber: this.streetNumber,
-          paymentCredentials:this.paymentCredentials
-        }
-      let newOrUpdatedCustomer:Customer=
-        {
-          isBusinessCustomer: this.isBusinessCustomer,
-          paymentMethod: this.paymentMethod,
-          contactDataID:this.contactDataID,
-          accountID:this.accountID,
-        }
-      this.contactdataService.updateContactdata(this.contactDataID, newOrUpdatedContactData)
-        .subscribe((res)=>
-        {
-          this.addAlertForXSeconds(new Alert('success',"Kontaktdaten erfolgreich geändert"),5);
-          this.customerService.updateCustomer(this.customerID, newOrUpdatedCustomer)
-            .subscribe((res)=>
-              {
-                this.addAlertForXSeconds(new Alert('success',"Kunde erfolgreich geändert"),5);
-                this.accountdetailsService.updateUsername(this.accountID,this.username)
-                  .subscribe((res)=>
-                    {
-                      this.addAlertForXSeconds(new Alert('success',"Nutzernamen erfolgreich geändert"),5);
-                      this.foundCustomer=null;
-                      if(!this.password) addOrUpdateCustomerForm.resetForm()
-                    },
-                    (error)=>
-                    {
-                      this.addAlertForXSeconds(new Alert('danger',"Fehler beim Ändern des Nutzernamen"),5);
-                    });
-              },
-              (error)=>
-              {
-                this.addAlertForXSeconds(new Alert('danger',"Fehler beim Ändern des Kunden"),5);
-              });
-        },
-        (error)=>
-        {
-          this.addAlertForXSeconds(new Alert('danger',"Fehler beim Ändern der Kontaktdaten"),5);
-        });
-
-
-
-      if(this.password) this.accountdetailsService.updateAccountdetails(this.accountID, newOrUpdatedAccount)
-        .subscribe((res)=>
-        {
-          this.addAlertForXSeconds(new Alert('success',"Passwort erfolgreich geändert"),5);
-          addOrUpdateCustomerForm.resetForm()
-        },
-        (error)=>
-        {
-          this.addAlertForXSeconds(new Alert('danger',"Fehler beim Ändern des Passworts"),5);
-        });
-    }
-
+    else alert("Benötigte Rechte nicht vorhanden")
   }
 
   searchForCustomer(intoFormular:boolean,_callback1:Function, _callback2:Function)
@@ -273,15 +280,19 @@ export class CustomerManagementComponent implements OnInit {
 
   submitSearch(intoFormular:boolean)
   {
-    console.log(this.customerID);
-    this.foundCustomer=null;
-    this.foundAccountdetails=null;
-    this.foundContactData=null;
-
-    if(this.customerID!=1)
+    if (this.roleService.checkRights(this.department))
     {
-      this.searchForCustomer(intoFormular,()=>this.searchForAccountdetails(intoFormular),()=>this.searchForContactData(intoFormular))
+      console.log(this.customerID);
+      this.foundCustomer=null;
+      this.foundAccountdetails=null;
+      this.foundContactData=null;
+
+      if(this.customerID!=1)
+      {
+        this.searchForCustomer(intoFormular,()=>this.searchForAccountdetails(intoFormular),()=>this.searchForContactData(intoFormular))
+      }
     }
+    else alert("Benötigte Rechte nicht vorhanden")
 
   }
 
@@ -365,26 +376,33 @@ export class CustomerManagementComponent implements OnInit {
 
   validateUsername()
   {
-    this.accountdetailsService.getAccountdetailsByUsername(this.username)
-      .subscribe(
-        (data=>
-        {
-          this.usernameAlreadyExists = true;
-        }),
-        (error)=>
-        {
-          this.usernameAlreadyExists=false;
-        })
+    if (this.roleService.checkRights(this.department))
+    {
+      this.accountdetailsService.getAccountdetailsByUsername(this.username)
+        .subscribe(
+          (data=>
+          {
+            this.usernameAlreadyExists = true;
+          }),
+          (error)=>
+          {
+            this.usernameAlreadyExists=false;
+          })
+    }
+    else alert("Benötigte Rechte nicht vorhanden")
   }
 
   deleteCustomerAndDetails(deleteCustomerForm: NgForm)
   {
-    this.foundCustomer=null;
-    this.foundAccountdetails=null;
-    this.foundContactData=null;
+    if (this.roleService.checkRights(this.department))
+    {
+      this.foundCustomer=null;
+      this.foundAccountdetails=null;
+      this.foundContactData=null;
 
-    this.patchBookings(()=>this.patchBookingRequests(()=>this.deleteCustomer(deleteCustomerForm)));
-
+      this.patchBookings(()=>this.patchBookingRequests(()=>this.deleteCustomer(deleteCustomerForm)));
+    }
+    else alert("Benötigte Rechte nicht vorhanden")
 
   }
 }

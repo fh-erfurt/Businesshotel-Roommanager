@@ -34,6 +34,7 @@ export class NavigationComponent implements OnInit {
     localStorage.removeItem('user')
     localStorage.removeItem('userID')
     localStorage.removeItem('empNo')
+    localStorage.removeItem('givenRole')
     window.location.href = "";
   }
 

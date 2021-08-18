@@ -8,7 +8,8 @@ import {RoomService} from "../../services/room/room.service";
 import {Room} from "../../services/room/room";
 import {parseDate} from "ngx-bootstrap/chronos";
 import {Alert} from "../../app.component";
-import {AbstractControl, NgForm, ValidatorFn} from "@angular/forms";
+import {NgForm} from "@angular/forms";
+import {RoleService} from "../../services/role/role.service";
 
 
 
@@ -39,8 +40,10 @@ import {AbstractControl, NgForm, ValidatorFn} from "@angular/forms";
 
 export class BookingManagementComponent implements OnInit {
 
-  constructor(private bookingService: BookingService, private roomService: RoomService) {
-  }
+  constructor(private bookingService: BookingService,
+              private roomService: RoomService,
+              private roleService: RoleService)
+  {}
 
   ngOnInit()
   {
@@ -48,6 +51,7 @@ export class BookingManagementComponent implements OnInit {
   }
 
 
+  private readonly department:string="booking-management";
 
   today:Date=new Date();
   isChecked:boolean = false;
@@ -81,6 +85,7 @@ export class BookingManagementComponent implements OnInit {
 
 
   alerts:Alert[]=[];
+
 
 
   addAlertForXSeconds(alert:Alert, seconds:number)
@@ -149,54 +154,57 @@ export class BookingManagementComponent implements OnInit {
 
   prepareAndInsertBooking(addsNewBooking:boolean,addOrUpdateBookingForm:NgForm)
   {
-    console.log(this.calculatedPricing);
-    let newOrUpdatedBooking:Booking =
+    let newOrUpdatedBooking: Booking =
       {
-        customerID:this.customerID,
-        roomNo:this.roomNo,
-        startDate:this.startDate+"T"+this.startTime+"+02:00",
-        endDate:this.endDate+"T"+this.endTime+"+02:00",
-        empNo:parseInt(<string>localStorage.getItem('empNo')),
-        pricing:this.calculatedPricing,
-        specialWishes:this.specialWishes,
+        customerID: this.customerID,
+        roomNo: this.roomNo,
+        startDate: this.startDate + "T" + this.startTime + "+02:00",
+        endDate: this.endDate + "T" + this.endTime + "+02:00",
+        empNo: parseInt(<string>localStorage.getItem('empNo')),
+        pricing: this.calculatedPricing,
+        specialWishes: this.specialWishes,
       };
 
-    if(addsNewBooking)
+    if (addsNewBooking)
     {
-      this.bookingService.save(newOrUpdatedBooking,this.bookingType)
-        .subscribe((data)=>
-        {
-          this.addAlertForXSeconds(new Alert('success',"Buchung erfolgreich angelegt"),5);
-          addOrUpdateBookingForm.resetForm();
-        },
-        (error)=>
-        {
-          this.addAlertForXSeconds(new Alert('danger',"Fehler beim Anlegen der Buchung"),5);
-        });
+      this.bookingService.save(newOrUpdatedBooking, this.bookingType)
+        .subscribe((data) =>
+          {
+            this.addAlertForXSeconds(new Alert('success', "Buchung erfolgreich angelegt"), 5);
+            addOrUpdateBookingForm.resetForm();
+          },
+          (error) =>
+          {
+            this.addAlertForXSeconds(new Alert('danger', "Fehler beim Anlegen der Buchung"), 5);
+          });
     }
     else
     {
       this.bookingService.updateBooking(this.bookingNo, newOrUpdatedBooking)
-        .subscribe((data)=>
-        {
-          this.addAlertForXSeconds(new Alert('success',"Buchung erfolgreich geändert"),5);
-          addOrUpdateBookingForm.resetForm();
-          this.foundBooking=null;
-        },
-        (error)=>
-        {
-          this.addAlertForXSeconds(new Alert('danger',"Fehler beim Ändern der Buchung"),5);
-        });
+        .subscribe((data) =>
+          {
+            this.addAlertForXSeconds(new Alert('success', "Buchung erfolgreich geändert"), 5);
+            addOrUpdateBookingForm.resetForm();
+            this.foundBooking = null;
+          },
+          (error) =>
+          {
+            this.addAlertForXSeconds(new Alert('danger', "Fehler beim Ändern der Buchung"), 5);
+          });
     }
-
   }
+
 
 
   addOrUpdateBooking(addsNewBooking:boolean, addOrUpdateBookingForm:NgForm)
   {
-    this.startTimestamp=parseDate(this.startDate+"T"+this.startTime)
-    this.endTimestamp=parseDate(this.endDate+"T"+this.endTime)
-    this.getPricePerUnit(()=>this.calculatePricing(()=>this.prepareAndInsertBooking(addsNewBooking,addOrUpdateBookingForm)))
+    if (this.roleService.checkRights(this.department))
+    {
+      this.startTimestamp=parseDate(this.startDate+"T"+this.startTime)
+      this.endTimestamp=parseDate(this.endDate+"T"+this.endTime)
+      this.getPricePerUnit(()=>this.calculatePricing(()=>this.prepareAndInsertBooking(addsNewBooking,addOrUpdateBookingForm)))
+    }
+    else alert("Benötigte Rechte nicht vorhanden")
   }
 
   filterRoomsByOccupation(isBookingChange:boolean)
@@ -246,8 +254,12 @@ export class BookingManagementComponent implements OnInit {
 
   submitSearch(intoFormular:boolean)
   {
-    this.foundBooking=null;
-    this.getBookingType(()=>this.getValidRooms(intoFormular, () => this.getBookingData(intoFormular)))
+    if (this.roleService.checkRights(this.department))
+    {
+      this.foundBooking=null;
+      this.getBookingType(()=>this.getValidRooms(intoFormular, () => this.getBookingData(intoFormular)))
+    }
+    else alert("Benötigte Rechte nicht vorhanden")
   }
 
   getBookingType(_callback:Function)
@@ -267,6 +279,7 @@ export class BookingManagementComponent implements OnInit {
 
   getBookingData(intoFormular:boolean)
   {
+
     this.foundBooking=null;
     console.log(this.rooms);
 
@@ -302,20 +315,24 @@ export class BookingManagementComponent implements OnInit {
 
   deleteBooking(deleteBookingForm:NgForm)
   {
-    this.bookingService.delete(this.bookingNo)
-      .subscribe(
-        (data)=>
-        {
-          this.addAlertForXSeconds(new Alert('success',"Buchung erfolgreich gelöscht"),5);
-          deleteBookingForm.resetForm()
-          this.foundBooking=null;
-        },
+    if (this.roleService.checkRights(this.department))
+    {
+      this.bookingService.delete(this.bookingNo)
+        .subscribe(
+          (data)=>
+          {
+            this.addAlertForXSeconds(new Alert('success',"Buchung erfolgreich gelöscht"),5);
+            deleteBookingForm.resetForm()
+            this.foundBooking=null;
+          },
 
-      (error)=>
-      {
-        this.addAlertForXSeconds(new Alert('danger',"Fehler beim Löschen der Buchung"),5);
-      }
-        )
+        (error)=>
+        {
+          this.addAlertForXSeconds(new Alert('danger',"Fehler beim Löschen der Buchung"),5);
+        }
+          )
+    }
+    else alert("Benötigte Rechte nicht vorhanden")
   }
 
 }
