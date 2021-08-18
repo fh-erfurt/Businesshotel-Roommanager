@@ -63,7 +63,7 @@
               <mat-label>Kundenwünsche</mat-label>
               <textarea matInput type="text" name="specialWishes" [(ngModel)]="specialWishes"></textarea>
             </mat-form-field>
-            <button mat-raised-button color="primary" type="submit" (click)="addOrUpdateBooking(true)" [disabled]="insertBookingForm.invalid || roomNoModel.untouched || roomNoModel.invalid">Absenden</button>
+            <button mat-raised-button color="primary" type="submit" (click)="addOrUpdateBooking(true, insertBookingForm)" [disabled]="insertBookingForm.invalid || roomNoModel.untouched || roomNoModel.invalid">Absenden</button>
           </div>
           </form>
           <div class="notificationArea">
@@ -140,7 +140,7 @@
                 <mat-label>Kundenwünsche</mat-label>
                 <textarea matInput type="text" name="specialWishes" [(ngModel)]="specialWishes"></textarea>
               </mat-form-field>
-              <button mat-raised-button color="primary" type="submit" (click)="addOrUpdateBooking(false)" [disabled]="updateBookingForm.invalid">Absenden</button>
+              <button mat-raised-button color="primary" type="submit" (click)="addOrUpdateBooking(false,updateBookingForm)" [disabled]="updateBookingForm.invalid">Absenden</button>
             </div>
           </div>
           </form>
@@ -161,7 +161,8 @@
 
       <mat-tab label="Löschen">
         <div class="matTab">
-          <div class="tab">
+          <form #deleteBookingForm="ngForm" class="formTab">
+            <div class="tab">
             <br>
             <mat-form-field appearance="fill">
               <mat-label>Buchungsnummer</mat-label>
@@ -205,9 +206,10 @@
               </mat-card-content>
             </mat-card>
             <br>
-              <mat-slide-toggle [(ngModel)]="isChecked" [disabled]="!foundBooking" >Freigeben</mat-slide-toggle>
-              <button mat-raised-button color="primary" type="submit" [disabled]="!isChecked" (click)="deleteBooking()">Löschen</button>
+              <mat-slide-toggle name="isChecked" [(ngModel)]="isChecked" [disabled]="!foundBooking" >Freigeben</mat-slide-toggle>
+              <button mat-raised-button color="primary" type="submit" [disabled]="!isChecked" (click)="deleteBooking(deleteBookingForm)">Löschen</button>
           </div>
+          </form>
           <div class="notificationArea">
             <p *ngFor="let alert of alerts">
               <ngb-alert *ngIf="alert.type=='success'" class="success"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
