@@ -66,6 +66,16 @@ button{
   animation:fade-out 5s;
 }
 
+.dateErrorField{
+  height:2em;
+  display:flex;
+  flex-direction: row;
+
+  .mat-error{
+    width:50%;
+    font-size: small;
+  }
+}
 
 @keyframes fade-out {
   0% { opacity: 1; }

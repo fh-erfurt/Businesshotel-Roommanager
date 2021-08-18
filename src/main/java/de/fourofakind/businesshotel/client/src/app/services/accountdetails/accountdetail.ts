@@ -1,6 +1,3 @@
-import {EmployeeSelf} from "../employee/employee";
-import {Links} from "../login/login";
-
 export interface RawData {
   _embedded: Embedded;
   // _links: Links;

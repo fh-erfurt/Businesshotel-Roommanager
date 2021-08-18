@@ -93,6 +93,7 @@ export class LoginService {
                 .subscribe((data: Employee) => {
                   if (data) {
                     localStorage.setItem('empNo', String(data.empNo));
+                    localStorage.setItem('givenRole', String(data.givenRole));
                   } else {
                     console.log("no Data")
                   }

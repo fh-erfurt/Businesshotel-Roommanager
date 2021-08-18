@@ -7,6 +7,10 @@ import {map} from "rxjs/operators";
 @Injectable({
   providedIn: 'root'
 })
+/*
+ * Service for contactdata management (Save, Get, Update, Delete) of customers
+ * Consumes contactdata REST-API
+ */
 export class ContactdataService {
 
   lastInsertedID:number | undefined;
@@ -17,6 +21,10 @@ export class ContactdataService {
     this.baseUrl="http://localhost:8081/contactdata/";
   }
 
+  /*
+  * function without params
+  * returns all ContactData entries
+  */
   public getAllContactdata(): Observable<Contactdata>{
     return this.http.get<Contactdata>(`${this.baseUrl}`).pipe(
       map((result:any) =>{
@@ -26,6 +34,10 @@ export class ContactdataService {
     )
   }
 
+  /*
+  * contactDataID as input param
+  * returns ContactData associated with contactDataID
+  */
   public getContactdata(id:number): Observable<Contactdata>{
     return this.http.get<Contactdata>(`${this.baseUrl}${id}`).pipe(
       map((result:any) =>{
@@ -35,7 +47,10 @@ export class ContactdataService {
     )
   }
 
-
+  /*
+  * contactdata as input param
+  * returns Observable containing the newly added contactdata entry
+  */
   public save(contactdata: Contactdata):Observable<Contactdata>
   {
     console.log(contactdata);
@@ -52,6 +67,10 @@ export class ContactdataService {
 
   }
 
+  /*
+  * contactdataID as input param
+  * returns empty Observable after deleting the Contactdata entry
+  */
   public delete(id: number):Observable<Contactdata>
   {
     return this.http.delete<Contactdata>(`${this.baseUrl}${id}`)
@@ -67,6 +86,10 @@ export class ContactdataService {
 
   }
 
+  /*
+  * contactDataID and contactdata Object as input params
+  * returns Observable containing the updated contactData entry
+  */
   public updateContactdata(id: number, contactdata: Contactdata)
   {
     console.log(contactdata);

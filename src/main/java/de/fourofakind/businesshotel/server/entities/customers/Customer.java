@@ -34,7 +34,7 @@ public class Customer
     @Enumerated(EnumType.STRING)
     private PaymentMethod paymentMethod;
     @Column(name="is_business_customer")
-    private boolean isBusinessCustomer;
+    private Boolean isBusinessCustomer;
     @Column(name="account_id")
     private Integer accountID;
 
@@ -59,7 +59,7 @@ public class Customer
 
 
     //Constructors
-    public Customer (Integer contactDataID, PaymentMethod paymentMethod, boolean isBusinessCustomer, Integer accountID, AccountDetails accountDetails, ContactData contactData, List<Booking> bookings)
+    public Customer (Integer contactDataID, PaymentMethod paymentMethod, Boolean isBusinessCustomer, Integer accountID, AccountDetails accountDetails, ContactData contactData, List<Booking> bookings)
     {
         this.contactDataID = contactDataID;
         this.paymentMethod = paymentMethod;

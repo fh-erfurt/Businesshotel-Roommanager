@@ -7,6 +7,7 @@ import {isNumeric} from "rxjs/internal-compatibility";
 import {Alert} from "../../app.component";
 import {BookingService} from "../../services/booking/booking.service";
 import {NgForm} from "@angular/forms";
+import {RoleService} from "../../services/role/role.service";
 
 @Component({
   selector: 'app-employee-management',
@@ -17,7 +18,8 @@ export class EmployeeManagementComponent implements OnInit {
 
   constructor(private accountdetailsService: AccountdetailsService,
               private employeeService: EmployeeService,
-              private bookingService: BookingService)
+              private bookingService: BookingService,
+              private roleService: RoleService)
   {
 
   }
@@ -27,10 +29,7 @@ export class EmployeeManagementComponent implements OnInit {
 
   }
 
-  onSubmit()
-  {
-
-  }
+  private readonly department:string="employee-management";
 
   isChecked:boolean = false;
   firstName!:string;
@@ -49,21 +48,30 @@ export class EmployeeManagementComponent implements OnInit {
 
   alerts:Alert[]=[];
 
-  allowSubmit()
-  {
-    this.isSubmitAllowed = true;
-  }
 
+
+  /*
+  * alert Object and seconds to display the alert as input params
+  * produces alert for x seconds dsiplayed on the right side of the management tab
+  */
   addAlertForXSeconds(alert:Alert, seconds:number)
   {
     this.alerts.push(alert);
     setTimeout(()=>this.alerts=this.alerts.filter(entry=>entry!=alert),seconds*1000);
   }
 
+  /*
+  * function without input params
+  * checks password and repeatedPassword for equality
+  */
   validateRepeatedPassword(){
     this.passwordsAreEqual = this.repeatedPassword == this.password;
   }
 
+  /*
+  * function without input params
+  * checks if username already exists
+  */
   validateUsername()
   {
     this.accountdetailsService.getAccountdetailsByUsername(this.username)
@@ -75,9 +83,14 @@ export class EmployeeManagementComponent implements OnInit {
         (error)=>
         {
           this.usernameAlreadyExists=false;
+          this.isSubmitAllowed = true;
         })
   }
 
+  /*
+  * function with callback function as input param for a controlled function sequence
+  * checks password and repeatedPassword for equality
+  */
   addAccount(_callback:Function)
   {
     console.log(this.username);
@@ -100,7 +113,13 @@ export class EmployeeManagementComponent implements OnInit {
        });
   }
 
-
+  /*
+  * function with boolean and ngForm as input params
+  * boolean decides if an Employee is added or an existing employee ist updated
+  * ngForm for form resetting after update/add
+  *
+  * adds or updates employee with form data
+  */
   addOrUpdateEmployee(addsNewEmployee:boolean, addOrUpdateEmployeeForm:NgForm)
   {
     this.foundEmployee=null;
@@ -141,34 +160,58 @@ export class EmployeeManagementComponent implements OnInit {
     }
   }
 
-
+  /*
+    * function with boolean and ngForm as input params
+    * boolean decides if an Employee is added or an existing employee ist updated
+    * ngForm for form resetting after update/add
+    *
+    * checks for employees rights to do this transaction
+    * call addAccount for new Employees or addOrUpdateEmployee for updating an Employee
+    */
   addOrUpdateEmployeeAndDetails(addsNewEmployee:boolean, addOrUpdateEmployeeForm:NgForm)
   {
-    if(addsNewEmployee) this.addAccount(()=>this.addOrUpdateEmployee(addsNewEmployee,addOrUpdateEmployeeForm));
-    else this.addOrUpdateEmployee(addsNewEmployee,addOrUpdateEmployeeForm)
-  }
-
-
-  submitSearch(intoFormular:boolean){
-    this.foundEmployee=null;
-    this.employeeService.getEmployee(this.empNo)
-      .subscribe(data=>
+    if (this.roleService.checkRights(this.department))
     {
-      this.foundEmployee=data;
-      if(intoFormular)
-      {
-        this.firstName=data.empName.substring(0, data.empName.lastIndexOf(" "));
-        this.lastName=data.empName.substring(data.empName.lastIndexOf(" "));
-        this.givenRole=data.givenRole;
-        this.accountID=data.accountID;
-      }
-    },
-      (error)=>
-      {
-        this.addAlertForXSeconds(new Alert('danger',"Kein Mitarbeiter mit dieser Mitarbeiternummer vorhanden"),5);
-      })
+      if(addsNewEmployee) this.addAccount(()=>this.addOrUpdateEmployee(addsNewEmployee,addOrUpdateEmployeeForm));
+      else this.addOrUpdateEmployee(addsNewEmployee,addOrUpdateEmployeeForm)
+    }
+    else alert("Benötigte Rechte nicht vorhanden")
   }
 
+  /*
+  * function without input params
+  * boolean decides if search result should be filled into the form
+  * searches employee associated with the form data
+  */
+  submitSearch(intoFormular:boolean){
+    if (this.roleService.checkRights(this.department))
+    {
+      this.foundEmployee=null;
+      this.employeeService.getEmployee(this.empNo)
+        .subscribe(data=>
+      {
+        this.foundEmployee=data;
+        if(intoFormular)
+        {
+          this.firstName=data.empName.substring(0, data.empName.lastIndexOf(" "));
+          this.lastName=data.empName.substring(data.empName.lastIndexOf(" "));
+          this.givenRole=data.givenRole;
+          this.accountID=data.accountID;
+        }
+      },
+        (error)=>
+        {
+          this.addAlertForXSeconds(new Alert('danger',"Kein Mitarbeiter mit dieser Mitarbeiternummer vorhanden"),5);
+        })
+    }
+    else alert("Benötigte Rechte nicht vorhanden")
+  }
+
+  /*
+  * ngForm as input param
+  * ngForm for resetting the form after deletion
+  * deletes employee associated with the form data
+  */
   deleteEmployee(deleteEmployeeForm: NgForm)
   {
 
@@ -184,8 +227,13 @@ export class EmployeeManagementComponent implements OnInit {
           this.addAlertForXSeconds(new Alert('danger',"Kein Mitarbeiter mit dieser Mitarbeiternummer vorhanden"),5);
         }
       );
+
   }
 
+  /*
+  * callback function as input param to ensure controlled function sequence
+  * calls patchBookingsAtEmployeeDelete from bookingService for each booking associated with the empNo provided in the form
+  */
   patchBookings(_callback:Function)
   {
 
@@ -219,12 +267,19 @@ export class EmployeeManagementComponent implements OnInit {
 
   }
 
+  /*
+  * ngForm as input param
+  * ngForm for resetting the form after deletion
+  * calls patchBookings before calling deleteEmployee
+  */
   deleteEmployeeAndDetails(deleteEmployeeForm: NgForm)
   {
 
-
-    this.foundEmployee=null;
-    this.patchBookings(()=>this.deleteEmployee(deleteEmployeeForm));
-
+    if (this.roleService.checkRights(this.department))
+    {
+      this.foundEmployee=null;
+      this.patchBookings(()=>this.deleteEmployee(deleteEmployeeForm));
+    }
+    else alert("Benötigte Rechte nicht vorhanden")
   }
 }

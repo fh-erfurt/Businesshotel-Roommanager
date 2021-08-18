@@ -20,28 +20,34 @@
             <div>
               <mat-form-field class="halfInput" appearance="fill">
                 <mat-label>Startdatum</mat-label>
-                <input matInput type="date" name="startDate" [(ngModel)]="startDate" [required]="true">
-                <mat-error>Bitte gültiges Datum angeben</mat-error>
+                <input matInput type="date" #startDateModel=ngModel name="startDate" (keyup)="validateDate()" [(ngModel)]="startDate" [required]="true">
+                <mat-error *ngIf="startDateModel.invalid && startDateModel.touched" >Bitte gültiges Datum angeben</mat-error>
               </mat-form-field>
               <mat-form-field class="halfInput" appearance="fill">
                 <mat-label>Startzeit</mat-label>
-                <input matInput type="time" name="startTime" [(ngModel)]="startTime" [required]="true">
-                <mat-error>Bitte gültige Zeit angeben</mat-error>
+                <input matInput type="time" #startTimeModel=ngModel name="startTime" (keyup)="validateDate()" [(ngModel)]="startTime" [required]="true">
+                <mat-error *ngIf="startTimeModel.invalid && startTimeModel.touched" >Bitte gültige Zeit angeben</mat-error>
               </mat-form-field>
+            </div>
+            <div class="dateErrorField">
+              <p class="mat-error" *ngIf="startDateError">Startzeitpunkt (Datum&Uhrzeit) darf nicht in der Vergangenheit liegen</p>
             </div>
             <div>
               <mat-form-field class="halfInput" appearance="fill">
                 <mat-label>Enddatum</mat-label>
-                <input matInput type="date" name="endDate" [(ngModel)]="endDate" [required]="true">
-                <mat-error>Bitte gültiges Datum angeben</mat-error>
+                <input matInput type="date" #endDateModel=ngModel name="endDate" (keyup)="validateDate()" [(ngModel)]="endDate" [required]="true">
+                <mat-error *ngIf="endDateModel.invalid && endDateModel.touched" >Bitte gültiges Datum angeben</mat-error>
               </mat-form-field>
               <mat-form-field class="halfInput" appearance="fill">
                 <mat-label>Endzeit</mat-label>
-                <input matInput type="time" name="endTime" [(ngModel)]="endTime" [required]="true">
-                <mat-error>Bitte gültige Zeit angeben</mat-error>
+                <input matInput type="time" #endTimeModel=ngModel name="endTime" (keyup)="validateDate()" [(ngModel)]="endTime" [required]="true">
+                <mat-error *ngIf="endTimeModel.invalid && endTimeModel.touched">Bitte gültige Zeit angeben</mat-error>
               </mat-form-field>
             </div>
-            <br>
+            <div class="dateErrorField">
+              <p class="mat-error" *ngIf="endDateInPastError">Endzeitpunkt (Datum&Uhrzeit) darf nicht in der Vergangenheit liegen</p>
+              <p class="mat-error" *ngIf="endDateBeforeStartDateError">Endzeitpunkt (Datum&Uhrzeit) darf nicht vor dem Startzeitpunkt liegen</p>
+            </div>
             <div>
               <mat-form-field class="roomNumberInput" appearance="fill">
                 <mat-label>Raumnummer</mat-label>
@@ -63,7 +69,13 @@
               <mat-label>Kundenwünsche</mat-label>
               <textarea matInput type="text" name="specialWishes" [(ngModel)]="specialWishes"></textarea>
             </mat-form-field>
-            <button mat-raised-button color="primary" type="submit" (click)="addOrUpdateBooking(true, insertBookingForm)" [disabled]="insertBookingForm.invalid || roomNoModel.untouched || roomNoModel.invalid">Absenden</button>
+            <button mat-raised-button
+                    color="primary"
+                    type="submit"
+                    (click)="addOrUpdateBooking(true, insertBookingForm)"
+                    [disabled]="insertBookingForm.invalid || roomNoModel.untouched || roomNoModel.invalid || startDateError || endDateInPastError || endDateBeforeStartDateError">
+              Absenden
+            </button>
           </div>
           </form>
           <div class="notificationArea">
@@ -109,24 +121,34 @@
               <div>
                 <mat-form-field class="halfInput" appearance="fill">
                   <mat-label>Startdatum</mat-label>
-                  <input matInput type="date" name="startDate" [(ngModel)]="startDate" [required]="true">
+                  <input matInput type="date" #startDateModel=ngModel name="startDate" (keyup)="validateDate()" [(ngModel)]="startDate" [required]="true">
+                  <mat-error *ngIf="startDateModel.invalid && startDateModel.touched" >Bitte gültiges Datum angeben</mat-error>
                 </mat-form-field>
                 <mat-form-field class="halfInput" appearance="fill">
                   <mat-label>Startzeit</mat-label>
-                  <input matInput type="time" name="startTime" [(ngModel)]="startTime" [required]="true">
+                  <input matInput type="time" #startTimeModel=ngModel name="startTime" (keyup)="validateDate()" [(ngModel)]="startTime" [required]="true">
+                  <mat-error *ngIf="startTimeModel.invalid && startTimeModel.touched" >Bitte gültige Zeit angeben</mat-error>
                 </mat-form-field>
+              </div>
+              <div class="dateErrorField">
+                <p class="mat-error" *ngIf="startDateError">Startzeitpunkt (Datum & Uhrzeit) darf nicht in der Vergangenheit liegen</p>
               </div>
               <div>
                 <mat-form-field class="halfInput" appearance="fill">
                   <mat-label>Enddatum</mat-label>
-                  <input matInput type="date" name="endDate" [(ngModel)]="endDate"  [required]="true">
+                  <input matInput type="date" #endDateModel=ngModel name="endDate" (keyup)="validateDate()" [(ngModel)]="endDate" [required]="true">
+                  <mat-error *ngIf="endDateModel.invalid && endDateModel.touched" >Bitte gültiges Datum angeben</mat-error>
                 </mat-form-field>
                 <mat-form-field class="halfInput" appearance="fill">
                   <mat-label>Endzeit</mat-label>
-                  <input matInput type="time" name="endTime" [(ngModel)]="endTime"  [required]="true">
+                  <input matInput type="time" #endTimeModel=ngModel name="endTime" (keyup)="validateDate()" [(ngModel)]="endTime" [required]="true">
+                  <mat-error *ngIf="endTimeModel.invalid && endTimeModel.touched">Bitte gültige Zeit angeben</mat-error>
                 </mat-form-field>
               </div>
-              <br>
+              <div class="dateErrorField">
+                <p class="mat-error" *ngIf="endDateInPastError">Endzeitpunkt (Datum & Uhrzeit) darf nicht in der Vergangenheit liegen</p>
+                <p class="mat-error" *ngIf="endDateBeforeStartDateError">Endzeitpunkt (Datum & Uhrzeit) darf nicht vor dem Startzeitpunkt liegen</p>
+              </div>
               <mat-form-field appearance="fill">
                 <mat-label>Raumnummer</mat-label>
                 <mat-select name="roomNo" [(ngModel)]="roomNo" [required]="true"  [disabled]="(!(startDate&&startTime&&endDate&&endTime))">
@@ -140,7 +162,13 @@
                 <mat-label>Kundenwünsche</mat-label>
                 <textarea matInput type="text" name="specialWishes" [(ngModel)]="specialWishes"></textarea>
               </mat-form-field>
-              <button mat-raised-button color="primary" type="submit" (click)="addOrUpdateBooking(false,updateBookingForm)" [disabled]="updateBookingForm.invalid">Absenden</button>
+              <button mat-raised-button
+                      color="primary"
+                      type="submit"
+                      (click)="addOrUpdateBooking(true, updateBookingForm)"
+                      [disabled]="insertBookingForm.invalid || roomNoModel.untouched || roomNoModel.invalid || startDateError || endDateInPastError || endDateBeforeStartDateError">
+                Absenden
+              </button>
             </div>
           </div>
           </form>

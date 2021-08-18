@@ -8,6 +8,10 @@ import {Customer} from "./customer";
 @Injectable({
   providedIn: 'root'
 })
+/*
+ * Service for customer management (Save, Get, Update, Delete)
+ * Consumes customer REST-API
+ */
 export class CustomerService {
 
   lastInsertedID: number | undefined;
@@ -18,6 +22,10 @@ export class CustomerService {
     this.lastInsertedID = 0;
   }
 
+  /*
+  * function without params
+  * returns all customers
+  */
   public getCustomers(): Observable<Customer> {
     return this.http.get<Customer>(`${this.baseUrl}`).pipe(
       map((result: any) => {
@@ -28,6 +36,10 @@ export class CustomerService {
   }
 
 
+  /*
+  * customerID as input param
+  * returns customer associated with customerID
+  */
   public getCustomer(id: number): Observable<Customer> {
     return this.http.get<Customer>(`${this.baseUrl}${id}`).pipe(
       map((result: any) => {
@@ -37,6 +49,10 @@ export class CustomerService {
     )
   }
 
+  /*
+  * accountID as input param
+  * returns customer associated with accountID
+  */
   public getCustomerByAccountID(id: number): Observable<Customer> {
     return this.http.get<Customer>(`${this.baseUrl}search/findCustomerByAccountID?account_id=${id}`).pipe(
       map((result: any) => {
@@ -46,7 +62,10 @@ export class CustomerService {
     )
   }
 
-
+  /*
+  * customer as input param
+  * returns Observable containing the newly added Customer entry
+  */
   public save(customer: Customer): Observable<Customer> {
     console.log(customer);
 
@@ -61,6 +80,10 @@ export class CustomerService {
 
   }
 
+  /*
+  * customerID as input param
+  * returns empty Observable after deleting the Customer entry
+  */
   public delete(id: number): Observable<Customer> {
     return this.http.delete<Customer>(`${this.baseUrl}${id}`)
       .pipe(
@@ -72,6 +95,10 @@ export class CustomerService {
       )
   }
 
+  /*
+  * customerID and customer Object as input params
+  * returns Observable containing the updated Customer entry
+  */
   public updateCustomer(id: number, customer: Customer) {
     console.log(customer);
 

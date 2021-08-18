@@ -10,6 +10,11 @@ import {Conferenceroom} from "../conferenceroom/conferenceroom";
 @Injectable({
   providedIn: 'root'
 })
+
+/*
+ * Service for room management (Save, Get, Update, Delete) hotelRooms and conferenceRooms
+ * Consumes room, hotelRoom and conferenceRoom REST-APIs
+ */
 export class RoomService {
 
   private readonly baseUrl: string;
@@ -22,6 +27,10 @@ export class RoomService {
     this.conferenceRoomBaseUrl = "http://localhost:8081/conferenceroom/";
   }
 
+  /*
+  * function without params
+  * returns all hotelrooms
+  */
   public getHotelRooms(): Observable<Room[]> {
     return this.http.get<Room[]>(`${this.hotelRoomBaseUrl}`).pipe(
       map((result: any) => {
@@ -31,6 +40,10 @@ export class RoomService {
     )
   }
 
+  /*
+  * function without params
+  * returns all conferencerooms
+  */
   public getConferenceRooms(): Observable<Room[]> {
     return this.http.get<Room[]>(`${this.conferenceRoomBaseUrl}`).pipe(
       map((result: any) => {
@@ -40,6 +53,10 @@ export class RoomService {
     )
   }
 
+  /*
+  * roomNo as input param
+  * returns room associated with roomNo
+  */
   public getRoom(id: number): Observable<Room> {
     return this.http.get<Room>(`${this.baseUrl}${id}`).pipe(
       map((result: any) => {
@@ -49,6 +66,10 @@ export class RoomService {
     )
   }
 
+  /*
+  * roomNo as input param
+  * returns hotelRoom associated with roomNo
+  */
   public getHotelRoom(id: number): Observable<Hotelroom> {
     return this.http.get<Hotelroom>(`${this.hotelRoomBaseUrl}${id}`).pipe(
       map((result: any) => {
@@ -58,6 +79,10 @@ export class RoomService {
     )
   }
 
+  /*
+  * roomNo as input param
+  * returns conferenceRoom associated with roomNo
+  */
   public getConferenceRoom(id: number): Observable<Conferenceroom> {
     return this.http.get<Conferenceroom>(`${this.conferenceRoomBaseUrl}${id}`).pipe(
       map((result: any) => {
@@ -67,6 +92,10 @@ export class RoomService {
     )
   }
 
+  /*
+  * room and roomType (conferenceroom or hotelroom) as input params
+  * returns Observable containing the newly added Hotelroom or Conferenceroom entry
+  */
   public save(room: Conferenceroom | Hotelroom, roomType: string): Observable<Hotelroom|Conferenceroom>
   {
     console.log(room);
@@ -95,6 +124,10 @@ export class RoomService {
   }
 
 
+  /*
+  * roomNo as input param
+  * returns empty Observable after deleting the Room entry
+  */
   public delete(id: number): Observable<Room>
   {
           return this.http.delete<Room>(`${this.baseUrl}${id}`)
@@ -108,6 +141,10 @@ export class RoomService {
   }
 
 
+  /*
+  * roomNo and roomtype (conferenceroom or hotelroom) and room Object as input params
+  * returns Observable containing the updated Hotelroom or Conferenceroom entry
+  */
   public updateRoom(id: number, room: Conferenceroom | Hotelroom, roomType: string): Observable<Hotelroom|Conferenceroom>
   {
     console.log(room);
