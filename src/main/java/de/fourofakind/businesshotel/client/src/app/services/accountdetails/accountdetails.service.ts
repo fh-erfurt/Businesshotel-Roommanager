@@ -8,6 +8,11 @@ import * as bcrypt from 'bcryptjs';
 @Injectable({
   providedIn: 'root'
 })
+
+/*
+* Service for accountdetail management (Save, Get, Update, Delete) of employee and customers
+* Consumes accountdetail REST-API
+*/
 export class AccountdetailsService {
 
   lastInsertedID:number | undefined;

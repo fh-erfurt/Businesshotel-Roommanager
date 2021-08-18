@@ -7,6 +7,10 @@ import {map} from "rxjs/operators";
 @Injectable({
   providedIn: 'root'
 })
+/*
+ * Service for contactdata management (Save, Get, Update, Delete) of customers
+ * Consumes contactdata REST-API
+ */
 export class ContactdataService {
 
   lastInsertedID:number | undefined;

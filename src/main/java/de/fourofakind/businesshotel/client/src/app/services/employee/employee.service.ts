@@ -7,6 +7,10 @@ import {map} from "rxjs/operators";
 @Injectable({
   providedIn: 'root'
 })
+/*
+ * Service for employee management (Save, Get, Update, Delete) of employee and customers
+ * Consumes employee REST-API
+ */
 export class EmployeeService {
 
   private readonly baseUrl:string;

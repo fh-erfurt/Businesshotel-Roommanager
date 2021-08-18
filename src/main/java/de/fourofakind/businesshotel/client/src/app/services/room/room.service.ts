@@ -10,6 +10,11 @@ import {Conferenceroom} from "../conferenceroom/conferenceroom";
 @Injectable({
   providedIn: 'root'
 })
+
+/*
+ * Service for room management (Save, Get, Update, Delete) hotelRooms and conferenceRooms
+ * Consumes room, hotelRoom and conferenceRoom REST-APIs
+ */
 export class RoomService {
 
   private readonly baseUrl: string;

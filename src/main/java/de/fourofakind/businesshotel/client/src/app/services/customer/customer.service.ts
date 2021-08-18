@@ -8,6 +8,10 @@ import {Customer} from "./customer";
 @Injectable({
   providedIn: 'root'
 })
+/*
+ * Service for customer management (Save, Get, Update, Delete)
+ * Consumes customer REST-API
+ */
 export class CustomerService {
 
   lastInsertedID: number | undefined;

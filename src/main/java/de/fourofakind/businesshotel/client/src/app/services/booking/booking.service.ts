@@ -3,12 +3,15 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Booking, ConferenceRoomBooking, HotelRoomBooking} from "./booking";
 import {map} from "rxjs/operators";
-import {Contactdata} from "../contactdata/contactdata";
 
 @Injectable({
   providedIn: 'root'
 })
 
+/*
+ * Service for booking management (Save, Get, Update, Delete) hotelRoomBookings and conferenceRoomBookings
+ * Consumes booking, hotelRoomBooking and conferenceRoomBooking REST-APIs
+ */
 export class BookingService {
 
   private readonly baseUrl:string;
