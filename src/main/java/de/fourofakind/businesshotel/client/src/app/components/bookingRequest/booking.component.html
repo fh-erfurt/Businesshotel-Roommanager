@@ -78,7 +78,7 @@
                 </div>
 
                 <div class="form-group row">
-                  <input type="text" name="lastName"  class="form-control visually-hidden" [ngClass]="{ 'is-invalid': submitted && !dateSelected }" />
+                  <input name="datePicker" class="form-control visually-hidden" [ngClass]="{ 'is-invalid': submitted && !dateSelected }" />
                   <div *ngIf="submitted && !dateSelected" class="invalid-feedback row">
                     <div *ngIf="!dateSelected">Bitte Datum wählen</div>
                   </div>
@@ -135,7 +135,7 @@
                 </div>
 
                 <div *ngIf="isConferenceRoom" class="form-group row">
-                  <input type="text" name="lastName"  class="form-control visually-hidden" [ngClass]="{ 'is-invalid': submitted && !timeSelected }" />
+                  <input name="timePicker"  class="form-control visually-hidden" [ngClass]="{ 'is-invalid': submitted && !timeSelected }" />
                   <div *ngIf="submitted && !timeSelected" class="invalid-feedback row">
                     <div *ngIf="!timeSelected">Bitte Uhrzeit wählen</div>
                   </div>
