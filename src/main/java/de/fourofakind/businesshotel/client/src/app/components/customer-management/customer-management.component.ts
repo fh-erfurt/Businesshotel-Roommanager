@@ -82,7 +82,7 @@ export class CustomerManagementComponent implements OnInit {
   addContactData(_callback:Function)
   {
 
-    let newOrUpdatedContactData:Contactdata=
+    let newContactData:Contactdata=
       {
         cityName: this.cityName,
         firstName: this.firstName,
@@ -95,7 +95,7 @@ export class CustomerManagementComponent implements OnInit {
         paymentCredentials:this.paymentCredentials
       }
 
-    this.contactdataService.save(newOrUpdatedContactData)
+    this.contactdataService.save(newContactData)
       .subscribe((res)=>
       {
         if(res.contactDataID) this.contactDataID=res.contactDataID
@@ -112,7 +112,6 @@ export class CustomerManagementComponent implements OnInit {
   addCustomer()
   {
 
-
     let newOrUpdatedCustomer:Customer=
       {
         isBusinessCustomer: this.isBusinessCustomer,
@@ -121,7 +120,6 @@ export class CustomerManagementComponent implements OnInit {
         accountID:this.accountID,
       }
 
-    console.log(newOrUpdatedCustomer);
     this.customerService.save(newOrUpdatedCustomer)
       .subscribe((res)=>
       {
