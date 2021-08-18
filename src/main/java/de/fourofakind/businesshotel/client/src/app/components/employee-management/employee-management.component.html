@@ -54,7 +54,7 @@
                 <mat-error>Bitte Username mit maximal 75 Zeichen angeben</mat-error>
               </mat-form-field>
               <button mat-icon-button color="primary" (click)="validateUsername()" [disabled]="!username">
-                <mat-icon (click)="allowSubmit()">search</mat-icon>
+                <mat-icon>search</mat-icon>
               </button>
             </div>
               <p *ngIf="usernameAlreadyExists">Username schon vorhanden</p>

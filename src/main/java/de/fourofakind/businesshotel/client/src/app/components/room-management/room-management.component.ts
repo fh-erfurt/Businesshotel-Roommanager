@@ -79,13 +79,6 @@ export class RoomManagementComponent implements OnInit {
 
   alerts:Alert[]=[];
 
-
-  addAlertForXSeconds(alert:Alert, seconds:number)
-  {
-    this.alerts.push(alert);
-    setTimeout(()=>this.alerts=this.alerts.filter(entry=>entry!=alert),seconds*1000);
-  }
-
   hotelRoomCategories=new Map
   ([
     ["SINGLE","Einzelzimmer"],
@@ -118,6 +111,17 @@ export class RoomManagementComponent implements OnInit {
     ["Computer vorhanden",""],
     ["Anzahl Bildschirme",""],
   ])
+
+  /*
+  * alert Object and seconds to display the alert as input params
+  * produces alert for x seconds dsiplayed on the right side of the management tab
+  */
+  addAlertForXSeconds(alert:Alert, seconds:number)
+  {
+    this.alerts.push(alert);
+    setTimeout(()=>this.alerts=this.alerts.filter(entry=>entry!=alert),seconds*1000);
+  }
+
 
 
 

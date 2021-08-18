@@ -12,7 +12,6 @@ import {NgForm} from "@angular/forms";
 import {RoleService} from "../../services/role/role.service";
 
 
-
 @Component({
   selector: 'app-booking-management',
   templateUrl: './booking-management.component.html',
@@ -53,30 +52,27 @@ export class BookingManagementComponent implements OnInit {
 
   private readonly department:string="booking-management";
 
-  today:Date=new Date();
-  isChecked:boolean = false;
-  customerID!:number;
-  bookingNo!:number;
-  startDate!:string;
-  startTime!:string;
-  specialWishes!:string;
-  roomNo!:number;
-  rooms!:Room[];
-  endDate!:string;
-  endTime!:string;
-  bookingType!:string;
-  booking!:Booking;
-  foundBooking!:Booking | null;
-  bookings:Booking[]=[];
-  hotelRoomBookings!:Booking[];
-  conferenceRoomBookings!:Booking[];
-  minDateStart!:string;
-  minDateEnd!:string;
-  startTimestamp!:Date;
-  endTimestamp!:Date;
-  calculatedPricing!:number;
+  //formdata
+  booking!: Booking;
+  bookingNo!: number;
+  bookingType!: string;
+  bookings: Booking[] = [];
+  calculatedPricing!: number;
+  customerID!: number;
+  endDate!: string;
+  endTime!: string;
+  endTimestamp!: Date;
+  foundBooking!: Booking | null;
+  isChecked: boolean = false;
+  occupationChecked: boolean = false;
   pricePerUnit!: number;
-  occupationChecked:boolean=false;
+  roomNo!: number;
+  rooms!: Room[];
+  specialWishes!: string;
+  startDate!: string;
+  startTime!: string;
+  startTimestamp!: Date;
+  today: Date = new Date();
 
   //errors
   startDateError:boolean=false;
@@ -87,7 +83,10 @@ export class BookingManagementComponent implements OnInit {
   alerts:Alert[]=[];
 
 
-
+  /*
+  * alert Object and seconds to display the alert as input params
+  * produces alert for x seconds dsiplayed on the right side of the management tab
+  */
   addAlertForXSeconds(alert:Alert, seconds:number)
   {
     this.alerts.push(alert);
