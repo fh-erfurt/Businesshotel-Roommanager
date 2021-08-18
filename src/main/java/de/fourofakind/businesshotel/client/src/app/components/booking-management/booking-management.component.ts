@@ -8,7 +8,7 @@ import {RoomService} from "../../services/room/room.service";
 import {Room} from "../../services/room/room";
 import {parseDate} from "ngx-bootstrap/chronos";
 import {Alert} from "../../app.component";
-import {NgForm} from "@angular/forms";
+import {AbstractControl, NgForm, ValidatorFn} from "@angular/forms";
 
 
 
@@ -45,22 +45,6 @@ export class BookingManagementComponent implements OnInit {
   ngOnInit()
   {
 
-      let today;
-
-      if(new Date().getMonth().toString().length==1)
-      {
-        today=new Date().getFullYear()+"-0"+new Date().getMonth()+"-"+new Date().getDate();
-      }
-      else
-      {
-        today=new Date().getFullYear()+"-"+new Date().getMonth()+"-"+new Date().getDate();
-      }
-
-      console.log(today);
-      this.minDateStart= today;
-      this.minDateEnd= today;
-
-
   }
 
 
@@ -92,11 +76,11 @@ export class BookingManagementComponent implements OnInit {
 
   //errors
   startDateError:boolean=false;
-  endDateError:boolean=false;
+  endDateInPastError:boolean=false;
+  endDateBeforeStartDateError:boolean=false;
 
 
   alerts:Alert[]=[];
-
 
 
   addAlertForXSeconds(alert:Alert, seconds:number)
@@ -112,20 +96,19 @@ export class BookingManagementComponent implements OnInit {
     // console.log(new Date(this.startDate+"T00:00:00").getTime())
     // console.log(parseDate(this.endDate).getMilliseconds())
 
-    this.startDateError = parseDate(this.startDate).getTime() <= this.today.getTime();
+    if(this.startTime&&this.startDate&&this.endDate&&this.endTime)
+    {
+      this.startTimestamp=parseDate(this.startDate+"T"+this.startTime)
+      this.endTimestamp=parseDate(this.endDate+"T"+this.endTime)
 
-    if (parseDate(this.endDate).getTime()<=this.today.getTime())
-    {
-      this.endDateError = true;
+      this.startDateError = this.startTimestamp.getTime() <= this.today.getTime();
+
+      this.endDateInPastError = this.endTimestamp.getTime() <= this.today.getTime();
+
+      this.endDateBeforeStartDateError = this.endTimestamp.getTime() < this.startTimestamp.getTime();
     }
-    else if(parseDate(this.endDate).getTime()<parseDate(this.startDate).getTime())
-    {
-      this.endDateError = true;
-    }
-    else
-    {
-      this.endDateError = false;
-    }
+
+
   }
 
   getPricePerUnit(_callback:Function)
