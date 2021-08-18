@@ -124,6 +124,7 @@ export class BookingService {
 
   public save(booking:Booking, bookingType:string)
   {
+    console.log("save")
     console.log(booking);
     let url;
 

@@ -64,30 +64,6 @@ export class AccountdetailsService {
       )
   }
 
-  // deprecated
-  hashPassword = (password: string) => {
-    return new Promise((resolve, reject) => {
-        const saltRounds = 10;
-
-        try{
-          bcrypt.genSalt(saltRounds, function(err, salt) {
-            bcrypt.hash(password, salt, function(err, hash) {
-              if (err) {
-                reject(err);
-              } else {
-                console.log(hash)
-                resolve(hash);
-              }
-            });
-          });
-        }
-        catch(e){
-          console.log('caught error', e);
-          // Handle exceptions
-        }
-    });
-  };
-
   public delete(id: number):Observable<Accountdetail>
   {
     return this.http.delete<Accountdetail>(`${this.baseUrl}${id}`)
@@ -105,6 +81,10 @@ export class AccountdetailsService {
   public updateAccountdetails(id: number, accountdetails: Accountdetail)
   {
     console.log(accountdetails);
+
+    const salt = bcrypt.genSaltSync(10);
+    const passwordHash = bcrypt.hashSync(accountdetails.passwordHash, salt)
+    accountdetails.passwordHash = passwordHash
 
     return this.http.put<Accountdetail>(`${this.baseUrl}${id}`, accountdetails)
       .pipe(

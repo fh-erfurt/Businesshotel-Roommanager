@@ -1,4 +1,4 @@
-import {Component, HostListener, OnInit, SimpleChanges} from '@angular/core';
+import {AfterViewInit, Component, HostListener, OnInit, SimpleChanges} from '@angular/core';
 import {environment} from "../../../environments/environment";
 import {BookingrequestService} from "../../services/bookingrequest/bookingrequest.service";
 import {RootObject} from "../../services/bookingrequest/bookingrequest";
@@ -13,8 +13,13 @@ import {BehaviorSubject, Observable, Subscription} from "rxjs";
 import {BookingService} from "../../services/booking/booking.service";
 import {errors, RegistrationService} from "../../services/registration/registration.service";
 import {Booking, BookingLinks} from "../../services/booking/booking";
-import {MustMatch, ValidateEmail} from "../../services/registration/helpers.validator";
-
+import {validateEmail, validateIban, validatePhoneNumber} from "../../services/registration/helpers.validator";
+import {Contactdata} from "../../services/contactdata/contactdata";
+import {ContactdataService} from "../../services/contactdata/contactdata.service";
+import {CustomerService} from "../../services/customer/customer.service";
+import {Customer} from "../../services/customer/customer";
+import {Accountdetail} from "../../services/accountdetails/accountdetail";
+import {AccountdetailsService} from "../../services/accountdetails/accountdetails.service";
 
 type dateTimeSpan = {
   startDate: Date,
@@ -47,10 +52,20 @@ export class BookingComponent implements OnInit {
   isBusinessCustomer: boolean = false
   dataSuccessfullySaved: boolean = false
   isLoggedIn: boolean = false
+  dateSelected: boolean = false
+  timeSelected: boolean = false
+  pageDidLoad: boolean = false
 
   errorMessage: string = ""
 
+  paymentCredentialsLabel: string = ""
+  paymentCredentialsErrorLabel: string = ""
+  paymentCredentialsNameLabel: string = ""
+
   booking: Booking
+  contactData: Contactdata
+  customer: Customer
+  accountDetails: Accountdetail
 
   public selectedFromDate: Date | null
   public selectedToDate: Date | null
@@ -102,7 +117,10 @@ export class BookingComponent implements OnInit {
               private formBuilder: FormBuilder,
               public bookingCalendar: BookingCalendar,
               private bookingService: BookingService,
-              private registrationService: RegistrationService)
+              private registrationService: RegistrationService,
+              private contactDataService: ContactdataService,
+              private customerService: CustomerService,
+              private accountDetailsService: AccountdetailsService)
   {
     this.booking = {
       roomNo: 0,
@@ -113,6 +131,21 @@ export class BookingComponent implements OnInit {
       specialWishes: "",
       customerID: 0
     }
+
+    this.contactData = {
+      firstName: "",
+      lastName: "",
+      mailAddress: ""
+    }
+
+    this.customer = {
+      isBusinessCustomer: false
+    }
+
+    this.accountDetails = {
+      passwordHash: "",
+      username: "",
+    };
 
     this.selectedFromDate = bookingCalendar.fromDate ?
       new Date(bookingCalendar.fromDate.year,
@@ -130,6 +163,8 @@ export class BookingComponent implements OnInit {
         this._endTime.minute)
       : null;
 
+
+
     // this.dateLabel = "Datum: "
     //   + (this.selectedFromDate ? formatDate(this.selectedFromDate, "dd.MM.yyyy", "de") : "")
     //   + (this.selectedToDate ? " bis " + formatDate(this.selectedToDate, "dd.MM.yyyy", "de") : "")
@@ -140,15 +175,7 @@ export class BookingComponent implements OnInit {
 
   }
 
-  toggleIsBusinessCustomer() {
-    this.isBusinessCustomer = !this.isBusinessCustomer
 
-    if (this.isBusinessCustomer) {
-      this.bookingForm.addControl('companyName', new FormControl('', Validators.required));
-    } else {
-      this.bookingForm.removeControl("companyName")
-    }
-  }
 
   @HostListener('window:resize', ['$event'])
   getWindowSize(event?: any) {
@@ -161,31 +188,109 @@ export class BookingComponent implements OnInit {
     }
   }
 
+  toggleIsBusinessCustomer() {
+    this.isBusinessCustomer = !this.isBusinessCustomer
+
+    if (this.isBusinessCustomer) {
+      this.bookingForm.addControl('companyName', new FormControl('', Validators.required));
+    } else {
+      this.bookingForm.removeControl("companyName")
+    }
+  }
+
+  ngOnDestroy() {
+    this.selectedFromDate = null
+    this.selectedToDate = null
+  }
+
   ngOnInit(): void {
 
     this.isLoggedIn = localStorage.getItem('user') ? true : false
 
     if (this.isLoggedIn) {
       this.bookingForm = this.formBuilder.group({
-        specialWishes: ''
+        specialWishes: [''],
+        streetName: ['', Validators.required],
+        streetNumber: ['', Validators.required],
+        postalCode: ['', Validators.required],
+        cityName: ['', Validators.required],
+        paymentMethod: ['', Validators.required]
+      }, {
+        validators: [validateIban()]
       });
     } else {
       this.bookingForm = this.formBuilder.group({
         lastName: ['', Validators.required],
         firstName: ['', Validators.required],
         emailAddress: ['', Validators.required],
-        phoneNumber: ['', Validators.required],
-        specialWishes: ''
-        // ,
-        // username: ['', Validators.required],
-        // password: ['', Validators.required],
-        // passwordVerify: ['', Validators.required],
-        // unitCount: ['', Validators.required],
-        // startDate: ['', Validators.required],
-        // endDate: ['', Validators.required]
+        phoneNumber: '',
+        specialWishes: [''],
+        streetName: ['', Validators.required],
+        streetNumber: ['', Validators.required],
+        postalCode: ['', Validators.required],
+        cityName: ['', Validators.required],
+        paymentMethod: ['', Validators.required]
       }, {
-        validators: ValidateEmail()
+        validators: [validateEmail(), validatePhoneNumber(), validateIban()]
       });
+    }
+
+    if (this.isLoggedIn) {
+      this.customerService.getCustomerByAccountID(Number(localStorage.getItem('userID')))
+        .subscribe(result => {
+          if (result) {
+            this.customer = result
+
+            this.accountDetailsService.getAccountdetails(result.accountID ? result.accountID : 1)
+              .subscribe(result => {
+                if (result) {
+                  this.accountDetails = result
+                }
+              }, error => {
+
+              })
+
+            this.contactDataService.getContactdata(result.contactDataID ? result.contactDataID : 1)
+              .subscribe(result => {
+                if (result) {
+                  this.contactData = result
+
+                  console.log("CustomerResult: ", result)
+
+                  if (result.streetName) {
+                    console.log("removeControl")
+                    this.bookingForm.removeControl("streetName")
+                  }
+                  if (result.streetNumber) {
+                    this.bookingForm.removeControl("streetNumber")
+                  }
+                  if (result.postalCode) {
+                    this.bookingForm.removeControl("postalCode")
+                  }
+                  if (result.cityName) {
+                    this.bookingForm.removeControl("cityName")
+                  }
+                  if (result.paymentCredentials) {
+                    this.bookingForm.removeControl("paymentCredentials")
+                  }
+                  if (result.paymentCredentials) {
+                    this.bookingForm.removeControl("paymentMethod")
+                  }
+
+                  this.pageDidLoad = true
+
+                }
+              }, error => {
+
+              })
+          }
+
+        }, errors => {
+
+        })
+      // this.contactDataService.getContactdata()
+    } else {
+      this.pageDidLoad = true
     }
 
     this.getWindowSize()
@@ -247,17 +352,45 @@ export class BookingComponent implements OnInit {
 
   }
 
+  paymentMethodChanged() {
+    console.log("paymentMethod change")
+
+
+    if (this.f.paymentMethod.value === "debit" || this.f.paymentMethod.value === "paypal")
+    {
+      this.bookingForm.addControl('paymentCredentials', new FormControl('', Validators.required));
+
+      if (this.f.paymentMethod.value === "debit")
+      {
+        this.paymentCredentialsLabel = "Iban *"
+        this.paymentCredentialsErrorLabel = "Ungültiges Iban-Format"
+        this.paymentCredentialsNameLabel = "iban"
+      }
+      else if (this.f.paymentMethod.value === "paypal")
+      {
+        this.paymentCredentialsLabel = "Paypal-Daten *"
+        this.paymentCredentialsErrorLabel = "Ungültiges Email-Format"
+        this.paymentCredentialsNameLabel = "emailAddress"
+      }
+    } else {
+      this.bookingForm.removeControl("paymentCredentials")
+    }
+
+  }
+
   updateDateTimeLabel(selectedFromDate?: Date | null, selectedToDate?: Date | null) {
-    this.selectedFromDate = selectedFromDate!=undefined ? selectedFromDate : this.selectedFromDate
+    this.selectedFromDate = selectedFromDate != undefined ? selectedFromDate : this.selectedFromDate
     this.selectedToDate = selectedToDate ? selectedToDate : null
 
     const startDateTime = this.selectedFromDate ? this.selectedFromDate : new Date
     const endDateTime = this.selectedToDate ? this.selectedToDate : startDateTime
 
-    const displayStartDateTime = new Date()
-    const displayEndDateTime = new Date()
+    const displayStartDateTime = new Date(startDateTime)
+    const displayEndDateTime = new Date(endDateTime)
 
-
+    if (this.selectedFromDate) {
+      this.dateSelected = true
+    }
 
     if (!this.isConferenceRoom)
     {
@@ -284,31 +417,16 @@ export class BookingComponent implements OnInit {
       this.endDateTimeLabel = ""
     }
 
-
-    this.dateLabel =
-      (this.selectedFromDate ? "Anreise: "
-        + formatDate(startDateTime, "dd.MM.yyyy", "de")
-        : "Datum: ")
-      + (this.selectedToDate ? " Abreise: "
-        + formatDate(displayEndDateTime.setDate(endDateTime.getDate() + 1), "dd.MM.yyyy", "de")
-        : (this.selectedFromDate ? " Abreise: " + formatDate(displayStartDateTime.setDate(startDateTime.getDate() + 1), "dd.MM.yyyy", "de") : "" ))
-
-    this.timeLabel = "Uhrzeit: "
-      + (this.selectedFromDate ? formatDate(this.selectedFromDate, "hh:mm:ss", "de") : "")
-      + (this.selectedToDate ? "Uhr bis " + formatDate(this.selectedToDate, "hh.mm.ss", "de") + "Uhr" : "")
   }
 
   get f() { return this.bookingForm.controls; }
 
-  generateBooking(customerID: number) {
+  generateBooking(customerID: number): Booking {
     console.log("generateBooking")
     const startDateTime = new Date(this.selectedFromDate ? this.selectedFromDate : new Date)
 
-
     const placeHolderDateTime = new Date(this.selectedToDate ? this.selectedToDate : startDateTime)
-    // const endDateTime = new Date(this.selectedToDate ? this.selectedToDate : startDateTime)
     var endDateTime = new Date(this.selectedToDate ? placeHolderDateTime.setDate(this.selectedToDate.getDate() + 1) : placeHolderDateTime.setDate(startDateTime.getDate() + 1))
-
 
     if (this.isConferenceRoom) {
       endDateTime = new Date(startDateTime)
@@ -327,90 +445,120 @@ export class BookingComponent implements OnInit {
     const timeDiff = endDateTime.getTime() - startDateTime.getTime();
     const units = this.isConferenceRoom ? timeDiff / (1000 * 3600) : timeDiff / (1000 * 3600 * 24);
 
-    console.log("startDateTime: ", startDateTime)
 
-    this.booking = {
+    const booking: Booking = {
       roomNo: this.selectedRoom.roomNo,
       pricing: this.selectedRoom.pricePerUnit * units,
       empNo: 1,
-      // startDate: formatDate(startDateTime, "yyyy-MM-ddTHH:mm", "de"),
-      // endDate: formatDate(endDateTime, "yyyy-MM-ddTHH:mm", "de"),
       startDate: startDateTime.toISOString(),
       endDate: endDateTime.toISOString(),
-      // startDate: new Date(startDateTime.setDate(startDateTime.getDate() + 1)).toISOString(),
-      // endDate: new Date(endDateTime.setDate(endDateTime.getDate() + 1)).toISOString(),
       specialWishes: this.f.specialWishes.value,
       customerID: Number(customerID)
     }
 
-    console.log("this.booking: ",  this.booking)
-    console.log("this.booking: ",  JSON.stringify(this.booking))
-    console.log("startDateTime: ",  JSON.stringify(startDateTime.toISOString()))
+    return booking
   }
 
-  submit() {
-    this.submitted = true;
-    console.log("submit")
 
+  generateContactData(): Contactdata {
+    console.log("generateContactData")
 
-    if (this.bookingForm.invalid) {
-      return;
+    if (this.isLoggedIn) {
+      const contactData: Contactdata = {
+        firstName: this.contactData.firstName,
+        lastName: this.contactData.lastName,
+        mailAddress: this.contactData.mailAddress,
+        phone: this.contactData.phone,
+        streetName: this.contactData.streetName ?? this.f.streetName.value,
+        streetNumber: this.contactData.streetNumber ?? this.f.streetNumber.value,
+        postalCode: this.contactData.postalCode ?? this.f.postalCode.value,
+        cityName: this.contactData.cityName ?? this.f.cityName.value,
+        paymentCredentials: this.contactData.paymentCredentials ?? this.f.paymentCredentials.value
+      }
+      return contactData
+    } else {
+      const contactData: Contactdata = {
+        firstName: this.f.firstName.value,
+        lastName: this.f.lastName.value,
+        phone: this.f.phoneNumber.value,
+        mailAddress: this.f.emailAddress.value,
+        streetName: this.f.streetName.value,
+        streetNumber: this.f.streetNumber.value,
+        postalCode: this.f.postalCode.value,
+        cityName: this.f.cityName.value,
+        paymentCredentials: this.f.paymentCredentials ? this.f.paymentCredentials.value : null
+      }
+      return contactData
     }
 
-    const customerID = Number(localStorage.getItem('userID') ? localStorage.getItem('userID') : 0)
 
-    var bookingType = "hotelRoom"
+  }
 
-    if (this.isConferenceRoom) {
-      bookingType = "conferenceRoom"
-    }
+  generateCustomer(_callBack: Function) {
+    console.log("generateCustomer")
+    console.log()
+
+    this.contactData = this.generateContactData()
+
+    this.customer.paymentMethod = this.customer.paymentMethod ?? this.f.paymentMethod.value
+    console.log("paymentMethod: ", this.customer.paymentMethod)
 
 
     if (this.isLoggedIn) {
+      console.log("loggedIn")
+      console.log()
+      console.log("contactData: ", this.contactData)
+      console.log("customer: ", this.customer)
+      this.contactDataService.updateContactdata(this.customer.contactDataID ?? 1, this.contactData)
+        .subscribe(result => {
+          console.log("contactDataServiceResult: ", result)
 
-      console.log("isLoggedIn")
+          this.customerService.updateCustomer(this.customer.customerID ?? 1, this.customer)
+            .subscribe(result => {
+              console.log("customerServiceResult: ", result)
+              _callBack()
+            }, error => {
 
-      const customerID = Number(localStorage.getItem('userID') ? localStorage.getItem('userID') : 0)
-      this.generateBooking(customerID)
-      this.bookingService.save(this.booking, bookingType)
+            })
+
+        }, error => {
+
+        })
+
 
     } else {
-      var companyName = ""
+      console.log("not loggedIn")
+      console.log()
 
-      if (this.isBusinessCustomer) {
-        companyName = this.f.companyName.value
-      }
+      this.customer.isBusinessCustomer = this.isBusinessCustomer
 
-      const randomgeneratedUserPassword = Math.random().toString(36).slice(-8)
+      const autogeneratedUserPassword = Math.random().toString(36).slice(-8)
 
-      const generatedUserName = this.f.firstName.value.slice(0, 4) + this.f.lastName.value.slice(0, 4)
+      const firstNameLength = this.f.firstName.value.length
+      const lastNameLength = this.f.lastName.value.length
+      const autogeneratedUserName = this.f.firstName.value.slice(0, Math.round(firstNameLength/2)) + (Math.floor(1000 + Math.random() * 9000)) +  this.f.lastName.value.slice(0, Math.round(lastNameLength/2))
+
+      this.accountDetails = {
+        passwordHash: autogeneratedUserPassword,
+        username: autogeneratedUserName,
+      };
+
+      console.log("accountDetails: ", this.accountDetails)
+      console.log("contactData: ", this.contactData)
+      console.log("customer: ", this.customer)
 
       this.registrationService.register(
-        this.f.lastName.value,
-        this.f.firstName.value,
-        companyName,
-        this.f.emailAddress.value,
-        this.f.phoneNumber.value,
-        generatedUserName,
-        randomgeneratedUserPassword,
-        randomgeneratedUserPassword,
-        this.isBusinessCustomer
+        this.accountDetails,
+        this.contactData,
+        this.customer
       )
-        .then(success => {
-
-          alert("customerID: " + success)
+        .then(customerID => {
           this.dataSuccessfullySaved = true
 
-          this.generateBooking(Number(success))
+          this.customer.customerID = Number(customerID)
 
-          this.bookingService.save(this.booking, bookingType)
-            .subscribe(result => {
-              console.log("bookingService result: ", result)
-            },(error)=>
-              {
-                console.log("bookingService: ", error)
-                // this.addAlertForXSeconds(new Alert('danger',"Fehler beim Anlegen des Accounts"),5);
-              })
+          console.log("customerSaved: ", customerID)
+          _callBack()
 
           // window.location.href = "";
         })
@@ -453,10 +601,86 @@ export class BookingComponent implements OnInit {
         })
     }
 
-
-
   }
 
+  submit() {
+    this.submitted = true;
+    console.log("submit")
 
 
+    if (this.selectedFromDate) {
+      this.dateSelected = true
+    } else {
+      console.log("no selectedFromDate")
+      return;
+    }
+
+    if (this.isConferenceRoom) {
+      if ( this._startTime && this._endTime) {
+        this.timeSelected = true
+      } else {
+        console.log("no startTime")
+        return;
+      }
+    }
+
+    if (this.bookingForm.invalid) {
+      console.log("no bookingForm")
+      return;
+    }
+
+    console.log("no return")
+
+    this.generateCustomer(()=>{
+
+      console.log("callback")
+
+      const customerID = this.customer.customerID ?? 1
+      const bookingType = this.isConferenceRoom ? "conferenceRoom" : "hotelRoom"
+
+      this.booking = this.generateBooking(customerID)
+
+      this.bookingService.save(this.booking, bookingType)
+        .subscribe(result => {
+            console.log("bookingService result: ", result)
+            this.startDateTimeLabel = "Datum:"
+            this.endDateTimeLabel = ""
+            this.selectedFromDate = null
+            this.selectedToDate = null
+            this._startTime = {hour: 8, minute: 0, second: 0}
+            this._startTime = {hour: 14, minute: 0, second: 0}
+            this.isLoggedIn = localStorage.getItem('user') ? true : false
+            alert("Ihr Username lautet: " + this.accountDetails.username + "\n" + "Ihr Passwort lautet: " + this.accountDetails.passwordHash)
+            window.location.href = "";
+
+          },
+          (error)=>
+          {
+            console.log("bookingService: ", error)
+            // this.addAlertForXSeconds(new Alert('danger',"Fehler beim Anlegen des Accounts"),5);
+          })
+    })
+
+    // if (this.isLoggedIn) {
+    //   console.log("isLoggedIn")
+    //
+    //   const customerID = this.accountDetails.accountID ? this.accountDetails.accountID : 1
+    //
+    //   this.booking = this.generateBooking(customerID)
+    //
+    //   this.bookingService.save(this.booking, bookingType)
+    //     .subscribe(result => {
+    //         console.log("bookingService result: ", result)
+    //         this.selectedFromDate = null
+    //         this.selectedToDate = null
+    //       },
+    //       (error)=>
+    //       {
+    //         console.log("bookingService: ", error)
+    //         // this.addAlertForXSeconds(new Alert('danger',"Fehler beim Anlegen des Accounts"),5);
+    //       })
+    // } else {
+    //
+    // }
+  }
 }

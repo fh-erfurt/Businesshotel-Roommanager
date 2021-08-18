@@ -67,20 +67,29 @@ export class RegistrationService {
   }
 
 
-  register = (
-    lastName: string,
-    firstName: string,
-    companyName: string,
-    emailaddress: string,
-    phoneNumber: string,
-    username: string,
-    password: string,
-    passwordVerify: string,
-    isBusinessCustomer: boolean) =>
+  // register = (
+  //   lastName: string,
+  //   firstName: string,
+  //   companyName: string,
+  //   emailaddress: string,
+  //   phoneNumber: string,
+  //   username: string,
+  //   password: string,
+  //   passwordVerify: string,
+  //   isBusinessCustomer: boolean,
+  //   streetName?: string,
+  //   streetNumber?: string,
+  //   postalCode?: string,
+  //   cityName?: string) =>
+
+    register = (
+      accountDetail: Accountdetail,
+      contactData: Contactdata,
+      customer: Customer) =>
   {
 
     return new Promise((resolve, reject) => {
-      this.loginService.getAccount(username).subscribe((data: Accountdetail | null)=>{
+      this.loginService.getAccount(accountDetail.username).subscribe((data: Accountdetail | null)=>{
         if (data) {
           reject(errors.unavailableUsername)
         } else {
@@ -88,25 +97,21 @@ export class RegistrationService {
         }
       }, (error)=>{
         console.log("Kein User mit diesem Namen")
-        this.accountDetail = {
-          passwordHash: password,
-          username: username,
-        };
-        this.contactData = {
-          firstName: firstName,
-          lastName: lastName,
-          phone: phoneNumber,
-          mailAddress: emailaddress
-        }
+        this.accountDetail = accountDetail
+        this.contactData = contactData
 
-        this.saveAccountDetail()
+        this.saveAccountDetail(this.accountDetail)
           .then(success => {
-            this.saveContactData()
+            this.saveContactData(this.contactData)
               .then(success => {
-                this.saveCustomer(isBusinessCustomer)
-                  .then(success => {
-                    console.log("then(success => {})")
-                    resolve(success)
+
+                customer.accountID = this.accountDetail.accountID
+                customer.contactDataID = this.contactData.contactDataID
+
+                this.saveCustomer(customer)
+                  .then(customerID => { //CustomerID
+                    console.log("then(success => {}): ", customerID)
+                    resolve(customerID)
                   })
                   .catch(error => {
                     reject(error)
@@ -123,10 +128,10 @@ export class RegistrationService {
     })
   }
 
-  saveAccountDetail = () => {
+  saveAccountDetail = (accountDetail: Accountdetail) => {
     return new Promise((resolve, reject) => {
       console.log("saveAccountDetail")
-      this.accountdetailsService.save(this.accountDetail)
+      this.accountdetailsService.save(accountDetail)
         .subscribe((data)=>
           {
             if(data.accountID) {
@@ -145,11 +150,11 @@ export class RegistrationService {
     })
 
   }
-  saveContactData = () => {
+  saveContactData = (contactData: Contactdata) => {
 
     return new Promise((resolve, reject) => {
       console.log("saveContactDate")
-      this.contactDataService.save(this.contactData)
+      this.contactDataService.save(contactData)
         .subscribe((data)=>
           {
             if(data.contactDataID) {
@@ -169,12 +174,11 @@ export class RegistrationService {
 
 
   }
-  saveCustomer = (isBusinessCustomer: boolean) => {
+  saveCustomer = (customer: Customer) => {
 
     return new Promise((resolve, reject) => {
-      this.customer.accountID = this.accountDetail.accountID
-      this.customer.contactDataID = this.contactData.contactDataID
-      this.customer.isBusinessCustomer = isBusinessCustomer
+
+      this.customer = customer
 
       this.customerService.save(this.customer)
         .subscribe((data) =>
@@ -182,7 +186,7 @@ export class RegistrationService {
             if(data.customerID) {
               this.customer.customerID=data.customerID;
               localStorage.setItem('user', this.accountDetail.username);
-              localStorage.setItem('userID', String(this.customer.customerID));
+              localStorage.setItem('userID', String(this.accountDetail.accountID));
               resolve(data.customerID)
             } else {
               reject(errors.saveCustomerStatusUnknown)

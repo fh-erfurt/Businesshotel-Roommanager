@@ -149,4 +149,8 @@ export class BookingCalendar implements OnInit {
   ngOnInit(): void {
   }
 
+  ngOnDestroy() {
+
+  }
+
 }

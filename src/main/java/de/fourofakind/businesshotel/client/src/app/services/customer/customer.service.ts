@@ -37,6 +37,15 @@ export class CustomerService {
     )
   }
 
+  public getCustomerByAccountID(id: number): Observable<Customer> {
+    return this.http.get<Customer>(`${this.baseUrl}search/findCustomerByAccountID?account_id=${id}`).pipe(
+      map((result: any) => {
+        //console.log(result);
+        return result;
+      })
+    )
+  }
+
 
   public save(customer: Customer): Observable<Customer> {
     console.log(customer);

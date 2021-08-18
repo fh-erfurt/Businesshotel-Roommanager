@@ -5,7 +5,7 @@ import { first } from 'rxjs/operators';
 
 import { LoginService } from '../../services/login/login.service';
 import {RootObject} from "../../services/login/login";
-import {MustMatch} from "../../services/registration/helpers.validator";
+import {checkPasswordMatch} from "../../services/registration/helpers.validator";
 
 @Component({ templateUrl: 'login.component.html' })
 export class LoginComponent implements OnInit {

@@ -11,7 +11,10 @@ import {
 import {ActivatedRoute, Router} from "@angular/router";
 import {errors, RegistrationService} from "../../services/registration/registration.service";
 import {ErrorStateMatcher} from "@angular/material/core";
-import {MustMatch, ValidateEmail} from "../../services/registration/helpers.validator";
+import {checkPasswordMatch, validateEmail, validatePhoneNumber} from "../../services/registration/helpers.validator";
+import {Accountdetail} from "../../services/accountdetails/accountdetail";
+import {ContactData, Customer} from "../../services/customer/customer";
+import {Contactdata} from "../../services/contactdata/contactdata";
 
 
 @Component({
@@ -50,7 +53,7 @@ export class RegistrationComponent implements OnInit {
       password: ['', [Validators.required, Validators.minLength(10)]],
       passwordVerify:  ['',Validators.required]
     }, {
-      validators: [MustMatch('password', 'passwordVerify'), ValidateEmail()]
+      validators: [checkPasswordMatch('password', 'passwordVerify'), validateEmail(), validatePhoneNumber()]
     });
   }
 
@@ -83,18 +86,28 @@ export class RegistrationComponent implements OnInit {
       companyName = this.f.companyName.value
     }
 
+    const accountDetails: Accountdetail = {
+      passwordHash: this.f.password.value,
+      username: this.f.username.value,
+    };
+
+    const contactData: Contactdata = {
+      firstName: this.f.firstName.value,
+      lastName: this.f.lastName.value,
+      phone: this.f.phoneNumber.value,
+      mailAddress: this.f.emailAddress.value
+    }
+
+    const customer: Customer = {
+      isBusinessCustomer: this.isBusinessCustomer
+    }
+
     this.registrationService.register(
-      this.f.lastName.value,
-      this.f.firstName.value,
-      companyName,
-      this.f.emailAddress.value,
-      this.f.phoneNumber.value,
-      this.f.username.value,
-      this.f.password.value,
-      this.f.passwordVerify.value,
-      this.isBusinessCustomer
+      accountDetails,
+      contactData,
+      customer
     )
-      .then(success => {
+      .then(customerID => {
         this.dataSuccessfullySaved = true
         this.unavailableUsername = false
         window.location.href = "";
