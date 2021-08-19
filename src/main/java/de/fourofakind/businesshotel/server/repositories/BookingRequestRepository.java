@@ -8,10 +8,14 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.util.List;
 
+/**
+ * <p>
+ * This class provides access to the bookingRequests in the database which can be created by customers
+ * </p>
+ */
 @CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "*")
 @RepositoryRestResource(collectionResourceRel = "bookingrequest", path = "bookingrequest")
 public interface BookingRequestRepository extends JpaRepository<BookingRequest, Integer>
 {
-
     List<BookingRequest> findByCustomerID (@Param("customerID") Integer customerID);
 }
