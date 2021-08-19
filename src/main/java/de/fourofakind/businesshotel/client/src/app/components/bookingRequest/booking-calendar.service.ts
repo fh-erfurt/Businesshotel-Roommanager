@@ -28,8 +28,13 @@ export class BookingCalendar implements OnInit {
   public selectedFromDate$: Observable<Date | null> = this.selectedFromDate.asObservable();
   public selectedToDate$: Observable<Date | null> = this.selectedToDate.asObservable();
 
-  private dateIsUnavailable = false
-  private dateInUnaviableRange = false
+
+  public dateIsUnavailableObservableReason: BehaviorSubject<string> = new BehaviorSubject<string>("")
+  public dateIsUnavailableObservable$: Observable<string> = this.dateIsUnavailableObservableReason.asObservable();
+
+  private dateIsUnavailable: boolean = false
+
+  private dateInUnavailableRange = false
   public isConferenceRoom = false
   public model!: NgbDateStruct;
 
@@ -41,6 +46,7 @@ export class BookingCalendar implements OnInit {
     // this.toDate = calendar.getNext(calendar.getToday(), 'd', 3);
     this.selectedFromDate.next(this.fromDate ? new Date(this.fromDate.year, this.fromDate.month - 1, this.fromDate.day) : null);
     this.selectedToDate.next(this.toDate ? new Date(this.toDate.year, this.toDate.month - 1, this.toDate.day) : null);
+    this.dateIsUnavailableObservableReason.next("")
   }
 
   validateInput(currentValue: NgbDate | null, input: string): NgbDate | null {
@@ -51,7 +57,12 @@ export class BookingCalendar implements OnInit {
   onDateSelection(date: NgbDate) {
 
     this.dateIsUnavailable = false
-    this.dateInUnaviableRange = false
+    this.dateIsUnavailableObservableReason.next("")
+
+    this.dateInUnavailableRange = false
+
+
+
     this.unavailableDateRanges.forEach( (unavailableDateRange) => {
 
       let startDate = new NgbDate(
@@ -66,30 +77,43 @@ export class BookingCalendar implements OnInit {
       )
 
       if (date.equals(startDate) || date.equals(endDate) || (date.after(startDate) && date.before(endDate))) {
-        console.log("unaviable")
+        console.log("unavailable")
         this.dateIsUnavailable = true
+        this.dateIsUnavailableObservableReason.next("unavailable")
       }
       if (this.fromDate?.before(startDate) && !this.isConferenceRoom) {
           if (date.after(endDate) && !this.toDate) {
             console.log("Nope Sorry")
             this.dateIsUnavailable = true
+            this.dateIsUnavailableObservableReason.next("unavailableRange")
           }
       }
     });
 
-    if (!this.dateIsUnavailable && !this.dateInUnaviableRange) {
+    if (!this.dateIsUnavailable && !this.dateInUnavailableRange) {
       if (!this.fromDate && !this.toDate) {
         this.fromDate = date;
+        this.selectedFromDate.next(this.fromDate ? new Date(this.fromDate.year, this.fromDate.month - 1, this.fromDate.day) : null);
 
       } else if (this.fromDate && !this.toDate && date.after(this.fromDate) && !this.isConferenceRoom) {
         this.toDate = date;
+        this.selectedToDate.next(this.toDate ? new Date(this.toDate.year, this.toDate.month - 1, this.toDate.day) : null);
+
+      } else if (date.equals(this.fromDate)) {
+        this.fromDate = null
+        this.toDate = null;
+        this.selectedFromDate.next(null);
+        this.selectedToDate.next(null);
 
       } else {
         this.toDate = null;
         this.fromDate = date;
+
+        this.selectedToDate.next(null);
+        this.selectedFromDate.next(this.fromDate ? new Date(this.fromDate.year, this.fromDate.month - 1, this.fromDate.day) : null);
       }
-      this.selectedFromDate.next(new Date(this.fromDate.year, this.fromDate.month - 1, this.fromDate.day));
-      this.selectedToDate.next(this.toDate ? new Date(this.toDate.year, this.toDate.month - 1, this.toDate.day) : null);
+
+
     }
 
 
