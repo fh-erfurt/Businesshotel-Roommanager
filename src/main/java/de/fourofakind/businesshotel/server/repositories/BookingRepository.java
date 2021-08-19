@@ -9,7 +9,13 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.util.Date;
 import java.util.List;
-
+/**
+ * <p>This repository represents the detailed information of a booking. A booking has a lot of information that is has to
+ * provide in order to make the manager work. We provide two types of booking: conferenceroom and hotelroom. They differ from
+ * the options possible in the booking and the booking rules for time and date. It stores by which employee the booking
+ * was made, which customer booked which room from a startdate to an enddate. The start- and enddate can also only be a time,
+ * like hours, but only in case the booking is made for a conferenceroom. Specialwishes like lots of Cola are also added to the booking</p>
+ */
 @CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "*")
 @RepositoryRestResource(collectionResourceRel = "booking", path="booking")
 public interface BookingRepository extends JpaRepository<Booking,Integer>
