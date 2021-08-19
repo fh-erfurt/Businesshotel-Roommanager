@@ -181,6 +181,13 @@
                 <div class="row">
                   <div class="col-lg">
                     <div *ngIf="!isLoggedIn" class="form-group">
+                      <label>Nachname *</label>
+                      <input type="text" formControlName="lastName" name="lastName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" />
+                      <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
+                        <div *ngIf="f.lastName.errors.required">Bitte Vorname angeben</div>
+                      </div>
+                    </div>
+                    <div *ngIf="!isLoggedIn" class="form-group">
                       <label>Vorname *</label>
                       <input type="text" formControlName="firstName" name="firstName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" />
                       <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
