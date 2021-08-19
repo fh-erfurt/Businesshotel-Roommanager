@@ -16,6 +16,7 @@ import {RoleService} from "../../services/role/role.service";
 
 /**
 * Component for Management (Add, Update, Get, Delete) of Employees
+*
 * consumes form data and calls corresponding services
 */
 export class EmployeeManagementComponent implements OnInit {
@@ -57,17 +58,18 @@ export class EmployeeManagementComponent implements OnInit {
   //###################################################################################################################
 
   /**
-  * alert Object and seconds to display the alert as input params
-  *
-  * produces alert for x seconds dsiplayed on the right side of the management tab
-  */
+   * produces alert for x seconds displayed on the right side of the management tab
+   *
+   * @param alert contains message and alert type (danger or success)
+   * @param seconds seconds to display the alert
+   *
+   */
   addAlertForXSeconds(alert: Alert, seconds: number) {
     this.alerts.push(alert);
     setTimeout(() => this.alerts = this.alerts.filter(entry => entry != alert), seconds * 1000);
   }
 
   /**
-  * function without input params
   *
   * checks password and repeatedPassword for equality
   */
@@ -76,20 +78,23 @@ export class EmployeeManagementComponent implements OnInit {
   }
 
   /**
-  * function without input params
+  * checks for employees rights to do this transaction
   *
   * checks if username already exists
   */
   validateUsername() {
-    this.accountdetailsService.getAccountdetailsByUsername(this.username)
-      .subscribe(
-        (data => {
-          this.usernameAlreadyExists = true;
-        }),
-        (error) => {
-          this.usernameAlreadyExists = false;
-          this.isSubmitAllowed = true;
-        })
+    if (this.roleService.checkRights(this.department)) {
+      this.accountdetailsService.getAccountdetailsByUsername(this.username)
+        .subscribe(
+          (data => {
+            this.usernameAlreadyExists = true;
+          }),
+          (error) => {
+            this.usernameAlreadyExists = false
+
+            this.isSubmitAllowed = true;
+          })
+    } else alert("Benötigte Rechte nicht vorhanden")
   }
 
 
@@ -97,11 +102,13 @@ export class EmployeeManagementComponent implements OnInit {
   //ADD | UPDATE ######################################################################################################
   //###################################################################################################################
 
+
   /**
-  * function with callback function as input param for a controlled function sequence
-  *
-  * checks password and repeatedPassword for equality
-  */
+   *
+   * checks password and repeatedPassword for equality
+   *
+   * @param _callback to ensure a controlled function sequence
+   */
   addAccount(_callback: Function) {
     console.log(this.username);
 
@@ -121,15 +128,14 @@ export class EmployeeManagementComponent implements OnInit {
         });
   }
 
+
   /**
-  * function with boolean and ngForm as input params
-  *
-  * boolean decides if an Employee is added or an existing employee ist updated
-  *
-  * ngForm for form resetting after update/add
-  *
-  * adds or updates employee with form data
-  */
+   * adds or updates employee with form data
+   *
+   * @param addsNewEmployee decides if an Employee is added or an existing employee is updated
+   * @param addOrUpdateEmployeeForm needed for form resetting after update/add
+   *
+   */
   addOrUpdateEmployee(addsNewEmployee: boolean, addOrUpdateEmployeeForm: NgForm) {
     this.foundEmployee = null;
 
@@ -165,18 +171,16 @@ export class EmployeeManagementComponent implements OnInit {
     }
   }
 
+
   /**
-    * function with boolean and ngForm as input params
-  *
-    * boolean decides if an Employee is added or an existing employee is updated
-  *
-    * ngForm for form resetting after update/add
-  *
-    *
-    * checks for employees rights to do this transaction
-  *
-    * call addAccount for new Employees or addOrUpdateEmployee for updating an Employee
-    */
+   * checks for employees rights to do this transaction
+   *
+   * calls addAccount for adding new Employees or addOrUpdateEmployee for updating an Employee
+   *
+   * @param addsNewEmployee decides if an Employee is added or an existing Employee is updated
+   * @param addOrUpdateEmployeeForm needed for form resetting after update/add
+   *
+   */
   addOrUpdateEmployeeAndDetails(addsNewEmployee: boolean, addOrUpdateEmployeeForm: NgForm) {
     if (this.roleService.checkRights(this.department)) {
       if (addsNewEmployee) this.addAccount(() => this.addOrUpdateEmployee(addsNewEmployee, addOrUpdateEmployeeForm));
@@ -189,13 +193,15 @@ export class EmployeeManagementComponent implements OnInit {
   //GET ###############################################################################################################
   //###################################################################################################################
 
+
   /**
-  * function with boolean as input param
-  *
-  * boolean decides if search result should be filled into the form
-  *
-  * searches for employee associated with the form data
-  */
+   * checks for employees rights to do this transaction
+   *
+   * searches for employee associated with the form data
+   *
+   * @param intoFormular decides if search result should be filled into the form
+   *
+   */
   submitSearch(intoFormular: boolean) {
     if (this.roleService.checkRights(this.department)) {
       this.foundEmployee = null;
@@ -220,13 +226,14 @@ export class EmployeeManagementComponent implements OnInit {
   //DELETE ############################################################################################################
   //###################################################################################################################
 
+
+
   /**
-  * ngForm as input param
-  *
-  * ngForm for resetting the form after deletion
-  *
-  * deletes employee associated with the form data
-  */
+   * deletes employee associated with the form data
+   *
+   * @param deleteEmployeeForm for resetting the form after deletion
+   *
+   */
   deleteEmployee(deleteEmployeeForm: NgForm) {
 
     this.employeeService.delete(this.empNo)
@@ -242,11 +249,13 @@ export class EmployeeManagementComponent implements OnInit {
 
   }
 
+
   /**
-  * callback function as input param to ensure controlled function sequence
-  *
-  * calls patchBookingsAtEmployeeDelete from bookingService for each booking associated with the empNo provided in the form
-  */
+   * calls patchBookingsAtEmployeeDelete from bookingService for each booking associated with the empNo provided in the form
+   *
+   * @param _callback to ensure controlled function sequence
+   *
+   */
   patchBookings(_callback: Function) {
 
     let bookingNoOfEmployee: number[] = [];
@@ -279,13 +288,15 @@ export class EmployeeManagementComponent implements OnInit {
 
   }
 
+
   /**
-  * ngForm as input param
-  *
-  * ngForm for resetting the form after deletion
-  *
-  * calls patchBookings before calling deleteEmployee
-  */
+   * checks for employees rights to do this transaction
+   *
+   * calls patchBookings before calling deleteEmployee
+   *
+   * @param deleteEmployeeForm for resetting the form after deletion
+   *
+   */
   deleteEmployeeAndDetails(deleteEmployeeForm: NgForm) {
 
     if (this.roleService.checkRights(this.department)) {
