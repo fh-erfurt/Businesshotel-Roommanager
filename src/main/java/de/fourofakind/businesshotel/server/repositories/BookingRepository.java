@@ -27,6 +27,9 @@ public interface BookingRepository extends JpaRepository<Booking, Integer>
 
     List<Booking> findByRoomNo (@Param("roomNo") Integer roomNo);
 
+    /**
+     * <p>This Function is used to find all bookings within a given frame to ensure there are no doubled bookings on a room possible</p>
+     */
     List<Booking> findByStartDateIsBetweenOrEndDateIsBetweenOrStartDateBeforeAndEndDateAfter (@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) @Param("startDate") Date startDateFirstCondition,
                                                                                               @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) @Param("endDate") Date endDateFirstCondition,
                                                                                               @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) @Param("startDate") Date startDateSecondCondition,
