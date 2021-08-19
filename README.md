@@ -72,7 +72,7 @@ Die Applikation steht Ihnen nun zur Nutzung bereit. Öffnen Sie einen Browser un
 	1. Folgen Sie den Anweisungen in der Selenium-BH-Testroom Readme
 	
 ### Verwendung der Anwendung
-## Login-Daten für verschiedene vorhandene Acounts
+#### Login-Daten für verschiedene vorhandene Acounts
 
 | Rolle | Username | Passwort  |
 |---|---|---|
