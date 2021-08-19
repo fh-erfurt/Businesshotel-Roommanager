@@ -150,7 +150,9 @@ Nicht zum Projektumfang gehören:
 <summary> Verwendete Software </summary>
 <br>
 
-* [IntelliJ](https://www.jetbrains.com/de-de/idea/) - IDE für JAVA
+* [IntelliJ](https://www.jetbrains.com/de-de/idea/) - IDE für JAVA (Server)
+* [Webstorm](https://www.jetbrains.com/de-de/webstorm/) - IDE für Angular (Client)
+* [VSCode](https://code.visualstudio.com/) - IDE für Angular (Client)	
 * [draw.io](https://app.diagrams.net/) - Tool für die Erstellung der Diagramme
 * [lucidchart](https://app.lucidchart.com/) - Tool für die Erstellung der Diagramme
 * [Office](https://www.office.com/) - Office Programm

@@ -35,7 +35,7 @@
     .room-details {
       grid-area: room-details;
       text-align: center;
-      min-width: 400px;
+      min-width: 402px;
       height: 300px;
     }
     .room-image {
@@ -46,14 +46,17 @@
     .room-details-card {
       margin-left: 0;
       margin-right: auto;
-      width: 400px;
+      width: 402px;
+    }
+    .room-details-card .card-body {
+      width: 402px;
     }
 
   }
   @media only screen and (max-width: 1399px) and (min-width: 800px) {
     .form-inline {
       display: grid;
-      grid-template-columns: 400px 1fr;
+      grid-template-columns: 402px 1fr;
       grid-template-rows: 1fr;
       //justify-content: space-between;
       gap: 22px 22px;
@@ -96,7 +99,7 @@
     .room-details {
       grid-area: room-details;
       text-align: center;
-      min-width: 400px;
+      min-width: 402px;
       height: 300px;
     }
     .room-image {
@@ -107,7 +110,10 @@
     .room-details-card {
       margin-left: 0;
       margin-right: auto;
-      width: 400px;
+      width: 402px;
+    }
+    .room-details-card .card-body {
+      width: 402px;
     }
 
   }
@@ -158,7 +164,7 @@
     .room-details {
       grid-area: room-details;
       text-align: center;
-      min-width: 400px;
+      min-width: 402px;
       height: 300px;
     }
     .room-image {
@@ -169,7 +175,11 @@
     .room-details-card {
       margin-left: 0;
       margin-right: auto;
-      width: 400px;
+      width: 402px;
+    }
+
+    .room-details-card .card-body {
+      width: 402px;
     }
 
   }
@@ -259,7 +269,7 @@
 
   .booking-details-card {
     // height: 500px;
-    min-height: 325px;
+    min-height: 265px;
 
   }
 
