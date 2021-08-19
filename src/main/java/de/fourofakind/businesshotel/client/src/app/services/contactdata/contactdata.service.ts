@@ -27,7 +27,6 @@ export class ContactdataService {
   public getAllContactdata(): Observable<Contactdata>{
     return this.http.get<Contactdata>(`${this.baseUrl}`).pipe(
       map((result:any) =>{
-        console.log(result);
         return result._embedded.contactdata;
       })
     )
@@ -41,7 +40,6 @@ export class ContactdataService {
   public getContactdata(id:number): Observable<Contactdata>{
     return this.http.get<Contactdata>(`${this.baseUrl}${id}`).pipe(
       map((result:any) =>{
-        console.log(result);
         return result;
       })
     )
@@ -55,7 +53,6 @@ export class ContactdataService {
    */
   public save(contactdata: Contactdata):Observable<Contactdata>
   {
-    console.log(contactdata);
 
     return this.http.post<Contactdata>(this.baseUrl, contactdata)
         .pipe(
@@ -99,7 +96,6 @@ export class ContactdataService {
    */
   public updateContactdata(id: number, contactdata: Contactdata): Observable<Contactdata>
   {
-    console.log(contactdata);
 
     return this.http.put<Contactdata>(`${this.baseUrl}${id}`, contactdata)
       .pipe(

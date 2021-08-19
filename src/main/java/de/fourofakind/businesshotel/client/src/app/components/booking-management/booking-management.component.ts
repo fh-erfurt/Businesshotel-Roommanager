@@ -105,11 +105,7 @@ export class BookingManagementComponent implements OnInit {
   * checks if dates are neither in the past nor the endtime is before the starttime
   */
   validateDate() {
-    // console.log(this.startDate)
-    // console.log(new Date(this.startDate+"T00:00:00"))
-    // console.log(new Date(this.startDate+"T00:00:00").getTime())
-    // console.log(parseDate(this.endDate).getMilliseconds())
-
+    
     if (this.startTime && this.startDate && this.endDate && this.endTime) {
       this.startTimestamp = parseDate(this.startDate + "T" + this.startTime)
       this.endTimestamp = parseDate(this.endDate + "T" + this.endTime)
@@ -173,17 +169,17 @@ export class BookingManagementComponent implements OnInit {
    *
    */
   filterRoomsByOccupation(isBookingChange: boolean) {
-    console.log(this.startDate, this.endDate);
+    
     let startTimestamp = this.startDate + "T" + this.startTime + ":00.000%2b02:00"
     let endTimestamp = this.endDate + "T" + this.endTime + ":00.000%2b02:00"
 
     this.bookingService.getBookingsByStartDateAndEndDate(startTimestamp, endTimestamp).subscribe(data => {
-      console.log(this.rooms);
+      
       data.forEach((booking: Booking) => {
         if (isBookingChange) this.rooms = this.rooms.filter(room => room.roomNo !== booking.roomNo || room.roomNo === this.roomNo)
         else this.rooms = this.rooms.filter(room => room.roomNo !== booking.roomNo)
       })
-      console.log(this.rooms);
+      
       if (!isBookingChange) this.occupationChecked = true;
     })
   }
@@ -198,18 +194,14 @@ export class BookingManagementComponent implements OnInit {
   getValidRooms(isBookingChange: boolean, _callback?: Function) {
     if (this.bookingType == "hotelRoom") {
       this.roomService.getHotelRooms().subscribe(data => {
-        console.log(data);
         this.rooms = data;
-        console.log(this.rooms);
         this.filterRoomsByOccupation(isBookingChange);
         if (_callback) _callback();
 
       })
     } else {
       this.roomService.getConferenceRooms().subscribe(data => {
-        console.log(data);
         this.rooms = data;
-        console.log(this.rooms);
         this.filterRoomsByOccupation(isBookingChange);
         if (_callback) _callback();
       })
@@ -325,7 +317,6 @@ export class BookingManagementComponent implements OnInit {
   getBookingData(intoFormular: boolean) {
 
     this.foundBooking = null;
-    console.log(this.rooms);
 
     this.bookingService.getBooking(this.bookingNo).subscribe(data => {
         this.foundBooking = data;

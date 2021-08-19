@@ -110,7 +110,6 @@ export class EmployeeManagementComponent implements OnInit {
    * @param _callback to ensure a controlled function sequence
    */
   addAccount(_callback: Function) {
-    console.log(this.username);
 
     let newAccount: Accountdetail =
       {
@@ -261,13 +260,11 @@ export class EmployeeManagementComponent implements OnInit {
     let bookingNoOfEmployee: number[] = [];
     this.bookingService.getBookingsByEmpNo(this.empNo)
       .subscribe((data) => {
-        console.log(data);
         data.forEach((data) => {
           if (data && data.bookingNo) {
             bookingNoOfEmployee.push(data.bookingNo)
           }
         })
-        console.log(bookingNoOfEmployee)
         if (bookingNoOfEmployee.length > 0) {
           let currentIdx = 0;
           bookingNoOfEmployee.forEach((bookingNo) => {

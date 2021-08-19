@@ -33,7 +33,6 @@ export class AccountdetailsService {
   {
     return this.http.get<Accountdetail>(`${this.baseUrl}`).pipe(
       map((result:any) =>{
-        //console.log(result);
         return result._embedded.accountdetails;
       })
     )
@@ -49,7 +48,6 @@ export class AccountdetailsService {
   {
     return this.http.get<Accountdetail>(`${this.baseUrl}${id}`).pipe(
       map((result:any) =>{
-        //console.log(result);
         return result;
       })
     )
@@ -65,7 +63,6 @@ export class AccountdetailsService {
   {
     return this.http.get<Accountdetail>(`${this.baseUrl}search/findByUsername?username=${username}`).pipe(
       map((result:any) =>{
-        //console.log(result);
         return result;
       })
     )
@@ -86,7 +83,6 @@ export class AccountdetailsService {
       .pipe(
         map(
           (res) => {
-            console.log(res);
             return res;
           }
         )
@@ -105,7 +101,6 @@ export class AccountdetailsService {
         map(
           (res)=>
           {
-            console.log(res);
             return res;
           }
         )
@@ -120,7 +115,6 @@ export class AccountdetailsService {
    */
   public updateAccountdetails(id: number, accountdetails: Accountdetail):Observable<Accountdetail>
   {
-    console.log(accountdetails);
 
     const salt = bcrypt.genSaltSync(10);
     const passwordHash = bcrypt.hashSync(accountdetails.passwordHash, salt)
@@ -131,7 +125,6 @@ export class AccountdetailsService {
         map(
           (res)=>
           {
-            console.log(res);
             return res;
           }
         )
@@ -146,14 +139,12 @@ export class AccountdetailsService {
    */
   public updateUsername(id: number, username: string):Observable<Accountdetail>
   {
-    console.log(username);
 
     return this.http.patch<Accountdetail>(`${this.baseUrl}${id}`, {username:username})
       .pipe(
         map(
           (res)=>
           {
-            console.log(res);
             return res;
           }
         )
