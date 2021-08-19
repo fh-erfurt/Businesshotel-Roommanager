@@ -201,44 +201,46 @@
 
     <mat-tab label="Anzeigen">
       <div class="matTab">
+        <div class="formTab">
           <div class="tab">
-        <br>
-        <mat-form-field appearance="fill">
-          <mat-label>Mitarbeiternummer</mat-label>
-          <input matInput type="number" #empNoModel="ngModel" name="empNo" [(ngModel)]="empNo" [required]="true" [min]="2">
-          <mat-error>Bitte gültige Mitarbeiternummer angeben</mat-error>
-        </mat-form-field>
-        <br>
-        <button mat-raised-button color="primary" type="submit" (click)="submitSearch(false)" [disabled]="empNoModel.invalid">Suchen</button>
-        <mat-card *ngIf="foundEmployee">
-          <mat-label>Mitarbeiternummer</mat-label>
-          <mat-card-title>{{foundEmployee.empNo}}</mat-card-title>
-          <mat-label>Mitarbeiterinformationen</mat-label>
-          <mat-card-content>
-            <table class="table table-bordered table-striped">
-              <tr>
-                <td>Name</td>
-                <td>{{ foundEmployee.empName }}</td>
-              </tr>
-              <tr>
-                <td>Rolle</td>
-                <td>{{ foundEmployee.givenRole }}</td>
-              </tr>
-              <tr>
-                <td>AccountID</td>
-                <td>{{ foundEmployee.accountID }}</td>
-              </tr>
-            </table>
-          </mat-card-content>
-        </mat-card>
-      </div>
-        <div class="notificationArea">
-          <p *ngFor="let alert of alerts">
-            <ngb-alert *ngIf="alert.type=='success'" class="success"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
-            <ngb-alert *ngIf="alert.type=='danger'" class="danger"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
-          </p>
+            <br>
+            <mat-form-field appearance="fill">
+              <mat-label>Mitarbeiternummer</mat-label>
+              <input matInput type="number" #empNoModel="ngModel" name="empNo" [(ngModel)]="empNo" [required]="true" [min]="2">
+              <mat-error>Bitte gültige Mitarbeiternummer angeben</mat-error>
+            </mat-form-field>
+            <br>
+            <button mat-raised-button color="primary" type="submit" (click)="submitSearch(false)" [disabled]="empNoModel.invalid">Suchen</button>
+            <mat-card *ngIf="foundEmployee">
+              <mat-label>Mitarbeiternummer</mat-label>
+              <mat-card-title>{{foundEmployee.empNo}}</mat-card-title>
+              <mat-label>Mitarbeiterinformationen</mat-label>
+              <mat-card-content>
+                <table class="table table-bordered table-striped">
+                  <tr>
+                    <td>Name</td>
+                    <td>{{ foundEmployee.empName }}</td>
+                  </tr>
+                  <tr>
+                    <td>Rolle</td>
+                    <td>{{ foundEmployee.givenRole }}</td>
+                  </tr>
+                  <tr>
+                    <td>AccountID</td>
+                    <td>{{ foundEmployee.accountID }}</td>
+                  </tr>
+                </table>
+              </mat-card-content>
+            </mat-card>
+          </div>
         </div>
-      </div>
+          <div class="notificationArea">
+            <p *ngFor="let alert of alerts">
+              <ngb-alert *ngIf="alert.type=='success'" class="success"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
+              <ngb-alert *ngIf="alert.type=='danger'" class="danger"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
+            </p>
+          </div>
+        </div>
     </mat-tab>
   </mat-tab-group>
 

@@ -253,55 +253,58 @@
 
       <mat-tab label="Anzeigen">
         <div class="matTab">
-          <div class="tab">
-            <mat-form-field appearance="fill">
-              <mat-label>Buchungsnummer</mat-label>
-              <input matInput type="number" #bookingNoModel="ngModel"  [(ngModel)]="bookingNo" [required]="true" [min]="1">
-              <mat-error>Bitte gültige Buchungsnummer angegeben</mat-error>
-            </mat-form-field>
-            <br>
-            <button mat-raised-button color="primary" type="submit" (click)="submitSearch(false)" [disabled]="bookingNoModel.invalid">Suchen</button>
-            <mat-card *ngIf="foundBooking">
-              <mat-label>Buchungsnummer</mat-label>
-              <mat-card-title>{{foundBooking.bookingNo}}</mat-card-title>
-              <mat-label>Buchungsinformationen</mat-label>
-              <mat-card-content>
-                <table class="table table-bordered table-striped">
-                  <tr>
-                    <td>customerID</td>
-                    <td>{{ foundBooking.customerID }}</td>
-                  </tr>
-                  <tr>
-                    <td>empNo</td>
-                    <td>{{ foundBooking.empNo }}</td>
-                  </tr>
-                  <tr>
-                    <td>startDate</td>
-                    <td>{{ foundBooking.startDate }}</td>
-                  </tr>
-                  <tr>
-                    <td>endDate</td>
-                    <td>{{ foundBooking.endDate }}</td>
-                  </tr>
-                  <tr>
-                    <td>specialWishes</td>
-                    <td>{{ foundBooking.specialWishes }}</td>
-                  </tr>
-                  <tr>
-                    <td>pricing</td>
-                    <td>{{ foundBooking.pricing }}</td>
-                  </tr>
-                </table>
-              </mat-card-content>
-            </mat-card>
+          <div class="formTab">
+            <div class="tab" >
+              <br>
+              <mat-form-field appearance="fill">
+                <mat-label>Buchungsnummer</mat-label>
+                <input matInput type="number" #bookingNoModel="ngModel"  [(ngModel)]="bookingNo" [required]="true" [min]="1">
+                <mat-error>Bitte gültige Buchungsnummer angegeben</mat-error>
+              </mat-form-field>
+              <br>
+              <button mat-raised-button color="primary" type="submit" (click)="submitSearch(false)" [disabled]="bookingNoModel.invalid">Suchen</button>
+              <mat-card *ngIf="foundBooking">
+                <mat-label>Buchungsnummer</mat-label>
+                <mat-card-title>{{foundBooking.bookingNo}}</mat-card-title>
+                <mat-label>Buchungsinformationen</mat-label>
+                <mat-card-content>
+                  <table class="table table-bordered table-striped">
+                    <tr>
+                      <td>customerID</td>
+                      <td>{{ foundBooking.customerID }}</td>
+                    </tr>
+                    <tr>
+                      <td>empNo</td>
+                      <td>{{ foundBooking.empNo }}</td>
+                    </tr>
+                    <tr>
+                      <td>startDate</td>
+                      <td>{{ foundBooking.startDate }}</td>
+                    </tr>
+                    <tr>
+                      <td>endDate</td>
+                      <td>{{ foundBooking.endDate }}</td>
+                    </tr>
+                    <tr>
+                      <td>specialWishes</td>
+                      <td>{{ foundBooking.specialWishes }}</td>
+                    </tr>
+                    <tr>
+                      <td>pricing</td>
+                      <td>{{ foundBooking.pricing }}</td>
+                    </tr>
+                  </table>
+                </mat-card-content>
+              </mat-card>
+            </div>
           </div>
-          <div class="notificationArea">
-            <p *ngFor="let alert of alerts">
-              <ngb-alert *ngIf="alert.type=='success'" class="success"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
-              <ngb-alert *ngIf="alert.type=='danger'" class="danger"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
-            </p>
+            <div class="notificationArea">
+              <p *ngFor="let alert of alerts">
+                <ngb-alert *ngIf="alert.type=='success'" class="success"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
+                <ngb-alert *ngIf="alert.type=='danger'" class="danger"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
+              </p>
+            </div>
           </div>
-        </div>
       </mat-tab>
     </mat-tab-group>
 

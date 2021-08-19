@@ -273,59 +273,61 @@
 
     <mat-tab label="Anzeigen">
       <div class="matTab">
-        <div class="tab">
-        <br>
-        <mat-form-field appearance="fill">
-          <mat-label>Raumnummer</mat-label>
-          <input matInput #roomNoModel="ngModel" type="number" name="roomNo" [min]="1" [(ngModel)]="roomNo" [required]="true">
-          <mat-error>Bitte gültige Raumnummer angeben</mat-error>
-        </mat-form-field>
-          <br>
-          <button mat-raised-button color="primary" (click)="submitSearch(false)" [disabled]="roomNoModel.invalid">Suchen</button>
-        <mat-card *ngIf="foundRoom">
-          <mat-label>Raumnummer</mat-label>
-          <mat-card-title>{{foundRoom.roomNo}}</mat-card-title>
-          <mat-label>Rauminformationen</mat-label>
-          <mat-card-content class="halfInput">
-            <table class="table table-bordered table-striped">
-              <tr>
-                <td>Fläche in m²</td>
-                <td>{{ foundRoom.areaInSqrMetre }}</td>
-              </tr>
-              <tr>
-                <td>Raumart</td>
-                <td *ngIf="foundHotelroom">Hotelzimmer</td>
-                <td *ngIf="foundConferenceroom">Konferenzraum</td>
-              </tr>
-              <tr>
-                <td>Kategorie</td>
-                <td *ngIf="foundHotelroom">{{ hotelRoomCategories.get(foundRoom.category) }}</td>
-                <td *ngIf="foundConferenceroom">{{ conferenceRoomCategories.get(foundRoom.category) }}</td>
-              </tr>
-              <tr *ngIf="foundHotelroom">
-                <td>Preis pro Nacht</td>
-                <td>{{ foundRoom.pricePerUnit }}</td>
-              </tr>
-              <tr *ngIf="foundConferenceroom">
-                <td>Preis pro Stunde</td>
-                <td>{{ foundRoom.pricePerUnit }}</td>
-              </tr>
-            </table>
-            <table class="table table-bordered table-striped" *ngIf="foundHotelroom">
-                <tr *ngFor="let attribute of hotelRoomAttributes | keyvalue">
-                  <td>{{attribute.key}}</td>
-                  <td>{{attribute.value}}</td>
-                </tr>
-            </table>
-            <table class="table table-bordered table-striped" *ngIf="foundConferenceroom">
-              <tr *ngFor="let attribute of conferenceRoomAttributes | keyvalue">
-                <td>{{attribute.key}}</td>
-                <td>{{attribute.value}}</td>
-              </tr>
-            </table>
-          </mat-card-content>
-        </mat-card>
-      </div>
+        <div class="formTab">
+          <div class="tab">
+            <br>
+            <mat-form-field appearance="fill">
+              <mat-label>Raumnummer</mat-label>
+              <input matInput #roomNoModel="ngModel" type="number" name="roomNo" [min]="1" [(ngModel)]="roomNo" [required]="true">
+              <mat-error>Bitte gültige Raumnummer angeben</mat-error>
+            </mat-form-field>
+              <br>
+              <button mat-raised-button color="primary" (click)="submitSearch(false)" [disabled]="roomNoModel.invalid">Suchen</button>
+            <mat-card *ngIf="foundRoom">
+              <mat-label>Raumnummer</mat-label>
+              <mat-card-title>{{foundRoom.roomNo}}</mat-card-title>
+              <mat-label>Rauminformationen</mat-label>
+              <mat-card-content class="halfInput">
+                <table class="table table-bordered table-striped">
+                  <tr>
+                    <td>Fläche in m²</td>
+                    <td>{{ foundRoom.areaInSqrMetre }}</td>
+                  </tr>
+                  <tr>
+                    <td>Raumart</td>
+                    <td *ngIf="foundHotelroom">Hotelzimmer</td>
+                    <td *ngIf="foundConferenceroom">Konferenzraum</td>
+                  </tr>
+                  <tr>
+                    <td>Kategorie</td>
+                    <td *ngIf="foundHotelroom">{{ hotelRoomCategories.get(foundRoom.category) }}</td>
+                    <td *ngIf="foundConferenceroom">{{ conferenceRoomCategories.get(foundRoom.category) }}</td>
+                  </tr>
+                  <tr *ngIf="foundHotelroom">
+                    <td>Preis pro Nacht</td>
+                    <td>{{ foundRoom.pricePerUnit }}</td>
+                  </tr>
+                  <tr *ngIf="foundConferenceroom">
+                    <td>Preis pro Stunde</td>
+                    <td>{{ foundRoom.pricePerUnit }}</td>
+                  </tr>
+                </table>
+                <table class="table table-bordered table-striped" *ngIf="foundHotelroom">
+                    <tr *ngFor="let attribute of hotelRoomAttributes | keyvalue">
+                      <td>{{attribute.key}}</td>
+                      <td>{{attribute.value}}</td>
+                    </tr>
+                </table>
+                <table class="table table-bordered table-striped" *ngIf="foundConferenceroom">
+                  <tr *ngFor="let attribute of conferenceRoomAttributes | keyvalue">
+                    <td>{{attribute.key}}</td>
+                    <td>{{attribute.value}}</td>
+                  </tr>
+                </table>
+              </mat-card-content>
+            </mat-card>
+        </div>
+        </div>
         <div class="notificationArea">
           <p *ngFor="let alert of alerts">
             <ngb-alert *ngIf="alert.type=='success'" class="success"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
