@@ -8,7 +8,7 @@ import {map} from "rxjs/operators";
   providedIn: 'root'
 })
 
-/*
+/**
  * Service for booking management (Save, Get, Update, Delete) hotelRoomBookings and conferenceRoomBookings
  * Consumes booking, hotelRoomBooking and conferenceRoomBooking REST-APIs
  */
@@ -24,8 +24,9 @@ export class BookingService {
 
   }
 
-  /*
+  /**
   * bookingNo as input param
+  *
   * returns Booking associated with bookingNo
   */
   public getBooking(id:number): Observable<Booking>
@@ -38,8 +39,9 @@ export class BookingService {
     )
   }
 
-  /*
+  /**
   * startDate and endDate as input params
+  *
   * returns all Bookings that collide with the timeframe between startDate and endDate
   */
   public getBookingsByStartDateAndEndDate(startDate:string, endDate:string):Observable<Booking[]>
@@ -60,8 +62,9 @@ export class BookingService {
     )
   }
 
-  /*
+  /**
   * customerID as input param
+  *
   * returns all Bookings associated with customerID
   */
   public getBookingsByCustomerID(id:number): Observable<Booking[]>
@@ -82,8 +85,9 @@ export class BookingService {
     )
   }
 
-  /*
+  /**
   * roomNo as input param
+  *
   * returns all Bookings associated with roomNo
   */
   public getBookingsByRoomNumber(id:number): Observable<Booking[]>
@@ -104,8 +108,9 @@ export class BookingService {
     )
   }
 
-  /*
+  /**
   * empNo as input param
+  *
   * returns all Bookings associated with empNo
   */
   public getBookingsByEmpNo(id:number): Observable<Booking[]>
@@ -126,8 +131,9 @@ export class BookingService {
     )
   }
 
-  /*
+  /**
   * function without params
+  *
   * returns all bookings (hotelroom and conferenceroom)
   */
   public getBookings(): Observable<Booking[]>
@@ -148,8 +154,9 @@ export class BookingService {
     )
   }
 
-  /*
+  /**
   * booking Object and bookingType(hotelRoom or conferenceRoom) as input params
+  *
   * returns Observable containing the newly added Booking entry
   */
   public save(booking:Booking, bookingType:string)
@@ -179,8 +186,9 @@ export class BookingService {
       )
   }
 
-  /*
+  /**
   * booking Object and bookingType(hotelRoom or conferenceRoom) as input params
+  *
   * returns Observable containing the newly added Booking entry
   */
   public saveMy(booking: Booking, bookingType:string):Observable<Booking>
@@ -255,8 +263,9 @@ export class BookingService {
   }
 
 
-  /*
+  /**
   * bookingNo as input param
+  *
   * returns empty Observable after deleting the Booking entry
   */
   public delete(id: number) {
@@ -271,8 +280,9 @@ export class BookingService {
       )
   }
 
-  /*
+  /**
   * booking Object and bookingNo as input params
+  *
   * returns Observable containing the updated Booking entry
   */
   public updateBooking(id: number, booking: Booking) {
@@ -291,8 +301,9 @@ export class BookingService {
       )
   }
 
-  /*
+  /**
   * bookingNo as input param
+  *
   * sets customerID of booking associated with bookingNo to 1 (special entry in Customer table to archive bookings of deleted customer accounts)
   */
   public patchBookingsAtCustomerDelete(bookingNo:number)
@@ -310,8 +321,9 @@ export class BookingService {
       )
   }
 
-  /*
+  /**
   * bookingNo as input param
+  *
   * sets empNo of booking associated with bookingNo to 1 (special entry in Employee table to archive bookings of deleted employee accounts)
   */
   public patchBookingsAtEmployeeDelete(bookingNo:number)

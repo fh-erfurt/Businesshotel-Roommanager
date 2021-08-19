@@ -11,8 +11,9 @@ import {Conferenceroom} from "../conferenceroom/conferenceroom";
   providedIn: 'root'
 })
 
-/*
+/**
  * Service for room management (Save, Get, Update, Delete) hotelRooms and conferenceRooms
+*
  * Consumes room, hotelRoom and conferenceRoom REST-APIs
  */
 export class RoomService {
@@ -27,8 +28,9 @@ export class RoomService {
     this.conferenceRoomBaseUrl = "http://localhost:8081/conferenceroom/";
   }
 
-  /*
+  /**
   * function without params
+  *
   * returns all hotelrooms
   */
   public getHotelRooms(): Observable<Room[]> {
@@ -40,8 +42,9 @@ export class RoomService {
     )
   }
 
-  /*
+  /**
   * function without params
+  *
   * returns all conferencerooms
   */
   public getConferenceRooms(): Observable<Room[]> {
@@ -53,8 +56,9 @@ export class RoomService {
     )
   }
 
-  /*
+  /**
   * roomNo as input param
+  *
   * returns room associated with roomNo
   */
   public getRoom(id: number): Observable<Room> {
@@ -66,8 +70,9 @@ export class RoomService {
     )
   }
 
-  /*
+  /**
   * roomNo as input param
+  *
   * returns hotelRoom associated with roomNo
   */
   public getHotelRoom(id: number): Observable<Hotelroom> {
@@ -79,8 +84,9 @@ export class RoomService {
     )
   }
 
-  /*
+  /**
   * roomNo as input param
+  *
   * returns conferenceRoom associated with roomNo
   */
   public getConferenceRoom(id: number): Observable<Conferenceroom> {
@@ -92,8 +98,9 @@ export class RoomService {
     )
   }
 
-  /*
+  /**
   * room and roomType (conferenceroom or hotelroom) as input params
+  *
   * returns Observable containing the newly added Hotelroom or Conferenceroom entry
   */
   public save(room: Conferenceroom | Hotelroom, roomType: string): Observable<Hotelroom|Conferenceroom>
@@ -124,8 +131,9 @@ export class RoomService {
   }
 
 
-  /*
+  /**
   * roomNo as input param
+  *
   * returns empty Observable after deleting the Room entry
   */
   public delete(id: number): Observable<Room>
@@ -141,8 +149,9 @@ export class RoomService {
   }
 
 
-  /*
+  /**
   * roomNo and roomtype (conferenceroom or hotelroom) and room Object as input params
+  *
   * returns Observable containing the updated Hotelroom or Conferenceroom entry
   */
   public updateRoom(id: number, room: Conferenceroom | Hotelroom, roomType: string): Observable<Hotelroom|Conferenceroom>

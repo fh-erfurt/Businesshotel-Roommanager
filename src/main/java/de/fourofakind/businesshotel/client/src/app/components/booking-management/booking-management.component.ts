@@ -37,8 +37,9 @@ import {RoleService} from "../../services/role/role.service";
   ],
 })
 
-/*
+/**
 * Component for Management (Add, Update, Get, Delete) of Bookings
+*
 * consumes form data and calls corresponding services
 */
 export class BookingManagementComponent implements OnInit {
@@ -88,8 +89,9 @@ export class BookingManagementComponent implements OnInit {
   //HELPER ############################################################################################################
   //###################################################################################################################
 
-  /*
+  /**
   * alert Object and seconds to display the alert as input params
+  *
   * produces alert for x seconds dsiplayed on the right side of the management tab
   */
   addAlertForXSeconds(alert: Alert, seconds: number) {
@@ -97,8 +99,9 @@ export class BookingManagementComponent implements OnInit {
     setTimeout(() => this.alerts = this.alerts.filter(entry => entry != alert), seconds * 1000);
   }
 
-  /*
+  /**
   * function without input params
+  *
   * checks if dates are neither in the past nor the endtime is before the starttime
   */
   validateDate() {
@@ -121,8 +124,9 @@ export class BookingManagementComponent implements OnInit {
 
   }
 
-  /*
+  /**
   * function with callback function as input param for a controlled function sequence
+  *
   * retrieves pricePerUnit associated with roomNo in current form data
   */
   getPricePerUnit(_callback: Function) {
@@ -132,8 +136,9 @@ export class BookingManagementComponent implements OnInit {
     })
   }
 
-  /*
+  /**
   * function with callback function as input param for a controlled function sequence
+  *
   * calculates the pricing depending on the time period given in form data and the pricePerUnit of the wanted room
   */
   calculatePricing(_callback: Function) {
@@ -159,8 +164,9 @@ export class BookingManagementComponent implements OnInit {
     }
   }
 
-  /*
+  /**
   * boolean as input decides if the current chosen roomNo should be displayed (if booking should be changed) or not
+  *
   * filters roomNos of rooms that are already occupied during parts of or the whole time period wished to be booked
   */
   filterRoomsByOccupation(isBookingChange: boolean) {
@@ -179,8 +185,9 @@ export class BookingManagementComponent implements OnInit {
     })
   }
 
-  /*
+  /**
   * function with callback function as input param for a controlled function sequence and boolean for call of filterRoomsByOccupation
+  *
   * gets all rooms valid for the chosen bookingType
   */
   getValidRooms(isBookingChange: boolean, _callback?: Function) {
@@ -209,9 +216,11 @@ export class BookingManagementComponent implements OnInit {
   //ADD | UPDATE ######################################################################################################
   //###################################################################################################################
 
-  /*
+  /**
   * function with boolean and ngForm as input params
+  *
   * boolean decides if a Booking is added or an existing Booking is updated
+  *
   * ngForm for form resetting after update/add
   *
   * adds a new Booking or updates an existing booking according to form data
@@ -250,12 +259,15 @@ export class BookingManagementComponent implements OnInit {
     }
   }
 
-  /*
+  /**
   * function with boolean and ngForm as input params
+  *
   * boolean decides if a Booking is added or an existing Booking is updated
+  *
   * ngForm for form resetting after update/add
   *
   * checks for employees rights to do this transaction
+  *
   * calls  getPricePerUnit to start the add/update function sequence
   */
   addOrUpdateBooking(addsNewBooking: boolean, addOrUpdateBookingForm: NgForm) {
@@ -270,9 +282,11 @@ export class BookingManagementComponent implements OnInit {
   //GET ###############################################################################################################
   //###################################################################################################################
 
-  /*
+  /**
   * function with boolean as input param
+  *
   * boolean decides if search result should be filled into the form
+  *
   * starts search function sequence by calling getBookingType
   */
   submitSearch(intoFormular: boolean) {
@@ -282,8 +296,9 @@ export class BookingManagementComponent implements OnInit {
     } else alert("Benötigte Rechte nicht vorhanden")
   }
 
-  /*
+  /**
   * function with callback function as input param for controlled function sequence
+  *
   * retrieves correct bookingType for the given bookingNo and calls getBookingData afterwards
   */
   getBookingType(_callback: Function) {
@@ -298,9 +313,11 @@ export class BookingManagementComponent implements OnInit {
       })
   }
 
-  /*
+  /**
   * function with boolean as input param
+  *
   * boolean decides if search result should be filled into the form
+  *
   * searches for employee associated with the form data
   */
   getBookingData(intoFormular: boolean) {
@@ -337,9 +354,11 @@ export class BookingManagementComponent implements OnInit {
   //DELETE ############################################################################################################
   //###################################################################################################################
 
-  /*
+  /**
   * ngForm as input param
+  *
   * ngForm for resetting the form after deletion
+  *
   * deletes booking associated with the form data
   */
   deleteBooking(deleteBookingForm: NgForm) {

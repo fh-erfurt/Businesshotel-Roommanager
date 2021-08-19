@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 
-/*
+/**
  * Service for role management (check for a Role needed for a department) of employee
  */
 export class RoleService {
@@ -19,8 +19,9 @@ export class RoleService {
     ["room-management","Raummanager"],
   ]);
 
-  /*
+  /**
   * relevant department as input param
+  *
   * returns Boolean which approves the employees rights or denies the transaction
   */
   public checkRights(department: string)

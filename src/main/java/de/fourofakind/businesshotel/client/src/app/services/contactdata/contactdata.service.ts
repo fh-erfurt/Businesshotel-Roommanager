@@ -7,7 +7,7 @@ import {map} from "rxjs/operators";
 @Injectable({
   providedIn: 'root'
 })
-/*
+/**
  * Service for contactdata management (Save, Get, Update, Delete) of customers
  * Consumes contactdata REST-API
  */
@@ -21,7 +21,7 @@ export class ContactdataService {
     this.baseUrl="http://localhost:8081/contactdata/";
   }
 
-  /*
+  /**
   * function without params
   * returns all ContactData entries
   */
@@ -34,7 +34,7 @@ export class ContactdataService {
     )
   }
 
-  /*
+  /**
   * contactDataID as input param
   * returns ContactData associated with contactDataID
   */
@@ -47,7 +47,7 @@ export class ContactdataService {
     )
   }
 
-  /*
+  /**
   * contactdata as input param
   * returns Observable containing the newly added contactdata entry
   */
@@ -67,7 +67,7 @@ export class ContactdataService {
 
   }
 
-  /*
+  /**
   * contactdataID as input param
   * returns empty Observable after deleting the Contactdata entry
   */
@@ -86,7 +86,7 @@ export class ContactdataService {
 
   }
 
-  /*
+  /**
   * contactDataID and contactdata Object as input params
   * returns Observable containing the updated contactData entry
   */

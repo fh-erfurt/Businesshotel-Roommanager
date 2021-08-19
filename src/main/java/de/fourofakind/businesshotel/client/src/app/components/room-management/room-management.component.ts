@@ -35,7 +35,7 @@ import {RoleService} from "../../services/role/role.service";
   ],
 })
 
-/*
+/**
 * Component for Management (Add, Update, Get, Delete) of Rooms
 * consumes form data and calls corresponding services
 */
@@ -116,8 +116,9 @@ export class RoomManagementComponent implements OnInit {
   //HELPER ############################################################################################################
   //###################################################################################################################
 
-  /*
+  /**
   * alert Object and seconds to display the alert as input params
+  *
   * produces alert for x seconds dsiplayed on the right side of the management tab
   */
   addAlertForXSeconds(alert: Alert, seconds: number) {

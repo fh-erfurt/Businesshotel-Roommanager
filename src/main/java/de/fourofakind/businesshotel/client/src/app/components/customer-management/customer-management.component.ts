@@ -17,14 +17,11 @@ import {RoleService} from "../../services/role/role.service";
   styleUrls: ['./customer-management.component.scss']
 })
 
-/*
+/**
 * Component for Management (Add, Update, Get, Delete) of Customers
 * consumes form data and calls corresponding services
 */
 export class CustomerManagementComponent implements OnInit {
-
-
-
 
   //form data
 
@@ -88,9 +85,10 @@ export class CustomerManagementComponent implements OnInit {
   //###################################################################################################################
 
 
-  /*
+  /**
   * alert Object and seconds to display the alert as input params
-  * produces alert for x seconds dsiplayed on the right side of the management tab
+  *
+  * produces alert for x seconds displayed on the right side of the management tab
   */
   addAlertForXSeconds(alert: Alert, seconds: number) {
     this.alerts.push(alert);

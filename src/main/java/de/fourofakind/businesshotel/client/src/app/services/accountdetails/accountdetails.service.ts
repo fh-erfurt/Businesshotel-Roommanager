@@ -9,8 +9,9 @@ import * as bcrypt from 'bcryptjs';
   providedIn: 'root'
 })
 
-/*
+/**
 * Service for accountdetail management (Save, Get, Update, Delete) of employee and customers
+*
 * Consumes accountdetail REST-API
 */
 export class AccountdetailsService {
@@ -23,8 +24,9 @@ export class AccountdetailsService {
     this.lastInsertedID=0;
   }
 
-  /*
+  /**
   * function without params
+  *
   * returns all accountdetails
   */
   public getAllAccountdetails(): Observable<Accountdetail>
@@ -37,8 +39,9 @@ export class AccountdetailsService {
     )
   }
 
-  /*
+  /**
   * accountID as input param
+  *
   * returns accountdetails associated with accountID
   */
   public getAccountdetails(id:number): Observable<Accountdetail>
@@ -51,8 +54,9 @@ export class AccountdetailsService {
     )
   }
 
-  /*
+  /**
   * username as input param
+  *
   * returns accountdetails associated with username
   */
   public getAccountdetailsByUsername(username:string): Observable<Accountdetail>
@@ -65,8 +69,9 @@ export class AccountdetailsService {
     )
   }
 
-  /*
+  /**
   * accountdetails as input param
+  *
   * returns Observable containing the newly added Accountdetail entry
   */
   public save(accountdetails: Accountdetail): Observable<Accountdetail>
@@ -85,8 +90,9 @@ export class AccountdetailsService {
       )
   }
 
-  /*
+  /**
   * accountID as input param
+  *
   * returns empty Observable after deleting the Accountdetail entry
   */
   public delete(id: number):Observable<Accountdetail>
@@ -103,8 +109,9 @@ export class AccountdetailsService {
       )
   }
 
-  /*
+  /**
   * accountID and accountDetail Object as input params
+  *
   * returns Observable containing the updated Accountdetail entry
   */
   public updateAccountdetails(id: number, accountdetails: Accountdetail):Observable<Accountdetail>
@@ -127,8 +134,9 @@ export class AccountdetailsService {
       )
   }
 
-  /*
+  /**
   * accountID and username as input params
+  *
   * returns Observable containing the Accountdetail entry with a changed username
   */
   public updateUsername(id: number, username: string):Observable<Accountdetail>

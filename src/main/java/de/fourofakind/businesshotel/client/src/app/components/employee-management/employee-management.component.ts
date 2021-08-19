@@ -14,7 +14,7 @@ import {RoleService} from "../../services/role/role.service";
   styleUrls: ['./employee-management.component.scss']
 })
 
-/*
+/**
 * Component for Management (Add, Update, Get, Delete) of Employees
 * consumes form data and calls corresponding services
 */
@@ -56,8 +56,9 @@ export class EmployeeManagementComponent implements OnInit {
   //HELPER ############################################################################################################
   //###################################################################################################################
 
-  /*
+  /**
   * alert Object and seconds to display the alert as input params
+  *
   * produces alert for x seconds dsiplayed on the right side of the management tab
   */
   addAlertForXSeconds(alert: Alert, seconds: number) {
@@ -65,16 +66,18 @@ export class EmployeeManagementComponent implements OnInit {
     setTimeout(() => this.alerts = this.alerts.filter(entry => entry != alert), seconds * 1000);
   }
 
-  /*
+  /**
   * function without input params
+  *
   * checks password and repeatedPassword for equality
   */
   validateRepeatedPassword() {
     this.passwordsAreEqual = this.repeatedPassword == this.password;
   }
 
-  /*
+  /**
   * function without input params
+  *
   * checks if username already exists
   */
   validateUsername() {
@@ -94,8 +97,9 @@ export class EmployeeManagementComponent implements OnInit {
   //ADD | UPDATE ######################################################################################################
   //###################################################################################################################
 
-  /*
+  /**
   * function with callback function as input param for a controlled function sequence
+  *
   * checks password and repeatedPassword for equality
   */
   addAccount(_callback: Function) {
@@ -117,9 +121,11 @@ export class EmployeeManagementComponent implements OnInit {
         });
   }
 
-  /*
+  /**
   * function with boolean and ngForm as input params
+  *
   * boolean decides if an Employee is added or an existing employee ist updated
+  *
   * ngForm for form resetting after update/add
   *
   * adds or updates employee with form data
@@ -159,12 +165,16 @@ export class EmployeeManagementComponent implements OnInit {
     }
   }
 
-  /*
+  /**
     * function with boolean and ngForm as input params
+  *
     * boolean decides if an Employee is added or an existing employee is updated
+  *
     * ngForm for form resetting after update/add
+  *
     *
     * checks for employees rights to do this transaction
+  *
     * call addAccount for new Employees or addOrUpdateEmployee for updating an Employee
     */
   addOrUpdateEmployeeAndDetails(addsNewEmployee: boolean, addOrUpdateEmployeeForm: NgForm) {
@@ -179,9 +189,11 @@ export class EmployeeManagementComponent implements OnInit {
   //GET ###############################################################################################################
   //###################################################################################################################
 
-  /*
+  /**
   * function with boolean as input param
+  *
   * boolean decides if search result should be filled into the form
+  *
   * searches for employee associated with the form data
   */
   submitSearch(intoFormular: boolean) {
@@ -208,9 +220,11 @@ export class EmployeeManagementComponent implements OnInit {
   //DELETE ############################################################################################################
   //###################################################################################################################
 
-  /*
+  /**
   * ngForm as input param
+  *
   * ngForm for resetting the form after deletion
+  *
   * deletes employee associated with the form data
   */
   deleteEmployee(deleteEmployeeForm: NgForm) {
@@ -228,8 +242,9 @@ export class EmployeeManagementComponent implements OnInit {
 
   }
 
-  /*
+  /**
   * callback function as input param to ensure controlled function sequence
+  *
   * calls patchBookingsAtEmployeeDelete from bookingService for each booking associated with the empNo provided in the form
   */
   patchBookings(_callback: Function) {
@@ -264,9 +279,11 @@ export class EmployeeManagementComponent implements OnInit {
 
   }
 
-  /*
+  /**
   * ngForm as input param
+  *
   * ngForm for resetting the form after deletion
+  *
   * calls patchBookings before calling deleteEmployee
   */
   deleteEmployeeAndDetails(deleteEmployeeForm: NgForm) {
