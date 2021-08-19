@@ -40,7 +40,7 @@
               <h6> ({{getConferenceRoom(colIndex + numbersOfColsOfConferenceRooms.length * rowIndex).areaInSqrMetre}}qm) </h6>
 
               <br>
-              <button [disabled]="buttonDisabled" class="btn btn-secondary" (click)="selectConferenceRoom(colIndex + numbersOfColsOfConferenceRooms.length * rowIndex)">
+              <button [disabled]="buttonDisabled" class="btn btn-secondary" [routerLink]="['/booking', getConferenceRoom(colIndex + numbersOfColsOfConferenceRooms.length * rowIndex).roomNo]">
                 <span *ngIf="buttonDisabled" class="spinner-border spinner-border-sm mr-1"></span>
                 Buchen
               </button>

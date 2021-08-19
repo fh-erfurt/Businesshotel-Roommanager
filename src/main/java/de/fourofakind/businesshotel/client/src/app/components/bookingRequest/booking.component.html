@@ -15,7 +15,7 @@
               <!--form data input-->
               <div class="card-body booking-details-card">
 
-                <div class="row">
+                <div class="row md-date-time-picker">
                   <label *ngFor="let alert of alerts" class="date-picker-error">
                     <ngb-alert style="padding: 0; margin: 0" *ngIf="alert.type=='success'" class="success"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
                     <ngb-alert style="padding: 0; margin: 0" *ngIf="alert.type=='danger'" class="danger"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
@@ -269,7 +269,7 @@
                 </div>
 
                 <br>
-                <div class="row">
+                <div class="row align-items-end" >
                   <div class="form-group">
                     <label>Sonderwünsche</label>
                     <input type="text" formControlName="specialWishes" name="extras" class="form-control" />
