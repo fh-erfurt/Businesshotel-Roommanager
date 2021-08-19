@@ -75,14 +75,6 @@ export class RoomComponent implements OnInit {
     }
   }
 
-  selectHotelRoom(roomIndex: number) {
-    // this.router.navigateByUrl('/booking/' + roomIndex)
-  }
-
-  selectConferenceRoom(roomIndex: number) {
-    this.router.navigateByUrl('/booking/' + this.getConferenceRoom(roomIndex).roomNo)
-  }
-
 
 
   ngOnInit(): void {
