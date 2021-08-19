@@ -19,7 +19,7 @@ INSERT INTO `account_details` (`username`, `password_hash`, `created_at`, `updat
 ('MagnolienAusStahl', '$2a$10$R6N1gr6g1n5saZmutBWWKeFTlAjvd0LUWX6zIiOCKqRqw/bs18vve', '2021-05-31 10:31:38', NULL),
 ('ColumboAuge', '$2a$10$R6N1gr6g1n5saZmutBWWKeFTlAjvd0LUWX6zIiOCKqRqw/bs18vve', '2021-05-31 10:32:04', NULL),
 ('Marius Mac Mac', '$2a$10$R6N1gr6g1n5saZmutBWWKeFTlAjvd0LUWX6zIiOCKqRqw/bs18vve', '2021-05-31 10:32:48', NULL),
-('FramePerfekt', '$2a$10$R6N1gr6g1n5saZmutBWWKeFTlAjvd0LUWX6zIiOCKqRqw/bs18vve', '2021-06-31 10:32:04', NULL),
+('FramePerfekt', '$2a$10$R6N1gr6g1n5saZmutBWWKeFTlAjvd0LUWX6zIiOCKqRqw/bs18vve', '2021-06-30 10:32:04', NULL),
 ('UnheardLove400', '$2a$10$R6N1gr6g1n5saZmutBWWKeFTlAjvd0LUWX6zIiOCKqRqw/bs18vve', '2021-03-31 10:32:48', NULL);
 
 
