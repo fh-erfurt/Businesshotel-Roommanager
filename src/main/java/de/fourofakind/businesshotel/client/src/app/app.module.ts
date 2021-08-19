@@ -10,7 +10,6 @@ import {AppComponent} from './app.component';
 
 import {RoomComponent} from './components/room/room.component';
 import {LoginComponent} from './components/login/login.component';
-import {DashboardComponent} from './components/dashboard/dashboard.component';
 import {MainComponent} from './components/main/main.component';
 import {NavigationComponent} from './components/navigation/navigation.component';
 import {BookingManagementComponent} from './components/booking-management/booking-management.component';
@@ -55,7 +54,6 @@ registerLocaleData(localeDe, localeDeExtra);
     RoomComponent,
     EmployeeComponent,
     LoginComponent,
-    DashboardComponent,
     MainComponent,
     NavigationComponent,
     BookingManagementComponent,
