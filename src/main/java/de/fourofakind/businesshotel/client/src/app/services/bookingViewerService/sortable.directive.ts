@@ -1,5 +1,5 @@
-import {Directive, ElementRef, EventEmitter, Input, Output} from '@angular/core';
-import {Booking, ViewerFriendlyBooking} from "../booking/booking";
+import {Directive, EventEmitter, Input, Output} from '@angular/core';
+import {ViewerFriendlyBooking} from "../booking/booking";
 
 export type SortColumn = keyof ViewerFriendlyBooking | '';
 export type SortDirection = 'asc' | 'desc' | '';

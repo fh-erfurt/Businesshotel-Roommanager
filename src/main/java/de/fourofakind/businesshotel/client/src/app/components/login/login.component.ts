@@ -1,11 +1,9 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { first } from 'rxjs/operators';
 
 import { LoginService } from '../../services/login/login.service';
-import {RootObject} from "../../services/login/login";
-import {checkPasswordMatch} from "../../services/registration/helpers.validator";
+
 
 @Component({ templateUrl: 'login.component.html' })
 export class LoginComponent implements OnInit {

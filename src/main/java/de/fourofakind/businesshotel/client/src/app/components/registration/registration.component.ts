@@ -1,19 +1,14 @@
 import {Component, OnInit} from '@angular/core';
 import {
-  AbstractControl,
   FormBuilder,
   FormControl,
-  FormGroup, FormGroupDirective, NgForm,
-  ValidationErrors,
-  ValidatorFn,
-  Validators
+  FormGroup, Validators
 } from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {errors, RegistrationService} from "../../services/registration/registration.service";
-import {ErrorStateMatcher} from "@angular/material/core";
 import {checkPasswordMatch, validateEmail, validatePhoneNumber} from "../../services/registration/helpers.validator";
 import {Accountdetail} from "../../services/accountdetails/accountdetail";
-import {ContactData, Customer} from "../../services/customer/customer";
+import {Customer} from "../../services/customer/customer";
 import {Contactdata} from "../../services/contactdata/contactdata";
 
 

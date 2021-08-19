@@ -2,7 +2,7 @@ import {Injectable, PipeTransform} from '@angular/core';
 
 import {BehaviorSubject, Observable, of, Subject} from 'rxjs';
 
-import {Booking, ViewerFriendlyBooking} from "../../services/booking/booking";
+import {ViewerFriendlyBooking} from "../booking/booking";
 import {DecimalPipe} from '@angular/common';
 import {debounceTime, delay, switchMap, tap} from 'rxjs/operators';
 import {SortColumn, SortDirection} from './sortable.directive';

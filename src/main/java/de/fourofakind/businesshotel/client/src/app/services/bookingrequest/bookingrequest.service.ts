@@ -3,8 +3,6 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import {Bookingrequest, RootObject} from "./bookingrequest";
 import {map} from "rxjs/operators";
-import {Booking} from "../booking/booking";
-
 
 
 @Injectable({
