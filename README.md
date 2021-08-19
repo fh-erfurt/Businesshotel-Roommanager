@@ -58,14 +58,20 @@ ___
 -> [RoommanagerApplication starten](src/main/java/de/fourofakind/businesshotel/server/RoommanagerApplication.java) 
 	
 	2. Starten Sie den Bereitstellungsserver 
--> [AngularServer starten](src/main/java/de/fourofakind/businesshotel/client) 
+-> [AngularServer starten](src/main/java/de/fourofakind/businesshotel/client)
+	-> im Ordner wie angegeben mit dem Befehl: "ng serve"
 
 Die Applikation steht Ihnen nun zur Nutzung bereit. Öffnen Sie einen Browser und begeben Sie sich auf die Seite:
 	-> http://localhost:4200/
 
 
-
-
+### Zugang Selenium Testsuite - Businesshotel Roommanager
+	
+-> [Selenium-Testprojekt herunterladen](https://github.com/Thom-Mon/Selenium_Test_BH_Room.git)
+	
+	1. Folgen Sie den Anweisungen in der Selenium-BH-Testroom Readme
+	
+	
 <details>
 <summary> Allgemeine Projektübersicht </summary>
 <br>
