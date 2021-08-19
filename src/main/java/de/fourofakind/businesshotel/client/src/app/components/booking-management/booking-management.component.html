@@ -1,0 +1,311 @@
+<div class="pageContent">
+  <h1>Buchungsverwaltung</h1>
+    <mat-tab-group>
+      <mat-tab label="Hinzufügen">
+        <div class="matTab">
+          <form #insertBookingForm="ngForm" class="formTab">
+            <div class="tab">
+            <br>
+            <mat-radio-group #bookingTypeModel="ngModel" name="bookingType" [(ngModel)]="bookingType" (change)="getValidRooms(false)" class="bookingtypeSelector" [required]="true">
+              <mat-radio-button value="hotelRoom">Hotelzimmer</mat-radio-button><br>
+              <mat-radio-button value="conferenceRoom" >Konferenzraum</mat-radio-button>
+            </mat-radio-group>
+            <br>
+            <mat-form-field appearance="fill">
+              <mat-label>Kundennummer</mat-label>
+              <input matInput type="number" name="customerID" [(ngModel)]="customerID" [required]="true" [min]="2" >
+              <mat-error>Bitte gültige Kundennummer angeben</mat-error>
+            </mat-form-field>
+            <br>
+            <div>
+              <mat-form-field class="halfInput" appearance="fill">
+                <mat-label>Startdatum</mat-label>
+                <input matInput type="date" #startDateModel=ngModel name="startDate" (keyup)="validateDate()" [(ngModel)]="startDate" [required]="true">
+                <mat-error *ngIf="startDateModel.invalid && startDateModel.touched" >Bitte gültiges Datum angeben</mat-error>
+              </mat-form-field>
+              <mat-form-field class="halfInput" appearance="fill">
+                <mat-label>Startzeit</mat-label>
+                <input matInput type="time" #startTimeModel=ngModel name="startTime" (keyup)="validateDate()" [(ngModel)]="startTime" [required]="true">
+                <mat-error *ngIf="startTimeModel.invalid && startTimeModel.touched" >Bitte gültige Zeit angeben</mat-error>
+              </mat-form-field>
+            </div>
+            <div class="dateErrorField">
+              <p class="mat-error" *ngIf="startDateError">Startzeitpunkt (Datum&Uhrzeit) darf nicht in der Vergangenheit liegen</p>
+            </div>
+            <div>
+              <mat-form-field class="halfInput" appearance="fill">
+                <mat-label>Enddatum</mat-label>
+                <input matInput type="date" #endDateModel=ngModel name="endDate" (keyup)="validateDate()" [(ngModel)]="endDate" [required]="true">
+                <mat-error *ngIf="endDateModel.invalid && endDateModel.touched" >Bitte gültiges Datum angeben</mat-error>
+              </mat-form-field>
+              <mat-form-field class="halfInput" appearance="fill">
+                <mat-label>Endzeit</mat-label>
+                <input matInput type="time" #endTimeModel=ngModel name="endTime" (keyup)="validateDate()" [(ngModel)]="endTime" [required]="true">
+                <mat-error *ngIf="endTimeModel.invalid && endTimeModel.touched">Bitte gültige Zeit angeben</mat-error>
+              </mat-form-field>
+            </div>
+            <div class="dateErrorField">
+              <p class="mat-error" *ngIf="endDateInPastError">Endzeitpunkt (Datum&Uhrzeit) darf nicht in der Vergangenheit liegen</p>
+              <p class="mat-error" *ngIf="endDateBeforeStartDateError">Endzeitpunkt (Datum&Uhrzeit) darf nicht vor dem Startzeitpunkt liegen</p>
+            </div>
+            <div>
+              <mat-form-field class="roomNumberInput" appearance="fill">
+                <mat-label>Raumnummer</mat-label>
+                <mat-select #roomNoModel="ngModel" name="roomNo" [(ngModel)]="roomNo" [required]="true" [disabled]="(!(startDate&&startTime&&endDate&&endTime)||!occupationChecked)">
+                  <mat-option *ngFor="let room of rooms"  [value]="room.roomNo" >{{room.roomNo}}</mat-option>
+                  <mat-option  *ngIf="!rooms" [value]="" disabled>Keine Räume verfügbar oder keine Kategorie gewählt</mat-option>
+                </mat-select>
+                <mat-hint *ngIf="(!(startDate&&startTime&&endDate&&endTime))">Zuerst Zeitraum wählen.</mat-hint>
+                <mat-hint *ngIf="((startDate&&startTime&&endDate&&endTime)&&!occupationChecked&&bookingTypeModel.untouched)">Such-Button drücken um verfügbare Räume zu finden.</mat-hint>
+                <mat-hint *ngIf="((startDate&&startTime&&endDate&&endTime)&&bookingTypeModel.untouched)">Zuerst Raumart wählen.</mat-hint>
+                <mat-error *ngIf="roomNoModel.untouched">Bitte Raumnummer wählen</mat-error>
+              </mat-form-field>
+              <button mat-icon-button color="primary" (click)="filterRoomsByOccupation(false)" [disabled]="(!(startDate&&startTime&&endDate&&endTime)||bookingTypeModel.untouched)">
+                <mat-icon >search</mat-icon>
+              </button>
+            </div>
+            <br>
+            <mat-form-field appearance="fill">
+              <mat-label>Kundenwünsche</mat-label>
+              <textarea matInput type="text" name="specialWishes" [(ngModel)]="specialWishes"></textarea>
+            </mat-form-field>
+            <button mat-raised-button
+                    color="primary"
+                    type="submit"
+                    (click)="addOrUpdateBooking(true, insertBookingForm)"
+                    [disabled]="insertBookingForm.invalid || roomNoModel.untouched || roomNoModel.invalid || startDateError || endDateInPastError || endDateBeforeStartDateError">
+              Absenden
+            </button>
+          </div>
+          </form>
+          <div class="notificationArea">
+            <p *ngFor="let alert of alerts">
+              <ngb-alert *ngIf="alert.type=='success'" class="success"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
+              <ngb-alert *ngIf="alert.type=='danger'" class="danger"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
+            </p>
+          </div>
+        </div>
+      </mat-tab>
+
+
+
+
+
+
+
+      <mat-tab label="Bearbeiten">
+        <div class="matTab">
+          <form #updateBookingForm="ngForm" class="formTab">
+            <div class="tab">
+            <br>
+            <mat-form-field appearance="fill">
+              <mat-label>Buchungsnummer</mat-label>
+              <input matInput type="number" #bookingNoModel="ngModel" name="bookingNo" [(ngModel)]="bookingNo" [required]="true" [min]="1">
+              <mat-error>Bitte gültige Buchungsnummer angegeben</mat-error>
+            </mat-form-field>
+            <br>
+              <button mat-raised-button color="primary" type="submit" (click)="submitSearch(true)" [disabled]="bookingNoModel.invalid">Suchen</button>
+            <br>
+            <div *ngIf="foundBooking" class="searchTab">
+              <mat-radio-group name="bookingType" [(ngModel)]="bookingType" (change)="getValidRooms(true)" class="bookingtypeSelector" [required]="true">
+                <mat-radio-button value="hotelRoom">Hotelzimmer</mat-radio-button><br>
+                <mat-radio-button value="conferenceRoom">Konferenzraum</mat-radio-button>
+              </mat-radio-group>
+              <br>
+              <mat-form-field appearance="fill">
+                <mat-label>Kundennummer</mat-label>
+                <input matInput type="number" name="customerID" [(ngModel)]="customerID" [required]="true" [min]="2" >
+                <mat-error>Bitte gültige Kundennummer angegeben</mat-error>
+              </mat-form-field>
+              <br>
+              <div>
+                <mat-form-field class="halfInput" appearance="fill">
+                  <mat-label>Startdatum</mat-label>
+                  <input matInput type="date" #startDateModel=ngModel name="startDate" (keyup)="validateDate()" [(ngModel)]="startDate" [required]="true">
+                  <mat-error *ngIf="startDateModel.invalid && startDateModel.touched" >Bitte gültiges Datum angeben</mat-error>
+                </mat-form-field>
+                <mat-form-field class="halfInput" appearance="fill">
+                  <mat-label>Startzeit</mat-label>
+                  <input matInput type="time" #startTimeModel=ngModel name="startTime" (keyup)="validateDate()" [(ngModel)]="startTime" [required]="true">
+                  <mat-error *ngIf="startTimeModel.invalid && startTimeModel.touched" >Bitte gültige Zeit angeben</mat-error>
+                </mat-form-field>
+              </div>
+              <div class="dateErrorField">
+                <p class="mat-error" *ngIf="startDateError">Startzeitpunkt (Datum & Uhrzeit) darf nicht in der Vergangenheit liegen</p>
+              </div>
+              <div>
+                <mat-form-field class="halfInput" appearance="fill">
+                  <mat-label>Enddatum</mat-label>
+                  <input matInput type="date" #endDateModel=ngModel name="endDate" (keyup)="validateDate()" [(ngModel)]="endDate" [required]="true">
+                  <mat-error *ngIf="endDateModel.invalid && endDateModel.touched" >Bitte gültiges Datum angeben</mat-error>
+                </mat-form-field>
+                <mat-form-field class="halfInput" appearance="fill">
+                  <mat-label>Endzeit</mat-label>
+                  <input matInput type="time" #endTimeModel=ngModel name="endTime" (keyup)="validateDate()" [(ngModel)]="endTime" [required]="true">
+                  <mat-error *ngIf="endTimeModel.invalid && endTimeModel.touched">Bitte gültige Zeit angeben</mat-error>
+                </mat-form-field>
+              </div>
+              <div class="dateErrorField">
+                <p class="mat-error" *ngIf="endDateInPastError">Endzeitpunkt (Datum & Uhrzeit) darf nicht in der Vergangenheit liegen</p>
+                <p class="mat-error" *ngIf="endDateBeforeStartDateError">Endzeitpunkt (Datum & Uhrzeit) darf nicht vor dem Startzeitpunkt liegen</p>
+              </div>
+              <mat-form-field appearance="fill">
+                <mat-label>Raumnummer</mat-label>
+                <mat-select name="roomNo" [(ngModel)]="roomNo" [required]="true"  [disabled]="(!(startDate&&startTime&&endDate&&endTime))">
+                  <mat-option *ngFor="let room of rooms" [value]="room.roomNo">{{room.roomNo}}</mat-option>
+                  <mat-option *ngIf="!rooms" value="" disabled>Keine Räume verfügbar oder keine Kategorie gewählt</mat-option>
+                </mat-select>
+                <mat-hint *ngIf="(!(startDate&&startTime&&endDate&&endTime))">Zuerst Zeitraum wählen.</mat-hint>
+              </mat-form-field>
+              <br>
+              <mat-form-field appearance="fill">
+                <mat-label>Kundenwünsche</mat-label>
+                <textarea matInput type="text" name="specialWishes" [(ngModel)]="specialWishes"></textarea>
+              </mat-form-field>
+              <button mat-raised-button
+                      color="primary"
+                      type="submit"
+                      (click)="addOrUpdateBooking(true, updateBookingForm)"
+                      [disabled]="insertBookingForm.invalid || roomNoModel.untouched || roomNoModel.invalid || startDateError || endDateInPastError || endDateBeforeStartDateError">
+                Absenden
+              </button>
+            </div>
+          </div>
+          </form>
+          <div class="notificationArea">
+            <p *ngFor="let alert of alerts">
+              <ngb-alert *ngIf="alert.type=='success'" class="success"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
+              <ngb-alert *ngIf="alert.type=='danger'" class="danger"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
+            </p>
+          </div>
+        </div>
+      </mat-tab>
+
+
+
+
+
+
+
+      <mat-tab label="Löschen">
+        <div class="matTab">
+          <form #deleteBookingForm="ngForm" class="formTab">
+            <div class="tab">
+            <br>
+            <mat-form-field appearance="fill">
+              <mat-label>Buchungsnummer</mat-label>
+              <input matInput type="number" #bookingNoModel="ngModel" name="bookingNo" [(ngModel)]="bookingNo" [required]="true" [min]="1">
+              <mat-error>Bitte gültige Buchungsnummer angegeben</mat-error>
+            </mat-form-field>
+            <br>
+            <button mat-raised-button color="primary" type="submit" (click)="submitSearch(false)" [disabled]="bookingNoModel.invalid">Suchen</button>
+            <br>
+            <mat-card *ngIf="foundBooking">
+              <mat-label>Buchungsnummer</mat-label>
+              <mat-card-title>{{foundBooking.bookingNo}}</mat-card-title>
+              <mat-label>Buchungsinformationen</mat-label>
+              <mat-card-content class="halfInput">
+                <table class="table table-bordered table-striped">
+                  <tr>
+                    <td>customerID</td>
+                    <td>{{ foundBooking.customerID }}</td>
+                  </tr>
+                  <tr>
+                    <td>empNo</td>
+                    <td>{{ foundBooking.empNo }}</td>
+                  </tr>
+                  <tr>
+                    <td>startDate</td>
+                    <td>{{ foundBooking.startDate }}</td>
+                  </tr>
+                  <tr>
+                    <td>endDate</td>
+                    <td>{{ foundBooking.endDate }}</td>
+                  </tr>
+                  <tr>
+                    <td>specialWishes</td>
+                    <td>{{ foundBooking.specialWishes }}</td>
+                  </tr>
+                  <tr>
+                    <td>pricing</td>
+                    <td>{{ foundBooking.pricing }}</td>
+                  </tr>
+                </table>
+              </mat-card-content>
+            </mat-card>
+            <br>
+              <mat-slide-toggle name="isChecked" [(ngModel)]="isChecked" [disabled]="!foundBooking" >Freigeben</mat-slide-toggle>
+              <button mat-raised-button color="primary" type="submit" [disabled]="!isChecked" (click)="deleteBooking(deleteBookingForm)">Löschen</button>
+          </div>
+          </form>
+          <div class="notificationArea">
+            <p *ngFor="let alert of alerts">
+              <ngb-alert *ngIf="alert.type=='success'" class="success"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
+              <ngb-alert *ngIf="alert.type=='danger'" class="danger"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
+            </p>
+          </div>
+        </div>
+      </mat-tab>
+
+
+
+
+
+      <mat-tab label="Anzeigen">
+        <div class="matTab">
+          <div class="formTab">
+            <div class="tab" >
+              <br>
+              <mat-form-field appearance="fill">
+                <mat-label>Buchungsnummer</mat-label>
+                <input matInput type="number" #bookingNoModel="ngModel"  [(ngModel)]="bookingNo" [required]="true" [min]="1">
+                <mat-error>Bitte gültige Buchungsnummer angegeben</mat-error>
+              </mat-form-field>
+              <br>
+              <button mat-raised-button color="primary" type="submit" (click)="submitSearch(false)" [disabled]="bookingNoModel.invalid">Suchen</button>
+              <mat-card *ngIf="foundBooking">
+                <mat-label>Buchungsnummer</mat-label>
+                <mat-card-title>{{foundBooking.bookingNo}}</mat-card-title>
+                <mat-label>Buchungsinformationen</mat-label>
+                <mat-card-content>
+                  <table class="table table-bordered table-striped">
+                    <tr>
+                      <td>customerID</td>
+                      <td>{{ foundBooking.customerID }}</td>
+                    </tr>
+                    <tr>
+                      <td>empNo</td>
+                      <td>{{ foundBooking.empNo }}</td>
+                    </tr>
+                    <tr>
+                      <td>startDate</td>
+                      <td>{{ foundBooking.startDate }}</td>
+                    </tr>
+                    <tr>
+                      <td>endDate</td>
+                      <td>{{ foundBooking.endDate }}</td>
+                    </tr>
+                    <tr>
+                      <td>specialWishes</td>
+                      <td>{{ foundBooking.specialWishes }}</td>
+                    </tr>
+                    <tr>
+                      <td>pricing</td>
+                      <td>{{ foundBooking.pricing }}</td>
+                    </tr>
+                  </table>
+                </mat-card-content>
+              </mat-card>
+            </div>
+          </div>
+            <div class="notificationArea">
+              <p *ngFor="let alert of alerts">
+                <ngb-alert *ngIf="alert.type=='success'" class="success"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
+                <ngb-alert *ngIf="alert.type=='danger'" class="danger"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
+              </p>
+            </div>
+          </div>
+      </mat-tab>
+    </mat-tab-group>
+
+</div>

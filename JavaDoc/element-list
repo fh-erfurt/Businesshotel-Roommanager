@@ -1,6 +1,7 @@
-de.fourofakind.businesshotel
-de.fourofakind.businesshotel.bookings
-de.fourofakind.businesshotel.common
-de.fourofakind.businesshotel.customers
-de.fourofakind.businesshotel.employees
-de.fourofakind.businesshotel.rooms
+de.fourofakind.businesshotel.server
+de.fourofakind.businesshotel.server.entities.bookings
+de.fourofakind.businesshotel.server.entities.common
+de.fourofakind.businesshotel.server.entities.customers
+de.fourofakind.businesshotel.server.entities.employees
+de.fourofakind.businesshotel.server.entities.rooms
+de.fourofakind.businesshotel.server.repositories

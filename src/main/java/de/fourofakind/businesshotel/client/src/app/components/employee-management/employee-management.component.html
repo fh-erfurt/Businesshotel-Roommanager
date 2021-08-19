@@ -1,0 +1,247 @@
+<div class="pageContent">
+  <h1>Personalverwaltung</h1>
+  <mat-tab-group>
+    <mat-tab label="Hinzufügen">
+      <div class="matTab">
+        <form #insertEmployeeForm="ngForm" class="formTab">
+          <div class="tab">
+            <br>
+            <mat-form-field appearance="fill">
+              <mat-label>Rolle</mat-label>
+              <mat-select name="givenRole" [(ngModel)]="givenRole" [required]="true">
+                <mat-option [value]="'Raummanager'">Raummanager</mat-option>
+                <mat-option [value]="'Buchungsmanager'">Buchungsmanager</mat-option>
+                <mat-option [value]="'Kundenmanager'">Kundenmanager</mat-option>
+                <mat-option [value]="'Personalmanager'" >Personalmanager</mat-option>
+                <mat-option [value]="'Hotelleiter'">Hotelleiter</mat-option>
+              </mat-select>
+              <mat-error>Bitte Rolle auswählen </mat-error>
+            </mat-form-field>
+            <br>
+            <div>
+              <mat-form-field class="halfInput" appearance="fill">
+                <mat-label>Vorname</mat-label>
+                <input matInput type="text" name="firstName" [(ngModel)]="firstName" [required]="true" [maxLength]="45">
+                <mat-error>Bitte Vornamen mit maximal 45 Zeichen angeben </mat-error>
+              </mat-form-field>
+              <mat-form-field class="halfInput" appearance="fill">
+                <mat-label>Nachname</mat-label>
+                <input matInput type="text" name="lastName" [(ngModel)]="lastName" [required]="true" [maxLength]="45">
+                <mat-error>Bitte Nachnamen mit maximal 45 Zeichen angeben </mat-error>
+              </mat-form-field>
+            </div>
+            <div>
+              <mat-form-field class="halfInput" appearance="fill">
+                <mat-label>Neues Passwort</mat-label>
+                <input matInput type="password" name="password" [(ngModel)]="password" [required]="true" [minLength]="10" [maxLength]="255" >
+                <mat-error>Bitte Passwort mit 10-255 Zeichen angeben </mat-error>
+              </mat-form-field>
+              <mat-form-field class="halfInput" appearance="fill">
+                <mat-label>Neues Passwort wiederholen</mat-label>
+                <input matInput type="password"  name="repeatedPassword" [(ngModel)]="repeatedPassword" (keyup)="validateRepeatedPassword()" [required]="true" [minLength]="10" [maxLength]="255">
+                <mat-error>Bitte Passwort mit 10-255 Zeichen angeben </mat-error>
+              </mat-form-field>
+            </div>
+            <div>
+              <mat-form-field class="usernameInput" appearance="fill">
+                <mat-label>Username</mat-label>
+                <input matInput type="text" name="username" [(ngModel)]="username" [required]="true" [maxLength]="75">
+                <mat-hint>
+                  Username nach Eingabe mit Such-Button auf Verfügbarkeit prüfen <br>
+                  Achtung: Kann später nicht geändert werden!
+                </mat-hint>
+
+                <mat-error>Bitte Username mit maximal 75 Zeichen angeben</mat-error>
+              </mat-form-field>
+              <button mat-icon-button color="primary" (click)="validateUsername()" [disabled]="!username">
+                <mat-icon>search</mat-icon>
+              </button>
+            </div>
+              <p *ngIf="usernameAlreadyExists">Username schon vorhanden</p>
+              <br>
+            <button mat-raised-button color="primary" type="submit" (click)="addOrUpdateEmployeeAndDetails(true,insertEmployeeForm)" [disabled]="!isSubmitAllowed || usernameAlreadyExists || insertEmployeeForm.invalid">Absenden</button>
+          </div>
+            </form>
+            <div class="notificationArea">
+              <p *ngFor="let alert of alerts">
+                <ngb-alert *ngIf="alert.type=='success'" class="success"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
+                <ngb-alert *ngIf="alert.type=='danger'" class="danger"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
+              </p>
+        </div>
+      </div>
+    </mat-tab>
+
+
+
+
+
+
+
+    <mat-tab label="Bearbeiten">
+      <div class="matTab">
+        <form #updateEmployeeForm="ngForm" class="formTab">
+          <div class="tab">
+        <br>
+        <mat-form-field appearance="fill">
+          <mat-label>Mitarbeiternummer</mat-label>
+          <input matInput type="number" #empNoModel="ngModel" name="empNo" [(ngModel)]="empNo" [required]="true" [min]="2">
+          <mat-error>Bitte gültige Mitarbeiternummer angeben</mat-error>
+        </mat-form-field>
+        <br>
+        <button mat-raised-button color="primary" (click)="submitSearch(true)" [disabled]="empNoModel.invalid">Suchen</button>
+        <br>
+        <div *ngIf="foundEmployee" class="searchTab">
+            <mat-form-field appearance="fill">
+              <mat-label>Rolle</mat-label>
+              <mat-select name="givenRole" [(ngModel)]="givenRole" [required]="true">
+                <mat-option [value]="'Raummanager'">Raummanager</mat-option>
+                <mat-option [value]="'Buchungsmanager'">Buchungsmanager</mat-option>
+                <mat-option [value]="'Kundenmanager'">Kundenmanager</mat-option>
+                <mat-option [value]="'Personalmanager'">Personalmanager</mat-option>
+                <mat-option [value]="'Hotelleiter'">Hotelleiter</mat-option>
+              </mat-select>
+              <mat-error>Bitte Rolle auswählen </mat-error>
+            </mat-form-field>
+            <br>
+            <div>
+              <mat-form-field class="halfInput" appearance="fill">
+                <mat-label>Vorname</mat-label>
+                <input matInput type="text" name="firstName" [(ngModel)]="firstName" [required]="true" [maxLength]="45">
+                <mat-error>Bitte Vornamen mit maximal 45 Zeichen angeben </mat-error>
+              </mat-form-field>
+              <mat-form-field class="halfInput" appearance="fill">
+                <mat-label>Nachname</mat-label>
+                <input matInput type="text" name="lastName" [(ngModel)]="lastName" [required]="true" [maxLength]="45">
+                <mat-error>Bitte Nachnamen mit maximal 45 Zeichen angeben </mat-error>
+              </mat-form-field>
+            </div>
+            <div>
+              <mat-form-field class="halfInput" appearance="fill">
+                <mat-label>Passwort</mat-label>
+                <input matInput type="password" name="password" [(ngModel)]="password" [required]="false" [minLength]="10" [maxLength]="255">
+                <mat-error>Bitte Passwort mit 10-255 Zeichen angeben </mat-error>
+              </mat-form-field>
+              <mat-form-field class="halfInput" appearance="fill">
+                <mat-label>Passwort wiederholen</mat-label>
+                <input matInput type="password" name="repeatedPassword" [(ngModel)]="repeatedPassword" (keyup)="validateRepeatedPassword()" [required]="false" [minLength]="10" [maxLength]="255">
+                <mat-error>Bitte Passwort mit 10-255 Zeichen angeben </mat-error>
+              </mat-form-field>
+            </div>
+            <br>
+            <button mat-raised-button color="primary" type="submit" (click)="addOrUpdateEmployeeAndDetails(false,updateEmployeeForm)" [disabled]="updateEmployeeForm.invalid">Absenden</button>
+          </div>
+        </div>
+        </form>
+        <div class="notificationArea">
+          <p *ngFor="let alert of alerts">
+            <ngb-alert *ngIf="alert.type=='success'" class="success"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
+            <ngb-alert *ngIf="alert.type=='danger'" class="danger"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
+          </p>
+        </div>
+      </div>
+    </mat-tab>
+
+
+
+
+
+
+
+    <mat-tab label="Löschen">
+      <div class="matTab">
+        <form #deleteEmployeeForm="ngForm" class="formTab">
+          <div class="tab">
+        <br>
+        <mat-form-field appearance="fill">
+          <mat-label>Mitarbeiternummer</mat-label>
+          <input matInput type="number" #empNoModel="ngModel" name="empNo" [(ngModel)]="empNo" [required]="true" [min]="2">
+          <mat-error>Bitte gültige Mitarbeiternummer angeben</mat-error>
+        </mat-form-field>
+        <br>
+        <button mat-raised-button color="primary" type="submit" (click)="submitSearch(false)" [disabled]="empNoModel.invalid">Suchen</button>
+        <br>
+        <mat-card *ngIf="foundEmployee">
+          <mat-label>Mitarbeiternummer</mat-label>
+          <mat-card-title>{{foundEmployee.empNo}}</mat-card-title>
+          <mat-label>Mitarbeiterinformationen</mat-label>
+          <mat-card-content>
+            <table class="table table-bordered table-striped">
+              <tr>
+                <td>Name</td>
+                <td>{{ foundEmployee.empName }}</td>
+              </tr>
+              <tr>
+                <td>Rolle</td>
+                <td>{{ foundEmployee.givenRole }}</td>
+              </tr>
+              <tr>
+                <td>AccountID</td>
+                <td>{{ foundEmployee.accountID }}</td>
+              </tr>
+            </table>
+          </mat-card-content>
+        </mat-card>
+        <br>
+        <mat-slide-toggle name="isChecked" [(ngModel)]="isChecked" [disabled]="!foundEmployee" >Freigeben</mat-slide-toggle>
+        <button mat-raised-button color="primary" type="submit" [disabled]="!isChecked" (click)="deleteEmployeeAndDetails(deleteEmployeeForm)">Löschen</button>
+      </div>
+          </form>
+        <div class="notificationArea">
+          <p *ngFor="let alert of alerts">
+            <ngb-alert *ngIf="alert.type=='success'" class="success"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
+            <ngb-alert *ngIf="alert.type=='danger'" class="danger"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
+          </p>
+        </div>
+      </div>
+    </mat-tab>
+
+
+
+
+
+    <mat-tab label="Anzeigen">
+      <div class="matTab">
+        <div class="formTab">
+          <div class="tab">
+            <br>
+            <mat-form-field appearance="fill">
+              <mat-label>Mitarbeiternummer</mat-label>
+              <input matInput type="number" #empNoModel="ngModel" name="empNo" [(ngModel)]="empNo" [required]="true" [min]="2">
+              <mat-error>Bitte gültige Mitarbeiternummer angeben</mat-error>
+            </mat-form-field>
+            <br>
+            <button mat-raised-button color="primary" type="submit" (click)="submitSearch(false)" [disabled]="empNoModel.invalid">Suchen</button>
+            <mat-card *ngIf="foundEmployee">
+              <mat-label>Mitarbeiternummer</mat-label>
+              <mat-card-title>{{foundEmployee.empNo}}</mat-card-title>
+              <mat-label>Mitarbeiterinformationen</mat-label>
+              <mat-card-content>
+                <table class="table table-bordered table-striped">
+                  <tr>
+                    <td>Name</td>
+                    <td>{{ foundEmployee.empName }}</td>
+                  </tr>
+                  <tr>
+                    <td>Rolle</td>
+                    <td>{{ foundEmployee.givenRole }}</td>
+                  </tr>
+                  <tr>
+                    <td>AccountID</td>
+                    <td>{{ foundEmployee.accountID }}</td>
+                  </tr>
+                </table>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </div>
+          <div class="notificationArea">
+            <p *ngFor="let alert of alerts">
+              <ngb-alert *ngIf="alert.type=='success'" class="success"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
+              <ngb-alert *ngIf="alert.type=='danger'" class="danger"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
+            </p>
+          </div>
+        </div>
+    </mat-tab>
+  </mat-tab-group>
+
+</div>

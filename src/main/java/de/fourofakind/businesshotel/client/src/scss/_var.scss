@@ -1,0 +1,26 @@
+//default styling variables
+html, body {
+  min-height: 100vh  !important;
+  height: auto !important;
+  margin: 0 !important;
+  //background-color: rebeccapurple !important;
+}
+
+$primaryAccentColor: rgba(155, 0, 0, 1);
+$alternativAccent: rgba(255, 195, 0, 0.8);
+
+$accentColor: $primaryAccentColor;
+
+$theme-colors: (
+  "primary": rgb(33, 37, 41),
+  "secondary": $accentColor
+);
+
+
+
+.nav-pills .nav-item .nav-link:is(.active) {
+  background-color: $accentColor;
+}
+nav .navbar-nav li a{
+  //color: white !important;
+}

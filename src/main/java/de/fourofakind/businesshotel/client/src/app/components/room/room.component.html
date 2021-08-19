@@ -1,0 +1,54 @@
+<div class="rooms-view">
+  <ul class="nav nav-tabs nav-fill" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active" id="hotelRoom-tab" data-bs-toggle="tab" data-bs-target="#hotelRoom" type="button" role="tab" aria-controls="home" aria-selected="true">Übernachtungszimmer</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="conferencRoom-tab" data-bs-toggle="tab" data-bs-target="#conferencRoom" type="button" role="tab" aria-controls="profile" aria-selected="false">Konferenzraum</button>
+    </li>
+  </ul>
+
+  <div class="tab-content rooms-list border border-top-0" id="myTabContent">
+    <div class="tab-pane fade show active" id="hotelRoom" role="tabpanel" aria-labelledby="home-tab">
+      <div class="row" *ngFor = "let index of numberOfRowsOfHotelRooms; let rowIndex = index">
+        <div class="col" align="center" *ngFor = "let index of numbersOfColsOfHotelRooms; let colIndex = index">
+          <div class="card" *ngIf="hotelRooms.length > (colIndex + numbersOfColsOfHotelRooms.length * rowIndex)">
+            <img src="assets/{{getHotelRoom(colIndex + numbersOfColsOfHotelRooms.length * rowIndex).category}}-{{getHotelRoom(colIndex + numbersOfColsOfHotelRooms.length * rowIndex).areaInSqrMetre}}.jpg" width="252" height="189" class="card-img-top" alt="...">
+            <div class="card-body" align="left">
+
+              <h5>{{getHotelRoom(colIndex + numbersOfColsOfHotelRooms.length * rowIndex).category}}</h5>
+              <h6> ({{getHotelRoom(colIndex + numbersOfColsOfHotelRooms.length * rowIndex).areaInSqrMetre}}qm) </h6>
+<!--              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>-->
+
+              <br>
+              <button [disabled]="buttonDisabled" class="btn btn-secondary" [routerLink]="['/booking', getHotelRoom(colIndex + numbersOfColsOfHotelRooms.length * rowIndex).roomNo]">
+                <span *ngIf="buttonDisabled" class="spinner-border spinner-border-sm mr-1"></span>
+                Buchen
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="tab-pane fade" id="conferencRoom" role="tabpanel" aria-labelledby="profile-tab">
+      <div class="row" *ngFor = "let index of numberOfRowsOfConferenceRooms; let rowIndex = index">
+        <div class="col" align="center" *ngFor = "let index of numbersOfColsOfConferenceRooms; let colIndex = index">
+          <div class="card" style="width: 18rem;" *ngIf="conferenceRooms.length > (colIndex + numbersOfColsOfConferenceRooms.length * rowIndex)">
+            <img src="assets/{{getConferenceRoom(colIndex + numbersOfColsOfConferenceRooms.length * rowIndex).category}}-{{getConferenceRoom(colIndex + numbersOfColsOfConferenceRooms.length * rowIndex).areaInSqrMetre}}.jpg" width="252" height="189" class="card-img-top" alt="...">
+            <div class="card-body" align="left">
+              <h5>{{getConferenceRoom(colIndex + numbersOfColsOfConferenceRooms.length * rowIndex).category}}</h5>
+              <h6> ({{getConferenceRoom(colIndex + numbersOfColsOfConferenceRooms.length * rowIndex).areaInSqrMetre}}qm) </h6>
+
+              <br>
+              <button [disabled]="buttonDisabled" class="btn btn-secondary" [routerLink]="['/booking', getConferenceRoom(colIndex + numbersOfColsOfConferenceRooms.length * rowIndex).roomNo]">
+                <span *ngIf="buttonDisabled" class="spinner-border spinner-border-sm mr-1"></span>
+                Buchen
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

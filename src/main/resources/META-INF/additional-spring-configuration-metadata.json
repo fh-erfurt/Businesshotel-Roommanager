@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "hibernate.dialect.storage_engine",
+      "type": "java.lang.String",
+      "description": "Description for hibernate.dialect.storage_engine."
+  }
+] }

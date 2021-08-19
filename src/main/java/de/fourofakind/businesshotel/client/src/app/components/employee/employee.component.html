@@ -1,0 +1,30 @@
+<div class = "container">
+    <div class = "card">
+        <h3 class="text-center">Mitarbeiter Testbereich</h3>
+        <div class = "card-body">
+            <table class = "table table-striped">
+                <thead>
+
+                    <th>EmpName</th>
+                    <th>Rolle</th>
+                    <th>accountID</th>
+
+                </thead>
+                <tbody>
+                    <tr *ngFor="let employee of employeesData">
+                      <td>{{ employee.empName}}</td>
+                      <td>{{ employee.givenRole}}</td>
+                      <td>{{ employee.accountID}}</td>
+                    </tr>
+                </tbody>
+
+
+            </table>
+
+<div>
+
+</div>
+        </div>
+    </div>
+</div>
+
