@@ -10,7 +10,6 @@ import {NgForm} from "@angular/forms";
 import {RoleService} from "../../services/role/role.service";
 
 
-
 @Component({
   selector: 'app-room-management',
   templateUrl: './room-management.component.html',
@@ -22,10 +21,11 @@ import {RoleService} from "../../services/role/role.service";
       deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]
     },
 
-    {provide: MAT_DATE_FORMATS,
+    {
+      provide: MAT_DATE_FORMATS,
       useValue: {
         parse: {
-          dateInput: ['LL', 'DD.MM.YYYY' ],
+          dateInput: ['LL', 'DD.MM.YYYY'],
         },
         display: {
           dateInput: 'DD-MM-YYYY',
@@ -35,10 +35,74 @@ import {RoleService} from "../../services/role/role.service";
   ],
 })
 
-
-
-
+/*
+* Component for Management (Add, Update, Get, Delete) of Rooms
+* consumes form data and calls corresponding services
+*/
 export class RoomManagementComponent implements OnInit {
+
+
+
+  //form data
+
+  //common
+  roomNo!: number;
+  areaInSqrMetre!: number;
+  category!: string;
+  pricePerUnit!: number;
+  roomType!: string;
+  //hotelRoom
+  bedCount!: number;
+  hasSpeedLAN!: boolean;
+  hasTV!: boolean;
+  hasKitchen!: boolean;
+  hasCoffeemaker!: boolean;
+  //conferenceRoom
+  maxAmountOfParticipants!: number;
+  amountOfWhiteboards!: number;
+  amountOfBeamer!: number;
+  hasScreen!: boolean;
+  hasComputer!: boolean;
+  amountOfTV!: number;
+
+  //helper variables
+  isChecked: boolean = false;
+  labelPosition: "before" | "after" = "before";
+  foundHotelroom!: Hotelroom | null;
+  foundConferenceroom!: Conferenceroom | null;
+  foundRoom!: Room | null
+  alerts: Alert[] = [];
+
+  hotelRoomCategories = new Map
+  ([
+    ["SINGLE", "Einzelzimmer"],
+    ["DOUBLE", "Doppelzimmer"],
+    ["SUITE", "Suite"]
+  ]);
+  conferenceRoomCategories = new Map
+  ([
+    ["SMALLGROUP", "Konferenzzimmer"],
+    ["BIGGROUP", "Konferenzsaal"]
+  ]);
+  hotelRoomAttributes = new Map
+  ([
+    ["Bettenanzahl", ""],
+    ["Highspeed Internet vorhanden", ""],
+    ["Fernseher vorhanden", ""],
+    ["Küchenzeile vorhanden", ""],
+    ["Kaffeemaschine vorhanden", ""],
+  ])
+  conferenceRoomAttributes = new Map
+  ([
+    ["Maximale Teilnehmeranzahl", ""],
+    ["Anzahl Whiteboards", ""],
+    ["Anzahl Beamer", ""],
+    ["Projektionsfläche vorhanden", ""],
+    ["Computer vorhanden", ""],
+    ["Anzahl Bildschirme", ""],
+  ])
+
+  private readonly department: string = "room-management";
 
   constructor(private roomService: RoomService,
               private roleService: RoleService)
@@ -48,95 +112,31 @@ export class RoomManagementComponent implements OnInit {
 
   }
 
-  private readonly department:string="room-management";
-
-  isChecked:boolean = false;
-  labelPosition:"before"| "after" ="before";
-  foundHotelroom!:Hotelroom | null;
-  foundConferenceroom!:Conferenceroom | null;
-  foundRoom!:Room | null
-
-  //common
-  roomNo!:number;
-  areaInSqrMetre!:number;
-  category!:string;
-  pricePerUnit!: number;
-  roomType!:string;
-  //hotelRoom
-  bedCount!:number;
-  hasSpeedLAN!:boolean;
-  hasTV!:boolean;
-  hasKitchen!:boolean;
-  hasCoffeemaker!:boolean;
-  //conferenceRoom
-  maxAmountOfParticipants!:number;
-  amountOfWhiteboards!:number;
-  amountOfBeamer!:number;
-  hasScreen!:boolean;
-  hasComputer!:boolean;
-  amountOfTV!:number;
-
-
-  alerts:Alert[]=[];
-
-  hotelRoomCategories=new Map
-  ([
-    ["SINGLE","Einzelzimmer"],
-    ["DOUBLE","Doppelzimmer"],
-    ["SUITE","Suite"]
-  ]);
-
-
-  conferenceRoomCategories=new Map
-  ([
-      ["SMALLGROUP","Konferenzzimmer"],
-      ["BIGGROUP","Konferenzsaal"]
-  ]);
-
-  hotelRoomAttributes=new Map
-  ([
-    ["Bettenanzahl",""],
-    ["Highspeed Internet vorhanden",""],
-    ["Fernseher vorhanden",""],
-    ["Küchenzeile vorhanden",""],
-    ["Kaffeemaschine vorhanden",""],
-  ])
-
-  conferenceRoomAttributes=new Map
-  ([
-    ["Maximale Teilnehmeranzahl",""],
-    ["Anzahl Whiteboards",""],
-    ["Anzahl Beamer",""],
-    ["Projektionsfläche vorhanden",""],
-    ["Computer vorhanden",""],
-    ["Anzahl Bildschirme",""],
-  ])
+  //###################################################################################################################
+  //HELPER ############################################################################################################
+  //###################################################################################################################
 
   /*
   * alert Object and seconds to display the alert as input params
   * produces alert for x seconds dsiplayed on the right side of the management tab
   */
-  addAlertForXSeconds(alert:Alert, seconds:number)
-  {
+  addAlertForXSeconds(alert: Alert, seconds: number) {
     this.alerts.push(alert);
-    setTimeout(()=>this.alerts=this.alerts.filter(entry=>entry!=alert),seconds*1000);
+    setTimeout(() => this.alerts = this.alerts.filter(entry => entry != alert), seconds * 1000);
   }
 
+  //###################################################################################################################
+  //ADD | UPDATE ######################################################################################################
+  //###################################################################################################################
 
 
-
-
-
-  addOrUpdateRoom(addsNewRoom:boolean,insertOrUpdateRoomForm: NgForm)
-  {
-    if (this.roleService.checkRights(this.department))
-    {
-      this.foundRoom=null;
-      this.foundConferenceroom=null;
-      this.foundHotelroom=null;
-      let newOrUpdatedRoom:Hotelroom | Conferenceroom
-      if(this.roomType=="HOTELROOM")
-      {
+  addOrUpdateRoom(addsNewRoom: boolean, insertOrUpdateRoomForm: NgForm) {
+    if (this.roleService.checkRights(this.department)) {
+      this.foundRoom = null;
+      this.foundConferenceroom = null;
+      this.foundHotelroom = null;
+      let newOrUpdatedRoom: Hotelroom | Conferenceroom
+      if (this.roomType == "HOTELROOM") {
         newOrUpdatedRoom =
           {
             areaInSqrMetre: this.areaInSqrMetre,
@@ -149,164 +149,140 @@ export class RoomManagementComponent implements OnInit {
             pricePerUnit: this.pricePerUnit,
             roomType: this.roomType
           };
-      }
-      else
-      {
+      } else {
         newOrUpdatedRoom =
           {
-            amountOfBeamer:this.amountOfBeamer,
-            amountOfTV:this.amountOfTV,
-            amountOfWhiteboards:this.amountOfWhiteboards,
-            areaInSqrMetre:this.areaInSqrMetre,
-            category:this.category,
-            hasComputer:this.hasComputer,
-            hasScreen:this.hasScreen,
-            maxAmountOfParticipants:this.maxAmountOfParticipants,
-            pricePerUnit:this.pricePerUnit,
-            roomType:this.roomType,
+            amountOfBeamer: this.amountOfBeamer,
+            amountOfTV: this.amountOfTV,
+            amountOfWhiteboards: this.amountOfWhiteboards,
+            areaInSqrMetre: this.areaInSqrMetre,
+            category: this.category,
+            hasComputer: this.hasComputer,
+            hasScreen: this.hasScreen,
+            maxAmountOfParticipants: this.maxAmountOfParticipants,
+            pricePerUnit: this.pricePerUnit,
+            roomType: this.roomType,
           };
       }
 
-        if(addsNewRoom)
-        {
-          this.roomService.save(newOrUpdatedRoom,this.roomType)
-            .subscribe((data)=>
-            {
-              this.addAlertForXSeconds(new Alert('success',"Raum erfolgreich angelegt"),5);
+      if (addsNewRoom) {
+        this.roomService.save(newOrUpdatedRoom, this.roomType)
+          .subscribe((data) => {
+              this.addAlertForXSeconds(new Alert('success', "Raum erfolgreich angelegt"), 5);
               insertOrUpdateRoomForm.resetForm();
             },
-            (error)=>
-            {
-              this.addAlertForXSeconds(new Alert('danger',"Fehler beim Anlegen des Raums"),5);
+            (error) => {
+              this.addAlertForXSeconds(new Alert('danger', "Fehler beim Anlegen des Raums"), 5);
 
             });
-        }
-        else
-        {
+      } else {
 
-          this.roomService.updateRoom(this.roomNo, newOrUpdatedRoom, this.roomType)
-            .subscribe((data)=>
-            {
-              this.addAlertForXSeconds(new Alert('success',"Raum erfolgreich geändert"),5);
+        this.roomService.updateRoom(this.roomNo, newOrUpdatedRoom, this.roomType)
+          .subscribe((data) => {
+              this.addAlertForXSeconds(new Alert('success', "Raum erfolgreich geändert"), 5);
               insertOrUpdateRoomForm.resetForm();
             },
-            (error)=>
-            {
-              this.addAlertForXSeconds(new Alert('danger',"Fehler beim Ändern des Raums"),5);
+            (error) => {
+              this.addAlertForXSeconds(new Alert('danger', "Fehler beim Ändern des Raums"), 5);
 
             });
-        }
-    }
-    else alert("Benötigte Rechte nicht vorhanden")
+      }
+    } else alert("Benötigte Rechte nicht vorhanden")
   }
 
+  //###################################################################################################################
+  //GET ###############################################################################################################
+  //###################################################################################################################
 
-  submitSearch(intoFormular:boolean)
-  {
-    if (this.roleService.checkRights(this.department))
-    {
+  submitSearch(intoFormular: boolean) {
+    if (this.roleService.checkRights(this.department)) {
 
-      this.foundRoom=null;
-      this.roomService.getRoom(this.roomNo).subscribe(data=>
-      {
-        this.foundRoom = data;
+      this.foundRoom = null;
+      this.roomService.getRoom(this.roomNo).subscribe(data => {
+          this.foundRoom = data;
 
-        if(data.roomType=="HOTELROOM")
-        {
-          this.roomService.getHotelRoom(this.roomNo).subscribe(data=>
-          {
-            this.foundHotelroom=data;
-            this.foundConferenceroom=null;
+          if (data.roomType == "HOTELROOM") {
+            this.roomService.getHotelRoom(this.roomNo).subscribe(data => {
+              this.foundHotelroom = data;
+              this.foundConferenceroom = null;
 
-            if(intoFormular)
-            {
-              this.areaInSqrMetre=data.areaInSqrMetre;
-              this.category=data.category;
-              this.pricePerUnit=data.pricePerUnit;
-              this.roomType=data.roomType;
-              this.bedCount=data.bedCount;
-              this.hasSpeedLAN=data.hasSpeedLAN;
-              this.hasTV=data.hasTV;
-              this.hasKitchen=data.hasKitchen;
-              this.hasCoffeemaker=data.hasCoffeemaker;
-            }
-            else
-            {
-              this.hotelRoomAttributes.set("Bettenanzahl",data.bedCount.toString());
-              this.hotelRoomAttributes.set("Highspeed Internet vorhanden",data.hasSpeedLAN?"Ja":"Nein");
-              this.hotelRoomAttributes.set("Fernseher vorhanden",data.hasTV?"Ja":"Nein");
-              this.hotelRoomAttributes.set("Küchenzeile vorhanden",data.hasKitchen?"Ja":"Nein");
-              this.hotelRoomAttributes.set("Kaffeemaschine vorhanden",data.hasCoffeemaker?"Ja":"Nein");
+              if (intoFormular) {
+                this.areaInSqrMetre = data.areaInSqrMetre;
+                this.category = data.category;
+                this.pricePerUnit = data.pricePerUnit;
+                this.roomType = data.roomType;
+                this.bedCount = data.bedCount;
+                this.hasSpeedLAN = data.hasSpeedLAN;
+                this.hasTV = data.hasTV;
+                this.hasKitchen = data.hasKitchen;
+                this.hasCoffeemaker = data.hasCoffeemaker;
+              } else {
+                this.hotelRoomAttributes.set("Bettenanzahl", data.bedCount.toString());
+                this.hotelRoomAttributes.set("Highspeed Internet vorhanden", data.hasSpeedLAN ? "Ja" : "Nein");
+                this.hotelRoomAttributes.set("Fernseher vorhanden", data.hasTV ? "Ja" : "Nein");
+                this.hotelRoomAttributes.set("Küchenzeile vorhanden", data.hasKitchen ? "Ja" : "Nein");
+                this.hotelRoomAttributes.set("Kaffeemaschine vorhanden", data.hasCoffeemaker ? "Ja" : "Nein");
 
-            }
+              }
 
-          })
-        }
-        else
-        {
-          this.roomService.getConferenceRoom(this.roomNo).subscribe(data=>
-          {
+            })
+          } else {
+            this.roomService.getConferenceRoom(this.roomNo).subscribe(data => {
 
-            this.foundConferenceroom=data;
-            this.foundHotelroom=null;
+              this.foundConferenceroom = data;
+              this.foundHotelroom = null;
 
-            if(intoFormular)
-            {
-              this.areaInSqrMetre = data.areaInSqrMetre;
-              this.category = data.category;
-              this.pricePerUnit = data.pricePerUnit;
-              this.roomType = data.roomType;
-              this.maxAmountOfParticipants = data.maxAmountOfParticipants;
-              this.amountOfWhiteboards = data.amountOfWhiteboards;
-              this.amountOfBeamer = data.amountOfBeamer;
-              this.hasScreen = data.hasScreen;
-              this.hasComputer = data.hasComputer;
-              this.amountOfTV = data.amountOfTV;
-            }
-            else
-            {
-              this.conferenceRoomAttributes.set("Maximale Teilnehmeranzahl",data.maxAmountOfParticipants.toString())
-              this.conferenceRoomAttributes.set("Anzahl Whiteboards",data.amountOfWhiteboards.toString())
-              this.conferenceRoomAttributes.set("Anzahl Beamer",data.amountOfBeamer.toString())
-              this.conferenceRoomAttributes.set("Projektionsfläche vorhanden",data.hasScreen?"Ja":"Nein")
-              this.conferenceRoomAttributes.set("Computer vorhanden",data.hasComputer?"Ja":"Nein")
-              this.conferenceRoomAttributes.set("Anzahl Bildschirme",data.amountOfTV.toString())
+              if (intoFormular) {
+                this.areaInSqrMetre = data.areaInSqrMetre;
+                this.category = data.category;
+                this.pricePerUnit = data.pricePerUnit;
+                this.roomType = data.roomType;
+                this.maxAmountOfParticipants = data.maxAmountOfParticipants;
+                this.amountOfWhiteboards = data.amountOfWhiteboards;
+                this.amountOfBeamer = data.amountOfBeamer;
+                this.hasScreen = data.hasScreen;
+                this.hasComputer = data.hasComputer;
+                this.amountOfTV = data.amountOfTV;
+              } else {
+                this.conferenceRoomAttributes.set("Maximale Teilnehmeranzahl", data.maxAmountOfParticipants.toString())
+                this.conferenceRoomAttributes.set("Anzahl Whiteboards", data.amountOfWhiteboards.toString())
+                this.conferenceRoomAttributes.set("Anzahl Beamer", data.amountOfBeamer.toString())
+                this.conferenceRoomAttributes.set("Projektionsfläche vorhanden", data.hasScreen ? "Ja" : "Nein")
+                this.conferenceRoomAttributes.set("Computer vorhanden", data.hasComputer ? "Ja" : "Nein")
+                this.conferenceRoomAttributes.set("Anzahl Bildschirme", data.amountOfTV.toString())
 
-            }
-          })
-        }
-      },
-        (error)=>
-        {
-          this.addAlertForXSeconds(new Alert('danger',"Kein Raum mit dieser Raumnummer vorhanden"),5);
+              }
+            })
+          }
+        },
+        (error) => {
+          this.addAlertForXSeconds(new Alert('danger', "Kein Raum mit dieser Raumnummer vorhanden"), 5);
 
         });
-    }
-    else alert("Benötigte Rechte nicht vorhanden")
+    } else alert("Benötigte Rechte nicht vorhanden")
   }
 
-  deleteRoom(deleteRoomForm: NgForm)
-  {
-    if (this.roleService.checkRights(this.department))
-    {
-      this.foundRoom=null;
-      this.foundConferenceroom=null;
-      this.foundHotelroom=null;
+  //###################################################################################################################
+  //DELETE ############################################################################################################
+  //###################################################################################################################
+
+  deleteRoom(deleteRoomForm: NgForm) {
+    if (this.roleService.checkRights(this.department)) {
+      this.foundRoom = null;
+      this.foundConferenceroom = null;
+      this.foundHotelroom = null;
       this.roomService.delete(this.roomNo)
         .subscribe(
-          (data)=>
-          {
-            this.addAlertForXSeconds(new Alert('success',"Raum erfolgreich gelöscht"),5);
+          (data) => {
+            this.addAlertForXSeconds(new Alert('success', "Raum erfolgreich gelöscht"), 5);
             deleteRoomForm.resetForm();
           },
-          (error)=>
-          {
-            this.addAlertForXSeconds(new Alert('danger',"Fehler beim Löschen des Raums"),5);
+          (error) => {
+            this.addAlertForXSeconds(new Alert('danger', "Fehler beim Löschen des Raums"), 5);
           }
         );
 
-    }
-    else alert("Benötigte Rechte nicht vorhanden")
+    } else alert("Benötigte Rechte nicht vorhanden")
   }
 
 }
