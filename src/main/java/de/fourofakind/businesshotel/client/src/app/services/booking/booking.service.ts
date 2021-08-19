@@ -34,7 +34,6 @@ export class BookingService {
   {
     return this.http.get<Booking>(`${this.baseUrl}${id}`).pipe(
       map((result:any) =>{
-        //console.log(result);
         return result;
       })
     )
@@ -51,7 +50,6 @@ export class BookingService {
   {
     return this.http.get<Booking[]>(`${this.baseUrl}search/findByStartDateIsBetweenOrEndDateIsBetweenOrStartDateBeforeAndEndDateAfter?startDate=${startTimeStamp}&endDate=${endTimeStamp}`).pipe(
       map((result:any) =>{
-        console.log(result);
         let bookings=[];
         if(result._embedded.conferenceRoomBooking && result._embedded.hotelRoomBooking)
         {
@@ -75,7 +73,6 @@ export class BookingService {
   {
     return this.http.get<Booking[]>(`${this.baseUrl}search/findByCustomerID?customerID=${id}`).pipe(
       map((result:any) =>{
-        console.log(result);
         let bookings=[];
         if(result._embedded.conferenceRoomBooking && result._embedded.hotelRoomBooking)
         {
@@ -98,7 +95,6 @@ export class BookingService {
   {
     return this.http.get<Booking[]>(`${this.baseUrl}search/findByRoomNo?roomNo=${id}`).pipe(
       map((result:any) =>{
-        console.log(result);
         let bookings=[];
         if(result._embedded.conferenceRoomBooking && result._embedded.hotelRoomBooking)
         {
@@ -122,7 +118,6 @@ export class BookingService {
   {
     return this.http.get<Booking[]>(`${this.baseUrl}search/findByEmpNo?empNo=${id}`).pipe(
       map((result:any) =>{
-        console.log(result);
         let bookings=[];
         if(result._embedded.conferenceRoomBooking && result._embedded.hotelRoomBooking)
         {
@@ -143,7 +138,6 @@ export class BookingService {
   {
     return this.http.get<Booking[]>(this.baseUrl).pipe(
       map((result:any) =>{
-        console.log(result);
         let bookings=[];
         if(result._embedded.conferenceRoomBooking && result._embedded.hotelRoomBooking)
         {
@@ -166,8 +160,6 @@ export class BookingService {
    */
   public save(booking:Booking, bookingType:string):Observable<Booking>
   {
-    console.log("save")
-    console.log(booking);
     let url;
 
     if(bookingType ==="hotelRoom")
@@ -200,20 +192,12 @@ export class BookingService {
    */
   public saveMy(booking: Booking, bookingType:string):Observable<Booking>
   {
-    console.log("saveBooking")
-    // console.log(booking);
     let url;
 
-    // var finalBooking = {}
-
-    console.log("this.baseUrl: ", this.baseUrl)
-
-    // console.log("booking: ", JSON.stringify(booking))
 
     if(bookingType ==="hotelRoom")
     {
       url=this.hotelRoomBaseUrl;
-      console.log("url: ", url)
 
       const finalBooking: HotelRoomBooking = {
         roomNo: booking.roomNo,
@@ -224,15 +208,12 @@ export class BookingService {
         specialWishes: booking.specialWishes,
         customerID: booking.customerID
       }
-      console.log("booking: ", JSON.stringify(finalBooking))
-      console.log("finalHotelRoomBooking: ", finalBooking)
 
       return this.http.post<Booking>(url, finalBooking)
         .pipe(
           map(
             (res)=>
             {
-              console.log("res: ", res)
               return res;
             }
           )
@@ -241,7 +222,6 @@ export class BookingService {
     } else {
 
       url=this.conferenceRoomBaseUrl;
-      console.log("url: ", url)
 
       const finalBooking: ConferenceRoomBooking = {
         roomNo: booking.roomNo,
@@ -252,15 +232,12 @@ export class BookingService {
         specialWishes: booking.specialWishes,
         customerID: booking.customerID
       }
-      console.log("booking: ", JSON.stringify(finalBooking))
-      console.log("finalConferenceRoomBooking: ", finalBooking)
 
       return this.http.post<Booking>(url, finalBooking)
         .pipe(
           map(
             (res)=>
             {
-              console.log("res: ", res)
               return res;
             }
           )
@@ -295,9 +272,6 @@ export class BookingService {
    * @param booking data to be updated
    */
   public updateBooking(id: number, booking: Booking):Observable<Booking> {
-    console.log(booking);
-
-    console.log(booking);
 
     return this.http.put<Booking>(`${this.baseUrl}${id}`, booking)
       .pipe(
@@ -318,7 +292,6 @@ export class BookingService {
    */
   public patchBookingsAtCustomerDelete(bookingNo:number):Observable<Booking>
   {
-    console.log(bookingNo);
 
     return this.http.patch<Booking>(`${this.baseUrl}${bookingNo}`, {customerID:1})
       .pipe(
@@ -339,7 +312,6 @@ export class BookingService {
    */
   public patchBookingsAtEmployeeDelete(bookingNo:number):Observable<Booking>
   {
-    console.log(bookingNo);
 
     return this.http.patch<Booking>(`${this.baseUrl}${bookingNo}`, {empNo:1})
       .pipe(

@@ -25,7 +25,6 @@ export class EmployeeService {
   public getEmployees(): Observable<Employee[]>{
     return this.http.get<Employee[]>(`${this.baseUrl}`).pipe(
       map((result: any) => {
-        console.log(result);
         return result._embedded.employee;
       })
     )
@@ -41,7 +40,6 @@ export class EmployeeService {
   {
     return this.http.get<Employee>(`${this.baseUrl}${id}`).pipe(
       map((result:any) =>{
-        //console.log(result);
         return result;
       })
     )
@@ -57,7 +55,6 @@ export class EmployeeService {
   {
     return this.http.get<Employee>(`${this.baseUrl}search/findEmployeeByAccountID?account_id=${id}`).pipe(
       map((result:any) =>{
-        //console.log(result);
         return result;
       })
     )
@@ -71,7 +68,6 @@ export class EmployeeService {
    */
   public save(employee: Employee): Observable<Employee>
   {
-    console.log(employee);
 
     return this.http.post<Employee>(this.baseUrl, employee)
       .pipe(
@@ -112,7 +108,6 @@ export class EmployeeService {
    */
   public updateEmployee(id: number, employee: Employee): Observable<Employee>
   {
-    console.log(employee);
 
     return this.http.put<Employee>(`${this.baseUrl}${id}`, employee)
       .pipe(

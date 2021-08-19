@@ -18,7 +18,7 @@
       display: grid;
       grid-template-columns: 1fr;
       grid-template-rows: 1fr 1fr;
-      gap: 0px 0px;
+      gap: 0 0;
       grid-template-areas:
     "date-picker"
     "time-picker";
@@ -62,8 +62,7 @@
       background-size: 23px;
       background-position: center;
       height: 2.75rem;
-      padding: 0;
-      padding-bottom: 4px;
+      padding: 0 0 4px;
     }
 
     .input-group-append {
@@ -129,7 +128,7 @@
     display: grid;
     grid-template-columns: 1fr 0.5fr;
     grid-template-rows: 1fr;
-    gap: 0px 0px;
+    gap: 0 0;
     grid-template-areas:
     "start-time end-time";
     grid-area: time-picker;

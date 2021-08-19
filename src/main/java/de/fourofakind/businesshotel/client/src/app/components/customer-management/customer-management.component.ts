@@ -332,7 +332,6 @@ export class CustomerManagementComponent implements OnInit {
    */
   submitSearch(intoFormular: boolean) {
     if (this.roleService.checkRights(this.department)) {
-      console.log(this.customerID);
       this.foundCustomer = null;
       this.foundAccountdetails = null;
       this.foundContactData = null;
@@ -375,13 +374,11 @@ export class CustomerManagementComponent implements OnInit {
     let bookingNoOfCustomer: number[] = [];
     this.bookingService.getBookingsByCustomerID(this.customerID)
       .subscribe((data) => {
-        console.log(data);
         data.forEach((data) => {
           if (data && data.bookingNo) {
             bookingNoOfCustomer.push(data.bookingNo)
           }
         })
-        console.log(bookingNoOfCustomer)
         if (bookingNoOfCustomer.length > 0) {
           let currentIdx = 0;
           bookingNoOfCustomer.forEach((bookingNo) => {
@@ -408,13 +405,11 @@ export class CustomerManagementComponent implements OnInit {
     let bookingRequestIDsOfCustomer: number[] = [];
     this.bookingRequestService.getBookingRequestIDsByCustomerID(this.customerID)
       .subscribe((data) => {
-        console.log(data);
         data.forEach((data) => {
           if (data && data.bookingRequestID) {
             bookingRequestIDsOfCustomer.push(data.bookingRequestID)
           }
         })
-        console.log(bookingRequestIDsOfCustomer)
         if (bookingRequestIDsOfCustomer.length) {
           let currentIdx = 0;
           bookingRequestIDsOfCustomer.forEach((bookingRequestID) => {

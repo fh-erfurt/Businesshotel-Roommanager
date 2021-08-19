@@ -29,7 +29,6 @@ export class CustomerService {
   public getCustomers(): Observable<Customer> {
     return this.http.get<Customer>(`${this.baseUrl}`).pipe(
       map((result: any) => {
-        //console.log(result);
         return result._embedded.customer;
       })
     )
@@ -44,7 +43,6 @@ export class CustomerService {
   public getCustomer(id: number): Observable<Customer> {
     return this.http.get<Customer>(`${this.baseUrl}${id}`).pipe(
       map((result: any) => {
-        //console.log(result);
         return result;
       })
     )
@@ -59,7 +57,6 @@ export class CustomerService {
   public getCustomerByAccountID(id: number): Observable<Customer> {
     return this.http.get<Customer>(`${this.baseUrl}search/findCustomerByAccountID?account_id=${id}`).pipe(
       map((result: any) => {
-        //console.log(result);
         return result;
       })
     )
@@ -72,7 +69,6 @@ export class CustomerService {
    * @param customer data to be inserted
    */
   public save(customer: Customer): Observable<Customer> {
-    console.log(customer);
 
     return this.http.post<Customer>(this.baseUrl, customer)
       .pipe(
@@ -110,7 +106,6 @@ export class CustomerService {
    * @param customer data to be updated
    */
   public updateCustomer(id: number, customer: Customer): Observable<Customer> {
-    console.log(customer);
 
     return this.http.put<Customer>(`${this.baseUrl}${id}`, customer)
       .pipe(

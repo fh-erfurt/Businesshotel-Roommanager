@@ -34,7 +34,6 @@ export class RoomService {
   public getHotelRooms(): Observable<Room[]> {
     return this.http.get<Room[]>(`${this.hotelRoomBaseUrl}`).pipe(
       map((result: any) => {
-        console.log(result);
         return result._embedded.hotelroom;
       })
     )
@@ -46,7 +45,6 @@ export class RoomService {
   public getConferenceRooms(): Observable<Room[]> {
     return this.http.get<Room[]>(`${this.conferenceRoomBaseUrl}`).pipe(
       map((result: any) => {
-        console.log(result);
         return result._embedded.conferenceroom;
       })
     )
@@ -62,7 +60,6 @@ export class RoomService {
   public getRoom(id: number): Observable<Room> {
     return this.http.get<Room>(`${this.baseUrl}${id}`).pipe(
       map((result: any) => {
-        console.log(result);
         return result;
       })
     )
@@ -78,7 +75,6 @@ export class RoomService {
   public getHotelRoom(id: number): Observable<Hotelroom> {
     return this.http.get<Hotelroom>(`${this.hotelRoomBaseUrl}${id}`).pipe(
       map((result: any) => {
-        console.log(result);
         return result;
       })
     )
@@ -94,7 +90,6 @@ export class RoomService {
   public getConferenceRoom(id: number): Observable<Conferenceroom> {
     return this.http.get<Conferenceroom>(`${this.conferenceRoomBaseUrl}${id}`).pipe(
       map((result: any) => {
-        console.log(result);
         return result;
       })
     )
@@ -109,7 +104,6 @@ export class RoomService {
    */
   public save(room: Conferenceroom | Hotelroom, roomType: string): Observable<Hotelroom|Conferenceroom>
   {
-    console.log(room);
 
     if (roomType === "HOTELROOM") {
 
@@ -162,7 +156,6 @@ export class RoomService {
    */
   public updateRoom(id: number, room: Conferenceroom | Hotelroom, roomType: string): Observable<Hotelroom|Conferenceroom>
   {
-    console.log(room);
 
     if (roomType === "HOTELROOM") {
 
