@@ -19,12 +19,13 @@ export class RoleService {
     ["room-management","Raummanager"],
   ]);
 
+
   /**
-  * relevant department as input param
-  *
-  * returns Boolean which approves the employees rights or denies the transaction
-  */
-  public checkRights(department: string)
+   * returns Boolean which approves the employees rights or denies the transaction
+   *
+   * @param department department to be checked for
+   */
+  public checkRights(department: string):Boolean
   {
     let givenRole=localStorage.getItem('givenRole');
     return (this.departmentAndRoles.get(department)===givenRole || givenRole==="Hotelleiter")

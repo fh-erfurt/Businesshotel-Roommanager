@@ -22,7 +22,6 @@ export class ContactdataService {
   }
 
   /**
-  * function without params
   * returns all ContactData entries
   */
   public getAllContactdata(): Observable<Contactdata>{
@@ -35,9 +34,10 @@ export class ContactdataService {
   }
 
   /**
-  * contactDataID as input param
-  * returns ContactData associated with contactDataID
-  */
+   * returns ContactData associated with contactDataID
+   *
+   * @param id contactdataID to be searched for
+   */
   public getContactdata(id:number): Observable<Contactdata>{
     return this.http.get<Contactdata>(`${this.baseUrl}${id}`).pipe(
       map((result:any) =>{
@@ -47,10 +47,12 @@ export class ContactdataService {
     )
   }
 
+
   /**
-  * contactdata as input param
-  * returns Observable containing the newly added contactdata entry
-  */
+   * returns Observable containing the newly added contactdata entry
+   *
+   * @param contactdata contactdata to be inserted
+   */
   public save(contactdata: Contactdata):Observable<Contactdata>
   {
     console.log(contactdata);
@@ -67,10 +69,12 @@ export class ContactdataService {
 
   }
 
+
   /**
-  * contactdataID as input param
-  * returns empty Observable after deleting the Contactdata entry
-  */
+   * returns empty Observable after deleting the Contactdata entry
+   *
+   * @param id contactdataID of contactdata to be deleted
+   */
   public delete(id: number):Observable<Contactdata>
   {
     return this.http.delete<Contactdata>(`${this.baseUrl}${id}`)
@@ -86,11 +90,14 @@ export class ContactdataService {
 
   }
 
+
   /**
-  * contactDataID and contactdata Object as input params
-  * returns Observable containing the updated contactData entry
-  */
-  public updateContactdata(id: number, contactdata: Contactdata)
+   * returns Observable containing the updated contactData entry
+   *
+   * @param id contactdataID of contactdata to be updated
+   * @param contactdata contactdata to be updated
+   */
+  public updateContactdata(id: number, contactdata: Contactdata): Observable<Contactdata>
   {
     console.log(contactdata);
 
