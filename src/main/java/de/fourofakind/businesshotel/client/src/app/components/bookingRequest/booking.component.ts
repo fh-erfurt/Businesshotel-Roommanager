@@ -118,8 +118,8 @@ export class BookingComponent implements OnInit {
 
 
 
-  private screenHeight: number = 0;
-  private screenWidth: number = 0;
+  public screenHeight: number = 0;
+  public screenWidth: number = 0;
 
   constructor(private bookingrequestService: BookingrequestService,
               private route: ActivatedRoute,
@@ -193,7 +193,7 @@ export class BookingComponent implements OnInit {
   getWindowSize(event?: any) {
     this.screenHeight = window.innerHeight;
     this.screenWidth = window.innerWidth;
-    if (this.screenWidth < 1300) {
+    if (this.screenWidth < 1400) {
       this.isMobileDevice = true
     } else {
       this.isMobileDevice = false

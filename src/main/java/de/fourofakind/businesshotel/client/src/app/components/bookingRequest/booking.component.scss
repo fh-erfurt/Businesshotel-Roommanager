@@ -5,7 +5,7 @@
 .booking-view {
   padding: 22px;
 
-  @media only screen and (min-width: 1300px) {
+  @media only screen and (min-width: 1400px) {
     .form-inline {
       display: grid;
       grid-template-columns: 400px 1fr 458px;
@@ -24,13 +24,33 @@
     "time-picker";
       grid-area: date-group;
       float: right;
+      //background-color: green;
+      max-height: 630px;
     }
     .md-date-time-picker {
       visibility: hidden;
       display: none;
     }
+
+    .room-details {
+      grid-area: room-details;
+      text-align: center;
+      min-width: 400px;
+      height: 300px;
+    }
+    .room-image {
+      width: 400px;
+      height: 300px;
+      object-fit: cover;
+    }
+    .room-details-card {
+      margin-left: 0;
+      margin-right: auto;
+      width: 400px;
+    }
+
   }
-  @media only screen and (max-width: 1299px) {
+  @media only screen and (max-width: 1399px) and (min-width: 800px) {
     .form-inline {
       display: grid;
       grid-template-columns: 400px 1fr;
@@ -71,7 +91,151 @@
     }
 
     .booking-card {
-      min-height: 480px;
+      //min-height: 480px;
+    }
+
+    .room-details {
+      grid-area: room-details;
+      text-align: center;
+      min-width: 400px;
+      height: 300px;
+    }
+    .room-image {
+      width: 400px;
+      height: 300px;
+      object-fit: cover;
+    }
+    .room-details-card {
+      margin-left: 0;
+      margin-right: auto;
+      width: 400px;
+    }
+
+  }
+  @media only screen and (max-width: 799px) and (min-width: 488px) {
+    .form-inline {
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: 380px 0.5fr;
+      //justify-content: space-between;
+      gap: 22px 22px;
+      grid-template-areas:
+    "room-details"
+    "booking-details";
+    }
+    .date-group {
+      visibility: hidden;
+      display: none;
+    }
+    button.calendar, button.calendar:active {
+      width: 2.75rem;
+      background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACIAAAAcCAYAAAAEN20fAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAOxAAADsQBlSsOGwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAEUSURBVEiJ7ZQxToVAEIY/YCHGxN6XGOIpnpaEsBSeQC9ArZbm9TZ6ADyBNzAhQGGl8Riv4BLAWAgmkpBYkH1b8FWT2WK/zJ8ZJ4qiI6XUI3ANnGKWBnht2/ZBDRK3hgVGNsCd7/ui+JkEIrKtqurLpEWaphd933+IyI3LEIdpCYCiKD6HcuOa/nwOa0ScJEnk0BJg0UTUWJRl6RxCYEzEmomsIlPU3IPW+grIAbquy+q6fluy/28RIBeRMwDXdXMgXLj/B2uimRXpui4D9sBeRLKl+1N+L+t6RwbWrZliTTTr1oxYtzVWiTQAcRxvTX+eJMnlUDaO1vpZRO5NS0x48sIwfPc87xg4B04MCzQi8hIEwe4bl1DnFMCN2zsAAAAASUVORK5CYII=') !important;
+      background-repeat: no-repeat;
+      background-size: 23px;
+      background-position: center;
+      height: 2.75rem;
+    }
+
+    button.time, button.time:active {
+      width: 2.75rem;
+      color: #444444;
+      //background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACIAAAAcCAYAAAAEN20fAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAOxAAADsQBlSsOGwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAEUSURBVEiJ7ZQxToVAEIY/YCHGxN6XGOIpnpaEsBSeQC9ArZbm9TZ6ADyBNzAhQGGl8Riv4BLAWAgmkpBYkH1b8FWT2WK/zJ8ZJ4qiI6XUI3ANnGKWBnht2/ZBDRK3hgVGNsCd7/ui+JkEIrKtqurLpEWaphd933+IyI3LEIdpCYCiKD6HcuOa/nwOa0ScJEnk0BJg0UTUWJRl6RxCYEzEmomsIlPU3IPW+grIAbquy+q6fluy/28RIBeRMwDXdXMgXLj/B2uimRXpui4D9sBeRLKl+1N+L+t6RwbWrZliTTTr1oxYtzVWiTQAcRxvTX+eJMnlUDaO1vpZRO5NS0x48sIwfPc87xg4B04MCzQi8hIEwe4bl1DnFMCN2zsAAAAASUVORK5CYII=') !important;
+      background-repeat: no-repeat;
+      background-size: 23px;
+      background-position: center;
+      height: 2.75rem;
+      padding: 0;
+      padding-bottom: 4px;
+    }
+
+    .input-group-append {
+      width: 44px;
+    }
+
+    .booking-card {
+      //min-height: 480px;
+    }
+
+    .room-details {
+      grid-area: room-details;
+      text-align: center;
+      min-width: 400px;
+      height: 300px;
+    }
+    .room-image {
+      width: 400px;
+      height: 300px;
+      object-fit: cover;
+    }
+    .room-details-card {
+      margin-left: 0;
+      margin-right: auto;
+      width: 400px;
+    }
+
+  }
+
+  @media only screen and (max-width: 487px) {
+    .form-inline {
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: 0.3fr 0.5fr;
+      //justify-content: space-between;
+      gap: 22px 22px;
+      grid-template-areas:
+    "room-details"
+    "booking-details";
+    }
+    .date-group {
+      visibility: hidden;
+      display: none;
+    }
+    button.calendar, button.calendar:active {
+      width: 2.75rem;
+      background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACIAAAAcCAYAAAAEN20fAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAOxAAADsQBlSsOGwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAEUSURBVEiJ7ZQxToVAEIY/YCHGxN6XGOIpnpaEsBSeQC9ArZbm9TZ6ADyBNzAhQGGl8Riv4BLAWAgmkpBYkH1b8FWT2WK/zJ8ZJ4qiI6XUI3ANnGKWBnht2/ZBDRK3hgVGNsCd7/ui+JkEIrKtqurLpEWaphd933+IyI3LEIdpCYCiKD6HcuOa/nwOa0ScJEnk0BJg0UTUWJRl6RxCYEzEmomsIlPU3IPW+grIAbquy+q6fluy/28RIBeRMwDXdXMgXLj/B2uimRXpui4D9sBeRLKl+1N+L+t6RwbWrZliTTTr1oxYtzVWiTQAcRxvTX+eJMnlUDaO1vpZRO5NS0x48sIwfPc87xg4B04MCzQi8hIEwe4bl1DnFMCN2zsAAAAASUVORK5CYII=') !important;
+      background-repeat: no-repeat;
+      background-size: 23px;
+      background-position: center;
+      height: 2.75rem;
+    }
+
+    button.time, button.time:active {
+      width: 2.75rem;
+      color: #444444;
+      //background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACIAAAAcCAYAAAAEN20fAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAOxAAADsQBlSsOGwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAEUSURBVEiJ7ZQxToVAEIY/YCHGxN6XGOIpnpaEsBSeQC9ArZbm9TZ6ADyBNzAhQGGl8Riv4BLAWAgmkpBYkH1b8FWT2WK/zJ8ZJ4qiI6XUI3ANnGKWBnht2/ZBDRK3hgVGNsCd7/ui+JkEIrKtqurLpEWaphd933+IyI3LEIdpCYCiKD6HcuOa/nwOa0ScJEnk0BJg0UTUWJRl6RxCYEzEmomsIlPU3IPW+grIAbquy+q6fluy/28RIBeRMwDXdXMgXLj/B2uimRXpui4D9sBeRLKl+1N+L+t6RwbWrZliTTTr1oxYtzVWiTQAcRxvTX+eJMnlUDaO1vpZRO5NS0x48sIwfPc87xg4B04MCzQi8hIEwe4bl1DnFMCN2zsAAAAASUVORK5CYII=') !important;
+      background-repeat: no-repeat;
+      background-size: 23px;
+      background-position: center;
+      height: 2.75rem;
+      padding: 0;
+      padding-bottom: 4px;
+    }
+
+    .input-group-append {
+      width: 44px;
+    }
+
+    .booking-card {
+      min-height: 0;
+      //min-height: 480px;
+    }
+
+    .room-details {
+      grid-area: room-details;
+      text-align: center;
+      //min-width: 400px;
+    }
+
+    .room-image {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+    }
+
+    .room-details-card {
+      margin-left: 0;
+      margin-right: auto;
+      width: 100%;
     }
 
   }
@@ -87,11 +251,7 @@
     padding: 0;
   }
 
-  .room-image {
-    width: 400px;
-    height: 300px;
-    object-fit: cover;
-  }
+
 
   .booking-details {
     grid-area: booking-details;
@@ -100,24 +260,9 @@
 
   .booking-details-card {
     // height: 500px;
+    min-height: 325px;
 
   }
-
-  .room-details {
-    grid-area: room-details;
-    text-align: center;
-    min-width: 400px;
-    height: 300px;
-  }
-
-  .room-details-card {
-    margin-left: 0;
-    margin-right: auto;
-    width: 400px;
-    //height: 300px;
-  }
-
-
 
   .date-picker {
     grid-area: date-picker;
