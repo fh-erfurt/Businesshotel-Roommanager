@@ -220,27 +220,6 @@
                         <div *ngIf="f.phoneNumber.errors.phoneNumberInvalid">Ungültiges Telefonnummerformat (z.B; +493617493097)</div>
                       </div>
                     </div>
-                    <div *ngIf="!contactData.paymentCredentials" class="form-group">
-                      <label>Zahlungsmethode *</label>
-                      <select class="form-select form-control" (change)="paymentMethodChanged()" aria-label="Default select example" formControlName="paymentMethod" name="paymentMethod" [ngClass]="{ 'is-invalid': submitted && f.paymentMethod.errors }">
-                        <option value="paypal">PayPal</option>
-                        <option value="debit">Debit</option>
-                        <option value="bill">Rechnunug</option>
-                      </select>
-                      <!--                  <input type="text" formControlName="paymentCredentials" name="paymentCredentials" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.paymentCredentials.errors }" />-->
-                      <div *ngIf="submitted && f.paymentMethod.errors" class="invalid-feedback">
-                        <div *ngIf="f.paymentMethod.errors.required">Bitte Zahlungsmethode angeben</div>
-                      </div>
-                    </div>
-
-                    <div *ngIf="!contactData.paymentCredentials && (f.paymentMethod.value === 'debit' || f.paymentMethod.value === 'paypal')" class="form-group">
-                      <label>{{paymentCredentialsLabel}}</label>
-                      <input type="text" formControlName="paymentCredentials"  name="{{paymentCredentialsNameLabel}}"  class="form-control" [ngClass]="{ 'is-invalid': submitted && f.paymentCredentials.errors }" />
-                      <div *ngIf="submitted && f.paymentCredentials.errors" class="invalid-feedback">
-                        <div *ngIf="f.paymentCredentials.errors.required">Bitte {{paymentCredentialsLabel}} angeben</div>
-                        <div *ngIf="f.paymentCredentials.errors.ibanInvalid">{{paymentCredentialsErrorLabel}}</div>
-                      </div>
-                    </div>
                   </div>
 
                   <div class="col-lg">
@@ -270,6 +249,26 @@
                       <input type="text" formControlName="cityName" name="city" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.cityName.errors }" />
                       <div *ngIf="submitted && f.cityName.errors" class="invalid-feedback">
                         <div *ngIf="f.cityName.errors.required">Bitte Stadt angeben</div>
+                      </div>
+                    </div>
+                    <div *ngIf="!contactData.paymentCredentials" class="form-group">
+                      <label>Zahlungsmethode *</label>
+                      <select class="form-select form-control" (change)="paymentMethodChanged()" aria-label="Default select example" formControlName="paymentMethod" name="paymentMethod" [ngClass]="{ 'is-invalid': submitted && f.paymentMethod.errors }">
+                        <option value="paypal">PayPal</option>
+                        <option value="debit">Debit</option>
+                        <option value="bill">Rechnunug</option>
+                      </select>
+                      <!--                  <input type="text" formControlName="paymentCredentials" name="paymentCredentials" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.paymentCredentials.errors }" />-->
+                      <div *ngIf="submitted && f.paymentMethod.errors" class="invalid-feedback">
+                        <div *ngIf="f.paymentMethod.errors.required">Bitte Zahlungsmethode angeben</div>
+                      </div>
+                    </div>
+                    <div *ngIf="!contactData.paymentCredentials && (f.paymentMethod.value === 'debit' || f.paymentMethod.value === 'paypal')" class="form-group">
+                      <label>{{paymentCredentialsLabel}}</label>
+                      <input type="text" formControlName="paymentCredentials"  name="{{paymentCredentialsNameLabel}}"  class="form-control" [ngClass]="{ 'is-invalid': submitted && f.paymentCredentials.errors }" />
+                      <div *ngIf="submitted && f.paymentCredentials.errors" class="invalid-feedback">
+                        <div *ngIf="f.paymentCredentials.errors.required">Bitte {{paymentCredentialsLabel}} angeben</div>
+                        <div *ngIf="f.paymentCredentials.errors.ibanInvalid">{{paymentCredentialsErrorLabel}}</div>
                       </div>
                     </div>
                   </div>
