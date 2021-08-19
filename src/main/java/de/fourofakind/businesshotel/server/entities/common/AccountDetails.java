@@ -10,8 +10,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
-@Entity(name="AccountDetails")
-@Table(name="account_details")
+@Entity(name = "AccountDetails")
+@Table(name = "account_details")
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter
@@ -20,11 +20,11 @@ public class AccountDetails
 {
     //Attributes
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name="account_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "account_id")
     Integer accountID;
     String username;
-    @Column(name="password_hash")
+    @Column(name = "password_hash")
     String passwordHash;
 
     //Mappings

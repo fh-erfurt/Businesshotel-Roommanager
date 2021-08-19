@@ -17,58 +17,42 @@ import java.util.List;
  * </p>
  */
 
-@Entity(name="Room")
-@Table(name="room")
+@Entity(name = "Room")
+@Table(name = "room")
 @Inheritance(strategy = InheritanceType.JOINED)
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter
 @Getter
 @DiscriminatorColumn(name = "room_type")
-public class Room {
+public class Room
+{
 
     //Attributes
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="room_no")
+    @Column(name = "room_no")
     private Integer roomNo;
-    @Column(name="price_per_unit")
+    @Column(name = "price_per_unit")
     private float pricePerUnit;
     @Enumerated(EnumType.STRING)
     private Category category;
-    @Column(name="area_in_sqr_metre")
+    @Column(name = "area_in_sqr_metre")
     private int areaInSqrMetre;
     @Enumerated(EnumType.STRING)
-    @Column(name="room_type")
+    @Column(name = "room_type")
     private RoomType roomType;
 
     //Mappings
     @OneToOne
-    @JoinColumn(name="room_no", referencedColumnName="hotel_room_id",insertable = false,updatable = false)
+    @JoinColumn(name = "room_no", referencedColumnName = "hotel_room_id", insertable = false, updatable = false)
     private HotelRoom hotelRoom;
     @OneToOne
-    @JoinColumn(name="room_no", referencedColumnName="conference_room_id",insertable = false,updatable = false)
+    @JoinColumn(name = "room_no", referencedColumnName = "conference_room_id", insertable = false, updatable = false)
     private ConferenceRoom conferenceRoom;
     @ManyToMany
-    @JoinTable(
-            name="room_has_booking",
-            joinColumns = @JoinColumn(name="room_no",referencedColumnName="room_no"),
-            inverseJoinColumns = @JoinColumn(name="booking_id",referencedColumnName = "booking_no")
-    )
+    @JoinTable(name = "room_has_booking", joinColumns = @JoinColumn(name = "room_no", referencedColumnName = "room_no"), inverseJoinColumns = @JoinColumn(name = "booking_id", referencedColumnName = "booking_no"))
     private List<Booking> bookings;
-
-    //Fields
-    public enum Category
-    {
-        SINGLE, DOUBLE, SUITE, BIGGROUP, SMALLGROUP
-    }
-
-    public enum RoomType
-    {
-        HOTELROOM, CONFERENCEROOM
-    }
-
-    //Constructor
 
     public Room (float pricePerUnit, Category category, int areaInSqrMetre, RoomType roomType)
     {
@@ -78,11 +62,22 @@ public class Room {
         this.roomType = roomType;
     }
 
+    //Fields
+    public enum Category
+    {
+        SINGLE, DOUBLE, SUITE, BIGGROUP, SMALLGROUP
+    }
+
+    //Constructor
+
+    public enum RoomType
+    {
+        HOTELROOM, CONFERENCEROOM
+    }
+
 
     //Getter/Setter
     //managed by lombok
-
-
 
 
 }

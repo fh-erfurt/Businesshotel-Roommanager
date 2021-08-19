@@ -8,15 +8,14 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-
 import java.util.List;
 
 /**
  * customer class manages every methode done by the customer and its personal data
  */
 
-@Entity(name="Customer")
-@Table(name="customer")
+@Entity(name = "Customer")
+@Table(name = "customer")
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter
@@ -27,37 +26,25 @@ public class Customer
     //Attributes
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="customer_id")
+    @Column(name = "customer_id")
     private Integer customerID;
-    @Column(name="contact_data_id")
+    @Column(name = "contact_data_id")
     private Integer contactDataID;
     @Enumerated(EnumType.STRING)
     private PaymentMethod paymentMethod;
-    @Column(name="is_business_customer")
+    @Column(name = "is_business_customer")
     private Boolean isBusinessCustomer;
-    @Column(name="account_id")
+    @Column(name = "account_id")
     private Integer accountID;
-
-    //Fields
-    public enum PaymentMethod
-    {
-        debit, paypal, bill
-    }
-
-
     //Mappings
     @OneToOne
-    @JoinColumn(name="account_id",insertable = false,updatable = false)
+    @JoinColumn(name = "account_id", insertable = false, updatable = false)
     private AccountDetails accountDetails;
     @ManyToOne(optional = false)
-    @JoinColumn(name="contact_data_id", insertable = false,updatable = false)
+    @JoinColumn(name = "contact_data_id", insertable = false, updatable = false)
     private ContactData contactData;
     @OneToMany(mappedBy = "customer")
     private List<Booking> bookings;
-
-
-
-
     //Constructors
     public Customer (Integer contactDataID, PaymentMethod paymentMethod, Boolean isBusinessCustomer, Integer accountID, AccountDetails accountDetails, ContactData contactData, List<Booking> bookings)
     {
@@ -68,6 +55,13 @@ public class Customer
         this.accountDetails = accountDetails;
         this.contactData = contactData;
         this.bookings = bookings;
+    }
+
+
+    //Fields
+    public enum PaymentMethod
+    {
+        debit, paypal, bill
     }
 
     //Setter/Getter
