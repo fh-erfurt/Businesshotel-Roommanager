@@ -12,25 +12,26 @@ import java.util.Date;
 /**
  * class to store the requierements of a booking that will be stored in an ArrayList for processing by employee
  */
-@Entity(name="BookingRequest")
-@Table(name="booking_request")
+@Entity(name = "BookingRequest")
+@Table(name = "booking_request")
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter
 @Getter
-public class BookingRequest {
+public class BookingRequest
+{
 
     //Attributes
     @Id
     @GeneratedValue
-    @Column(name="booking_request_id")
+    @Column(name = "booking_request_id")
     private Integer bookingRequestID;
-    @Column(name="customer_id")
+    @Column(name = "customer_id")
     private Integer customerID;
     private Date startDate;
     private Date endDate;
     @Enumerated(EnumType.STRING)
-    @Column(name="booking_type")
+    @Column(name = "booking_type")
     private BookingType bookingtype;
     @Enumerated(EnumType.STRING)
     private Room.Category roomCategory;
@@ -38,18 +39,9 @@ public class BookingRequest {
 
     //Mappings
     @ManyToOne(optional = false)
-    @JoinColumn(name="customer_id", insertable = false,updatable = false)
+    @JoinColumn(name = "customer_id", insertable = false, updatable = false)
     private Customer customer;
 
-
-    //Fields
-    public enum BookingType
-    {
-        ConferenceRoomBooking,
-        HotelRoomBooking,
-    }
-
-    //Constructor
 
     public BookingRequest (Integer customerID, Date startDate, Date endDate, Room.Category roomCategory, String specialWishes)
     {
@@ -58,6 +50,14 @@ public class BookingRequest {
         this.endDate = endDate;
         this.roomCategory = roomCategory;
         this.specialWishes = specialWishes;
+    }
+
+    //Constructor
+
+    //Fields
+    public enum BookingType
+    {
+        ConferenceRoomBooking, HotelRoomBooking,
     }
 
 

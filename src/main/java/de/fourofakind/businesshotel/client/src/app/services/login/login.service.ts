@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import {HttpClient} from '@angular/common/http';
-import {Accountdetail, Links} from "./login";
+import {Accountdetail} from "./login";
 import {map} from "rxjs/operators";
-import {RawData} from "../accountdetails/accountdetail";
 import * as bcrypt from 'bcryptjs';
 import {EmployeeService} from "../employee/employee.service";
 import {Employee} from "../employee/employee";

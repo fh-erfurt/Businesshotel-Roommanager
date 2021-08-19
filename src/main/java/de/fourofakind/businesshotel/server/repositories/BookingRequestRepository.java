@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "*")
-@RepositoryRestResource(collectionResourceRel = "bookingrequest", path="bookingrequest")
-public interface BookingRequestRepository extends JpaRepository<BookingRequest,Integer>
+@RepositoryRestResource(collectionResourceRel = "bookingrequest", path = "bookingrequest")
+public interface BookingRequestRepository extends JpaRepository<BookingRequest, Integer>
 {
 
     List<BookingRequest> findByCustomerID (@Param("customerID") Integer customerID);

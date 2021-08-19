@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 /**
  * <p>
@@ -17,8 +16,8 @@ import java.io.Serializable;
  * instead.
  * </p>
  */
-@Entity(name="HotelRoom")
-@Table(name="hotel_room")
+@Entity(name = "HotelRoom")
+@Table(name = "hotel_room")
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter
@@ -29,22 +28,22 @@ public class HotelRoom extends Room
 {
 
     //Attributes
-    @Column(name="bed_count")
+    @Column(name = "bed_count")
     private int bedCount;
-    @Column(name="has_speed_lan")
+    @Column(name = "has_speed_lan")
     private boolean hasSpeedLAN;
-    @Column(name="has_tv")
+    @Column(name = "has_tv")
     private boolean hasTV;
-    @Column(name="has_kitchen")
+    @Column(name = "has_kitchen")
     private boolean hasKitchen;
-    @Column(name="has_coffeemaker")
+    @Column(name = "has_coffeemaker")
     private boolean hasCoffeemaker;
     @Enumerated(EnumType.STRING)
     private Room.Category category;
 
     //Mappings
     @JsonIgnore
-    @OneToOne(mappedBy = "hotelRoom",optional = true)
+    @OneToOne(mappedBy = "hotelRoom", optional = true)
     private Room room;
 
     //Constructors
@@ -62,7 +61,6 @@ public class HotelRoom extends Room
 
     //Getter/Setter
     //managed by Lombok
-
 
 
 }

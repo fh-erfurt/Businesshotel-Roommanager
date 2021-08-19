@@ -1,5 +1,3 @@
-import {EmployeeSelf} from "../employee/employee";
-
 export interface RawData {
   _embedded: Embedded;
   // _links: Links;

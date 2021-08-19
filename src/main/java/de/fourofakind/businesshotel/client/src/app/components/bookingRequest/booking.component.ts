@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, HostListener, OnInit, SimpleChanges} from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import {environment} from "../../../environments/environment";
 import {BookingrequestService} from "../../services/bookingrequest/bookingrequest.service";
 import {RootObject} from "../../services/bookingrequest/bookingrequest";
@@ -9,10 +9,10 @@ import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {NgbTimeStruct} from "@ng-bootstrap/ng-bootstrap";
 import {formatDate} from "@angular/common";
 import {BookingCalendar} from "./booking-calendar.service";
-import {BehaviorSubject, Observable, Subscription} from "rxjs";
+import {Subscription} from "rxjs";
 import {BookingService} from "../../services/booking/booking.service";
 import {errors, RegistrationService} from "../../services/registration/registration.service";
-import {Booking, BookingLinks} from "../../services/booking/booking";
+import {Booking} from "../../services/booking/booking";
 import {validateEmail, validateIban, validatePhoneNumber} from "../../services/registration/helpers.validator";
 import {Contactdata} from "../../services/contactdata/contactdata";
 import {ContactdataService} from "../../services/contactdata/contactdata.service";
@@ -472,8 +472,6 @@ export class BookingComponent implements OnInit {
       this.selectedFromDate = selectedFromDate
     } else if (!selectedFromDate && !selectedToDate) {
       this.selectedFromDate = null
-    } else {
-      this.selectedFromDate = this.selectedFromDate
     }
 
     // this.selectedFromDate = selectedFromDate != undefined ? selectedFromDate : this.selectedFromDate

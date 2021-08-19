@@ -1,14 +1,11 @@
 package de.fourofakind.businesshotel.server.entities.rooms;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import de.fourofakind.businesshotel.server.entities.bookings.Booking;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.List;
 
 /**
  * <p>
@@ -16,8 +13,8 @@ import java.util.List;
  * It is used to specify the Room as a ConferenceRoom and sets its specific attributes like the price per hour.
  * </p>
  */
-@Entity(name="ConferenceRoom")
-@Table(name="conference_room")
+@Entity(name = "ConferenceRoom")
+@Table(name = "conference_room")
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter
@@ -27,24 +24,24 @@ import java.util.List;
 public class ConferenceRoom extends Room
 {
     //Attribues
-    @Column(name="max_amount_of_participants")
+    @Column(name = "max_amount_of_participants")
     private int maxAmountOfParticipants;
-    @Column(name="amount_of_whiteboards")
+    @Column(name = "amount_of_whiteboards")
     private int amountOfWhiteboards;
-    @Column(name="amount_of_beamer")
+    @Column(name = "amount_of_beamer")
     private int amountOfBeamer;
-    @Column(name="has_screen")
+    @Column(name = "has_screen")
     private boolean hasScreen;
-    @Column(name="has_computer")
+    @Column(name = "has_computer")
     private boolean hasComputer;
-    @Column(name="amount_of_tv")
+    @Column(name = "amount_of_tv")
     private int amountOfTV;
     @Enumerated(EnumType.STRING)
     private Room.Category category;
 
 
     //Mapping
-    @OneToOne(mappedBy = "conferenceRoom",optional = true)
+    @OneToOne(mappedBy = "conferenceRoom", optional = true)
     private Room room;
 
 

@@ -11,19 +11,10 @@
 
                 </thead>
                 <tbody>
-<!--                    <tr *ngFor = "let employee of employeesData">-->
-<!--                        <td>{{ employee._embedded}}</td>-->
-<!--                        <td>{{ employee.page}}</td>-->
-<!--&lt;!&ndash;                        <td>{{ employee.key}}</td>&ndash;&gt;-->
-
-<!--                    </tr>-->
-
                     <tr *ngFor="let employee of employeesData">
                       <td>{{ employee.empName}}</td>
                       <td>{{ employee.givenRole}}</td>
                       <td>{{ employee.accountID}}</td>
-                      <!--                        <td>{{ employee.key}}</td>-->
-
                     </tr>
                 </tbody>
 
@@ -31,32 +22,6 @@
             </table>
 
 <div>
-
-<!--  ZEILE 2: {{employeesData| json}}-->
-
-<!--    <tr *ngFor="let employee of employeesData._embedded.employee">-->
-
-<!--      <td>{{employee.accountID}}</td>-->
-<!--      <td>{{employee.givenRole}}<td>-->
-
-<!--        <div *ngFor="let employee of employeesData">-->
-<!--        ZEILE 1: <br> {{employee.key}}:{{employee.value}}-->
-<!--        <hr>-->
-
-
-<!--        <div *ngFor="let mitarbeiter of employee.value">-->
-
-<!--          ZEILE 2:  {{mitarbeiter.key}}:{{mitarbeiter}}-->
-
-<!--        </div>-->
-<!--        <div>-->
-<!--            Array key: {{employee.key}} and Array Value:{{employee.value}}-->
-<!--        </div>-->
-
-
-<!--      </tr>-->
-
-
 
 </div>
         </div>

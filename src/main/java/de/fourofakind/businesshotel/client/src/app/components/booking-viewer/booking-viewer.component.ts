@@ -1,7 +1,7 @@
 import {Component, OnInit, QueryList, ViewChildren} from '@angular/core';
 import {BookingService} from "../../services/booking/booking.service";
 import {Booking, ViewerFriendlyBooking} from "../../services/booking/booking";
-import {BehaviorSubject, Observable} from "rxjs";
+import {Observable} from "rxjs";
 import {NgbdSortableHeader, SortEvent} from '../../services/bookingViewerService/sortable.directive';
 import {BookingViewerService} from "../../services/bookingViewerService/booking-viewer.service";
 import {RoomService} from "../../services/room/room.service";

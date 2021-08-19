@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.util.Date;
 import java.util.List;
+
 /**
  * <p>This repository represents the detailed information of a booking. A booking has a lot of information that is has to
  * provide in order to make the manager work. We provide two types of booking: conferenceroom and hotelroom. They differ from
@@ -17,17 +18,19 @@ import java.util.List;
  * like hours, but only in case the booking is made for a conferenceroom. Specialwishes like lots of Cola are also added to the booking</p>
  */
 @CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "*")
-@RepositoryRestResource(collectionResourceRel = "booking", path="booking")
-public interface BookingRepository extends JpaRepository<Booking,Integer>
+@RepositoryRestResource(collectionResourceRel = "booking", path = "booking")
+public interface BookingRepository extends JpaRepository<Booking, Integer>
 {
     List<Booking> findByCustomerID (@Param("customerID") Integer customerID);
+
     List<Booking> findByEmpNo (@Param("empNo") Integer empNo);
+
     List<Booking> findByRoomNo (@Param("roomNo") Integer roomNo);
-    List<Booking> findByStartDateIsBetweenOrEndDateIsBetweenOrStartDateBeforeAndEndDateAfter
-            (@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)@Param("startDate") Date startDateFirstCondition,
-             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)@Param("endDate") Date endDateFirstCondition,
-             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)@Param("startDate") Date startDateSecondCondition,
-             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)@Param("endDate") Date endDateSecondCondition,
-             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)@Param("startDate") Date startDateThirdCondition,
-             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)@Param("endDate") Date endDateThirdCondition);
+
+    List<Booking> findByStartDateIsBetweenOrEndDateIsBetweenOrStartDateBeforeAndEndDateAfter (@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) @Param("startDate") Date startDateFirstCondition,
+                                                                                              @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) @Param("endDate") Date endDateFirstCondition,
+                                                                                              @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) @Param("startDate") Date startDateSecondCondition,
+                                                                                              @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) @Param("endDate") Date endDateSecondCondition,
+                                                                                              @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) @Param("startDate") Date startDateThirdCondition,
+                                                                                              @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) @Param("endDate") Date endDateThirdCondition);
 }

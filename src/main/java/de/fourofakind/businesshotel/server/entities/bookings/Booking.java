@@ -16,49 +16,40 @@ import java.util.Date;
  * All information about the Bookingdetails and the Booking itself interacts with this class to. For Java1 only the Employee will be able to alter the
  * information of a booking</p>
  */
-
-
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter
 @Getter
-@Entity(name="booking")
-@Table(name="booking")
-@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name="booking_type",discriminatorType=DiscriminatorType.STRING)
-public abstract class Booking {
+@Entity(name = "booking")
+@Table(name = "booking")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "booking_type", discriminatorType = DiscriminatorType.STRING)
+public abstract class Booking
+{
 
     //Attributes
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="booking_no")
+    @Column(name = "booking_no")
     private Integer bookingNo;
     private Integer roomNo;
     private float pricing;
-    @Column(name="emp_no")
+    @Column(name = "emp_no")
     private Integer empNo;
     private Date startDate;
     private Date endDate;
     private String specialWishes;
-    @Column(name="customer_id")
+    @Column(name = "customer_id")
     private Integer customerID;
 
     //Mappings
     @ManyToOne(optional = false)
-    @JoinColumn(name="customer_id", insertable = false,updatable = false)
+    @JoinColumn(name = "customer_id", insertable = false, updatable = false)
     private Customer customer;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name="emp_no", insertable = false,updatable = false)
+    @JoinColumn(name = "emp_no", insertable = false, updatable = false)
     private Employee employee;
-
-    //Fields
-    public enum BookingType
-    {
-        ConferenceRoomBooking,
-        HotelRoomBooking,
-    }
 
     /**
      * <p>
@@ -69,7 +60,6 @@ public abstract class Booking {
      */
 
     //Constructors
-
     public Booking (Integer roomNo, float pricing, Integer empNo, Date startDate, Date endDate, String specialWishes, Integer customerID, Customer customer, Employee employee)
     {
         this.roomNo = roomNo;
@@ -81,6 +71,12 @@ public abstract class Booking {
         this.customerID = customerID;
         this.customer = customer;
         this.employee = employee;
+    }
+
+    //Fields
+    public enum BookingType
+    {
+        ConferenceRoomBooking, HotelRoomBooking,
     }
 
 
