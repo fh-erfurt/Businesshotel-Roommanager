@@ -36,7 +36,7 @@ export class BookingViewerComponent implements OnInit {
   ngOnInit(): void {
     this.isLoggedIn = localStorage.getItem('user') ? true : false
 
-    console.log("localStorage: ", localStorage)
+
 
     if (this.isLoggedIn && localStorage.getItem("customerID")) {
 
@@ -56,10 +56,10 @@ export class BookingViewerComponent implements OnInit {
                 .subscribe((result: Booking[]) => {
 
                   if (result) {
-                    console.log("Bookings: ", result)
+
                     this.bookings = result
 
-                    console.log("rooms.length: ", this.rooms.length)
+
                     result.forEach((value, index) => {
 
 
@@ -95,13 +95,13 @@ export class BookingViewerComponent implements OnInit {
                     })
                   }
                 }, error => {
-                  console.log("bookingServiceError: ", error)
+
                 })
             }, error => {
-              console.log("roomService: ", error)
+
             })
         }, error => {
-          console.log("roomService: ", error)
+
         })
 
 

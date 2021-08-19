@@ -96,7 +96,7 @@ export class RegistrationService {
           reject(errors.missingDataBaseConnection)
         }
       }, (error)=>{
-        console.log("Kein User mit diesem Namen")
+
         this.accountDetail = accountDetail
         this.contactData = contactData
 
@@ -110,7 +110,7 @@ export class RegistrationService {
 
                 this.saveCustomer(customer)
                   .then(customerID => { //CustomerID
-                    console.log("then(success => {}): ", customerID)
+
                     resolve(customerID)
                   })
                   .catch(error => {
@@ -130,7 +130,7 @@ export class RegistrationService {
 
   saveAccountDetail = (accountDetail: Accountdetail) => {
     return new Promise((resolve, reject) => {
-      console.log("saveAccountDetail")
+
       this.accountdetailsService.save(accountDetail)
         .subscribe((data)=>
           {
@@ -143,7 +143,7 @@ export class RegistrationService {
           },
           (error)=>
           {
-            console.log("accountDetailError: ", error)
+
             reject(errors.saveAccountDetailsFailed)
             // this.addAlertForXSeconds(new Alert('danger',"Fehler beim Anlegen des Accounts"),5);
           });
@@ -153,7 +153,7 @@ export class RegistrationService {
   saveContactData = (contactData: Contactdata) => {
 
     return new Promise((resolve, reject) => {
-      console.log("saveContactDate")
+
       this.contactDataService.save(contactData)
         .subscribe((data)=>
           {
@@ -166,7 +166,7 @@ export class RegistrationService {
           },
           (error)=>
           {
-            console.log("contactDataError: ", error)
+
             reject(errors.saveContactDataFailed)
             // this.addAlertForXSeconds(new Alert('danger',"Fehler beim Anlegen des Accounts"),5);
           });
@@ -195,7 +195,7 @@ export class RegistrationService {
           },
           (error)=>
           {
-            console.log("customerError: ", error)
+
             reject(errors.saveCustomerFailed)
             // this.addAlertForXSeconds(new Alert('danger',"Fehler beim Anlegen des Accounts"),5);
           });

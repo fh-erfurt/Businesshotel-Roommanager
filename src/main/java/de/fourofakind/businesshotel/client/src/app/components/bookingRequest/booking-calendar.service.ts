@@ -73,13 +73,13 @@ export class BookingCalendar implements OnInit {
       )
 
       if (date.equals(startDate) || date.equals(endDate) || (date.after(startDate) && date.before(endDate))) {
-        console.log("unavailable")
+
         this.dateIsUnavailable = true
         this.dateIsUnavailableObservableReason.next("unavailable")
       }
       if (this.fromDate?.before(startDate) && !this.isConferenceRoom) {
           if (date.after(endDate) && !this.toDate) {
-            console.log("Nope Sorry")
+
             this.dateIsUnavailable = true
             this.dateIsUnavailableObservableReason.next("unavailableRange")
           }
@@ -100,13 +100,13 @@ export class BookingCalendar implements OnInit {
       )
 
       if (date.equals(startDate) || date.equals(endDate) || (date.after(startDate) && date.before(endDate))) {
-        console.log("unavailable")
+
         this.dateIsUnavailable = true
         this.dateIsUnavailableObservableReason.next("bookedByCustomer")
       }
       if (this.fromDate?.before(startDate) && !this.isConferenceRoom) {
         if (date.after(endDate) && !this.toDate) {
-          console.log("Nope Sorry")
+
           this.dateIsUnavailable = true
           this.dateIsUnavailableObservableReason.next("inRangeOfbookedByCustomer")
         }

@@ -31,7 +31,7 @@ export class BookingrequestService {
 
   public save(bookingRequest:Bookingrequest)
   {
-    console.log(bookingRequest);
+
 
     return this.http.post<Bookingrequest>(this.baseUrl, bookingRequest)
       .pipe(
@@ -50,7 +50,7 @@ export class BookingrequestService {
   {
     return this.http.get<Bookingrequest[]>(`${this.baseUrl}search/findByCustomerID?customerID=${id}`).pipe(
       map((result:any) =>{
-        console.log(result);
+
         return result._embedded.bookingrequest;
       })
     )
@@ -58,7 +58,7 @@ export class BookingrequestService {
 
   public patchBookingRequestsAtCustomerDelete(bookingRequestNo:number)
   {
-    console.log(bookingRequestNo);
+
 
     return this.http.patch<Bookingrequest>(`${this.baseUrl}${bookingRequestNo}`, {customerID:1})
       .pipe(

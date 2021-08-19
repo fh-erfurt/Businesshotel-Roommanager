@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    console.log(this.form)
+
 
     this.loginService.login(this.f.username.value, this.f.password.value)
       .then(success => {

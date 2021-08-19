@@ -62,7 +62,7 @@ export class RoomComponent implements OnInit {
 
     const numberOfColsLenght = Math.round((this.screenWidth - 44) / this.cardWidth) - (((this.screenWidth - 44) / this.cardWidth) === 0 ? 0 : 1);
 
-    console.log("numberOfColsLenght: ", numberOfColsLenght)
+
 
     if (numberOfColsLenght <= this.conferenceRooms.length && this.conferenceRooms.length > 5 ) {
       this.numbersOfColsOfConferenceRooms.length = numberOfColsLenght;
@@ -83,15 +83,15 @@ export class RoomComponent implements OnInit {
       .subscribe((data: Room[])=>{
         this.hotelRooms = data;
         // this.numberOfRowsOfHotelRooms.length = this.hotelRooms.length % this.numbersOfCols.length
-        // console.log("numberOfRowsOfHotelRooms: ", this.numberOfRowsOfHotelRooms.length);
-        // console.log("hotelRooms: ", this.hotelRooms.length);
         //
-        // console.log("hotelRooms: ", this.hotelRooms.length);
-        // console.log("numbersOfColsOfHotelRooms: ", this.numbersOfColsOfHotelRooms.length);
-        // console.log("")
-        // console.log("Math.round: ", Math.round(this.hotelRooms.length / this.numbersOfColsOfHotelRooms.length));
-        // console.log("plus: ", (this.hotelRooms.length % this.numbersOfColsOfHotelRooms.length === 0 ? 0 : 1));
-        // console.log("numberOfRowsOfHotelRooms: ", Math.round(this.hotelRooms.length / this.numbersOfColsOfHotelRooms.length)
+        //
+        //
+        //
+        //
+        //
+        //
+        //
+        //
         //   + (this.hotelRooms.length % this.numbersOfColsOfHotelRooms.length === 0 ? 0 : 1))
 
         this.numberOfRowsOfHotelRooms.length =
@@ -114,22 +114,20 @@ export class RoomComponent implements OnInit {
     })
   }
 
-  getHotelRoom(index: number) {
+  public getHotelRoom(index: number) {
     if (this.hotelRooms !== undefined && this.hotelRooms.length > index) {
       return this.hotelRooms[index]
     } else {
-      console.log("else")
+
       return this.hotelRooms[0]
     }
   }
-  getConferenceRoom(index: number) {
+  public getConferenceRoom(index: number) {
     if (this.conferenceRooms !== undefined && this.conferenceRooms.length > index) {
       return this.conferenceRooms[index]
     } else {
-      console.log("else")
+
       return this.conferenceRooms[0]
     }
   }
-
-
 }

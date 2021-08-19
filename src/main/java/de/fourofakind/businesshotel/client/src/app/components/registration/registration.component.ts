@@ -67,11 +67,11 @@ export class RegistrationComponent implements OnInit {
   submit() {
     this.submitted = true;
 
-    console.log("form: ", this.registerForm)
+
 
 
     if (this.registerForm.invalid) {
-      console.log("form invalid")
+
       return;
     }
 
@@ -109,7 +109,7 @@ export class RegistrationComponent implements OnInit {
       })
       .catch(error => {
         this.dataSuccessfullySaved = false
-        console.log("catch Fehler: ", error)
+
 
         switch (error) {
           case errors.unavailableUsername:

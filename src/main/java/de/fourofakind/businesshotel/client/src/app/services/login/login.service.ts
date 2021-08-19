@@ -24,15 +24,15 @@ export class LoginService {
               private customerService: CustomerService) { }
 
   public getAccount(username: string): Observable<Accountdetail | null>{
-    console.log("getAccount 1")
+
     return this.http.get<Accountdetail>(`${this.baseUrl}search/findByUsername?username=${username}`).pipe(
       map((result:any) =>{
-        console.log("getAccount 2")
-        console.log("result", result);
+
+
         let account: Accountdetail;
         if(result.accountID)
         {
-          console.log("getAccount 3")
+
           account = {
             accountID: result.accountID,
             passwordHash: result.passwordHash,
@@ -41,7 +41,7 @@ export class LoginService {
 
           return account;
         } else {
-          console.log("getAccount 4")
+
           return null;
         }
       })
@@ -64,7 +64,7 @@ export class LoginService {
         });
       }
       catch(e){
-        console.log('caught error', e);
+
         // Handle exceptions
       }
     });
@@ -84,10 +84,10 @@ export class LoginService {
             }
             if (result) {
 
-              console.log("result: ", result)
-              console.log("data", data)
 
-              console.log("continue")
+
+
+
               localStorage.setItem('user', username);
               localStorage.setItem('userID', String(this.accountDetail.accountID));
 
@@ -97,7 +97,7 @@ export class LoginService {
                     localStorage.setItem('empNo', String(data.empNo));
                     localStorage.setItem('givenRole', String(data.givenRole));
                   } else {
-                    console.log("no Data")
+
                   }
                   resolve("Success: " + result)
 
@@ -111,11 +111,11 @@ export class LoginService {
                   if (data) {
                     localStorage.setItem('customerID', String(data.customerID));
                   } else {
-                    console.log("no customerData")
+
                   }
 
                 }, (error)=>{
-                  console.log("customerDataError: ", error)
+
                 })
 
 
@@ -126,9 +126,9 @@ export class LoginService {
             }
           });
         } else {
-          console.log("userdata not existing")
+
         }
-        console.log(data)
+
       }, (error)=>{
         reject("username not found")
       })

@@ -23,8 +23,8 @@ export class NavigationComponent implements OnInit {
   constructor(private roleService: RoleService) { }
 
   ngOnInit(): void {
-    console.log(localStorage.getItem("user"))
-    console.log(localStorage.getItem("empNo"))
+
+
 
 
     if (localStorage.getItem("givenRole")) {
