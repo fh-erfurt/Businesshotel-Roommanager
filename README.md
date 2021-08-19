@@ -81,6 +81,7 @@ Die Applikation steht Ihnen nun zur Nutzung bereit. Öffnen Sie einen Browser un
 | Kundenmanager | MagnolienAusStahl | SicheresPasswort |
 | Raummanager | ColumboAuge | SicheresPasswort |
 | Personalmanager | Marius Mac Mac | SicheresPasswort |
+| keine (Customer) | IggyPop | SicheresPasswort |
 	
 <details>
 <summary> Allgemeine Projektübersicht </summary>
