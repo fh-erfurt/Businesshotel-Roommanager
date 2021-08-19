@@ -65,8 +65,13 @@ Die Applikation steht Ihnen nun zur Nutzung bereit. Öffnen Sie einen Browser un
 	-> http://localhost:4200/
 
 
-
-
+### Zugang Selenium Testsuite - Businesshotel Roommanager
+	
+-> [Selenium-Testprojekt herunterladen](https://github.com/Thom-Mon/Selenium_Test_BH_Room.git)
+	
+	1. Folgen Sie den Anweisungen in der Selenium-BH-Testroom Readme
+	
+	
 <details>
 <summary> Allgemeine Projektübersicht </summary>
 <br>
