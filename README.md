@@ -71,6 +71,16 @@ Die Applikation steht Ihnen nun zur Nutzung bereit. Öffnen Sie einen Browser un
 	
 	1. Folgen Sie den Anweisungen in der Selenium-BH-Testroom Readme
 	
+### Verwendung der Anwendung
+## Login-Daten für verschiedene vorhandene Acounts
+
+| Rolle | Username | Passwort  |
+|---|---|---|
+| Buchungsmanager | SchlaubiSchlumpf | SicheresPasswort |
+| Hotelleiter | FlodinWiesret | SicheresPasswort |
+| Kundenmanager | MagnolienAusStahl | SicheresPasswort |
+| Raummanager | ColumboAuge | SicheresPasswort |
+| Personalmanager | Marius Mac Mac | SicheresPasswort |
 	
 <details>
 <summary> Allgemeine Projektübersicht </summary>
@@ -87,11 +97,11 @@ Grobziele sind:
 	- Erstellung und Implementierung eines Raumverwaltungssystem
 	- Erstellung und Implementierung eines Buchungsverwaltungssystem
 	- Erstellung und Implementierung eines Kundenverwaltungssystem
+	- Erstellung und Implementierung eines Personalverwaltungssystem
 
 ## Abgrenzungskriterien
 Nicht zum Projektumfang gehören:
 
-	- Personalverwaltung
 	- Lohnbuchhaltung/Zeiterfassung
 	- Rechnung und Mahnwesen
 	
