@@ -342,11 +342,19 @@ export class BookingComponent implements OnInit {
       .subscribe(dateIsUnavailableObservable => {
         if (dateIsUnavailableObservable === "unavailable") {
           if (this.alerts.length < 1) {
-            this.addAlertForXSeconds(new Alert('danger', "Gewähltes Datum ist nicht verfügbar"), 3);
+            this.addAlertForXSeconds(new Alert('danger', "Gewähltes Datum ist nicht verfügbar"), 4);
           }
         } else if (dateIsUnavailableObservable === "unavailableRange") {
           if (this.alerts.length < 1) {
-            this.addAlertForXSeconds(new Alert('danger', "Gewählter Zeitraum nicht verfügbar"), 3);
+            this.addAlertForXSeconds(new Alert('danger', "Gewählter Zeitraum nicht verfügbar"), 4);
+          }
+        } else if (dateIsUnavailableObservable === "bookedByCustomer") {
+          if (this.alerts.length < 1) {
+            this.addAlertForXSeconds(new Alert('success', "Gewähltes Datum bereits durch Sie gebucht"), 4);
+          }
+        } else if (dateIsUnavailableObservable === "inRangeOfbookedByCustomer") {
+          if (this.alerts.length < 1) {
+            this.addAlertForXSeconds(new Alert('success', "Gewählter Zeitraum überschneidet sich mit Ihrer Buchung"), 4);
           }
         }
       })
@@ -362,7 +370,21 @@ export class BookingComponent implements OnInit {
             const endDate = new Date(booking.endDate)
 
             let newDateTimeSpan: dateTimeSpan = {startDate:  new Date(startDate.setDate(startDate.getDate() + 1)), endDate: new Date(endDate.setDate(endDate.getDate() + 1))}
-            this.bookingCalendar.unavailableDateRanges.push(newDateTimeSpan)
+
+
+            if (this.isLoggedIn) {
+              const customerID = Number(localStorage.getItem("customerID"))
+              console.log("customerID: ", customerID)
+              console.log("booking.customerID: ", booking.customerID)
+              if (booking.customerID === customerID) {
+                this.bookingCalendar.isBookedByCustomerRanges.push(newDateTimeSpan)
+              } else {
+                this.bookingCalendar.unavailableDateRanges.push(newDateTimeSpan)
+              }
+            } else {
+              this.bookingCalendar.unavailableDateRanges.push(newDateTimeSpan)
+            }
+
             console.log("Date: ", formatDate(new Date(booking.startDate), "dd.MM.yyyy", "de"), " bis ", formatDate(new Date(booking.endDate), "dd.MM.yyyy", "de"))
           }
         });
@@ -584,7 +606,7 @@ export class BookingComponent implements OnInit {
         streetNumber: this.contactData.streetNumber ?? this.f.streetNumber.value,
         postalCode: this.contactData.postalCode ?? this.f.postalCode.value,
         cityName: this.contactData.cityName ?? this.f.cityName.value,
-        paymentCredentials: this.contactData.paymentCredentials ?? this.f.paymentCredentials.value
+        paymentCredentials: this.contactData.paymentCredentials ?? (this.f.paymentCredentials ? this.f.paymentCredentials.value : "")
       }
       return contactData
     } else {

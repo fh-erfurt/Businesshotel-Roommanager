@@ -16,7 +16,14 @@
               <div class="card-body booking-details-card">
 
                 <div class="row">
+                  <label *ngFor="let alert of alerts" class="date-picker-error">
+                    <ngb-alert style="padding: 0; margin: 0" *ngIf="alert.type=='success'" class="success"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
+                    <ngb-alert style="padding: 0; margin: 0" *ngIf="alert.type=='danger'" class="danger"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
+                  </label>
+                </div>
+                <div class="row">
                   <div class="col-lg">
+
                     <!--DatePickerLabel-->
                     <div class="row">
                       <label ngDefaultControl>{{startDateTimeLabel}}</label>
@@ -55,6 +62,7 @@
 
 
                                      [class.unavailable]="bookingCalendar.isUnavailable(date)"
+                                     [class.BookedByCustomer]="bookingCalendar.isBookedByCustomer(date)"
                                      [class.rangeStart]="bookingCalendar.isStart(date)"
                                      [class.rangeEnd]="bookingCalendar.isEnd(date)"
 
@@ -73,11 +81,7 @@
                             </div>
                           </div>
                         </div>
-                        <!--                    <label *ngif="dateUnavailable" class="date-picker-error">Text</label>-->
-                        <label *ngFor="let alert of alerts" class="date-picker-error">
-                          <ngb-alert style="padding: 0; margin: 0" *ngIf="alert.type=='success'" class="success"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
-                          <ngb-alert style="padding: 0; margin: 0" *ngIf="alert.type=='danger'" class="danger"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
-                        </label>
+
                       </div>
 
                     </div>
@@ -329,6 +333,7 @@
                 <div class="custom-day"
                      [class.focused]="false"
                      [class.unavailable]="bookingCalendar.isUnavailable(date)"
+                     [class.BookedByCustomer]="bookingCalendar.isBookedByCustomer(date)"
                      [class.rangeStart]="bookingCalendar.isStart(date)"
                      [class.rangeEnd]="bookingCalendar.isEnd(date)"
 

@@ -252,6 +252,13 @@
   .date-picker-error {
     padding: 9px;
     font-weight: bold;
+  }
+
+  .date-picker-error .success {
+    color: #32a852;
+  }
+
+  .date-picker-error .danger {
     color: #DC3545;
   }
 
@@ -361,6 +368,11 @@
   border-radius: 0;
 }
 
+.custom-day.BookedByCustomer {
+  background-color: rgb(0, 222, 50, 0.4);
+  color: white;
+  border-radius: 0;
+}
 
 
 //.custom-day {

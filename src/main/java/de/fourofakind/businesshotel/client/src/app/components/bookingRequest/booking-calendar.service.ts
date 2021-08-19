@@ -21,6 +21,7 @@ export class BookingCalendar implements OnInit {
   public fromDate: NgbDate | null = null;
   public toDate: NgbDate | null = null;
   unavailableDateRanges: dateTimeSpan[] = new Array(0)
+  isBookedByCustomerRanges: dateTimeSpan[] = new Array(0)
 
   public selectedFromDate: BehaviorSubject<Date | null> = new BehaviorSubject<Date | null>(null)
   public selectedToDate: BehaviorSubject<Date | null> = new BehaviorSubject<Date | null>(null)
@@ -61,8 +62,6 @@ export class BookingCalendar implements OnInit {
 
     this.dateInUnavailableRange = false
 
-
-
     this.unavailableDateRanges.forEach( (unavailableDateRange) => {
 
       let startDate = new NgbDate(
@@ -89,6 +88,35 @@ export class BookingCalendar implements OnInit {
           }
       }
     });
+
+    this.isBookedByCustomerRanges.forEach( (isBookedByCustomerRange) => {
+
+      let startDate = new NgbDate(
+        isBookedByCustomerRange.startDate.getUTCFullYear(),
+        isBookedByCustomerRange.startDate.getUTCMonth() + 1,
+        isBookedByCustomerRange.startDate.getUTCDate()
+      )
+      let endDate = new NgbDate(
+        isBookedByCustomerRange.endDate.getUTCFullYear(),
+        isBookedByCustomerRange.endDate.getUTCMonth() + 1,
+        isBookedByCustomerRange.endDate.getUTCDate()
+      )
+
+      if (date.equals(startDate) || date.equals(endDate) || (date.after(startDate) && date.before(endDate))) {
+        console.log("unavailable")
+        this.dateIsUnavailable = true
+        this.dateIsUnavailableObservableReason.next("bookedByCustomer")
+      }
+      if (this.fromDate?.before(startDate) && !this.isConferenceRoom) {
+        if (date.after(endDate) && !this.toDate) {
+          console.log("Nope Sorry")
+          this.dateIsUnavailable = true
+          this.dateIsUnavailableObservableReason.next("inRangeOfbookedByCustomer")
+        }
+      }
+    });
+
+
 
     if (!this.dateIsUnavailable && !this.dateInUnavailableRange) {
       if (!this.fromDate && !this.toDate) {
@@ -144,7 +172,6 @@ export class BookingCalendar implements OnInit {
   }
 
   isUnavailable(date: NgbDate) {
-
     var unavailable = false
 
     this.unavailableDateRanges.forEach( (unavailableDateRange) => {
@@ -169,6 +196,30 @@ export class BookingCalendar implements OnInit {
 
     return unavailable
   }
+
+  isBookedByCustomer(date: NgbDate) {
+    var unavailable = false
+    this.isBookedByCustomerRanges.forEach( (isBookedByCustomerRange) => {
+      let startDate = new NgbDate(
+        isBookedByCustomerRange.startDate.getUTCFullYear(),
+        isBookedByCustomerRange.startDate.getUTCMonth() + 1,
+        isBookedByCustomerRange.startDate.getUTCDate()
+      )
+      let endDate = new NgbDate(
+        isBookedByCustomerRange.endDate.getUTCFullYear(),
+        isBookedByCustomerRange.endDate.getUTCMonth() + 1,
+        isBookedByCustomerRange.endDate.getUTCDate()
+      )
+
+      if (date.equals(startDate) || date.equals(endDate) || (date.after(startDate) && date.before(endDate))) {
+        unavailable = true
+      }
+
+    });
+
+    return unavailable
+  }
+
 
   ngOnInit(): void {
   }
