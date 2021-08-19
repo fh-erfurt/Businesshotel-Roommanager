@@ -2,277 +2,307 @@
   <div class="card">
     <h4 class="card-header">{{selectedRoom.roomType + " - " + selectedRoom.category}}</h4>
     <div class="card-body booking-card">
-
-
-
       <div class="form-inline">
+
+        <!--BookingFormular-->
         <div class="booking-details">
-          <div class="card booking-details-card" *ngIf="true">
+          <div class="card " *ngIf="true">
 
-            <div class="card-body ">
-
-              <form *ngIf="pageDidLoad" [formGroup]="bookingForm" (ngSubmit)="submit()">
+            <form *ngIf="pageDidLoad" [formGroup]="bookingForm" (ngSubmit)="submit()">
+              <div class="card-header">
+                <h3 class="card-title">Buchungs Details</h3>
+              </div>
+              <!--form data input-->
+              <div class="card-body booking-details-card">
 
                 <div class="row">
-                  <h3 class="card-title">Buchungs Details</h3>
-                </div>
+                  <div class="col-lg">
+                    <!--DatePickerLabel-->
+                    <div class="row">
+                      <label ngDefaultControl>{{startDateTimeLabel}}</label>
+                      <br>
+                    </div>
+                    <div *ngIf="selectedFromDate && !isConferenceRoom" class="row">
+                      <label ngDefaultControl>{{endDateTimeLabel}}</label>
+                      <br>
+                    </div>
 
-                <!--DatePickerLabel-->
-                <div class="row">
-                  <label ngDefaultControl>{{startDateTimeLabel}}</label>
-                  <br>
-                </div>
-                <div *ngIf="selectedFromDate && !isConferenceRoom" class="row">
-                  <label ngDefaultControl>{{endDateTimeLabel}}</label>
-                  <br>
-                </div>
+                    <!--DatePicker-->
+                    <div class="md-date-time-picker row">
+                      <div class=" d-flex">
+                        <div class="">
+                          <div class="input-group-append">
+                            <button class="btn btn-outline-secondary calendar" (click)="datepicker.toggle()" type="button"></button>
+                          </div>
+                          <div class="form-group hidden">
+                            <div class="input-group" >
+                              <input name="datepicker"
+                                     class="form-control visually-hidden"
+                                     ngbDatepicker
+                                     #datepicker="ngbDatepicker"
+                                     [autoClose]="'outside'"
+                                     (dateSelect)="bookingCalendar.onDateSelection($event)"
+                                     [displayMonths]="1"
+                                     [dayTemplate]="t"
+                                     outsideDays="hidden"
+                                     [startDate]="bookingCalendar.fromDate!"
+                                     tabindex="-1"
+                              >
 
-                <!--DatePicker-->
-                <div class="md-date-time-picker row">
-                  <div class=" d-flex">
-                    <div class="">
-                      <div class="input-group-append">
-                        <button class="btn btn-outline-secondary calendar" (click)="datepicker.toggle()" type="button"></button>
-                      </div>
-                      <div class="form-group hidden">
-                        <div class="input-group" >
-                          <input name="datepicker"
-                                 class="form-control visually-hidden"
-                                 ngbDatepicker
-                                 #datepicker="ngbDatepicker"
-                                 [autoClose]="'outside'"
-                                 (dateSelect)="bookingCalendar.onDateSelection($event)"
-                                 [displayMonths]="1"
-                                 [dayTemplate]="t"
-                                 outsideDays="hidden"
-                                 [startDate]="bookingCalendar.fromDate!"
-                                 tabindex="-1"
-                          >
-
-                          <ng-template #t let-date let-focused="focused">
-                            <div class="custom-day"
-                                 [class.focused]="false"
+                              <ng-template #t let-date let-focused="focused">
+                                <div class="custom-day"
+                                     [class.focused]="false"
 
 
-                                 [class.unavailable]="bookingCalendar.isUnavailable(date)"
-                                 [class.rangeStart]="bookingCalendar.isStart(date)"
-                                 [class.rangeEnd]="bookingCalendar.isEnd(date)"
+                                     [class.unavailable]="bookingCalendar.isUnavailable(date)"
+                                     [class.rangeStart]="bookingCalendar.isStart(date)"
+                                     [class.rangeEnd]="bookingCalendar.isEnd(date)"
 
-                                 [class.single]="bookingCalendar.isSingle(date)"
+                                     [class.single]="bookingCalendar.isSingle(date)"
 
-                                 [class.faded]="bookingCalendar.isHovered(date) || bookingCalendar.isInside(date)"
+                                     [class.faded]="bookingCalendar.isHovered(date) || bookingCalendar.isInside(date)"
 
 
-                                 (mouseenter)="bookingCalendar.hoveredDate = date"
-                                 (mouseleave)="bookingCalendar.hoveredDate = null"
-                            >
-                              {{ date.day }}
+                                     (mouseenter)="bookingCalendar.hoveredDate = date"
+                                     (mouseleave)="bookingCalendar.hoveredDate = null"
+                                >
+                                  {{ date.day }}
+                                </div>
+                              </ng-template>
+
                             </div>
-                          </ng-template>
-
+                          </div>
                         </div>
+                        <!--                    <label *ngif="dateUnavailable" class="date-picker-error">Text</label>-->
+                        <label *ngFor="let alert of alerts" class="date-picker-error">
+                          <ngb-alert style="padding: 0; margin: 0" *ngIf="alert.type=='success'" class="success"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
+                          <ngb-alert style="padding: 0; margin: 0" *ngIf="alert.type=='danger'" class="danger"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
+                        </label>
+                      </div>
+
+                    </div>
+
+                    <!--DatePickerError-->
+                    <div class="form-group row">
+                      <input name="datePicker" class="form-control visually-hidden" [ngClass]="{ 'is-invalid': submitted && !dateSelected }" />
+                      <div *ngIf="submitted && !dateSelected" class="invalid-feedback row">
+                        <div *ngIf="!dateSelected">Bitte Datum wählen</div>
                       </div>
                     </div>
-<!--                    <label *ngif="dateUnavailable" class="date-picker-error">Text</label>-->
-                    <label *ngFor="let alert of alerts" class="date-picker-error">
-                      <ngb-alert style="padding: 0; margin: 0" *ngIf="alert.type=='success'" class="success"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
-                      <ngb-alert style="padding: 0; margin: 0" *ngIf="alert.type=='danger'" class="danger"  [type]="alert.type" [dismissible]="false">{{alert.message}}</ngb-alert>
-                    </label>
                   </div>
+                  <div class="col-lg">
+                    <!--TimeLabel-->
+                    <div *ngIf="isConferenceRoom" class="row">
+                      <label >{{startTime + " Uhr bis " + endTime + " Uhr"}}</label>
+                      <br>
+                    </div>
 
-                </div>
+                    <!--TimePicker-->
+                    <div class="md-date-time-picker row">
 
-                <!--DatePickerError-->
-                <div class="form-group row">
-                  <input name="datePicker" class="form-control visually-hidden" [ngClass]="{ 'is-invalid': submitted && !dateSelected }" />
-                  <div *ngIf="submitted && !dateSelected" class="invalid-feedback row">
-                    <div *ngIf="!dateSelected">Bitte Datum wählen</div>
-                  </div>
-                </div>
 
-                <!--TimeLabel-->
-                <div *ngIf="isConferenceRoom" class="row">
-                  <label >{{startTime + " Uhr bis " + endTime + " Uhr"}}</label>
-                  <br>
-                </div>
+                      <div class=" d-flex">
 
-                <!--TimePicker-->
-                <div class="md-date-time-picker row">
-                  <div class=" d-flex">
+                        <div *ngIf="isConferenceRoom && isMobileDevice" class="d-inline-block">
+                          <button class="btn btn-outline-secondary time" (click)="$event.stopPropagation(); myDrop.open();" type="button">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-clock" viewBox="0 0 16 16">
+                              <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/>
+                              <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z"/>
+                            </svg>
+                          </button>
 
-                    <div *ngIf="isConferenceRoom && isMobileDevice" class="d-inline-block">
-                      <button class="btn btn-outline-secondary time" (click)="$event.stopPropagation(); myDrop.open();" type="button">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-clock" viewBox="0 0 16 16">
-                          <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/>
-                          <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z"/>
-                        </svg>
-                      </button>
+                          <div  ngbDropdown #myDrop="ngbDropdown">
+                            <div ngbDropdownMenu aria-labelledby="dropdownManual">
+                              <div class="border-top border-bottom">
+                                <div class="md-time-picker row ">
+                                  <div class="start-time col">
+                                    <ngb-timepicker [(ngModel)]="_startTime"
+                                                    [hourStep]="startHourStep"
+                                                    [minuteStep]="startMinuteStep"
+                                                    [meridian]="false"
+                                                    [ngModelOptions]="{standalone: true}"
+                                                    (ngModelChange)="updateFullPriceLabel()"
 
-                      <div  ngbDropdown #myDrop="ngbDropdown">
-                        <div ngbDropdownMenu aria-labelledby="dropdownManual">
-                          <div class="border-top border-bottom">
-                            <div class="md-time-picker d-flex">
-                              <div class="start-time">
-                                <ngb-timepicker [(ngModel)]="_startTime"
-                                                [hourStep]="startHourStep"
-                                                [minuteStep]="startMinuteStep"
-                                                [meridian]="false"
-                                                [ngModelOptions]="{standalone: true}"
-                                                (ngModelChange)="updateFullPriceLabel()"
+                                                    style="display: inline"
+                                    >
+                                    </ngb-timepicker>
+                                  </div>
+                                  <div class="col" >
+                                    <span style="display: inline">Uhr</span>
+                                  </div>
+                                  <div class="end-time col">
+                                    <ngb-timepicker [(ngModel)]="_endTime"
+                                                    [hourStep]="endHourStep"
+                                                    [minuteStep]="endMinuteStep"
+                                                    [meridian]="false"
+                                                    [ngModelOptions]="{standalone: true}"
+                                                    (ngModelChange)="updateFullPriceLabel()"
+                                    >
+                                    </ngb-timepicker>
+                                  </div>
 
-                                                style="display: inline"
-                                >
-                                </ngb-timepicker>
-                              </div>
-                              <span style="display: inline">Uhr</span>
-                              <div class="end-time">
-                                <ngb-timepicker [(ngModel)]="_endTime"
-                                                [hourStep]="endHourStep"
-                                                [minuteStep]="endMinuteStep"
-                                                [meridian]="false"
-                                                [ngModelOptions]="{standalone: true}"
-                                                (ngModelChange)="updateFullPriceLabel()"
-                                >
-                                </ngb-timepicker>
+
+
+
+                                </div>
                               </div>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </div>
 
-                <!--TimePickerError-->
-                <div *ngIf="isConferenceRoom" class="form-group row">
-                  <input name="timePicker"  class="form-control visually-hidden" [ngClass]="{ 'is-invalid': submitted && !timeSelected }" />
-                  <div *ngIf="submitted && !timeSelected" class="invalid-feedback row">
-                    <div *ngIf="!timeSelected">Bitte Uhrzeit wählen</div>
-                  </div>
-                </div>
-
-                <br>
-
-                <div class="form-group">
-                  <div *ngIf="!isLoggedIn" class="form-group">
-                    <div class="form-check" style="padding: 0">
-                      <input type="checkbox" class="btn-check" (click)="toggleIsBusinessCustomer()" id="btn-check-outlined" autocomplete="off">
-                      <label class="btn btn-outline-primary" for="btn-check-outlined">Geschäftskonto</label><br>
-                    </div>
-                  </div>
-                </div>
-                <div *ngIf="!isLoggedIn" class="form-group">
-                  <label>Name *</label>
-                  <input type="text" formControlName="lastName" name="lastName"  class="form-control" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" />
-                  <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
-                    <div *ngIf="f.lastName.errors.required">Bitte Nachname angeben</div>
-                  </div>
-                </div>
-                <div *ngIf="!isLoggedIn" class="form-group">
-                  <label>Vorname *</label>
-                  <input type="text" formControlName="firstName" name="firstName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" />
-                  <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
-                    <div *ngIf="f.firstName.errors.required">Bitte Vorname angeben</div>
-                  </div>
-                </div>
-                  <div *ngIf="!isLoggedIn" class="form-group">
-                    <div *ngIf="isBusinessCustomer">
-                      <label>Firma *</label>
-                      <!--            <input type="text" formControlName="companyName" name="company" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.companyName.errors }" />-->
-                      <input *ngIf="isBusinessCustomer" type="text" value="d" formControlName="companyName" name="company" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.companyName.errors }" />
-                      <div *ngIf="submitted && f.companyName.errors" class="invalid-feedback">
-                        <div *ngIf="f.companyName.errors.required">Bitte Firma angeben</div>
+                    <!--TimePickerError-->
+                    <div *ngIf="isConferenceRoom" class="form-group row">
+                      <input name="timePicker"  class="form-control visually-hidden" [ngClass]="{ 'is-invalid': submitted && !timeSelected }" />
+                      <div *ngIf="submitted && !timeSelected" class="invalid-feedback row">
+                        <div *ngIf="!timeSelected">Bitte Uhrzeit wählen</div>
                       </div>
                     </div>
                   </div>
-                <div *ngIf="!isLoggedIn" class="form-group">
-                  <label>Email-Adresse *</label>
-                  <input type="text" formControlName="emailAddress" name="emailAddress" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.emailAddress.errors }" />
-                  <div *ngIf="submitted && f.emailAddress.errors" class="invalid-feedback">
-                    <div *ngIf="f.emailAddress.errors.required">Bitte Email-Adresse angeben</div>
-                    <div *ngIf="f.emailAddress.errors.emailInvalid">Ungültiges Email-Format</div>
-                  </div>
-                </div>
-                <div *ngIf="!isLoggedIn" class="form-group">
-                  <label>Telefonnummer</label>
-                  <input type="text" formControlName="phoneNumber" placeholder="+00" name="phoneNumber" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.phoneNumber.errors }" />
-                  <div *ngIf="submitted && f.phoneNumber.errors" class="invalid-feedback">
-                    <div *ngIf="f.phoneNumber.errors.required">Bitte Telefonnummer angeben</div>
-                    <div *ngIf="f.phoneNumber.errors.phoneNumberInvalid">Ungültiges Telefonnummerformat (z.B; +493617493097)</div>
-                  </div>
-                </div>
-
-                <div *ngIf="!contactData.streetName" class="form-group">
-                  <label>Straße *</label>
-                  <input type="text" formControlName="streetName" name="street" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.streetName.errors }" />
-                  <div *ngIf="submitted && f.streetName.errors" class="invalid-feedback">
-                    <div *ngIf="f.streetName.errors.required">Bitte Straße angeben</div>
-                  </div>
-                </div>
-                <div *ngIf="!contactData.streetNumber" class="form-group">
-                  <label>Hausnummer *</label>
-                  <input type="text" formControlName="streetNumber" name="streetNumber" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.streetNumber.errors }" />
-                  <div *ngIf="submitted && f.streetNumber.errors" class="invalid-feedback">
-                    <div *ngIf="f.streetNumber.errors.required">Bitte Hausnummer angeben</div>
-                  </div>
-                </div>
-                <div *ngIf="!contactData.postalCode" class="form-group">
-                  <label>Postleitzahl *</label>
-                  <input type="text" formControlName="postalCode" name="postalCode" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.postalCode.errors }" />
-                  <div *ngIf="submitted && f.postalCode.errors" class="invalid-feedback">
-                    <div *ngIf="f.postalCode.errors.required">Bitte Postleitzahl angeben</div>
-                  </div>
-                </div>
-                <div *ngIf="!contactData.cityName" class="form-group">
-                  <label>Stadt *</label>
-                  <input type="text" formControlName="cityName" name="city" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.cityName.errors }" />
-                  <div *ngIf="submitted && f.cityName.errors" class="invalid-feedback">
-                    <div *ngIf="f.cityName.errors.required">Bitte Stadt angeben</div>
-                  </div>
-                </div>
-
-                <div *ngIf="!contactData.paymentCredentials" class="form-group">
-                  <label>Zahlungsmethode *</label>
-                  <select class="form-select form-control" (change)="paymentMethodChanged()" aria-label="Default select example" formControlName="paymentMethod" name="paymentMethod" [ngClass]="{ 'is-invalid': submitted && f.paymentMethod.errors }">
-                    <option value="paypal">PayPal</option>
-                    <option value="debit">Debit</option>
-                    <option value="bill">Rechnunug</option>
-                  </select>
-<!--                  <input type="text" formControlName="paymentCredentials" name="paymentCredentials" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.paymentCredentials.errors }" />-->
-                  <div *ngIf="submitted && f.paymentMethod.errors" class="invalid-feedback">
-                    <div *ngIf="f.paymentMethod.errors.required">Bitte Zahlungsmethode angeben</div>
-                  </div>
-                </div>
-
-                <div *ngIf="!contactData.paymentCredentials && (f.paymentMethod.value === 'debit' || f.paymentMethod.value === 'paypal')" class="form-group">
-                  <label>{{paymentCredentialsLabel}}</label>
-                  <input type="text" formControlName="paymentCredentials"  name="{{paymentCredentialsNameLabel}}"  class="form-control" [ngClass]="{ 'is-invalid': submitted && f.paymentCredentials.errors }" />
-                  <div *ngIf="submitted && f.paymentCredentials.errors" class="invalid-feedback">
-                    <div *ngIf="f.paymentCredentials.errors.required">Bitte {{paymentCredentialsLabel}} angeben</div>
-                    <div *ngIf="f.paymentCredentials.errors.ibanInvalid">{{paymentCredentialsErrorLabel}}</div>
-                  </div>
-                </div>
-
-
-                <div class="form-group">
-                  <label>Sonderwünsche</label>
-                  <input type="text" formControlName="specialWishes" name="extras" class="form-control" />
                 </div>
                 <br>
-                <label style="border-bottom: 1px solid black" >Gesamtpreis: {{fullPriceLabel}}</label>
+                <div class="row">
+                  <div class="form-group">
+                    <div *ngIf="!isLoggedIn" class="form-group">
+                      <div class="form-check" style="padding: 0">
+                        <input type="checkbox" class="btn-check" (click)="toggleIsBusinessCustomer()" id="btn-check-outlined" autocomplete="off">
+                        <label class="btn btn-outline-primary" for="btn-check-outlined">Geschäftskonto</label><br>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!--form data input-->
+                <div class="row">
+                  <div class="col-lg">
+                    <div *ngIf="!isLoggedIn" class="form-group">
+                      <label>Vorname *</label>
+                      <input type="text" formControlName="firstName" name="firstName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" />
+                      <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+                        <div *ngIf="f.firstName.errors.required">Bitte Vorname angeben</div>
+                      </div>
+                    </div>
+                    <div *ngIf="!isLoggedIn" class="form-group">
+                      <div *ngIf="isBusinessCustomer">
+                        <label>Firma *</label>
+                        <!--            <input type="text" formControlName="companyName" name="company" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.companyName.errors }" />-->
+                        <input *ngIf="isBusinessCustomer" type="text" value="d" formControlName="companyName" name="company" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.companyName.errors }" />
+                        <div *ngIf="submitted && f.companyName.errors" class="invalid-feedback">
+                          <div *ngIf="f.companyName.errors.required">Bitte Firma angeben</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div *ngIf="!isLoggedIn" class="form-group">
+                      <label>Email-Adresse *</label>
+                      <input type="text" formControlName="emailAddress" name="emailAddress" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.emailAddress.errors }" />
+                      <div *ngIf="submitted && f.emailAddress.errors" class="invalid-feedback">
+                        <div *ngIf="f.emailAddress.errors.required">Bitte Email-Adresse angeben</div>
+                        <div *ngIf="f.emailAddress.errors.emailInvalid">Ungültiges Email-Format</div>
+                      </div>
+                    </div>
+                    <div *ngIf="!isLoggedIn" class="form-group">
+                      <label>Telefonnummer</label>
+                      <input type="text" formControlName="phoneNumber" placeholder="+00" name="phoneNumber" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.phoneNumber.errors }" />
+                      <div *ngIf="submitted && f.phoneNumber.errors" class="invalid-feedback">
+                        <div *ngIf="f.phoneNumber.errors.required">Bitte Telefonnummer angeben</div>
+                        <div *ngIf="f.phoneNumber.errors.phoneNumberInvalid">Ungültiges Telefonnummerformat (z.B; +493617493097)</div>
+                      </div>
+                    </div>
+                    <div *ngIf="!contactData.paymentCredentials" class="form-group">
+                      <label>Zahlungsmethode *</label>
+                      <select class="form-select form-control" (change)="paymentMethodChanged()" aria-label="Default select example" formControlName="paymentMethod" name="paymentMethod" [ngClass]="{ 'is-invalid': submitted && f.paymentMethod.errors }">
+                        <option value="paypal">PayPal</option>
+                        <option value="debit">Debit</option>
+                        <option value="bill">Rechnunug</option>
+                      </select>
+                      <!--                  <input type="text" formControlName="paymentCredentials" name="paymentCredentials" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.paymentCredentials.errors }" />-->
+                      <div *ngIf="submitted && f.paymentMethod.errors" class="invalid-feedback">
+                        <div *ngIf="f.paymentMethod.errors.required">Bitte Zahlungsmethode angeben</div>
+                      </div>
+                    </div>
+
+                    <div *ngIf="!contactData.paymentCredentials && (f.paymentMethod.value === 'debit' || f.paymentMethod.value === 'paypal')" class="form-group">
+                      <label>{{paymentCredentialsLabel}}</label>
+                      <input type="text" formControlName="paymentCredentials"  name="{{paymentCredentialsNameLabel}}"  class="form-control" [ngClass]="{ 'is-invalid': submitted && f.paymentCredentials.errors }" />
+                      <div *ngIf="submitted && f.paymentCredentials.errors" class="invalid-feedback">
+                        <div *ngIf="f.paymentCredentials.errors.required">Bitte {{paymentCredentialsLabel}} angeben</div>
+                        <div *ngIf="f.paymentCredentials.errors.ibanInvalid">{{paymentCredentialsErrorLabel}}</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg">
+                    <div *ngIf="!contactData.streetName" class="form-group">
+                      <label>Straße *</label>
+                      <input type="text" formControlName="streetName" name="street" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.streetName.errors }" />
+                      <div *ngIf="submitted && f.streetName.errors" class="invalid-feedback">
+                        <div *ngIf="f.streetName.errors.required">Bitte Straße angeben</div>
+                      </div>
+                    </div>
+                    <div *ngIf="!contactData.streetNumber" class="form-group">
+                      <label>Hausnummer *</label>
+                      <input type="text" formControlName="streetNumber" name="streetNumber" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.streetNumber.errors }" />
+                      <div *ngIf="submitted && f.streetNumber.errors" class="invalid-feedback">
+                        <div *ngIf="f.streetNumber.errors.required">Bitte Hausnummer angeben</div>
+                      </div>
+                    </div>
+                    <div *ngIf="!contactData.postalCode" class="form-group">
+                      <label>Postleitzahl *</label>
+                      <input type="text" formControlName="postalCode" name="postalCode" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.postalCode.errors }" />
+                      <div *ngIf="submitted && f.postalCode.errors" class="invalid-feedback">
+                        <div *ngIf="f.postalCode.errors.required">Bitte Postleitzahl angeben</div>
+                      </div>
+                    </div>
+                    <div *ngIf="!contactData.cityName" class="form-group">
+                      <label>Stadt *</label>
+                      <input type="text" formControlName="cityName" name="city" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.cityName.errors }" />
+                      <div *ngIf="submitted && f.cityName.errors" class="invalid-feedback">
+                        <div *ngIf="f.cityName.errors.required">Bitte Stadt angeben</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
                 <br>
-                <br>
-                <div class="form-group">
-                  <button [disabled]="buttonDisabled" class="btn btn-secondary" [routerLink]="['/booking', selectedRoom.roomNo]">
+                <div class="row">
+                  <div class="form-group">
+                    <label>Sonderwünsche</label>
+                    <input type="text" formControlName="specialWishes" name="extras" class="form-control" />
+                  </div>
+                </div>
+              </div>
+
+              <!--Submitbutton footer-->
+              <div class="card-footer text-muted">
+                <div class="form-group row align-items-center" style="margin: 1px">
+                  <div class="col" >
+                    <label class="align-middle" style="border-bottom: 1px solid #6C757D;" >Gesamtpreis: {{fullPriceLabel}}</label>
+                  </div>
+                  <div *ngIf="screenWidth > 374" class="col">
+                    <button *ngIf="screenWidth > 374" [disabled]="buttonDisabled" class="btn btn-secondary float-end" [routerLink]="['/booking', selectedRoom.roomNo]">
+                      <span *ngIf="buttonDisabled" class="spinner-border spinner-border-sm mr-1"></span>
+                      Jetzt Buchen
+                    </button>
+                  </div>
+                </div>
+                <br *ngIf="screenWidth < 375">
+                <div class="row">
+                  <button *ngIf="screenWidth < 375" [disabled]="buttonDisabled" class="btn btn-secondary float-end" [routerLink]="['/booking', selectedRoom.roomNo]">
                     <span *ngIf="buttonDisabled" class="spinner-border spinner-border-sm mr-1"></span>
                     Jetzt Buchen
                   </button>
                 </div>
-              </form>
-            </div>
+<!--                <div class="form-group d-flex justify-content-between">-->
+<!--                  -->
+<!--                </div>-->
+              </div>
+            </form>
+
           </div>
         </div>
 
+        <!--Roomdetails-->
         <div class="room-details">
           <div class="card room-details-card" *ngIf="true">
             <img src="assets/{{selectedRoom.category}}-{{selectedRoom.areaInSqrMetre}}.jpg"  class="card-img-top room-image" alt="...">
@@ -287,6 +317,7 @@
           </div>
         </div>
 
+        <!--Extended DateTimePicker-->
         <div class="date-group">
           <div class="card" *ngIf="true">
             <div class="date-picker">
@@ -315,7 +346,7 @@
             </div>
 
             <div *ngIf="isConferenceRoom" class="card-body border-top">
-              <div class="time-picker">
+              <div class="time-picker ">
                 <div class="start-time">
                   <ngb-timepicker [(ngModel)]="_startTime"
                                   [hourStep]="startHourStep"
