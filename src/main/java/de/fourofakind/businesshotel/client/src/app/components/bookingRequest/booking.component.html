@@ -321,6 +321,7 @@
                                   [hourStep]="startHourStep"
                                   [minuteStep]="startMinuteStep"
                                   [meridian]="false"
+                                  (ngModelChange)="updateFullPriceLabel()"
                                   style="display: inline"
                   >
                   </ngb-timepicker>
@@ -332,6 +333,7 @@
                                   [hourStep]="endHourStep"
                                   [minuteStep]="endMinuteStep"
                                   [meridian]="false"
+                                  (ngModelChange)="updateFullPriceLabel()"
                   >
                   </ngb-timepicker>
                 </div>
