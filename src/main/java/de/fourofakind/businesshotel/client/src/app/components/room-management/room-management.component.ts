@@ -35,8 +35,9 @@ import {RoleService} from "../../services/role/role.service";
   ],
 })
 
-/*
+/**
 * Component for Management (Add, Update, Get, Delete) of Rooms
+*
 * consumes form data and calls corresponding services
 */
 export class RoomManagementComponent implements OnInit {
@@ -116,10 +117,15 @@ export class RoomManagementComponent implements OnInit {
   //HELPER ############################################################################################################
   //###################################################################################################################
 
-  /*
-  * alert Object and seconds to display the alert as input params
-  * produces alert for x seconds dsiplayed on the right side of the management tab
-  */
+  /**
+   * checks for employees rights to do this transaction
+   *
+   * produces alert for x seconds displayed on the right side of the management tab
+   *
+   * @param alert contains message and alert type (danger or success)
+   * @param seconds seconds to display the alert
+   *
+   */
   addAlertForXSeconds(alert: Alert, seconds: number) {
     this.alerts.push(alert);
     setTimeout(() => this.alerts = this.alerts.filter(entry => entry != alert), seconds * 1000);
@@ -129,7 +135,14 @@ export class RoomManagementComponent implements OnInit {
   //ADD | UPDATE ######################################################################################################
   //###################################################################################################################
 
-
+  /**
+   * checks for employees rights to do this transaction
+   *
+   * adds or updates room according to form data
+   *
+   * @param addsNewRoom decides if a Room is added or an existing Room is updated
+   * @param insertOrUpdateRoomForm needed for form resetting after update/add
+   */
   addOrUpdateRoom(addsNewRoom: boolean, insertOrUpdateRoomForm: NgForm) {
     if (this.roleService.checkRights(this.department)) {
       this.foundRoom = null;
@@ -194,6 +207,13 @@ export class RoomManagementComponent implements OnInit {
   //GET ###############################################################################################################
   //###################################################################################################################
 
+  /**
+   * checks for employees rights to do this transaction
+   *
+   * searches for room associated with the form data
+   *
+   * @param intoFormular decides if search result should be filled into the form
+   */
   submitSearch(intoFormular: boolean) {
     if (this.roleService.checkRights(this.department)) {
 
@@ -266,6 +286,13 @@ export class RoomManagementComponent implements OnInit {
   //DELETE ############################################################################################################
   //###################################################################################################################
 
+  /**
+   * checks for employees rights to do this transaction
+   *
+   * deletes room associated with the form data
+   *
+   * @param deleteRoomForm for resetting the form after deletion
+   */
   deleteRoom(deleteRoomForm: NgForm) {
     if (this.roleService.checkRights(this.department)) {
       this.foundRoom = null;

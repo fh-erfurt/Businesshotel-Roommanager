@@ -37,8 +37,9 @@ import {RoleService} from "../../services/role/role.service";
   ],
 })
 
-/*
+/**
 * Component for Management (Add, Update, Get, Delete) of Bookings
+*
 * consumes form data and calls corresponding services
 */
 export class BookingManagementComponent implements OnInit {
@@ -88,17 +89,19 @@ export class BookingManagementComponent implements OnInit {
   //HELPER ############################################################################################################
   //###################################################################################################################
 
-  /*
-  * alert Object and seconds to display the alert as input params
-  * produces alert for x seconds dsiplayed on the right side of the management tab
-  */
+  /**
+   * produces alert for x seconds displayed on the right side of the management tab
+   *
+   * @param alert contains message and alert type (danger or success)
+   * @param seconds seconds to display the alert
+   *
+   */
   addAlertForXSeconds(alert: Alert, seconds: number) {
     this.alerts.push(alert);
     setTimeout(() => this.alerts = this.alerts.filter(entry => entry != alert), seconds * 1000);
   }
 
-  /*
-  * function without input params
+  /**
   * checks if dates are neither in the past nor the endtime is before the starttime
   */
   validateDate() {
@@ -121,10 +124,12 @@ export class BookingManagementComponent implements OnInit {
 
   }
 
-  /*
-  * function with callback function as input param for a controlled function sequence
-  * retrieves pricePerUnit associated with roomNo in current form data
-  */
+  /**
+   * retrieves pricePerUnit associated with roomNo in current form data
+   *
+   * @param _callback to ensure a controlled function sequence
+   *
+   */
   getPricePerUnit(_callback: Function) {
     this.roomService.getRoom(this.roomNo).subscribe(data => {
       this.pricePerUnit = data.pricePerUnit;
@@ -132,10 +137,12 @@ export class BookingManagementComponent implements OnInit {
     })
   }
 
-  /*
-  * function with callback function as input param for a controlled function sequence
-  * calculates the pricing depending on the time period given in form data and the pricePerUnit of the wanted room
-  */
+  /**
+   * calculates the pricing depending on the time period given in form data and the pricePerUnit of the wanted room
+   *
+   * @param _callback to ensure a controlled function sequence
+   *
+   */
   calculatePricing(_callback: Function) {
     let timeDifferenceInMilliseconds = this.endTimestamp.getTime() - this.startTimestamp.getTime()
     let divisorToConvertFromMSInDays = 1000 * 60 * 60 * 24;
@@ -159,10 +166,12 @@ export class BookingManagementComponent implements OnInit {
     }
   }
 
-  /*
-  * boolean as input decides if the current chosen roomNo should be displayed (if booking should be changed) or not
-  * filters roomNos of rooms that are already occupied during parts of or the whole time period wished to be booked
-  */
+  /**
+   * filters roomNos of rooms that are already occupied during parts of or the whole time period wished to be booked
+   *
+   * @param isBookingChange decides if the current chosen roomNo should be displayed (if booking should be changed) or not
+   *
+   */
   filterRoomsByOccupation(isBookingChange: boolean) {
     console.log(this.startDate, this.endDate);
     let startTimestamp = this.startDate + "T" + this.startTime + ":00.000%2b02:00"
@@ -179,10 +188,13 @@ export class BookingManagementComponent implements OnInit {
     })
   }
 
-  /*
-  * function with callback function as input param for a controlled function sequence and boolean for call of filterRoomsByOccupation
-  * gets all rooms valid for the chosen bookingType
-  */
+  /**
+   * gets all rooms valid for the chosen bookingType
+   *
+   * @param isBookingChange for call of filterRoomsByOccupation
+   * @param _callback to ensure a controlled function sequence
+   *
+   */
   getValidRooms(isBookingChange: boolean, _callback?: Function) {
     if (this.bookingType == "hotelRoom") {
       this.roomService.getHotelRooms().subscribe(data => {
@@ -209,13 +221,15 @@ export class BookingManagementComponent implements OnInit {
   //ADD | UPDATE ######################################################################################################
   //###################################################################################################################
 
-  /*
-  * function with boolean and ngForm as input params
-  * boolean decides if a Booking is added or an existing Booking is updated
-  * ngForm for form resetting after update/add
-  *
-  * adds a new Booking or updates an existing booking according to form data
-  */
+
+
+  /**
+   * adds a new Booking or updates an existing booking according to form data
+   *
+   * @param addsNewBooking decides if a Booking is added or an existing Booking is updated
+   * @param addOrUpdateBookingForm for form resetting after update/add
+   *
+   */
   prepareAndInsertBooking(addsNewBooking: boolean, addOrUpdateBookingForm: NgForm) {
     let newOrUpdatedBooking: Booking =
       {
@@ -250,14 +264,15 @@ export class BookingManagementComponent implements OnInit {
     }
   }
 
-  /*
-  * function with boolean and ngForm as input params
-  * boolean decides if a Booking is added or an existing Booking is updated
-  * ngForm for form resetting after update/add
-  *
-  * checks for employees rights to do this transaction
-  * calls  getPricePerUnit to start the add/update function sequence
-  */
+
+  /**
+   * checks for employees rights to do this transaction
+   *
+   * calls  getPricePerUnit to start the add/update function sequence
+   *
+   * @param addsNewBooking decides if a Booking is added or an existing Booking is updated
+   * @param addOrUpdateBookingForm for form resetting after update/add
+   */
   addOrUpdateBooking(addsNewBooking: boolean, addOrUpdateBookingForm: NgForm) {
     if (this.roleService.checkRights(this.department)) {
       this.startTimestamp = parseDate(this.startDate + "T" + this.startTime)
@@ -270,11 +285,12 @@ export class BookingManagementComponent implements OnInit {
   //GET ###############################################################################################################
   //###################################################################################################################
 
-  /*
-  * function with boolean as input param
-  * boolean decides if search result should be filled into the form
-  * starts search function sequence by calling getBookingType
-  */
+
+  /**
+   * starts search function sequence by calling getBookingType
+   *
+   * @param intoFormular decides if search result should be filled into the form
+   */
   submitSearch(intoFormular: boolean) {
     if (this.roleService.checkRights(this.department)) {
       this.foundBooking = null;
@@ -282,10 +298,12 @@ export class BookingManagementComponent implements OnInit {
     } else alert("Benötigte Rechte nicht vorhanden")
   }
 
-  /*
-  * function with callback function as input param for controlled function sequence
-  * retrieves correct bookingType for the given bookingNo and calls getBookingData afterwards
-  */
+
+  /**
+   * retrieves correct bookingType for the given bookingNo and calls getBookingData afterwards
+   *
+   * @param _callback to ensure controlled function sequence
+   */
   getBookingType(_callback: Function) {
     this.bookingService.getBooking(this.bookingNo).subscribe(data => {
         if (data._links?.hotelRoomBooking) this.bookingType = "hotelRoom";
@@ -298,11 +316,12 @@ export class BookingManagementComponent implements OnInit {
       })
   }
 
-  /*
-  * function with boolean as input param
-  * boolean decides if search result should be filled into the form
-  * searches for employee associated with the form data
-  */
+
+  /**
+   * searches for employee associated with the form data
+   *
+   * @param intoFormular decides if search result should be filled into the form
+   */
   getBookingData(intoFormular: boolean) {
 
     this.foundBooking = null;
@@ -337,11 +356,12 @@ export class BookingManagementComponent implements OnInit {
   //DELETE ############################################################################################################
   //###################################################################################################################
 
-  /*
-  * ngForm as input param
-  * ngForm for resetting the form after deletion
-  * deletes booking associated with the form data
-  */
+
+  /**
+   * deletes booking associated with the form data
+   *
+   * @param deleteBookingForm for resetting the form after deletion
+   */
   deleteBooking(deleteBookingForm: NgForm) {
     if (this.roleService.checkRights(this.department)) {
       this.bookingService.delete(this.bookingNo)

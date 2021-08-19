@@ -8,8 +8,9 @@ import {Customer} from "./customer";
 @Injectable({
   providedIn: 'root'
 })
-/*
+/**
  * Service for customer management (Save, Get, Update, Delete)
+*
  * Consumes customer REST-API
  */
 export class CustomerService {
@@ -22,8 +23,7 @@ export class CustomerService {
     this.lastInsertedID = 0;
   }
 
-  /*
-  * function without params
+  /**
   * returns all customers
   */
   public getCustomers(): Observable<Customer> {
@@ -36,10 +36,11 @@ export class CustomerService {
   }
 
 
-  /*
-  * customerID as input param
-  * returns customer associated with customerID
-  */
+  /**
+   * returns customer associated with customerID
+   *
+   * @param id customerID to be searched for
+   */
   public getCustomer(id: number): Observable<Customer> {
     return this.http.get<Customer>(`${this.baseUrl}${id}`).pipe(
       map((result: any) => {
@@ -49,10 +50,12 @@ export class CustomerService {
     )
   }
 
-  /*
-  * accountID as input param
-  * returns customer associated with accountID
-  */
+
+  /**
+   * returns customer associated with accountID
+   *
+   * @param id accountID to be searched for
+   */
   public getCustomerByAccountID(id: number): Observable<Customer> {
     return this.http.get<Customer>(`${this.baseUrl}search/findCustomerByAccountID?account_id=${id}`).pipe(
       map((result: any) => {
@@ -62,10 +65,12 @@ export class CustomerService {
     )
   }
 
-  /*
-  * customer as input param
-  * returns Observable containing the newly added Customer entry
-  */
+
+  /**
+   * returns Observable containing the newly added Customer entry
+   *
+   * @param customer data to be inserted
+   */
   public save(customer: Customer): Observable<Customer> {
     console.log(customer);
 
@@ -80,10 +85,12 @@ export class CustomerService {
 
   }
 
-  /*
-  * customerID as input param
-  * returns empty Observable after deleting the Customer entry
-  */
+
+  /**
+   * returns empty Observable after deleting the Customer entry
+   *
+   * @param id customerID of customer to be deleted
+   */
   public delete(id: number): Observable<Customer> {
     return this.http.delete<Customer>(`${this.baseUrl}${id}`)
       .pipe(
@@ -95,11 +102,14 @@ export class CustomerService {
       )
   }
 
-  /*
-  * customerID and customer Object as input params
-  * returns Observable containing the updated Customer entry
-  */
-  public updateCustomer(id: number, customer: Customer) {
+
+  /**
+   * returns Observable containing the updated Customer entry
+   *
+   * @param id customerID of customer to be updated
+   * @param customer data to be updated
+   */
+  public updateCustomer(id: number, customer: Customer): Observable<Customer> {
     console.log(customer);
 
     return this.http.put<Customer>(`${this.baseUrl}${id}`, customer)

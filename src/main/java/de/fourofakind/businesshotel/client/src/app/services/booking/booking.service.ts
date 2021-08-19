@@ -8,7 +8,7 @@ import {map} from "rxjs/operators";
   providedIn: 'root'
 })
 
-/*
+/**
  * Service for booking management (Save, Get, Update, Delete) hotelRoomBookings and conferenceRoomBookings
  * Consumes booking, hotelRoomBooking and conferenceRoomBooking REST-APIs
  */
@@ -24,10 +24,12 @@ export class BookingService {
 
   }
 
-  /*
-  * bookingNo as input param
-  * returns Booking associated with bookingNo
-  */
+
+  /**
+   * returns Booking associated with bookingNo
+   *
+   * @param id bookingNo to be searched for
+   */
   public getBooking(id:number): Observable<Booking>
   {
     return this.http.get<Booking>(`${this.baseUrl}${id}`).pipe(
@@ -38,13 +40,16 @@ export class BookingService {
     )
   }
 
-  /*
-  * startDate and endDate as input params
-  * returns all Bookings that collide with the timeframe between startDate and endDate
-  */
-  public getBookingsByStartDateAndEndDate(startDate:string, endDate:string):Observable<Booking[]>
+
+  /**
+   * returns all Bookings that collide with the timeframe between startTimeStamp and endTimeStamp
+   *
+   * @param startTimeStamp begin of time period to be checked
+   * @param endTimeStamp end of time period to be checked
+   */
+  public getBookingsByStartDateAndEndDate(startTimeStamp:string, endTimeStamp:string):Observable<Booking[]>
   {
-    return this.http.get<Booking[]>(`${this.baseUrl}search/findByStartDateIsBetweenOrEndDateIsBetweenOrStartDateBeforeAndEndDateAfter?startDate=${startDate}&endDate=${endDate}`).pipe(
+    return this.http.get<Booking[]>(`${this.baseUrl}search/findByStartDateIsBetweenOrEndDateIsBetweenOrStartDateBeforeAndEndDateAfter?startDate=${startTimeStamp}&endDate=${endTimeStamp}`).pipe(
       map((result:any) =>{
         console.log(result);
         let bookings=[];
@@ -60,10 +65,12 @@ export class BookingService {
     )
   }
 
-  /*
-  * customerID as input param
-  * returns all Bookings associated with customerID
-  */
+
+  /**
+   * returns all Bookings associated with customerID
+   *
+   * @param id customerID to be searched for
+   */
   public getBookingsByCustomerID(id:number): Observable<Booking[]>
   {
     return this.http.get<Booking[]>(`${this.baseUrl}search/findByCustomerID?customerID=${id}`).pipe(
@@ -82,10 +89,11 @@ export class BookingService {
     )
   }
 
-  /*
-  * roomNo as input param
-  * returns all Bookings associated with roomNo
-  */
+  /**
+   * returns all Bookings associated with roomNo
+   *
+   * @param id roomNo to be searched for
+   */
   public getBookingsByRoomNumber(id:number): Observable<Booking[]>
   {
     return this.http.get<Booking[]>(`${this.baseUrl}search/findByRoomNo?roomNo=${id}`).pipe(
@@ -104,10 +112,12 @@ export class BookingService {
     )
   }
 
-  /*
-  * empNo as input param
-  * returns all Bookings associated with empNo
-  */
+
+  /**
+   * returns all Bookings associated with empNo
+   *
+   * @param id empNo to be searched for
+   */
   public getBookingsByEmpNo(id:number): Observable<Booking[]>
   {
     return this.http.get<Booking[]>(`${this.baseUrl}search/findByEmpNo?empNo=${id}`).pipe(
@@ -126,8 +136,7 @@ export class BookingService {
     )
   }
 
-  /*
-  * function without params
+  /**
   * returns all bookings (hotelroom and conferenceroom)
   */
   public getBookings(): Observable<Booking[]>
@@ -148,11 +157,14 @@ export class BookingService {
     )
   }
 
-  /*
-  * booking Object and bookingType(hotelRoom or conferenceRoom) as input params
-  * returns Observable containing the newly added Booking entry
-  */
-  public save(booking:Booking, bookingType:string)
+
+  /**
+   * returns Observable containing the newly added Booking entry
+   *
+   * @param booking data to be inserted
+   * @param bookingType type of room to be inserted
+   */
+  public save(booking:Booking, bookingType:string):Observable<Booking>
   {
     console.log("save")
     console.log(booking);
@@ -179,10 +191,13 @@ export class BookingService {
       )
   }
 
-  /*
-  * booking Object and bookingType(hotelRoom or conferenceRoom) as input params
-  * returns Observable containing the newly added Booking entry
-  */
+
+  /**
+   * returns Observable containing the newly added Booking entry
+   *
+   * @param booking data to be inserted
+   * @param bookingType type of room to be inserted
+   */
   public saveMy(booking: Booking, bookingType:string):Observable<Booking>
   {
     console.log("saveBooking")
@@ -255,11 +270,12 @@ export class BookingService {
   }
 
 
-  /*
-  * bookingNo as input param
-  * returns empty Observable after deleting the Booking entry
-  */
-  public delete(id: number) {
+  /**
+   * returns empty Observable after deleting the Booking entry
+   *
+   * @param id bookingNo of booking to be deleted
+   */
+  public delete(id: number):Observable<Booking> {
     return this.http.delete<Booking>(`${this.baseUrl}${id}`)
       .pipe(
         map(
@@ -271,11 +287,14 @@ export class BookingService {
       )
   }
 
-  /*
-  * booking Object and bookingNo as input params
-  * returns Observable containing the updated Booking entry
-  */
-  public updateBooking(id: number, booking: Booking) {
+
+  /**
+   * returns Observable containing the updated Booking entry
+   *
+   * @param id bookingNo of booking to be updated
+   * @param booking data to be updated
+   */
+  public updateBooking(id: number, booking: Booking):Observable<Booking> {
     console.log(booking);
 
     console.log(booking);
@@ -291,11 +310,13 @@ export class BookingService {
       )
   }
 
-  /*
-  * bookingNo as input param
-  * sets customerID of booking associated with bookingNo to 1 (special entry in Customer table to archive bookings of deleted customer accounts)
-  */
-  public patchBookingsAtCustomerDelete(bookingNo:number)
+
+  /**
+   * sets customerID of booking associated with bookingNo to 1 (special entry in Customer table to archive bookings of deleted customer accounts)
+   *
+   * @param bookingNo bookingNo of booking to be patched
+   */
+  public patchBookingsAtCustomerDelete(bookingNo:number):Observable<Booking>
   {
     console.log(bookingNo);
 
@@ -310,11 +331,13 @@ export class BookingService {
       )
   }
 
-  /*
-  * bookingNo as input param
-  * sets empNo of booking associated with bookingNo to 1 (special entry in Employee table to archive bookings of deleted employee accounts)
-  */
-  public patchBookingsAtEmployeeDelete(bookingNo:number)
+
+  /**
+   * sets empNo of booking associated with bookingNo to 1 (special entry in Employee table to archive bookings of deleted employee accounts)
+   *
+   * @param bookingNo bookingNo of booking to be patched
+   */
+  public patchBookingsAtEmployeeDelete(bookingNo:number):Observable<Booking>
   {
     console.log(bookingNo);
 

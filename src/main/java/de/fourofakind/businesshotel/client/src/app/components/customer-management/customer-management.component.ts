@@ -17,14 +17,12 @@ import {RoleService} from "../../services/role/role.service";
   styleUrls: ['./customer-management.component.scss']
 })
 
-/*
+/**
 * Component for Management (Add, Update, Get, Delete) of Customers
+*
 * consumes form data and calls corresponding services
 */
 export class CustomerManagementComponent implements OnInit {
-
-
-
 
   //form data
 
@@ -88,15 +86,24 @@ export class CustomerManagementComponent implements OnInit {
   //###################################################################################################################
 
 
-  /*
-  * alert Object and seconds to display the alert as input params
-  * produces alert for x seconds dsiplayed on the right side of the management tab
-  */
+  /**
+   * produces alert for x seconds displayed on the right side of the management tab
+   *
+   * @param alert contains message and alert type (danger or success)
+   * @param seconds seconds to display the alert
+   *
+   */
   addAlertForXSeconds(alert: Alert, seconds: number) {
     this.alerts.push(alert);
     setTimeout(() => this.alerts = this.alerts.filter(entry => entry != alert), seconds * 1000);
   }
 
+  /**
+   * checks for employees rights to do this transaction
+   *
+   *
+   * checks if username already exists
+   */
   validateUsername() {
     if (this.roleService.checkRights(this.department)) {
       this.accountdetailsService.getAccountdetailsByUsername(this.username)
@@ -114,7 +121,13 @@ export class CustomerManagementComponent implements OnInit {
   //ADD | UPDATE ######################################################################################################
   //###################################################################################################################
 
-
+  /**
+   *
+   * adds new contactdata according to form data
+   *
+   * calls addCustomer after successful adding contact data entry
+   * @param _callback to ensure controlled function sequence
+   */
   addContactData(_callback: Function) {
 
     let newContactData: Contactdata =
@@ -142,6 +155,10 @@ export class CustomerManagementComponent implements OnInit {
       );
   }
 
+  /**
+   *
+   * adds new customer according to form data
+   */
   addCustomer() {
 
     let newOrUpdatedCustomer: Customer =
@@ -161,6 +178,14 @@ export class CustomerManagementComponent implements OnInit {
         });
   }
 
+  /**
+   * checks for employees rights to do this transaction
+   *
+   * adds or updates Customer with form data
+   *
+   * @param addsNewCustomer decides if a Customer is added or an existing Customer is updated
+   * @param addOrUpdateCustomerForm needed for form resetting after update/add
+   */
   addOrUpdateCustomerAndDetails(addsNewCustomer: boolean, addOrUpdateCustomerForm: NgForm) {
     if (this.roleService.checkRights(this.department)) {
       if (addsNewCustomer) {
@@ -231,7 +256,14 @@ export class CustomerManagementComponent implements OnInit {
   //GET ###############################################################################################################
   //###################################################################################################################
 
-
+  /**
+   * searches for customer entry associated with the form data
+   *
+   * calls searchForAccountdetails and searchForContactData after successful retrieving a customer
+   * @param intoFormular decides if search result should be filled into the form
+   * @param _callback1 to ensure controlled function sequence
+   * @param _callback2 to ensure controlled function sequence
+   */
   searchForCustomer(intoFormular: boolean, _callback1: Function, _callback2: Function) {
     this.customerService.getCustomer(this.customerID).subscribe(data => {
         this.foundCustomer = data;
@@ -252,6 +284,11 @@ export class CustomerManagementComponent implements OnInit {
       });
   }
 
+  /**
+   * searches for accountdetails associated with the form data
+   *
+   * @param intoFormular decides if search result should be filled into the form
+   */
   searchForAccountdetails(intoFormular: boolean) {
     this.accountdetailsService.getAccountdetails(this.accountID).subscribe(data => {
         this.foundAccountdetails = data;
@@ -262,6 +299,10 @@ export class CustomerManagementComponent implements OnInit {
       });
   }
 
+  /**
+   * searches for contactdata associated with the form data
+   * @param intoFormular decides if search result should be filled into the form
+   */
   searchForContactData(intoFormular: boolean) {
     this.contactdataService.getContactdata(this.contactDataID).subscribe(data => {
         this.foundContactData = data;
@@ -282,6 +323,13 @@ export class CustomerManagementComponent implements OnInit {
       });
   }
 
+  /**
+   * checks for employees rights to do this transaction
+   *
+   *  calls searchForCustomer to start the funciton sequence for retrieving a customer and its associated account and contact data
+   *
+   * @param intoFormular decides if search result should be filled into the form
+   */
   submitSearch(intoFormular: boolean) {
     if (this.roleService.checkRights(this.department)) {
       console.log(this.customerID);
@@ -300,7 +348,11 @@ export class CustomerManagementComponent implements OnInit {
   //DELETE ############################################################################################################
   //###################################################################################################################
 
-
+  /**
+   * deletes customer entry associated with the form data
+   *
+   * @param deleteCustomerForm for resetting the form after deletion
+   */
   deleteCustomer(deleteCustomerForm: NgForm) {
     this.customerService.delete(this.customerID)
       .subscribe((res) => {
@@ -313,6 +365,11 @@ export class CustomerManagementComponent implements OnInit {
         });
   }
 
+  /**
+   * calls patchBookingsAtCustomerDelete for each booking associated with the customer via bookingService
+   *
+   * @param _callback to ensure controlled function sequence
+   */
   patchBookings(_callback: Function) {
 
     let bookingNoOfCustomer: number[] = [];
@@ -342,6 +399,11 @@ export class CustomerManagementComponent implements OnInit {
 
   }
 
+  /**
+   * calls patchBookingRequestsAtCustomerDelete for each bookingRequest associated with the customer via bookingRequestService
+   *
+   * @param _callback to ensure controlled function sequence
+   */
   patchBookingRequests(_callback: Function) {
     let bookingRequestIDsOfCustomer: number[] = [];
     this.bookingRequestService.getBookingRequestIDsByCustomerID(this.customerID)
@@ -370,6 +432,13 @@ export class CustomerManagementComponent implements OnInit {
       })
   }
 
+  /**
+   * checks for employees rights to do this transaction
+   *
+   * calls patchBookings to start the function sequence for deleting a custoemr and its associated account and contact data
+   *
+   * @param deleteCustomerForm for resetting the form after deletion
+   */
   deleteCustomerAndDetails(deleteCustomerForm: NgForm) {
     if (this.roleService.checkRights(this.department)) {
       this.foundCustomer = null;

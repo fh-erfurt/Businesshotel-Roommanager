@@ -7,7 +7,7 @@ import {map} from "rxjs/operators";
 @Injectable({
   providedIn: 'root'
 })
-/*
+/**
  * Service for employee management (Save, Get, Update, Delete) of employee and customers
  * Consumes employee REST-API
  */
@@ -19,18 +19,24 @@ export class EmployeeService {
     this.baseUrl="http://localhost:8081/employee/"
   }
 
-  /*
-  * function without params
+  /**
   * returns all employees
   */
-  public getEmployees(): Observable<RawData>{
-    return this.http.get<RawData>(`${this.baseUrl}`)
+  public getEmployees(): Observable<Employee[]>{
+    return this.http.get<Employee[]>(`${this.baseUrl}`).pipe(
+      map((result: any) => {
+        console.log(result);
+        return result._embedded.employee;
+      })
+    )
   }
 
-  /*
-  * empNo as input param
-  * returns employee associated with empNo
-  */
+
+  /**
+   * returns employee associated with empNo
+   *
+   * @param id empNo to be searched for
+   */
   public getEmployee(id:number): Observable<Employee>
   {
     return this.http.get<Employee>(`${this.baseUrl}${id}`).pipe(
@@ -41,10 +47,12 @@ export class EmployeeService {
     )
   }
 
-  /*
-  * accountID as input param
-  * returns employee associated with accountID
-  */
+
+  /**
+   * returns employee associated with accountID
+   *
+   * @param id accountID to be searched for
+   */
   public getEmployeeByAccountID(id:number): Observable<Employee>
   {
     return this.http.get<Employee>(`${this.baseUrl}search/findEmployeeByAccountID?account_id=${id}`).pipe(
@@ -55,10 +63,12 @@ export class EmployeeService {
     )
   }
 
-  /*
-  * employee as input param
-  * returns Observable containing the newly added Employee entry
-  */
+
+  /**
+   * returns Observable containing the newly added Employee entry
+   *
+   * @param employee data to be inserted
+   */
   public save(employee: Employee): Observable<Employee>
   {
     console.log(employee);
@@ -74,10 +84,12 @@ export class EmployeeService {
       )
   }
 
-  /*
-  * empNo as input param
-  * returns empty Observable after deleting the Employee entry
-  */
+
+  /**
+   * returns empty Observable after deleting the Employee entry
+   *
+   * @param id empNo of employee to be deleted
+   */
   public delete(id: number) : Observable<Employee>
   {
     return this.http.delete<Employee>(`${this.baseUrl}${id}`)
@@ -91,11 +103,14 @@ export class EmployeeService {
       )
   }
 
-  /*
-  * empNo and employee Object as input params
-  * returns Observable containing the updated Employee entry
-  */
-  public updateEmployee(id: number, employee: Employee)
+
+  /**
+   * returns Observable containing the updated Employee entry
+   *
+   * @param id empNo of employee to be updated
+   * @param employee data to be updated
+   */
+  public updateEmployee(id: number, employee: Employee): Observable<Employee>
   {
     console.log(employee);
 

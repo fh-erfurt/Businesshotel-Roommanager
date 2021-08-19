@@ -9,8 +9,9 @@ import * as bcrypt from 'bcryptjs';
   providedIn: 'root'
 })
 
-/*
+/**
 * Service for accountdetail management (Save, Get, Update, Delete) of employee and customers
+*
 * Consumes accountdetail REST-API
 */
 export class AccountdetailsService {
@@ -23,8 +24,9 @@ export class AccountdetailsService {
     this.lastInsertedID=0;
   }
 
-  /*
+  /**
   * function without params
+  *
   * returns all accountdetails
   */
   public getAllAccountdetails(): Observable<Accountdetail>
@@ -37,10 +39,12 @@ export class AccountdetailsService {
     )
   }
 
-  /*
-  * accountID as input param
-  * returns accountdetails associated with accountID
-  */
+
+  /**
+   * returns accountdetails associated with accountID
+   *
+   * @param id accountID to be searched for
+   */
   public getAccountdetails(id:number): Observable<Accountdetail>
   {
     return this.http.get<Accountdetail>(`${this.baseUrl}${id}`).pipe(
@@ -51,10 +55,12 @@ export class AccountdetailsService {
     )
   }
 
-  /*
-  * username as input param
-  * returns accountdetails associated with username
-  */
+
+  /**
+   * returns accountdetails associated with username
+   *
+   * @param username username to be searched for
+   */
   public getAccountdetailsByUsername(username:string): Observable<Accountdetail>
   {
     return this.http.get<Accountdetail>(`${this.baseUrl}search/findByUsername?username=${username}`).pipe(
@@ -65,10 +71,12 @@ export class AccountdetailsService {
     )
   }
 
-  /*
-  * accountdetails as input param
-  * returns Observable containing the newly added Accountdetail entry
-  */
+
+  /**
+   * returns Observable containing the newly added Accountdetail entry
+   *
+   * @param accountdetails accountdetails to be inserted
+   */
   public save(accountdetails: Accountdetail): Observable<Accountdetail>
   {
     const salt = bcrypt.genSaltSync(10);
@@ -85,10 +93,11 @@ export class AccountdetailsService {
       )
   }
 
-  /*
-  * accountID as input param
-  * returns empty Observable after deleting the Accountdetail entry
-  */
+  /**
+   * returns empty Observable after deleting the Accountdetail entry
+   *
+   * @param id accountID of accountdetail entry to be deleted
+   */
   public delete(id: number):Observable<Accountdetail>
   {
     return this.http.delete<Accountdetail>(`${this.baseUrl}${id}`)
@@ -103,10 +112,12 @@ export class AccountdetailsService {
       )
   }
 
-  /*
-  * accountID and accountDetail Object as input params
-  * returns Observable containing the updated Accountdetail entry
-  */
+
+  /**
+   *
+   * @param id accountID of accountDetail to be updated
+   * @param accountdetails data to be updated
+   */
   public updateAccountdetails(id: number, accountdetails: Accountdetail):Observable<Accountdetail>
   {
     console.log(accountdetails);
@@ -127,10 +138,12 @@ export class AccountdetailsService {
       )
   }
 
-  /*
-  * accountID and username as input params
-  * returns Observable containing the Accountdetail entry with a changed username
-  */
+
+  /**
+   *
+   * @param id accountID of accountDetail to be updated
+   * @param username data to be updated
+   */
   public updateUsername(id: number, username: string):Observable<Accountdetail>
   {
     console.log(username);
