@@ -32,6 +32,12 @@ type dateTimeSpan = {
   templateUrl: './booking.component.html',
   styleUrls: ['./booking.component.scss']
 })
+
+/**
+ * Component for generation and saving (Get) of Bookings
+ *
+ * consumes form data and calls corresponding services
+ */
 export class BookingComponent implements OnInit {
 
   rooms!: RootObject;
@@ -74,22 +80,20 @@ export class BookingComponent implements OnInit {
   public selectedFromDate: Date | null
   public selectedToDate: Date | null
   private calendarSubscription!: Subscription;
-  private timePickerSubscription!: Subscription
 
   alerts:Alert[]=[];
 
-  // timePicker
-  // public startTime: BehaviorSubject<NgbTimeStruct> = new BehaviorSubject<NgbTimeStruct>({hour: 8, minute: 0, second: 0})
-  // public startTime$: Observable<NgbTimeStruct> = this.startTime.asObservable();
   _startTime: NgbTimeStruct = {hour: 8, minute: 0, second: 0}
   startHourStep = 1;
   startMinuteStep = 15;
 
-  // public endTime: BehaviorSubject<NgbTimeStruct> = new BehaviorSubject<NgbTimeStruct>({hour: 14, minute: 0, second: 0})
-  // public endTime$: Observable<NgbTimeStruct> = this.startTime.asObservable();
   _endTime: NgbTimeStruct = {hour: 14, minute: 0, second: 0}
   endHourStep = 1;
   endMinuteStep = 15;
+
+  /**
+   * returns startTime and endTime
+   */
 
   get startTime() {
     const startTime = new Date(1970, 1, 1,  this._startTime.hour, this._startTime.minute)
@@ -100,6 +104,13 @@ export class BookingComponent implements OnInit {
     return formatDate(endTime, "HH:mm", "de")
   }
 
+  /**
+   * produces alert for x seconds displayed on the right side of the management tab
+   *
+   * @param alert contains message and alert type (danger or success)
+   * @param seconds seconds to display the alert
+   *
+   */
 
   addAlertForXSeconds(alert:Alert, seconds:number)
   {
@@ -116,8 +127,6 @@ export class BookingComponent implements OnInit {
     createdAt: "",
     roomType: "NOTYPE"
   }
-
-
 
   public screenHeight: number = 0;
   public screenWidth: number = 0;
@@ -176,19 +185,7 @@ export class BookingComponent implements OnInit {
         this._endTime.minute)
       : null;
 
-
-
-    // this.dateLabel = "Datum: "
-    //   + (this.selectedFromDate ? formatDate(this.selectedFromDate, "dd.MM.yyyy", "de") : "")
-    //   + (this.selectedToDate ? " bis " + formatDate(this.selectedToDate, "dd.MM.yyyy", "de") : "")
-
-    // this.timeLabel = "Uhrzeit: "
-    //   + (this.selectedFromDate ? formatDate(this.selectedFromDate, "hh:mm:ss", "de") : "")
-    //   + (this.selectedToDate ? "Uhr bis " + formatDate(this.selectedToDate, "hh.mm.ss", "de") + "Uhr" : "")
-
   }
-
-
 
   @HostListener('window:resize', ['$event'])
   getWindowSize(event?: any) {
@@ -292,8 +289,6 @@ export class BookingComponent implements OnInit {
                 if (result) {
                   this.contactData = result
 
-
-
                   if (result.streetName) {
 
                     this.bookingForm.removeControl("streetName")
@@ -325,7 +320,7 @@ export class BookingComponent implements OnInit {
         }, errors => {
 
         })
-      // this.contactDataService.getContactdata()
+
     } else {
       this.pageDidLoad = true
     }
@@ -359,7 +354,6 @@ export class BookingComponent implements OnInit {
         }
       })
 
-
     this.bookingService.getBookings()
       .subscribe((data: Booking[])=>{
         this.existingBookings = data;
@@ -371,10 +365,8 @@ export class BookingComponent implements OnInit {
 
             let newDateTimeSpan: dateTimeSpan = {startDate:  new Date(startDate.setDate(startDate.getDate() + 1)), endDate: new Date(endDate.setDate(endDate.getDate() + 1))}
 
-
             if (this.isLoggedIn) {
               const customerID = Number(localStorage.getItem("customerID"))
-
 
               if (booking.customerID === customerID) {
                 this.bookingCalendar.isBookedByCustomerRanges.push(newDateTimeSpan)
@@ -385,21 +377,9 @@ export class BookingComponent implements OnInit {
               this.bookingCalendar.unavailableDateRanges.push(newDateTimeSpan)
             }
 
-
           }
         });
-
-        // let newDateTimeSpan = {startDate: new Date("2021-08-10"), endDate: new Date("2021-08-13")}
-        // this.bookingCalendar.unavailableDateRanges.push(newDateTimeSpan)
-        // newDateTimeSpan = {startDate: new Date("2021-08-21"), endDate: new Date("2021-08-30")}
-        // this.bookingCalendar.unavailableDateRanges.push(newDateTimeSpan)
-        // newDateTimeSpan = {startDate: new Date("2021-08-17"), endDate: new Date("2021-08-17")}
-        // this.bookingCalendar.unavailableDateRanges.push(newDateTimeSpan)
-
-        //
       })
-
-
 
     this.currency = environment.currency
 
@@ -410,10 +390,12 @@ export class BookingComponent implements OnInit {
 
   }
 
+  /**
+   * add or deletes controlls for paymentMethod and paymentCredentials
+   *
+   */
+
   paymentMethodChanged() {
-
-
-
     if (this.f.paymentMethod.value === "debit" || this.f.paymentMethod.value === "paypal")
     {
       this.bookingForm.addControl('paymentCredentials', new FormControl('', Validators.required));
@@ -436,13 +418,15 @@ export class BookingComponent implements OnInit {
 
   }
 
+  /**
+   * updates the pricelabel when time or date was changed
+   */
+
   updateFullPriceLabel() {
     const startDateTime = this.selectedFromDate ? this.selectedFromDate : new Date
     const endDateTime = new Date(this.selectedToDate ? this.selectedToDate : startDateTime)
 
     if (this.selectedFromDate) {
-
-
 
       if (this.isConferenceRoom) {
         startDateTime.setHours(
@@ -466,6 +450,10 @@ export class BookingComponent implements OnInit {
     }
   }
 
+  /**
+   * updates the updateDateTimeLabel when time or date was changed
+   */
+
   updateDateTimeLabel(selectedFromDate?: Date | null, selectedToDate?: Date | null) {
 
     if (selectedFromDate != undefined) {
@@ -474,22 +462,12 @@ export class BookingComponent implements OnInit {
       this.selectedFromDate = null
     }
 
-    // this.selectedFromDate = selectedFromDate != undefined ? selectedFromDate : this.selectedFromDate
     this.selectedToDate = selectedToDate ? selectedToDate : null
 
-
-
-
-    // this.selectedFromDate = selectedFromDate ?? null
-    // this.selectedToDate = selectedToDate ?? null
-
-    const startDateTime = this.selectedFromDate ? this.selectedFromDate : new Date
-    const endDateTime = new Date(this.selectedToDate ? this.selectedToDate : startDateTime)
+    const startDateTime = this.selectedFromDate ?? new Date()
+    const endDateTime = new Date(this.selectedToDate ?? startDateTime)
 
     if (selectedFromDate || selectedToDate) {
-
-
-
       if (this.isConferenceRoom) {
         startDateTime.setHours(
           this._startTime.hour,
@@ -545,11 +523,15 @@ export class BookingComponent implements OnInit {
       this.endDateTimeLabel = ""
     }
 
-
-
   }
 
   get f() { return this.bookingForm.controls; }
+
+  /**
+   * generates booking from formdata
+   *
+   * @param customerID id of the current or new created customer
+   */
 
   generateBooking(customerID: number): Booking {
 
@@ -559,18 +541,20 @@ export class BookingComponent implements OnInit {
     var endDateTime = new Date(this.selectedToDate ? placeHolderDateTime.setDate(this.selectedToDate.getDate()) : placeHolderDateTime.setDate(startDateTime.getDate()))
 
     if (this.isConferenceRoom) {
+
       endDateTime = new Date(startDateTime)
 
-      startDateTime.setHours(
-        this._startTime.hour,
-        this._startTime.minute
-      )
-
-      endDateTime.setHours(
-        this._endTime.hour,
-        this._endTime.minute
-      )
     }
+
+    startDateTime.setHours(
+      this._startTime.hour,
+      this._startTime.minute
+    )
+
+    endDateTime.setHours(
+      this._endTime.hour,
+      this._endTime.minute
+    )
 
     const timeDiff = endDateTime.getTime() - startDateTime.getTime();
     const units = this.isConferenceRoom ? timeDiff / (1000 * 3600) : timeDiff / (1000 * 3600 * 24);
@@ -590,9 +574,12 @@ export class BookingComponent implements OnInit {
     return booking
   }
 
+  /**
+   * generates contactdata from formdata for new customer
+   *
+   */
 
   generateContactData(): Contactdata {
-
 
     if (this.isLoggedIn) {
       const contactData: Contactdata = {
@@ -604,7 +591,7 @@ export class BookingComponent implements OnInit {
         streetNumber: this.contactData.streetNumber ?? this.f.streetNumber.value,
         postalCode: this.contactData.postalCode ?? this.f.postalCode.value,
         cityName: this.contactData.cityName ?? this.f.cityName.value,
-        paymentCredentials: this.contactData.paymentCredentials ?? (this.f.paymentCredentials ? this.f.paymentCredentials.value : "")
+        paymentCredentials: this.contactData.paymentCredentials ?? (this.f.paymentCredentials ? this.f.paymentCredentials.value : "bill")
       }
       return contactData
     } else {
@@ -617,32 +604,29 @@ export class BookingComponent implements OnInit {
         streetNumber: this.f.streetNumber.value,
         postalCode: this.f.postalCode.value,
         cityName: this.f.cityName.value,
-        paymentCredentials: this.f.paymentCredentials ? this.f.paymentCredentials.value : null
+        paymentCredentials: this.f.paymentCredentials ? this.f.paymentCredentials.value : "bill"
       }
       return contactData
     }
 
-
   }
 
+  /**
+   * generates customer from formdata
+   *
+   * @param _callBack calls function when customerData is saved
+   */
+
   generateCustomer(_callBack: Function) {
-
-
 
     this.contactData = this.generateContactData()
 
     this.customer.paymentMethod = this.customer.paymentMethod ?? this.f.paymentMethod.value
 
-
-
     if (this.isLoggedIn) {
-
-
-
 
       this.contactDataService.updateContactdata(this.customer.contactDataID ?? 1, this.contactData)
         .subscribe(result => {
-
 
           this.customerService.updateCustomer(this.customer.customerID ?? 1, this.customer)
             .subscribe(result => {
@@ -656,10 +640,7 @@ export class BookingComponent implements OnInit {
 
         })
 
-
     } else {
-
-
 
       this.customer.isBusinessCustomer = this.isBusinessCustomer
 
@@ -674,10 +655,6 @@ export class BookingComponent implements OnInit {
         username: autogeneratedUserName,
       };
 
-
-
-
-
       this.registrationService.register(
         this.accountDetails,
         this.contactData,
@@ -688,17 +665,13 @@ export class BookingComponent implements OnInit {
 
           this.customer.customerID = Number(customerID)
 
-
-
-          alert("Buchung Erfolgreich \n\n Ihr Username lautet: " + this.accountDetails.username + "\n" + "Ihr Passwort lautet: " + autogeneratedUserPassword)
+          alert("Ihr Username lautet: " + this.accountDetails.username + "\n" + "Ihr Passwort lautet: " + autogeneratedUserPassword)
 
           _callBack()
 
-          // window.location.href = "";
         })
         .catch(error => {
           this.dataSuccessfullySaved = false
-
 
           switch (error) {
             case errors.unavailableUsername:
@@ -740,8 +713,6 @@ export class BookingComponent implements OnInit {
   submit() {
     this.submitted = true;
 
-
-
     if (this.selectedFromDate) {
       this.dateSelected = true
     } else {
@@ -763,11 +734,7 @@ export class BookingComponent implements OnInit {
       return;
     }
 
-
-
     this.generateCustomer(()=>{
-
-
 
       const customerID = this.customer.customerID ?? 1
       const bookingType = this.isConferenceRoom ? "conferenceRoom" : "hotelRoom"
@@ -787,13 +754,11 @@ export class BookingComponent implements OnInit {
 
             alert("Buchung Erfolgreich")
             window.location.reload()
-            // window.location.href = "";
 
           },
           (error)=>
           {
 
-            // this.addAlertForXSeconds(new Alert('danger',"Fehler beim Anlegen des Accounts"),5);
           })
     })
   }

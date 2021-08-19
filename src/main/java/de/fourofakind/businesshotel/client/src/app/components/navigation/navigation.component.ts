@@ -7,9 +7,15 @@ import {Role} from "../../services/role/role";
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.scss']
 })
+
+/**
+ * Component for Management (Add, Update, Get, Delete) of Navigation
+ *
+ * consumes form data and calls corresponding services
+ */
 export class NavigationComponent implements OnInit {
 
-  // displayNavItems: boolean = true
+
   isEmployee: boolean = false
   isLoggedIn: boolean = false
   isBookingManager: boolean = false
@@ -23,9 +29,6 @@ export class NavigationComponent implements OnInit {
   constructor(private roleService: RoleService) { }
 
   ngOnInit(): void {
-
-
-
 
     if (localStorage.getItem("givenRole")) {
       const role = localStorage.getItem("givenRole")

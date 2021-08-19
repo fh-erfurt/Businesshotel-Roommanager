@@ -8,6 +8,12 @@ import {map} from "rxjs/operators";
 @Injectable({
   providedIn: 'root'
 })
+
+/**
+ * Service for bookingRequest management (Save, Get, Update, Delete) hotelRoomBookings and conferenceRoomBookings
+ * Consumes room, bookingrequest, hotelRoomBooking and conferenceRoomBooking REST-APIs
+ */
+
 export class BookingrequestService {
 
   private readonly baseUrl:string;
@@ -25,6 +31,11 @@ export class BookingrequestService {
 
   }
 
+  /**
+   * returns Booking associated with bookingNo
+   *
+   * @param id bookingNo to be searched for
+   */
   getRooms(): Observable<RootObject>{
     return this.http.get<RootObject>(`${this.baseUrl}`)
   }

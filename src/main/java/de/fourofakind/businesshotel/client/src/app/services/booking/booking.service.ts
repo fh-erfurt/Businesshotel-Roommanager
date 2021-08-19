@@ -9,7 +9,7 @@ import {map} from "rxjs/operators";
 })
 
 /**
- * Service for booking management (Save, Get, Update, Delete) hotelRoomBookings and conferenceRoomBookings
+ * Service for booking management (Save)
  * Consumes booking, hotelRoomBooking and conferenceRoomBooking REST-APIs
  */
 export class BookingService {
@@ -139,6 +139,7 @@ export class BookingService {
     return this.http.get<Booking[]>(this.baseUrl).pipe(
       map((result:any) =>{
         let bookings=[];
+
         if(result._embedded.conferenceRoomBooking && result._embedded.hotelRoomBooking)
         {
           bookings=result._embedded.conferenceRoomBooking.concat(result._embedded.hotelRoomBooking);

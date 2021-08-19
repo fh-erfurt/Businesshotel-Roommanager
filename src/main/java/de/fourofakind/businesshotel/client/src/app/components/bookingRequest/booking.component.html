@@ -258,7 +258,6 @@
                         <option value="debit">Debit</option>
                         <option value="bill">Rechnunug</option>
                       </select>
-                      <!--                  <input type="text" formControlName="paymentCredentials" name="paymentCredentials" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.paymentCredentials.errors }" />-->
                       <div *ngIf="submitted && f.paymentMethod.errors" class="invalid-feedback">
                         <div *ngIf="f.paymentMethod.errors.required">Bitte Zahlungsmethode angeben</div>
                       </div>

@@ -11,12 +11,17 @@ import {Accountdetail} from "../../services/accountdetails/accountdetail";
 import {Customer} from "../../services/customer/customer";
 import {Contactdata} from "../../services/contactdata/contactdata";
 
-
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
   styleUrls: ['./registration.component.scss']
 })
+
+/**
+ * Component for Management (Add, Get) of Registration
+ *
+ * consumes form data and calls corresponding services
+ */
 export class RegistrationComponent implements OnInit {
   registerForm!: FormGroup;
   loading = false;
@@ -67,9 +72,6 @@ export class RegistrationComponent implements OnInit {
   submit() {
     this.submitted = true;
 
-
-
-
     if (this.registerForm.invalid) {
 
       return;
@@ -110,7 +112,6 @@ export class RegistrationComponent implements OnInit {
       .catch(error => {
         this.dataSuccessfullySaved = false
 
-
         switch (error) {
           case errors.unavailableUsername:
             this.errorMessage = "Username bereits vergeben"
@@ -144,8 +145,6 @@ export class RegistrationComponent implements OnInit {
         if (error !== errors.success && error !== errors.unavailableUsername) {
           alert(this.errorMessage)
         }
-
-
 
       })
   }

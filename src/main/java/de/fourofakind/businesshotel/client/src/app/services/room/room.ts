@@ -1,6 +1,6 @@
 export interface RawData {
   _embedded: Embedded;
-  // _links: Links;
+
   page: Page;
 }
 
@@ -85,9 +85,9 @@ export interface ConferenceRoomSelf {
   href: string;
 }
 
-//export interface Room {
-//  href: string;
-//}
+
+
+
 
 export interface Self {
   href: string;

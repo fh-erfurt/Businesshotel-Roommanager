@@ -1,6 +1,6 @@
 export interface RawData {
   _embedded: Embedded;
-  // _links: Links;
+
   page: Page;
 }
 
@@ -10,17 +10,17 @@ export interface Page {
   totalPages: number;
   number: number
 }
-// export interface Links {
-//   "size": 20,
-//   "totalElements": 4,
-//   "totalPages": 1,
-//   "number": 0
-// }
 
-// export interface Embedded {
-//   // key: string;
-//   value: Value
-// }
+
+
+
+
+
+
+
+
+
+
 
 
 export interface Embedded {
