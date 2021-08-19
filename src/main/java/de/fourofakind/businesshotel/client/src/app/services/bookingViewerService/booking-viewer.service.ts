@@ -21,51 +21,13 @@ interface State {
   sortDirection: SortDirection;
 }
 
-const compare = (v1: string | number, v2: string | number) => v1 < v2 ? -1 : v1 > v2 ? 1 : 0;
-
-// function sort0(bookings: Booking[], column: SortColumn, direction: string): Booking[] {
-//   if (direction === '' || column === '') {
-//     return bookings;
-//   } else {
-//     return [...bookings].sort((a, b) => {
-//
-//       if ((typeof a[column] === "number" || typeof a[column] === "string" && a[column])
-//         && (typeof b[column] === "number" || typeof b[column] === "string" && b[column]))
-//       {
-//         const compareValueA: string | number = a[column] as string | number
-//         const compareValueB: string | number = b[column] as string | number
-//
-//         const res = compare(compareValueA, compareValueB);
-//         return direction === 'asc' ? res : -res;
-//       } else {
-//         return 0;
-//       }
-//     });
-//   }
-// }
-
-function sort(bookings: ViewerFriendlyBooking[], column: SortColumn, direction: string): ViewerFriendlyBooking[] {
-  if (direction === '' || column === '') {
-    return bookings;
-  } else {
-    return [...bookings].sort((a, b) => {
-      const res = compare(a[column], b[column]);
-      return direction === 'asc' ? res : -res;
-    });
-  }
-}
-
-function matches(booking: ViewerFriendlyBooking, term: string, pipe: PipeTransform) {
-  return booking.specialWishes.toLowerCase().includes(term.toLowerCase())
-    || pipe.transform(booking.bookingNo).includes(term)
-    || pipe.transform(booking.pricing).includes(term)
-    || booking.startDate.toLowerCase().includes(term.toLowerCase())
-    || booking.endDate.toLowerCase().includes(term.toLowerCase());
-}
-
 @Injectable({
   providedIn: 'root'
 })
+
+/**
+ * Service for bookingViewer (sort, compare, match) hotelRoomBookings and conferenceRoomBookings
+ */
 
 export class BookingViewerService {
   private _loading$ = new BehaviorSubject<boolean>(true);
@@ -73,7 +35,6 @@ export class BookingViewerService {
   private _bookings$ = new BehaviorSubject<ViewerFriendlyBooking[]>([]);
   private _total$ = new BehaviorSubject<number>(0);
   public bookings: ViewerFriendlyBooking[] = []
-  isLoggedIn: boolean = false
 
   private _state: State = {
     page: 1,
@@ -83,8 +44,7 @@ export class BookingViewerService {
     sortDirection: ''
   };
 
-  constructor(private pipe: DecimalPipe,
-              private bookingService: BookingService)
+  constructor(private pipe: DecimalPipe)
   {
     this._search$.pipe(
       tap(() => this._loading$.next(true)),
@@ -98,8 +58,6 @@ export class BookingViewerService {
     });
 
     this._search$.next();
-
-
 
   }
 
@@ -121,18 +79,55 @@ export class BookingViewerService {
     this._search$.next();
   }
 
+  /**
+   * searches for Booking
+   */
+
   private _search(): Observable<SearchResult> {
     const {sortColumn, sortDirection, pageSize, page, searchTerm} = this._state;
 
-    // 1. sort
     let bookings = sort(this.bookings, sortColumn, sortDirection);
 
-    // 2. filter
     bookings = bookings.filter(booking => matches(booking, searchTerm, this.pipe));
     const total = bookings.length;
 
-    // 3. paginate
     bookings = bookings.slice((page - 1) * pageSize, (page - 1) * pageSize + pageSize);
     return of({bookings, total});
   }
+}
+
+const compare = (v1: string | number, v2: string | number) => v1 < v2 ? -1 : v1 > v2 ? 1 : 0;
+
+/**
+ * sorts Booking by selected column
+ *
+ * @param bookings to sort bookingData
+ * @param column selected column
+ * @param direction reverse or normal
+ */
+function sort(bookings: ViewerFriendlyBooking[], column: SortColumn, direction: string): ViewerFriendlyBooking[] {
+  if (direction === '' || column === '') {
+    return bookings;
+  } else {
+    return [...bookings].sort((a, b) => {
+      const res = compare(a[column], b[column]);
+      return direction === 'asc' ? res : -res;
+    });
+  }
+}
+
+/**
+ * matches Booking by selected column
+ *
+ * @param booking to sort bookingData
+ * @param term
+ * @param pipe
+ */
+
+function matches(booking: ViewerFriendlyBooking, term: string, pipe: PipeTransform) {
+  return booking.specialWishes.toLowerCase().includes(term.toLowerCase())
+    || pipe.transform(booking.bookingNo).includes(term)
+    || pipe.transform(booking.pricing).includes(term)
+    || booking.startDate.toLowerCase().includes(term.toLowerCase())
+    || booking.endDate.toLowerCase().includes(term.toLowerCase());
 }

@@ -26,7 +26,7 @@
             <td><ngb-highlight [result]="booking.category + ' (' + booking.areaInSqrMetre + 'qm)'" [term]="bookingViewerService.searchTerm"></ngb-highlight></td>
             <td><ngb-highlight [result]="booking.startDate" [term]="bookingViewerService.searchTerm"></ngb-highlight></td>
             <td><ngb-highlight [result]="booking.endDate" [term]="bookingViewerService.searchTerm"></ngb-highlight></td>
-            <td><ngb-highlight [result]="booking.pricing | number" [term]="bookingViewerService.searchTerm"></ngb-highlight></td>
+            <td><ngb-highlight [result]="booking.pricing | number" [term]="bookingViewerService.searchTerm"></ngb-highlight>€</td>
 <!--            <td><ngb-highlight [result]="country.population | number" [term]="service.searchTerm"></ngb-highlight></td>-->
           </tr>
           </tbody>

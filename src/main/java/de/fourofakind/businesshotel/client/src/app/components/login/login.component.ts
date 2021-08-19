@@ -6,6 +6,12 @@ import { LoginService } from '../../services/login/login.service';
 
 
 @Component({ templateUrl: 'login.component.html' })
+
+/**
+ * Component for Management (Add, Get) of login
+ *
+ * consumes form data and calls corresponding services
+ */
 export class LoginComponent implements OnInit {
   form!: FormGroup;
   loading = false;
@@ -40,8 +46,6 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-
-
     this.loginService.login(this.f.username.value, this.f.password.value)
       .then(success => {
         this.invalidUserData = false
@@ -55,7 +59,7 @@ export class LoginComponent implements OnInit {
 
   login() {
     localStorage.setItem('user', "loggedIn");
-    // window.open("","_top")
+
     window.location.href = "";
   }
 

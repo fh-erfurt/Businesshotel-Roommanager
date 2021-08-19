@@ -13,10 +13,16 @@ import {formatDate} from "@angular/common";
   templateUrl: './booking-viewer.component.html',
   styleUrls: ['./booking-viewer.component.scss']
 })
+
+/**
+ * Component for displaying (Get) of Bookings
+ *
+ * consumes form data and calls corresponding services
+ */
 export class BookingViewerComponent implements OnInit {
 
   public isLoggedIn: boolean = false
-  // public bookings: Booking[] = []
+
 
   viewerFriendlyBookings$: Observable<ViewerFriendlyBooking[]>;
   total$: Observable<number>;
@@ -36,8 +42,6 @@ export class BookingViewerComponent implements OnInit {
   ngOnInit(): void {
     this.isLoggedIn = localStorage.getItem('user') ? true : false
 
-
-
     if (this.isLoggedIn && localStorage.getItem("customerID")) {
 
       const customerID = Number(localStorage.getItem("customerID"))
@@ -49,8 +53,6 @@ export class BookingViewerComponent implements OnInit {
           this.roomService.getConferenceRooms()
             .subscribe((data: Room[])=>{
               this.rooms = this.rooms.concat(data)
-
-
 
               this.bookingService.getBookingsByCustomerID(customerID)
                 .subscribe((result: Booking[]) => {
@@ -82,7 +84,7 @@ export class BookingViewerComponent implements OnInit {
                           areaInSqrMetre: room.areaInSqrMetre,
                           category: room.category,
                           roomType: room.roomType === "CONFERENCEROOM" ? "Konferenzraum" : "Hotelzimmer",
-                          pricing: value.pricing,
+                          pricing: Number((Math.round(value.pricing * 100) / 100).toFixed(2)),
                           units: units,
                           startDate: startDateTimeLabel,
                           endDate: endDateTimeLabel,
@@ -103,10 +105,6 @@ export class BookingViewerComponent implements OnInit {
         }, error => {
 
         })
-
-
-
-
     }
 
   }
@@ -121,7 +119,6 @@ export class BookingViewerComponent implements OnInit {
         }
       });
     }
-
 
     this.bookingViewerService.sortColumn = column;
     this.bookingViewerService.sortDirection = direction;

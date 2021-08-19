@@ -19,9 +19,6 @@ export interface SortEvent {
   }
 })
 export class NgbdSortableHeader {
-  // constructor(el: ElementRef) {
-  //   el.nativeElement.style.backgroundColor = 'yellow';
-  // }
 
   @Input() sortable: SortColumn = '';
   @Input() direction: SortDirection = '';

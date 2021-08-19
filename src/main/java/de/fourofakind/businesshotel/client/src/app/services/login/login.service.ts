@@ -13,6 +13,12 @@ import {Customer} from "../customer/customer";
 @Injectable({
   providedIn: 'root'
 })
+
+/**
+ * Service for login management (Get)
+ * Consumes accountdetails REST-APIs
+ */
+
 export class LoginService {
 
   accountDetail!: Accountdetail;
@@ -23,6 +29,12 @@ export class LoginService {
               private employeeService: EmployeeService,
               private customerService: CustomerService) { }
 
+
+  /**
+   * returns account associated with username
+   *
+   * @param username username to be searched for
+   */
   public getAccount(username: string): Observable<Accountdetail | null>{
 
     return this.http.get<Accountdetail>(`${this.baseUrl}search/findByUsername?username=${username}`).pipe(
@@ -48,27 +60,12 @@ export class LoginService {
     )
   }
 
-  hashPassword = (password: string) => {
-    return new Promise((resolve, reject) => {
-      const saltRounds = 10;
-
-      try{
-        bcrypt.genSalt(saltRounds, function(err, salt) {
-          bcrypt.hash(password, salt, function(err, hash) {
-            if (err) {
-              reject(err);
-            } else {
-              resolve(hash);
-            }
-          });
-        });
-      }
-      catch(e){
-
-        // Handle exceptions
-      }
-    });
-  };
+  /**
+   * checks accountData
+   *
+   * @param username
+   * @param password
+   */
 
   login = (username: string, password: string) => {
     return new Promise((resolve, reject) => {
@@ -78,15 +75,14 @@ export class LoginService {
         if (data !== null) {
           this.accountDetail = data as Accountdetail
 
+          /**
+           * compares input password with hashes password in database
+           */
           bcrypt.compare(password, this.accountDetail.passwordHash, (err, result) => {
             if (err) {
               reject("something unexpected happened: " + err)
             }
             if (result) {
-
-
-
-
 
               localStorage.setItem('user', username);
               localStorage.setItem('userID', String(this.accountDetail.accountID));
@@ -117,10 +113,6 @@ export class LoginService {
                 }, (error)=>{
 
                 })
-
-
-
-
             } else {
               reject("wrong password")
             }

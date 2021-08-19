@@ -11,6 +11,10 @@ import { Router } from '@angular/router';
   styleUrls: ['./room.component.scss']
 })
 
+/**
+ * Component for Displaying (Get) of Rooms
+ *
+ */
 export class RoomComponent implements OnInit {
 
   buttonDisabled = false;
@@ -29,7 +33,7 @@ export class RoomComponent implements OnInit {
   cardHeight = 302
 
   constructor(private roomService: RoomService, private router: Router) {
-    // this.getScreenSize();
+
   }
 
   @HostListener('window:resize', ['$event'])
@@ -38,7 +42,10 @@ export class RoomComponent implements OnInit {
     this.calcNumbersOfColsOfConferenceRooms()
   }
 
-
+  /**
+   * calculates the Number of requiered columns for HotelRooms based on window-width
+   *
+   */
   calcNumbersOfColsOfHotelRooms(event?: any) {
     this.screenHeight = window.innerHeight;
     this.screenWidth = window.innerWidth;
@@ -56,6 +63,10 @@ export class RoomComponent implements OnInit {
     }
   }
 
+  /**
+   * calculates the Number of requiered columns for ConferenceRooms based on window-width
+   *
+   */
   calcNumbersOfColsOfConferenceRooms(event?: any) {
     this.screenHeight = window.innerHeight;
     this.screenWidth = window.innerWidth;
@@ -82,17 +93,6 @@ export class RoomComponent implements OnInit {
     this.roomService.getHotelRooms()
       .subscribe((data: Room[])=>{
         this.hotelRooms = data;
-        // this.numberOfRowsOfHotelRooms.length = this.hotelRooms.length % this.numbersOfCols.length
-        //
-        //
-        //
-        //
-        //
-        //
-        //
-        //
-        //
-        //   + (this.hotelRooms.length % this.numbersOfColsOfHotelRooms.length === 0 ? 0 : 1))
 
         this.numberOfRowsOfHotelRooms.length =
           Math.round(this.hotelRooms.length / this.numbersOfColsOfHotelRooms.length)
@@ -104,7 +104,7 @@ export class RoomComponent implements OnInit {
     this.roomService.getConferenceRooms()
       .subscribe((data: Room[])=>{
         this.conferenceRooms = data;
-        // this.numberOfRowsOfConferenceRooms.length = this.conferenceRooms.length % this.numbersOfCols.length
+
 
         this.numberOfRowsOfConferenceRooms.length =
           Math.round(this.conferenceRooms.length / this.numbersOfColsOfConferenceRooms.length)
@@ -114,6 +114,10 @@ export class RoomComponent implements OnInit {
     })
   }
 
+  /**
+   * returns hotelRooms from array by index
+   *
+   */
   public getHotelRoom(index: number) {
     if (this.hotelRooms !== undefined && this.hotelRooms.length > index) {
       return this.hotelRooms[index]
@@ -122,6 +126,11 @@ export class RoomComponent implements OnInit {
       return this.hotelRooms[0]
     }
   }
+
+  /**
+   * returns conferenceRooms from array by index
+   *
+   */
   public getConferenceRoom(index: number) {
     if (this.conferenceRooms !== undefined && this.conferenceRooms.length > index) {
       return this.conferenceRooms[index]

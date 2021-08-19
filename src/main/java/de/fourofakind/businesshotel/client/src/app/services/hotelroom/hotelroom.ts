@@ -1,6 +1,5 @@
 export interface RawData {
   _embedded: Embedded;
-  // _links: Links;
   page: Page;
 }
 

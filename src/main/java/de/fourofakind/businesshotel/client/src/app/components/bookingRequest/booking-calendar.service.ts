@@ -11,6 +11,10 @@ type dateTimeSpan = {
 @Injectable({
   providedIn: 'root'
 })
+
+/**
+ * Service for booking calendar (Save, Get, Update, Delete)
+ */
 export class BookingCalendar implements OnInit {
 
   // datePicker
@@ -40,8 +44,8 @@ export class BookingCalendar implements OnInit {
       private calendar: NgbCalendar,
       public formatter: NgbDateParserFormatter)
   {
-    // this.fromDate = calendar.getToday();
-    // this.toDate = calendar.getNext(calendar.getToday(), 'd', 3);
+
+
     this.selectedFromDate.next(this.fromDate ? new Date(this.fromDate.year, this.fromDate.month - 1, this.fromDate.day) : null);
     this.selectedToDate.next(this.toDate ? new Date(this.toDate.year, this.toDate.month - 1, this.toDate.day) : null);
     this.dateIsUnavailableObservableReason.next("")
@@ -52,6 +56,11 @@ export class BookingCalendar implements OnInit {
     return parsed && this.calendar.isValid(NgbDate.from(parsed)) ? NgbDate.from(parsed) : currentValue;
   }
 
+  /**
+   * stores selectedDate
+   *
+   * @param date selected date
+   */
   onDateSelection(date: NgbDate) {
 
     this.dateIsUnavailable = false
@@ -64,12 +73,12 @@ export class BookingCalendar implements OnInit {
       let startDate = new NgbDate(
         unavailableDateRange.startDate.getUTCFullYear(),
         unavailableDateRange.startDate.getUTCMonth() + 1,
-        unavailableDateRange.startDate.getUTCDate()
+        unavailableDateRange.startDate.getUTCDate() - 1
       )
       let endDate = new NgbDate(
         unavailableDateRange.endDate.getUTCFullYear(),
         unavailableDateRange.endDate.getUTCMonth() + 1,
-        unavailableDateRange.endDate.getUTCDate()
+        unavailableDateRange.endDate.getUTCDate() - 1
       )
 
       if (date.equals(startDate) || date.equals(endDate) || (date.after(startDate) && date.before(endDate))) {
@@ -91,12 +100,12 @@ export class BookingCalendar implements OnInit {
       let startDate = new NgbDate(
         isBookedByCustomerRange.startDate.getUTCFullYear(),
         isBookedByCustomerRange.startDate.getUTCMonth() + 1,
-        isBookedByCustomerRange.startDate.getUTCDate()
+        isBookedByCustomerRange.startDate.getUTCDate() - 1
       )
       let endDate = new NgbDate(
         isBookedByCustomerRange.endDate.getUTCFullYear(),
         isBookedByCustomerRange.endDate.getUTCMonth() + 1,
-        isBookedByCustomerRange.endDate.getUTCDate()
+        isBookedByCustomerRange.endDate.getUTCDate() - 1
       )
 
       if (date.equals(startDate) || date.equals(endDate) || (date.after(startDate) && date.before(endDate))) {
@@ -137,12 +146,12 @@ export class BookingCalendar implements OnInit {
         this.selectedToDate.next(null);
         this.selectedFromDate.next(this.fromDate ? new Date(this.fromDate.year, this.fromDate.month - 1, this.fromDate.day) : null);
       }
-
-
     }
-
-
   }
+
+  /**
+   * calls classes depending on date conditions
+   */
 
   isHovered(date: NgbDate) {
     return this.fromDate && !this.toDate && this.hoveredDate && date.after(this.fromDate) && date.before(this.hoveredDate) && !this.isConferenceRoom;
@@ -176,12 +185,12 @@ export class BookingCalendar implements OnInit {
       let startDate = new NgbDate(
         unavailableDateRange.startDate.getUTCFullYear(),
         unavailableDateRange.startDate.getUTCMonth() + 1,
-        unavailableDateRange.startDate.getUTCDate()
+        unavailableDateRange.startDate.getUTCDate() - 1
       )
       let endDate = new NgbDate(
         unavailableDateRange.endDate.getUTCFullYear(),
         unavailableDateRange.endDate.getUTCMonth() + 1,
-        unavailableDateRange.endDate.getUTCDate()
+        unavailableDateRange.endDate.getUTCDate() - 1
       )
 
       if (date.equals(startDate) || date.equals(endDate) || (date.after(startDate) && date.before(endDate))) {
@@ -200,12 +209,12 @@ export class BookingCalendar implements OnInit {
       let startDate = new NgbDate(
         isBookedByCustomerRange.startDate.getUTCFullYear(),
         isBookedByCustomerRange.startDate.getUTCMonth() + 1,
-        isBookedByCustomerRange.startDate.getUTCDate()
+        isBookedByCustomerRange.startDate.getUTCDate() - 1
       )
       let endDate = new NgbDate(
         isBookedByCustomerRange.endDate.getUTCFullYear(),
         isBookedByCustomerRange.endDate.getUTCMonth() + 1,
-        isBookedByCustomerRange.endDate.getUTCDate()
+        isBookedByCustomerRange.endDate.getUTCDate() - 1
       )
 
       if (date.equals(startDate) || date.equals(endDate) || (date.after(startDate) && date.before(endDate))) {
