@@ -41,6 +41,8 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
 import {MatTableModule} from "@angular/material/table";
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {MatIconModule} from "@angular/material/icon";
+import { NgbdSortableHeader } from './services/bookingViewerService/sortable.directive';
+import {DecimalPipe} from '@angular/common';
 
 
 
@@ -65,6 +67,7 @@ registerLocaleData(localeDe, localeDeExtra);
     RegistrationComponent,
     BookingComponent,
     BookingViewerComponent,
+    NgbdSortableHeader,
   ],
   imports: [
     NgbModule,
@@ -98,7 +101,8 @@ registerLocaleData(localeDe, localeDeExtra);
     MatIconModule,
   ],
   providers: [
-    { provide: LOCALE_ID, useValue: "de" }
+    { provide: LOCALE_ID, useValue: "de" },
+    DecimalPipe
   ],
   bootstrap: [AppComponent]
 })

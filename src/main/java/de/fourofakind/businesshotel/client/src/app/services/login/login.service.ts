@@ -7,6 +7,8 @@ import {RawData} from "../accountdetails/accountdetail";
 import * as bcrypt from 'bcryptjs';
 import {EmployeeService} from "../employee/employee.service";
 import {Employee} from "../employee/employee";
+import {CustomerService} from "../customer/customer.service";
+import {Customer} from "../customer/customer";
 
 
 @Injectable({
@@ -19,7 +21,8 @@ export class LoginService {
 
   private baseUrl = "http://localhost:8081/accountdetails/"
   constructor(private http: HttpClient,
-              private employeeService: EmployeeService) { }
+              private employeeService: EmployeeService,
+              private customerService: CustomerService) { }
 
   public getAccount(username: string): Observable<Accountdetail | null>{
     console.log("getAccount 1")
@@ -97,12 +100,23 @@ export class LoginService {
                   } else {
                     console.log("no Data")
                   }
-
-
                   resolve("Success: " + result)
 
                 }, (error)=>{
                   resolve("Success: " + error)
+                })
+
+
+              this.customerService.getCustomerByAccountID(this.accountDetail.accountID)
+                .subscribe((data: Customer) => {
+                  if (data) {
+                    localStorage.setItem('customerID', String(data.customerID));
+                  } else {
+                    console.log("no customerData")
+                  }
+
+                }, (error)=>{
+                  console.log("customerDataError: ", error)
                 })
 
 

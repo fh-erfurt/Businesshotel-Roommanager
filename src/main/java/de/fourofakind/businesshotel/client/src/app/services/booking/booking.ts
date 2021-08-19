@@ -28,6 +28,18 @@ export interface Booking {
   _links?: BookingLinks;
 }
 
+export interface ViewerFriendlyBooking {
+  bookingNo:number;
+  category: string;
+  roomType: string
+  areaInSqrMetre: number
+  pricing: number;
+  units: number
+  startDate: string;
+  endDate: string;
+  specialWishes: string;
+}
+
 
 export interface ConferenceRoomBooking {
   bookingNo? :number;
