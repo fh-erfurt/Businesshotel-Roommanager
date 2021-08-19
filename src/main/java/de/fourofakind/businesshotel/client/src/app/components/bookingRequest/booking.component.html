@@ -118,6 +118,7 @@
                                                 [minuteStep]="startMinuteStep"
                                                 [meridian]="false"
                                                 [ngModelOptions]="{standalone: true}"
+                                                (ngModelChange)="updateFullPriceLabel()"
 
                                                 style="display: inline"
                                 >
@@ -130,6 +131,7 @@
                                                 [minuteStep]="endMinuteStep"
                                                 [meridian]="false"
                                                 [ngModelOptions]="{standalone: true}"
+                                                (ngModelChange)="updateFullPriceLabel()"
                                 >
                                 </ngb-timepicker>
                               </div>

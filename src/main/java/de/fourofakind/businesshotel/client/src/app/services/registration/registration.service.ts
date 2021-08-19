@@ -187,6 +187,7 @@ export class RegistrationService {
               this.customer.customerID=data.customerID;
               localStorage.setItem('user', this.accountDetail.username);
               localStorage.setItem('userID', String(this.accountDetail.accountID));
+              localStorage.setItem('customerID', String(data.customerID));
               resolve(data.customerID)
             } else {
               reject(errors.saveCustomerStatusUnknown)

@@ -1,1 +1,51 @@
-<p>booking-viewer works!</p>
+<div class="booking-viewer">
+  <div class="card">
+    <h4 class="card-header">Ihre Buchungen</h4>
+    <div class="card-body booking-card">
+      <form>
+<!--        <div class="form-group form-inline">-->
+<!--          Buchung suchen: <input class="form-control ml-2" type="text" name="searchTerm" [(ngModel)]="bookingViewerService.searchTerm"/>-->
+<!--          <span class="ml-3" *ngIf="bookingViewerService.loading$ | async">Loading...</span>-->
+<!--        </div>-->
+
+        <table class="table table-striped">
+          <thead>
+          <tr>
+            <th scope="col" sortable="bookingNo" (sort)="onSort($event)">Buchungsnummer</th>
+            <th scope="col" sortable="startDate" (sort)="onSort($event)">Raumart</th>
+            <th scope="col" sortable="startDate" (sort)="onSort($event)">Name</th>
+            <th scope="col" sortable="startDate" (sort)="onSort($event)">Anreise</th>
+            <th scope="col" sortable="endDate" (sort)="onSort($event)">Abreise</th>
+            <th scope="col" sortable="pricing" (sort)="onSort($event)">Preis</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let booking of viewerFriendlyBookings$ | async">
+            <th scope="row">{{ booking.bookingNo }}</th>
+            <td><ngb-highlight [result]="booking.roomType" [term]="bookingViewerService.searchTerm"></ngb-highlight></td>
+            <td><ngb-highlight [result]="booking.category + ' (' + booking.areaInSqrMetre + 'qm)'" [term]="bookingViewerService.searchTerm"></ngb-highlight></td>
+            <td><ngb-highlight [result]="booking.startDate" [term]="bookingViewerService.searchTerm"></ngb-highlight></td>
+            <td><ngb-highlight [result]="booking.endDate" [term]="bookingViewerService.searchTerm"></ngb-highlight></td>
+            <td><ngb-highlight [result]="booking.pricing | number" [term]="bookingViewerService.searchTerm"></ngb-highlight></td>
+<!--            <td><ngb-highlight [result]="country.population | number" [term]="service.searchTerm"></ngb-highlight></td>-->
+          </tr>
+          </tbody>
+        </table>
+
+        <div class="d-flex justify-content-between p-2">
+          <ngb-pagination
+            [collectionSize]="(total$ | async)!" [(page)]="bookingViewerService.page" [pageSize]="bookingViewerService.pageSize">
+          </ngb-pagination>
+
+          <select class="custom-select" style="width: auto" name="pageSize" [(ngModel)]="bookingViewerService.pageSize">
+            <option [ngValue]="5">5 Buchungen pro seite</option>
+            <option [ngValue]="10">10 Buchungen pro seite</option>
+            <option [ngValue]="15">15 Buchungen pro seite</option>
+            <option [ngValue]="20">20 Buchungen pro seite</option>
+          </select>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>

@@ -33,6 +33,11 @@ anzupassen. So kann flexibel auf die gültigen Corona-Schutzbestimmung reagiert 
 
 ___
 
+```
+Vorrausetzungen: AngularCLI sollte installiert sein, am besten global.
+
+```
+
 	1. Erstellen Sie die Datenbank mithilfe des SQL-Befehls 
 -> [Datenbank erstellen](database/DatabaseCreate.sql) 
 
@@ -40,6 +45,27 @@ ___
 
 	2. Füllen Sie die Datenbank mit Testdaten mithilfe der SQL-Befehle
 -> [Testdatensatz erstellen](database/Testdatensatz.sql) 
+
+	3. Führen Sie "yarn install" im client-Order aus, um die Dependencies aus Angular einzubinden
+	-> src/main/java/de/fourofakind/businesshotel/client
+-> [yarn install im Client-Ordner ausführen](src/main/java/de/fourofakind/businesshotel/client) 
+
+### Starten der Anwendung
+
+___
+
+	1. Starten Sie die RoommanagerApplication in Ihrer IDE
+-> [RoommanagerApplication starten](src/main/java/de/fourofakind/businesshotel/server/RoommanagerApplication.java) 
+	
+	2. Starten Sie den Bereitstellungsserver 
+-> [AngularServer starten](src/main/java/de/fourofakind/businesshotel/client) 
+
+Die Applikation steht Ihnen nun zur Nutzung bereit. Öffnen Sie einen Browser und begeben Sie sich auf die Seite:
+	-> http://localhost:4200/
+
+
+
+
 <details>
 <summary> Allgemeine Projektübersicht </summary>
 <br>

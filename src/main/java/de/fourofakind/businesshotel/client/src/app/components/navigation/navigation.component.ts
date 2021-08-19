@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {RoleService} from "../../services/role/role.service";
+import {Role} from "../../services/role/role";
 
 @Component({
   selector: 'app-navigation',
@@ -10,13 +12,45 @@ export class NavigationComponent implements OnInit {
   // displayNavItems: boolean = true
   isEmployee: boolean = false
   isLoggedIn: boolean = false
+  isBookingManager: boolean = false
+  isHotelManager: boolean = false
+  isCustomerManager: boolean = false
+  isEmployeeManager: boolean = false
+  isRoommangaer: boolean = false
 
-  constructor() { }
+  roles: Role[] = []
+
+  constructor(private roleService: RoleService) { }
 
   ngOnInit(): void {
     console.log(localStorage.getItem("user"))
     console.log(localStorage.getItem("empNo"))
 
+
+    if (localStorage.getItem("givenRole")) {
+      const role = localStorage.getItem("givenRole")
+
+      switch (role) {
+        case "Buchungsmanager":
+          this.isBookingManager = true;
+          break
+        case "Hotelleiter":
+          this.isHotelManager = true;
+          break
+        case "Kundenmanager":
+          this.isCustomerManager = true;
+          break
+        case "Personalmanager":
+          this.isEmployeeManager = true;
+          break
+        case "Raummanager":
+          this.isRoommangaer = true;
+          break
+        default:
+          break;
+
+      }
+    }
 
     if (localStorage.getItem("user")) {
       this.isLoggedIn = true

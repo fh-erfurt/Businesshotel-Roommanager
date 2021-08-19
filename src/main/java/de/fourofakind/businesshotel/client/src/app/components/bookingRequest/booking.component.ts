@@ -106,7 +106,8 @@ export class BookingComponent implements OnInit {
     setTimeout(()=>this.alerts.pop(),seconds*1000);
   }
 
-  selectedRoom: Room = {roomNo: 0,
+  selectedRoom: Room = {
+    roomNo: 0,
     areaInSqrMetre: 0,
     category: "NOCAT",
     pricePerUnit: 0,
@@ -363,7 +364,6 @@ export class BookingComponent implements OnInit {
             this.bookingCalendar.unavailableDateRanges.push(newDateTimeSpan)
             console.log("Date: ", formatDate(new Date(booking.startDate), "dd.MM.yyyy", "de"), " bis ", formatDate(new Date(booking.endDate), "dd.MM.yyyy", "de"))
           }
-
         });
 
         // let newDateTimeSpan = {startDate: new Date("2021-08-10"), endDate: new Date("2021-08-13")}
@@ -413,6 +413,36 @@ export class BookingComponent implements OnInit {
 
   }
 
+  updateFullPriceLabel() {
+    const startDateTime = this.selectedFromDate ? this.selectedFromDate : new Date
+    const endDateTime = new Date(this.selectedToDate ? this.selectedToDate : startDateTime)
+
+    if (this.selectedFromDate) {
+      console.log("_startTime: ", this._startTime)
+      console.log("_endTime: ", this._endTime)
+
+      if (this.isConferenceRoom) {
+        startDateTime.setHours(
+          this._startTime.hour,
+          this._startTime.minute
+        )
+
+        endDateTime.setHours(
+          this._endTime.hour,
+          this._endTime.minute
+        )
+      }
+
+      const timeDiff = endDateTime.getTime() - startDateTime.getTime();
+      const units = timeDiff / (1000 * 3600);
+      const fullPrice = this.selectedRoom.pricePerUnit * units
+
+      this.fullPriceLabel = fullPrice + ",-€"
+    } else {
+      this.fullPriceLabel = "0,-€"
+    }
+  }
+
   updateDateTimeLabel(selectedFromDate?: Date | null, selectedToDate?: Date | null) {
 
     if (selectedFromDate != undefined) {
@@ -433,9 +463,24 @@ export class BookingComponent implements OnInit {
     // this.selectedToDate = selectedToDate ?? null
 
     const startDateTime = this.selectedFromDate ? this.selectedFromDate : new Date
-    const endDateTime = this.selectedToDate ? this.selectedToDate : startDateTime
+    const endDateTime = new Date(this.selectedToDate ? this.selectedToDate : startDateTime)
 
     if (selectedFromDate || selectedToDate) {
+      console.log("_startTime: ", this._startTime)
+      console.log("_endTime: ", this._endTime)
+
+      if (this.isConferenceRoom) {
+        startDateTime.setHours(
+          this._startTime.hour,
+          this._startTime.minute
+        )
+
+        endDateTime.setHours(
+          this._endTime.hour,
+          this._endTime.minute
+        )
+      }
+
       const timeDiff = endDateTime.getTime() - startDateTime.getTime();
       const units = this.isConferenceRoom ? timeDiff / (1000 * 3600) : timeDiff / (1000 * 3600 * 24) + 1;
       const fullPrice = this.selectedRoom.pricePerUnit * units
@@ -471,7 +516,7 @@ export class BookingComponent implements OnInit {
             : "" ))
     } else {
       this.startDateTimeLabel =
-        (this.selectedFromDate ? "Datum: bitte wählen"
+        (this.selectedFromDate ? "Datum: "
           + formatDate(startDateTime,
             "dd.MM.yyyy", "de")
           : "Datum: bitte wählen")
